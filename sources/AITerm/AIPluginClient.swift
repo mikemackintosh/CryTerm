@@ -256,7 +256,7 @@ class iTermAIClient {
     private let requiredVersion = "1.1"
 
     private static var notAllowedError: PluginError {
-        PluginError(reason: String(localized: "AIPluginClient.NotAllowed", defaultValue: "Plugin not allowed by administrator.", comment: "Error message when the AI plugin is disallowed by administrator policy"))
+        PluginError(reason: String(localized: "AIPluginClient.NotInThisBuild", defaultValue: "This build of iTerm2 doesn’t connect to AI services.", comment: "Error when an AI request is refused because this build never contacts AI services"))
     }
 
     // Test seam: stands in for Plugin.instance() in validate(), so a test can

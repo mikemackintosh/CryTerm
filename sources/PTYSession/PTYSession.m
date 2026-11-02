@@ -268,7 +268,6 @@ static NSString *PATH_ENVNAME = @"PATH";
 static NSString *const SESSION_ARRANGEMENT_COLUMNS = @"Columns";
 static NSString *const SESSION_ARRANGEMENT_ROWS = @"Rows";
 NSString *const SESSION_ARRANGEMENT_BOOKMARK = @"Bookmark";
-static NSString *const __attribute__((unused)) SESSION_ARRANGEMENT_BOOKMARK_NAME_DEPRECATED = @"Bookmark Name";
 static NSString *const SESSION_ARRANGEMENT_WORKING_DIRECTORY = @"Working Directory";
 static NSString *const SESSION_ARRANGEMENT_CONTENTS = @"Contents";
 // Not static because the ARC category uses it.
@@ -284,9 +283,6 @@ static NSString *const SESSION_ARRANGEMENT_CONDUCTOR_DCS_ID = @"Conductor DCS ID
 static NSString *const SESSION_ARRANGEMENT_CONDUCTOR_TREE = @"Conductor Parser Tree";
 static NSString *const SESSION_ARRANGEMENT_TMUX_GATEWAY_SESSION_ID = @"Tmux Gateway Session ID";
 static NSString *const SESSION_ARRANGEMENT_NAME_CONTROLLER_STATE = @"Name Controller State";
-static NSString *const __attribute__((unused)) DEPRECATED_SESSION_ARRANGEMENT_DEFAULT_NAME_DEPRECATED = @"Session Default Name";  // manually set name
-static NSString *const __attribute__((unused)) DEPRECATED_SESSION_ARRANGEMENT_WINDOW_TITLE_DEPRECATED = @"Session Window Title";  // server-set window name
-static NSString *const __attribute__((unused)) DEPRECATED_SESSION_ARRANGEMENT_NAME_DEPRECATED = @"Session Name";  // server-set "icon" (tab) name
 static NSString *const SESSION_ARRANGEMENT_GUID = @"Session GUID";  // A truly unique ID.
 // Not saved. Set on an archived session's arrangement to restore it as an archive.
 static NSString *const SESSION_ARRANGEMENT_RESTORE_AS_ARCHIVE = @"Restore As Archive";  // Path of the archive

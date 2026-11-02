@@ -7,6 +7,8 @@
 
 #import "iTermPythonRuntimeDownloader.h"
 
+#import "iTerm2SharedARC-Swift.h"
+
 #import "DebugLogging.h"
 #import "iTermAdvancedSettingsModel.h"
 #import "iTermBuildingScriptWindowController.h"
@@ -15,7 +17,6 @@
 #import "iTermNotificationController.h"
 #import "iTermOptionalComponentDownloadWindowController.h"
 #import "iTermPreferences.h"
-#import "iTermRateLimitedUpdate.h"
 #import "iTermSetupCfgParser.h"
 #import "iTermSignatureVerifier.h"
 #import "iTermWarning.h"
@@ -36,7 +37,6 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
     dispatch_group_t _downloadGroup;
     iTermPythonRuntimeDownloaderStatus _status;  // Set when _downloadGroup notified.
     dispatch_queue_t _queue;  // Used to serialize installs
-    iTermPersistentRateLimitedUpdate *_checkForUpdateRateLimit;
     NSInteger _busy;
 }
 
@@ -179,38 +179,6 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
     return [self versionInMetadataAtURL:[self pathToMetadataWithPythonVersion:pythonVersion]];
 }
 
-- (void)upgradeIfPossible {
-    const int installedVersion = [self installedVersionWithPythonVersion:nil];
-    if (installedVersion == 0) {
-        return;
-    }
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        return;
-    }
-
-    [self checkForNewerVersionThan:installedVersion
-                          silently:YES
-                           confirm:YES
-                requiredToContinue:NO
-                     pythonVersion:nil
-               latestFullComponent:@(installedVersion)];
-}
-
-- (void)performPeriodicUpgradeCheck {
-    if (!_checkForUpdateRateLimit) {
-        const NSTimeInterval day = 24 * 60 * 60;
-        _checkForUpdateRateLimit = [[iTermPersistentRateLimitedUpdate alloc] initWithName:@"CheckForUpdatedPythonRuntime"
-                                                                          minimumInterval:2 * day];
-    }
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        return;
-    }
-    [_checkForUpdateRateLimit performRateLimitedBlock:^{
-        DLog(@"Called");
-        [self upgradeIfPossible];
-    }];
-}
-
 - (void)userRequestedCheckForUpdate {
     if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
         return;
@@ -234,7 +202,6 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
     if (![self shouldDownloadEnvironmentForPythonVersion:pythonVersion
                                minimumEnvironmentVersion:minimumEnvironmentVersion]) {
         RLog(@"Don't need it");
-        [self performPeriodicUpgradeCheck];
         completion(iTermPythonRuntimeDownloaderStatusNotNeeded);
         return;
     }
@@ -931,6 +898,16 @@ static NSArray<NSString *> *iTermConvertThreePartVersionNumbersToTwoPart(NSArray
 
             // Replace the shebang in pip3 to point at the right version of python.
             [self replaceShebangInScriptAtPath:pip3 with:[NSString stringWithFormat:@"#!%@", pathToPython]];
+
+            // The runtime itself is signed; the script's dependencies come from PyPI, so
+            // list them and ask first.
+            if (dependencies.count > 0 &&
+                ![iTermPythonInstallConsent confirmInstallingPackages:dependencies
+                                                        pythonVersion:pythonVersion ?: [self.class latestPythonVersion] ?: @"3"]) {
+                completion([iTermPythonRuntimeDownloader errorWithCode:iTermInstallPythonStatusDependencyFailed
+                                                                reason:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.DependenciesDeclined", nil, [NSBundle mainBundle], @"Installing the script’s dependencies was canceled.", @"Error when the user declines installing a script's Python dependencies")]);
+                return;
+            }
 
             [self installDependencies:dependencies to:container pythonVersion:pythonVersion completion:^(NSArray<NSString *> *failures, NSArray<NSData *> *outputs) {
                 RLog(@"Dependency installation finished with these failures: %@", failures);

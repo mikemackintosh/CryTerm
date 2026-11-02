@@ -201,47 +201,6 @@
         <cocoa method="handleToggleHotkeyWindowCommand:"/>
       </responds-to>
 
-      <!-- compatibility -->
-      <property name="position" description="The position of the window, relative to the upper left corner of the screen." code="ppos" type="point">
-        <cocoa key="scriptPosition" />
-        <documentation>
-          <html>
-            <![CDATA[
-            <i>Deprecated; use bounds instead.</i>
-            ]]>
-          </html>
-        </documentation>
-      </property>
-      <property name="origin" description="The position of the window, relative to the lower left corner of the screen." code="pori" type="point">
-        <cocoa key="scriptOrigin" />
-        <documentation>
-          <html>
-            <![CDATA[
-            <i>Deprecated; use bounds instead.</i>
-            ]]>
-          </html>
-        </documentation>
-      </property>
-      <property name="size" description="The width and height of the window" code="psiz" type="point">
-        <cocoa key="scriptSize" />
-        <documentation>
-          <html>
-            <![CDATA[
-            <i>Deprecated; use bounds instead.</i>
-            ]]>
-          </html>
-        </documentation>
-      </property>
-      <property name="frame" description="The bounding rectangle, relative to the lower left corner of the screen." code="pfra" type="rectangle">
-        <cocoa key="scriptFrame" />
-        <documentation>
-          <html>
-            <![CDATA[
-            <i>Deprecated; use bounds instead.</i>
-            ]]>
-          </html>
-        </documentation>
-      </property>
     </class> 
   </suite> 
 

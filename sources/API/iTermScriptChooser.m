@@ -13,20 +13,16 @@
 @interface iTermScriptChooser()<NSOpenSavePanelDelegate>
 @property (nonatomic, copy) BOOL (^validator)(NSURL *);
 @property (nonatomic, copy) void (^completion)(NSURL *, SIGIdentity *);
-@property (nonatomic, copy) void (^multiCompletion)(NSArray<NSURL *> *, SIGIdentity *, BOOL);
+@property (nonatomic, copy) void (^multiCompletion)(NSArray<NSURL *> *, SIGIdentity *);
 @property (nonatomic, strong) NSOpenPanel *panel;
-@property (nonatomic) BOOL autoLaunchByDefault;
 @end
 
 @interface iTermSigningAccessoryView : NSView
 @property (nonatomic, readonly) SIGIdentity *selectedSigningIdentity;
-@property (nonatomic, readonly) BOOL autolaunch;
-- (void)setAutolaunchByDefault:(BOOL)launch;
 @end
 
 @implementation iTermSigningAccessoryView {
     NSButton *_signButton;
-    NSButton *_launchButton; // Declare the new button
     NSPopUpButton *_identityButton;
     NSArray<SIGIdentity *> *_identities;
 }
@@ -69,28 +65,12 @@
             [self->_identityButton.menu addItem:menuItem];
         }];
 
-        _launchButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 18, 18)];
-        _launchButton.target = self;
-        _launchButton.action = @selector(toggleAutoLaunch:);
-        _launchButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _launchButton.buttonType = NSButtonTypeSwitch;
-        _launchButton.title = NSLocalizedStringWithDefaultValue(@"ScriptChooser.OfferAutoLaunch", nil, [NSBundle mainBundle], @"Offer to launch automatically during installation", @"Checkbox to offer auto-launch when installing an exported script");
-        _launchButton.state = NSControlStateValueOff;
-        _launchButton.enabled = NO;
-        [_launchButton sizeToFit];
-        [self addSubview:_launchButton];
-
-        NSDictionary *views = NSDictionaryOfVariableBindings(_signButton, _identityButton, _launchButton);
+        NSDictionary *views = NSDictionaryOfVariableBindings(_signButton, _identityButton);
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_signButton]-10-[_identityButton]-10-|"
                                                                      options:0
                                                                      metrics:@{}
                                                                        views:views]];
-        [self addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_launchButton]-10-|"
-                                                 options:0
-                                                 metrics:@{}
-                                                   views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_signButton]-8-[_launchButton]-8-|"
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_signButton]-8-|"
                                                                      options:0
                                                                      metrics:@{}
                                                                        views:views]];
@@ -108,7 +88,6 @@
 - (void)didToggleSignButton:(id)sender {
     _identityButton.enabled = (_identities.count > 0 &&
                                _signButton.state == NSControlStateValueOn);
-    _launchButton.enabled = _identityButton.enabled;
 }
 
 - (SIGIdentity *)selectedSigningIdentity {
@@ -118,29 +97,18 @@
     return _identities[_identityButton.selectedTag];
 }
 
-- (void)toggleAutoLaunch:(id)sender {
-    _autolaunch = (_launchButton.state == NSControlStateValueOn);
-}
-
-- (void)setAutolaunchByDefault:(BOOL)launch {
-    _launchButton.state = launch ? NSControlStateValueOn : NSControlStateValueOff;
-}
-
 @end
 
 @implementation iTermScriptChooser {
     iTermSigningAccessoryView *_signingAccessoryView;
 }
 
-+ (void)chooseMultipleWithValidator:(BOOL (^)(NSURL *))validator 
-                autoLaunchByDefault:(BOOL)autoLaunchByDefault
-                         completion:(void (^)(NSArray<NSURL *> *, 
-                                              SIGIdentity *,
-                                              BOOL))completion {
++ (void)chooseMultipleWithValidator:(BOOL (^)(NSURL *))validator
+                         completion:(void (^)(NSArray<NSURL *> *,
+                                              SIGIdentity *))completion {
     iTermScriptChooser *chooser = [[self alloc] init];
     chooser.validator = validator;
     chooser.multiCompletion = completion;
-    chooser.autoLaunchByDefault = autoLaunchByDefault;
     [chooser choose];
 }
 
@@ -156,7 +124,6 @@
     self.panel.canChooseDirectories = YES;
     self.panel.allowsMultipleSelection = (self.multiCompletion != nil);
     _signingAccessoryView  = [self newSigningAccessoryView];
-    [_signingAccessoryView setAutolaunchByDefault:self.autoLaunchByDefault];
     self.panel.accessoryView = _signingAccessoryView;
     [self.panel beginWithCompletionHandler:^(NSModalResponse result) {
         [self didChooseWithResult:result];
@@ -167,11 +134,10 @@
 - (void)didChooseWithResult:(NSModalResponse)result {
     if (self.multiCompletion) {
         if (result != NSModalResponseOK) {
-            self.multiCompletion(nil, nil, _signingAccessoryView.autolaunch);
+            self.multiCompletion(nil, nil);
         } else {
             self.multiCompletion(self.panel.URLs,
-                                 _signingAccessoryView.selectedSigningIdentity,
-                                 _signingAccessoryView.autolaunch);
+                                 _signingAccessoryView.selectedSigningIdentity);
         }
     } else {
         if (result != NSModalResponseOK) {

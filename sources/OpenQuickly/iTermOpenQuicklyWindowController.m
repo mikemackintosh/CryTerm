@@ -5,36 +5,50 @@
 #import "ITAddressBookMgr.h"
 #import "iTermApplication.h"
 #import "iTermApplicationDelegate.h"
+#import "iTermAdvancedSettingsModel.h"
 #import "iTermController.h"
+#import "iTermGlobalSearchEngine.h"
+#import "iTermGlobalSearchResult.h"
 #import "iTermHotKeyController.h"
 #import "iTermProfileHotKey.h"
 #import "iTermOpenQuicklyItem.h"
 #import "iTermOpenQuicklyModel.h"
-#import "iTermOpenQuicklyTableCellView.h"
-#import "iTermOpenQuicklyTableRowView.h"
+#import "iTermOpenQuicklyTableView.h"
 #import "iTermOpenQuicklyTextField.h"
+#import "iTermOpenQuicklyWindow.h"
+#import "iTermScriptFunctionCall.h"
 #import "iTermScriptsMenuController.h"
 #import "iTermSessionLauncher.h"
-#import "iTermSessionPreviewPanel.h"
 #import "iTermSnippetsMenuController.h"
+#import "iTermVariableScope+Session.h"
 #import "iTermWarning.h"
 #import "DebugLogging.h"
 #import "NSAppearance+iTerm.h"
-#import "NSColor+iTerm.h"
 #import "NSObject+iTerm.h"
-#import "NSTextField+iTerm.h"
-#import "NSWindow+iTerm.h"
 #import "PseudoTerminal.h"
 #import "PTYSession.h"
+#import "PTYSession+Scripting.h"
 #import "PTYTab.h"
-#import "SolidColorView.h"
 #import "VT100RemoteHost.h"
+#import "VT100Screen.h"
+
+#import <Carbon/Carbon.h>
+
+// Rows 1-9 get a ⌘N shortcut.
+static const NSInteger iTermOpenQuicklyMaxShortcutRow = 9;
+
+// Buffer search: shorter queries match nearly every line of every session.
+static const NSUInteger iTermOpenQuicklyMinBufferQueryLength = 3;
+// Keep the list scannable: a few hits per session, and a cap overall.
+static const NSInteger iTermOpenQuicklyMaxBufferHitsPerSession = 3;
+static const NSInteger iTermOpenQuicklyMaxBufferHits = 30;
 
 @interface iTermOpenQuicklyWindowController () <
     iTermOpenQuicklyTextFieldDelegate,
     iTermOpenQuicklyModelDelegate,
     NSTableViewDataSource,
     NSTableViewDelegate,
+    NSTextFieldDelegate,
     NSWindowDelegate>
 
 @property(nonatomic, strong) iTermOpenQuicklyModel *model;
@@ -43,26 +57,31 @@
 
 @implementation iTermOpenQuicklyWindowController {
     // Text field where queries are entered
-    IBOutlet iTermOpenQuicklyTextField *_textField;
+    iTermOpenQuicklyTextField *_textField;
 
     // Table that shows search results
-    IBOutlet NSTableView *_table;
+    iTermOpenQuicklyTableView *_table;
+    NSScrollView *_scrollView;
+    NSLayoutConstraint *_listWidth;
+    NSTextField *_noResultsLabel;
 
-    IBOutlet NSScrollView *_scrollView;
-
-    IBOutlet SolidColorView *_divider;
-    IBOutlet NSButton *_xButton;
-    IBOutlet NSImageView *_loupe;
+    NSButton *_clearButton;
     iTermOpenQuicklyTextView *_textView;  // custom field editor
 
-    // Preview side panel (a child window) shown when the highlighted row maps to a session.
-    iTermSessionPreviewPanel *_previewPanel;
-    // Last row -refreshPreview was called for. Used to detect selection changes
-    // that were dropped while _suppressSelectionPreviewUpdates was set.
-    NSInteger _previewRefreshedForRow;
-    // Suppresses tableViewSelectionDidChange:'s work while -update is already
-    // refreshing the preview itself.
-    BOOL _suppressSelectionPreviewUpdates;
+    // Right-hand pane showing the highlighted item.
+    iTermOpenQuicklyPreviewPane *_previewPane;
+
+    // Snapshot of the session most recently previewed, so arrowing back and
+    // forth or typing doesn't re-render the grid every time.
+    NSString *_snapshotGuid;
+    NSImage *_snapshot;
+
+    // Case-insensitive search of every session's scrollback, run alongside the
+    // model's fuzzy match. Its hits are listed after the model's items.
+    iTermGlobalSearchEngine *_bufferSearch;
+    NSMutableArray<id<iTermGlobalSearchResultProtocol>> *_bufferHits;
+    NSMutableDictionary<NSString *, NSNumber *> *_bufferHitCounts;  // session guid -> hits kept
+    BOOL _bufferSearchRunning;
 }
 
 + (instancetype)sharedInstance {
@@ -75,73 +94,174 @@
 }
 
 - (instancetype)init {
-    self = [super initWithWindowNibName:@"iTermOpenQuicklyWindowController"];
+    iTermOpenQuicklyWindow *window =
+        [[iTermOpenQuicklyWindow alloc] initWithContentRect:NSMakeRect(0, 0, 900, 560)
+                                                  styleMask:NSWindowStyleMaskBorderless
+                                                    backing:NSBackingStoreBuffered
+                                                      defer:YES];
+    self = [super initWithWindow:window];
     if (self) {
         _model = [[iTermOpenQuicklyModel alloc] init];
         _model.delegate = self;
-        _previewPanel = [[iTermSessionPreviewPanel alloc] init];
-        _previewRefreshedForRow = NSNotFound;
+        [self buildWindow];
     }
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialize the table
-    _table.style = NSTableViewStyleInset;
-    // Possibly a 10.16 beta bug? Using intercell spacing clips the selection rect.
+#pragma mark - Building the window
+
+- (void)buildWindow {
+    NSWindow *window = self.window;
+    window.title = NSLocalizedStringWithDefaultValue(@"OpenQuickly.WindowTitle", nil, [NSBundle mainBundle], @"Open Quickly", @"Accessibility title of the Open Quickly palette window");
+    window.opaque = NO;
+    window.backgroundColor = [NSColor clearColor];
+    window.hasShadow = YES;
+    window.releasedWhenClosed = NO;
+    window.restorable = NO;
+    window.delegate = self;
+
+    iTermOpenQuicklyPaletteBackgroundView *background =
+        [[iTermOpenQuicklyPaletteBackgroundView alloc] initWithFrame:window.contentView.bounds];
+    window.contentView = background;
+    NSView *content = background.contentView;
+
+    // Header: loupe, query field, clear button.
+    NSImageView *loupe = [[NSImageView alloc] init];
+    loupe.image = [[NSImage imageWithSystemSymbolName:SFSymbolGetString(SFSymbolMagnifyingglass)
+                             accessibilityDescription:NSLocalizedStringWithDefaultValue(@"OpenQuickly.SearchIconAccessibility", nil, [NSBundle mainBundle], @"Search icon", @"Accessibility description for the Open Quickly search icon")]
+                   imageWithSymbolConfiguration:[NSImageSymbolConfiguration configurationWithPointSize:18 weight:NSFontWeightMedium]];
+    loupe.contentTintColor = [NSColor secondaryLabelColor];
+
+    _textField = [[iTermOpenQuicklyTextField alloc] init];
+    _textField.bezeled = NO;
+    _textField.bordered = NO;
+    _textField.drawsBackground = NO;
+    _textField.focusRingType = NSFocusRingTypeNone;
+    _textField.font = [NSFont systemFontOfSize:21 weight:NSFontWeightRegular];
+    _textField.textColor = [NSColor labelColor];
+    _textField.cell.scrollable = YES;
+    _textField.cell.usesSingleLineMode = YES;
+    _textField.cell.lineBreakMode = NSLineBreakByClipping;
+    _textField.placeholderString = NSLocalizedStringWithDefaultValue(@"OpenQuickly.Placeholder", nil, [NSBundle mainBundle], @"Jump to a session, or search profiles and menus", @"Placeholder in the Open Quickly search field");
+    _textField.delegate = self;
+    _textField.arrowHandler = self;
+
+    _clearButton = [NSButton buttonWithImage:[[NSImage imageWithSystemSymbolName:SFSymbolGetString(SFSymbolXmarkCircleFill)
+                                                       accessibilityDescription:NSLocalizedStringWithDefaultValue(@"OpenQuickly.ClearSearchAccessibility", nil, [NSBundle mainBundle], @"Clear search query", @"Accessibility description for the Open Quickly clear search button")]
+                                              imageWithSymbolConfiguration:[NSImageSymbolConfiguration configurationWithPointSize:14 weight:NSFontWeightRegular]]
+                                      target:self
+                                      action:@selector(clearQuery:)];
+    _clearButton.bordered = NO;
+    _clearButton.contentTintColor = [NSColor tertiaryLabelColor];
+    _clearButton.hidden = YES;
+
+    // Results list.
+    _table = [[iTermOpenQuicklyTableView alloc] init];
+    NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"main"];
+    column.resizingMask = NSTableColumnAutoresizingMask;
+    [_table addTableColumn:column];
+    _table.headerView = nil;
+    _table.style = NSTableViewStylePlain;
+    _table.rowHeight = iTermOpenQuicklyPaletteMetrics.rowHeight;
     _table.intercellSpacing = NSZeroSize;
-    [_table setDoubleAction:@selector(doubleClick:)];
-
-    // Initialize the window's contentView
-    SolidColorView *contentView = [self.window contentView];
-
-    // Initialize the window
-    [self.window setOpaque:NO];
     _table.backgroundColor = [NSColor clearColor];
-    _table.enclosingScrollView.drawsBackground = NO;
-    contentView.color = [NSColor clearColor];
-    self.window.backgroundColor = [NSColor clearColor];
+    _table.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
+    _table.allowsEmptySelection = NO;
+    _table.dataSource = self;
+    _table.delegate = self;
+    _table.target = self;
+    _table.doubleAction = @selector(doubleClick:);
 
-    {
-        NSImage *image = [NSImage imageWithSystemSymbolName:SFSymbolGetString(SFSymbolMagnifyingglass)
-                                   accessibilityDescription:NSLocalizedStringWithDefaultValue(@"OpenQuickly.SearchIconAccessibility", nil, [NSBundle mainBundle], @"Search icon", @"Accessibility description for the Open Quickly search icon")];
-        NSImageSymbolConfiguration *config =
-        [NSImageSymbolConfiguration configurationWithPointSize:21
-                                                        weight:NSFontWeightRegular];
-        [_loupe setImage:[image imageWithSymbolConfiguration:config]];
-    }
-    {
-        NSImageSymbolConfiguration *config =
-        [NSImageSymbolConfiguration configurationWithPointSize:14
-                                                        weight:NSFontWeightRegular];
-        NSImage *image = [NSImage imageWithSystemSymbolName:SFSymbolGetString(SFSymbolXmarkCircleFill)
-                                   accessibilityDescription:NSLocalizedStringWithDefaultValue(@"OpenQuickly.ClearSearchAccessibility", nil, [NSBundle mainBundle], @"Clear search query", @"Accessibility description for the Open Quickly clear search button")];
-        [_xButton setImage:[image imageWithSymbolConfiguration:config]];
-        NSRect frame = _xButton.frame;
-        const CGFloat delta = 2;
-        frame.size.width += delta;
-        frame.size.height += delta;
-        frame.origin.x -= delta / 2.0;
-        frame.origin.y -= delta / 2.0;
-        _xButton.frame = frame;
-    }
+    _scrollView = [[NSScrollView alloc] init];
+    _scrollView.documentView = _table;
+    _scrollView.drawsBackground = NO;
+    _scrollView.hasVerticalScroller = YES;
+    _scrollView.autohidesScrollers = YES;
+    _scrollView.borderType = NSNoBorder;
+    _scrollView.contentInsets = NSEdgeInsetsMake(6, 0, 6, 0);
+    _scrollView.automaticallyAdjustsContentInsets = NO;
 
-    // Rounded corners for contentView
-    contentView.wantsLayer = YES;
-    contentView.layer.cornerRadius = 10;
-    contentView.layer.masksToBounds = YES;
-    if (@available(macOS 26, *)) {} else {
-        contentView.layer.borderColor = [[NSColor colorWithCalibratedRed:0.66 green:0.66 blue:0.66 alpha:1] CGColor];
-        contentView.layer.borderWidth = 0.5;
+    _noResultsLabel = [NSTextField labelWithString:NSLocalizedStringWithDefaultValue(@"OpenQuickly.NoResults", nil, [NSBundle mainBundle], @"No matches", @"Shown in Open Quickly when nothing matches the query")];
+    _noResultsLabel.font = [NSFont systemFontOfSize:13];
+    _noResultsLabel.textColor = [NSColor tertiaryLabelColor];
+    _noResultsLabel.hidden = YES;
+
+    _previewPane = [[iTermOpenQuicklyPreviewPane alloc] initWithFrame:NSZeroRect];
+
+    iTermOpenQuicklySeparatorView *headerSeparator = [[iTermOpenQuicklySeparatorView alloc] initWithFrame:NSZeroRect];
+    iTermOpenQuicklySeparatorView *columnSeparator = [[iTermOpenQuicklySeparatorView alloc] initWithFrame:NSZeroRect];
+    iTermOpenQuicklySeparatorView *footerSeparator = [[iTermOpenQuicklySeparatorView alloc] initWithFrame:NSZeroRect];
+    iTermOpenQuicklyHintBar *footer = [[iTermOpenQuicklyHintBar alloc] initWithFrame:NSZeroRect];
+
+    for (NSView *view in @[ loupe, _textField, _clearButton, headerSeparator, _scrollView, _noResultsLabel,
+                            columnSeparator, _previewPane, footerSeparator, footer ]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [content addSubview:view];
     }
 
-    _divider.hidden = YES;
+    const CGFloat headerHeight = iTermOpenQuicklyPaletteMetrics.headerHeight;
+    const CGFloat footerHeight = iTermOpenQuicklyPaletteMetrics.footerHeight;
+    _listWidth = [_scrollView.widthAnchor constraintEqualToConstant:400];
+    [NSLayoutConstraint activateConstraints:@[
+        [loupe.leadingAnchor constraintEqualToAnchor:content.leadingAnchor constant:22],
+        [loupe.centerYAnchor constraintEqualToAnchor:content.topAnchor constant:headerHeight / 2],
+        [loupe.widthAnchor constraintEqualToConstant:22],
+
+        [_textField.leadingAnchor constraintEqualToAnchor:loupe.trailingAnchor constant:12],
+        [_textField.centerYAnchor constraintEqualToAnchor:loupe.centerYAnchor],
+        [_textField.trailingAnchor constraintEqualToAnchor:_clearButton.leadingAnchor constant:-10],
+
+        [_clearButton.trailingAnchor constraintEqualToAnchor:content.trailingAnchor constant:-20],
+        [_clearButton.centerYAnchor constraintEqualToAnchor:loupe.centerYAnchor],
+        [_clearButton.widthAnchor constraintEqualToConstant:18],
+
+        [headerSeparator.leadingAnchor constraintEqualToAnchor:content.leadingAnchor],
+        [headerSeparator.trailingAnchor constraintEqualToAnchor:content.trailingAnchor],
+        [headerSeparator.topAnchor constraintEqualToAnchor:content.topAnchor constant:headerHeight],
+        [headerSeparator.heightAnchor constraintEqualToConstant:1],
+
+        [_scrollView.leadingAnchor constraintEqualToAnchor:content.leadingAnchor],
+        [_scrollView.topAnchor constraintEqualToAnchor:headerSeparator.bottomAnchor],
+        [_scrollView.bottomAnchor constraintEqualToAnchor:footerSeparator.topAnchor],
+        _listWidth,
+
+        [_noResultsLabel.centerXAnchor constraintEqualToAnchor:_scrollView.centerXAnchor],
+        [_noResultsLabel.topAnchor constraintEqualToAnchor:_scrollView.topAnchor constant:28],
+
+        [columnSeparator.leadingAnchor constraintEqualToAnchor:_scrollView.trailingAnchor],
+        [columnSeparator.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
+        [columnSeparator.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
+        [columnSeparator.widthAnchor constraintEqualToConstant:1],
+
+        [_previewPane.leadingAnchor constraintEqualToAnchor:columnSeparator.trailingAnchor],
+        [_previewPane.trailingAnchor constraintEqualToAnchor:content.trailingAnchor],
+        [_previewPane.topAnchor constraintEqualToAnchor:_scrollView.topAnchor],
+        [_previewPane.bottomAnchor constraintEqualToAnchor:_scrollView.bottomAnchor],
+
+        [footerSeparator.leadingAnchor constraintEqualToAnchor:content.leadingAnchor],
+        [footerSeparator.trailingAnchor constraintEqualToAnchor:content.trailingAnchor],
+        [footerSeparator.bottomAnchor constraintEqualToAnchor:footer.topAnchor],
+        [footerSeparator.heightAnchor constraintEqualToConstant:1],
+
+        [footer.leadingAnchor constraintEqualToAnchor:content.leadingAnchor],
+        [footer.trailingAnchor constraintEqualToAnchor:content.trailingAnchor],
+        [footer.bottomAnchor constraintEqualToAnchor:content.bottomAnchor],
+        [footer.heightAnchor constraintEqualToConstant:footerHeight],
+    ]];
+    window.initialFirstResponder = _textField;
 }
 
+#pragma mark - Presenting
+
 - (void)presentWindow {
-    [_previewPanel teardown];
-    [_model removeAllItems];
-    [_table reloadData];
+    if (self.window.isVisible) {
+        // Pressing the shortcut again dismisses the palette.
+        [self close:nil];
+        return;
+    }
+    _snapshotGuid = nil;
+    _snapshot = nil;
+    _textField.stringValue = @"";
     self.window.appearance = [NSAppearance it_appearanceForCurrentTheme];
     // Mirror iTermProfileHotKey's floating-panel collection behavior. Notably:
     // (1) FullScreenAuxiliary lets the panel appear over fullscreen windows of
@@ -157,116 +277,185 @@
     // in the background, so the panel ends up hidden behind other apps on
     // subsequent shows.
     self.window.level = NSMainMenuWindowLevel - 2;
-    // Set the window's frame to be table-less initially.
-    [self.window setFrame:[self frame] display:YES animate:NO];
-    [_textField selectText:nil];
-    // The alpha 0 -> 1 fade is only needed when iTerm2 is in the background:
-    // on macOS 26 the alpha transition is what forces the window server to
-    // actually paint a non-activating panel brought up from another app.
-    // When iTerm2 is already active, skip it so it doesn't race with the
-    // setFrame:display:animate:YES height animation in -resizeWindowAnimatedToFrame:.
-    NSRunningApplication *frontmost = NSWorkspace.sharedWorkspace.frontmostApplication;
-    const BOOL inBackground = (frontmost != nil &&
-                               ![frontmost isEqual:NSRunningApplication.currentApplication]);
-    if (inBackground) {
-        self.window.alphaValue = 0;
-        [self.window makeKeyAndOrderFront:nil];
-        [self.window.animator setAlphaValue:1];
-    } else {
-        self.window.alphaValue = 1;
-        [self.window makeKeyAndOrderFront:nil];
-    }
+    const NSRect frame = [self frame];
+    _listWidth.constant = [iTermOpenQuicklyPaletteMetrics listWidthForPaletteWidth:frame.size.width];
+    [self.window setFrame:frame display:NO];
+    [self update];
 
-    // After the window is rendered, call update which will animate to the new frame.
-    [self performSelector:@selector(update) withObject:nil afterDelay:0];
+    // The alpha 0 -> 1 fade forces the window server to actually paint a
+    // non-activating panel brought up from another app on macOS 26. When
+    // iTerm2 is frontmost, a short fade just looks nice.
+    self.window.alphaValue = 0;
+    [self.window makeKeyAndOrderFront:nil];
+    [self.window makeFirstResponder:_textField];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = MAX(0, [iTermAdvancedSettingsModel openQuicklyAnimationDuration]);
+        self.window.animator.alphaValue = 1;
+    }];
 }
 
-// Recompute the model and update the window frame.
-- (void)update {
-    _suppressSelectionPreviewUpdates = YES;
-    [self.model updateWithQuery:_textField.stringValue];
-    _xButton.hidden = _textField.stringValue.length == 0;
-    [_table reloadData];
+// A fixed-size palette centered horizontally, a little above the middle of
+// the screen holding the key window.
+- (NSRect)frame {
+    NSScreen *screen = [[NSApp keyWindow] screen] ?: [NSScreen mainScreen];
+    const NSRect visible = screen.visibleFrame;
+    const NSSize size = [iTermOpenQuicklyPaletteMetrics paletteSizeForVisibleFrame:visible];
+    const CGFloat slack = visible.size.height - size.height;
+    return NSMakeRect(NSMinX(visible) + floor((visible.size.width - size.width) / 2),
+                      NSMinY(visible) + floor(slack * 0.62),
+                      size.width,
+                      size.height);
+}
 
-    NSRect frame = [self frame];
-    NSRect contentViewFrame = [self.window frameRectForContentRect:frame];
-    _divider.hidden = YES;
-    _scrollView.frame = NSMakeRect(_scrollView.frame.origin.x,
-                                   _scrollView.frame.origin.y,
-                                   contentViewFrame.size.width,
-                                   contentViewFrame.size.height - _scrollView.frame.origin.y - 10);
-    if (self.model.items.count) {
+// Recompute the model and redisplay.
+- (void)update {
+    NSString *query = _textField.stringValue;
+    [self.model updateWithQuery:query];
+    [self startBufferSearchForQuery:query];
+    _clearButton.hidden = query.length == 0;
+    [_table reloadData];
+    [self updateNoResultsLabel];
+    if (_table.numberOfRows > 0) {
         [_table selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
         [_table scrollRowToVisible:0];
     }
     [self refreshPreview];
-
-    [self performSelector:@selector(resizeWindowAnimatedToFrame:)
-               withObject:[NSValue valueWithRect:frame]
-               afterDelay:0];
-    // _suppressSelectionPreviewUpdates is cleared at the end of
-    // resizeWindowAnimatedToFrame: so the flag actually covers any
-    // selection-change notifications dispatched between now and the resize.
-    // If the controller is torn down before the deferred resize fires (window
-    // closed), the perform still runs but is harmless because -refreshPreview
-    // short-circuits on !self.window.isVisible.
 }
 
-- (void)resizeWindowAnimatedToFrame:(NSValue *)frame {
-    NSRect parentFrame = frame.rectValue;
-    [self.window setFrame:parentFrame display:YES animate:YES];
-    if (_previewPanel.visible) {
-        // setFrame:display:animate:YES on the borderless NSPanel doesn't reliably
-        // animate the resize, so snap directly to the new frame after the parent's
-        // animation completes.
-        [_previewPanel repositionForParentFrame:parentFrame];
+- (void)updateNoResultsLabel {
+    // Don't claim “no matches” while the buffer search may still find some.
+    _noResultsLabel.hidden = _table.numberOfRows > 0 || _bufferSearchRunning;
+}
+
+#pragma mark - Buffer search
+
+- (void)stopBufferSearch {
+    [_bufferSearch stop];
+    _bufferSearch = nil;
+    _bufferSearchRunning = NO;
+    _bufferHits = [NSMutableArray array];
+    _bufferHitCounts = [NSMutableDictionary dictionary];
+}
+
+- (void)startBufferSearchForQuery:(NSString *)query {
+    [self stopBufferSearch];
+    NSString *trimmed = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    // A leading slash is an Open Quickly command such as /p, not text to find.
+    if (trimmed.length < iTermOpenQuicklyMinBufferQueryLength || [trimmed hasPrefix:@"/"]) {
+        return;
     }
-    _suppressSelectionPreviewUpdates = NO;
-    // setFrame:display:animate:YES pumps the run loop while it blocks, so the
-    // user can click a different row mid-animation. Catch up if the selection
-    // changed while notifications were being suppressed.
-    if (_table.selectedRow != _previewRefreshedForRow) {
-        [self refreshPreview];
+    NSMutableArray<PTYSession *> *sessions = [NSMutableArray array];
+    for (PseudoTerminal *term in [[iTermController sharedInstance] terminals]) {
+        [sessions addObjectsFromArray:term.allSessions];
+    }
+    _bufferSearchRunning = YES;
+    __weak __typeof(self) weakSelf = self;
+    // Weak: the engine owns this handler. Results arrive from the engine's
+    // timer, so this is assigned before the first callback.
+    __block __weak iTermGlobalSearchEngine *weakEngine = nil;
+    iTermGlobalSearchEngine *engine =
+        [[iTermGlobalSearchEngine alloc] initWithQuery:trimmed
+                                              sessions:sessions
+                                                  mode:iTermFindModeCaseInsensitiveSubstring
+                                               handler:^(PTYSession *session,
+                                                         NSArray<id<iTermGlobalSearchResultProtocol>> *results,
+                                                         double progress) {
+            [weakSelf bufferSearch:weakEngine didFindResults:results inSession:session];
+        }];
+    weakEngine = engine;
+    _bufferSearch = engine;
+}
+
+// `session` is nil once the search has finished.
+- (void)bufferSearch:(iTermGlobalSearchEngine *)engine
+      didFindResults:(NSArray<id<iTermGlobalSearchResultProtocol>> *)results
+           inSession:(PTYSession *)session {
+    if (!engine || engine != _bufferSearch) {
+        // A stale callback from a search the user has typed past.
+        return;
+    }
+    if (!session) {
+        _bufferSearchRunning = NO;
+        [self updateNoResultsLabel];
+        return;
+    }
+    NSString *guid = session.guid;
+    if (!guid) {
+        return;
+    }
+    // Not _table.numberOfRows: the table caches that until it is told about new rows.
+    const NSInteger hitsBefore = _bufferHits.count;
+    for (id<iTermGlobalSearchResultProtocol> result in results) {
+        if (_bufferHits.count >= iTermOpenQuicklyMaxBufferHits) {
+            break;
+        }
+        // A fold group is a container of other results; it has nothing to reveal itself.
+        if ([(id)result isKindOfClass:[iTermGlobalSearchFoldGroup class]] || result.snippet.length == 0) {
+            continue;
+        }
+        const NSInteger count = _bufferHitCounts[guid].integerValue;
+        if (count >= iTermOpenQuicklyMaxBufferHitsPerSession) {
+            break;
+        }
+        _bufferHitCounts[guid] = @(count + 1);
+        [_bufferHits addObject:result];
+    }
+    const NSInteger added = (NSInteger)_bufferHits.count - hitsBefore;
+    if (added > 0) {
+        // Appending leaves the existing rows, and so the selection, untouched.
+        const NSInteger firstNewRow = (NSInteger)self.model.items.count + hitsBefore;
+        [_table insertRowsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(firstNewRow, added)]
+                      withAnimation:NSTableViewAnimationEffectNone];
+        if (_table.selectedRow < 0) {
+            [_table selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+        }
+        [self updateNoResultsLabel];
+    }
+    if (_bufferHits.count >= iTermOpenQuicklyMaxBufferHits) {
+        [_bufferSearch stop];
+        _bufferSearchRunning = NO;
+        [self updateNoResultsLabel];
     }
 }
 
-// Returns the window frame. It's a fixed 170px below the top of the screen and
-// its height is variable up to a limit of 170px above the bottom of the
-// screen.
-- (NSRect)frame {
-    NSScreen *screen = [[NSApp keyWindow] screen];
-    if (!screen) {
-        screen = [NSScreen mainScreen];
+// Returns the buffer hit shown in `row`, or nil if the row holds a model item.
+- (id<iTermGlobalSearchResultProtocol>)bufferHitForRow:(NSInteger)row {
+    const NSInteger index = row - (NSInteger)self.model.items.count;
+    if (index < 0 || index >= (NSInteger)_bufferHits.count) {
+        return nil;
     }
-    static const CGFloat kMarginAboveField = 12;
-    static const CGFloat kMarginBelowField = 9;
-    static const CGFloat kMarginAboveWindow = 170;
-    CGFloat maxHeight = screen.frame.size.height - kMarginAboveWindow * 2;
-    CGFloat nonTableSpace = kMarginAboveField + _textField.frame.size.height + kMarginBelowField;
-    int numberOfVisibleRowsDesired = MIN(self.model.items.count,
-                                         (maxHeight - nonTableSpace) / (_table.rowHeight + _table.intercellSpacing.height));
-    NSRect frame = self.window.frame;
-    NSSize contentSize = frame.size;
-
-    contentSize.height = nonTableSpace;
-    if (numberOfVisibleRowsDesired > 0) {
-        // Use the bottom of the last visible cell's frame for the height of the table view portion
-        // of the window. This is the most reliable way of getting its max-Y position.
-        NSRect frameOfLastVisibleCell = [_table frameOfCellAtColumn:0
-                                                                row:numberOfVisibleRowsDesired - 1];
-        contentSize.height += NSMaxY(frameOfLastVisibleCell);
-        contentSize.height += 10;
-    }
-    frame.size.height = contentSize.height;
-
-    frame.origin.x = NSMinX(screen.frame) + floor((screen.frame.size.width - frame.size.width) / 2);
-    frame.origin.y = NSMaxY(screen.frame) - kMarginAboveWindow - frame.size.height;
-    return frame;
+    return _bufferHits[index];
 }
 
-#pragma mark - Preview
+- (void)revealBufferHit:(id<iTermGlobalSearchResultProtocol>)hit {
+    PTYSession *session = hit.session;
+    if (!session) {
+        return;
+    }
+    [session reveal];
+    // Scrolling to a hit on the other screen (e.g. scrollback behind a running
+    // vim) would flip the session's display, and nothing would flip it back
+    // once the palette closes. Just bring the session forward in that case.
+    iTermGlobalSearchResult *textHit = [iTermGlobalSearchResult castFrom:hit];
+    if (textHit && textHit.onMainScreen == session.screen.showingAlternateScreen) {
+        return;
+    }
+    [hit revealWithState:[NSMutableDictionary dictionary] completion:^(NSRect hull) {}];
+}
 
-- (PTYSession *)previewSessionForRow:(NSInteger)row {
+- (IBAction)clearQuery:(id)sender {
+    _textField.stringValue = @"";
+    [self.window makeFirstResponder:_textField];
+    [self update];
+}
+
+#pragma mark - Describing sessions
+
+- (PTYSession *)sessionForRow:(NSInteger)row {
+    id<iTermGlobalSearchResultProtocol> hit = [self bufferHitForRow:row];
+    if (hit) {
+        return hit.session;
+    }
     if (row < 0 || row >= (NSInteger)self.model.items.count) {
         return nil;
     }
@@ -283,46 +472,126 @@
     return nil;
 }
 
-- (NSString *)previewDetailForSession:(PTYSession *)session {
-    if (![session.delegate isKindOfClass:[PTYTab class]]) {
-        return @"";
+- (NSString *)directoryForSession:(PTYSession *)session {
+    NSString *path = session.variablesScope.path;
+    if (path.length == 0) {
+        return nil;
     }
-    PTYTab *tab = (PTYTab *)session.delegate;
-    NSString *windowTitle = tab.realParentWindow.window.title ?: @"";
-    if (windowTitle.length == 0) {
-        return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"OpenQuickly.TabNumber", nil, [NSBundle mainBundle], @"Tab %d", @"Open Quickly preview label for a tab; %d is the tab number"), tab.objectCount];
+    id<VT100RemoteHostReading> host = session.currentHost;
+    if (host && !host.isLocalhost) {
+        return path;
     }
-    return [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"OpenQuickly.TabNumberWithWindow", nil, [NSBundle mainBundle], @"Tab %1$d · %2$@", @"Open Quickly preview label for a tab; %d is the tab number and %@ is the window title"), tab.objectCount, windowTitle];
+    return [path stringByAbbreviatingWithTildeInPath];
 }
 
+// “Window 2 · Tab 3 · Pane 2 of 3”
+- (NSString *)locationForSession:(PTYSession *)session {
+    PTYTab *tab = [PTYTab castFrom:session.delegate];
+    PseudoTerminal *term = [PseudoTerminal castFrom:tab.realParentWindow];
+    if (!tab || !term) {
+        return @"";
+    }
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    [parts addObject:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"OpenQuickly.WindowNumber", nil, [NSBundle mainBundle], @"Window %d", @"Open Quickly location of a session; %d is the window number"), term.number + 1]];
+    const NSUInteger tabIndex = [term.tabs indexOfObject:tab];
+    if (tabIndex != NSNotFound) {
+        [parts addObject:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"OpenQuickly.TabNumber", nil, [NSBundle mainBundle], @"Tab %d", @"Open Quickly location of a session; %d is the tab number"), (int)tabIndex + 1]];
+    }
+    NSArray<PTYSession *> *panes = tab.sessions;
+    const NSUInteger paneIndex = [panes indexOfObject:session];
+    if (panes.count > 1 && paneIndex != NSNotFound) {
+        [parts addObject:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"OpenQuickly.PaneNumber", nil, [NSBundle mainBundle], @"Pane %1$d of %2$d", @"Open Quickly location of a session within a split tab; first %d is the pane number, second is the number of panes"), (int)paneIndex + 1, (int)panes.count]];
+    }
+    // Localization unneeded: list separator between already-localized parts.
+    return [parts componentsJoinedByString:@" · "];
+}
+
+// Subtitle for a session row when the query didn't match something more
+// interesting: where it is and what it's running.
+- (NSAttributedString *)subtitleForSession:(PTYSession *)session {
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    NSString *directory = [self directoryForSession:session];
+    if (directory) {
+        [parts addObject:directory];
+    }
+    NSString *job = session.variablesScope.jobName;
+    if (job.length) {
+        [parts addObject:job];
+    }
+    NSString *location = [self locationForSession:session];
+    if (location.length) {
+        [parts addObject:location];
+    }
+    // Localization unneeded: list separator.
+    return [[NSAttributedString alloc] initWithString:[parts componentsJoinedByString:@"  ·  "]];
+}
+
+- (NSArray<iTermOpenQuicklyPreviewFact *> *)factsForSession:(PTYSession *)session {
+    NSMutableArray<iTermOpenQuicklyPreviewFact *> *facts = [NSMutableArray array];
+    NSString *directory = [self directoryForSession:session];
+    if (directory) {
+        [facts addObject:[[iTermOpenQuicklyPreviewFact alloc] initWithKind:iTermOpenQuicklyPreviewFactKindDirectory text:directory]];
+    }
+    NSString *command = session.variablesScope.lastCommand ?: session.variablesScope.jobName;
+    if (command.length) {
+        [facts addObject:[[iTermOpenQuicklyPreviewFact alloc] initWithKind:iTermOpenQuicklyPreviewFactKindCommand text:command]];
+    }
+    id<VT100RemoteHostReading> host = session.currentHost;
+    if (host && !host.isLocalhost) {
+        [facts addObject:[[iTermOpenQuicklyPreviewFact alloc] initWithKind:iTermOpenQuicklyPreviewFactKindHost text:host.usernameAndHostname]];
+    }
+    NSString *profileName = session.profile[KEY_NAME];
+    if (profileName.length) {
+        [facts addObject:[[iTermOpenQuicklyPreviewFact alloc] initWithKind:iTermOpenQuicklyPreviewFactKindProfile text:profileName]];
+    }
+    return facts;
+}
+
+- (NSImage *)snapshotForSession:(PTYSession *)session {
+    if (![session.guid isEqualToString:_snapshotGuid]) {
+        // Only cache a successful render so a transient nil (e.g. textview not
+        // yet laid out) doesn't lock in a blank preview.
+        _snapshot = [session terminalContentSnapshot];
+        _snapshotGuid = _snapshot ? [session.guid copy] : nil;
+    }
+    return _snapshot;
+}
+
+#pragma mark - Preview
+
 - (void)refreshPreview {
-    if (!self.window.isVisible) {
-        // A stray selection-change notification can fire after the window
-        // closes; don't re-attach or re-show the preview in that case.
+    NSInteger row = _table.selectedRow;
+    PTYSession *session = [self sessionForRow:row];
+    if (!session && (row < 0 || row >= (NSInteger)self.model.items.count)) {
+        [_previewPane showMessage:@""];
         return;
     }
-    NSInteger row = _table.selectedRow;
-    _previewRefreshedForRow = row;
-    PTYSession *session = [self previewSessionForRow:row];
     if (session) {
-        [_previewPanel showForSession:session
-                                title:session.name ?: @""
-                               detail:[self previewDetailForSession:session]
-                          parentFrame:self.window.frame
-                         parentWindow:self.window];
-    } else {
-        [_previewPanel hide];
+        [_previewPane showSessionWithTitle:session.name ?: @""
+                                  location:[self locationForSession:session]
+                                  snapshot:[self snapshotForSession:session]
+                           backgroundColor:session.backgroundColor
+                                     facts:[self factsForSession:session]];
+        return;
     }
+    iTermOpenQuicklyItem *item = self.model.items[row];
+    [_previewPane showItemWithTitle:item.title.string ?: @""
+                             detail:item.detail.string
+                               icon:item.icon];
 }
+
+#pragma mark - Actions
 
 // Bound to the close button.
 - (IBAction)close:(id)sender {
-    [_previewPanel teardown];
     // Use orderOut, not close. -close on a non-activating panel can leave the
     // window in a state where the window-server refuses to re-elevate it on
     // subsequent shows from a background app (iTermProfileHotKey's floating
     // panel uses the same pattern).
     [self.window orderOut:nil];
+    [self stopBufferSearch];
+    _snapshot = nil;
+    _snapshotGuid = nil;
 }
 
 // Observes NSWorkspaceActiveSpaceDidChangeNotification once. When the Space
@@ -382,7 +651,10 @@
     }
     NSInteger row = [_table selectedRow];
 
-    if (row >= 0) {
+    id<iTermGlobalSearchResultProtocol> hit = [self bufferHitForRow:row];
+    if (hit) {
+        [self revealBufferHit:hit];
+    } else if (row >= 0 && row < (NSInteger)self.model.items.count) {
         id object = [self.model objectAtIndex:row];
         DLog(@"%@", object);
         if ([object isKindOfClass:[PTYSession class]]) {
@@ -535,46 +807,109 @@
     [self close:nil];
 }
 
-// Returns an almost-black color. NSTableView treats actual black specially,
-// and will actually draw white text if the background is not white. It won't
-// mess with very, very dark gray though.
-- (NSColor *)blackColor {
-    return [NSColor colorWithCalibratedWhite:0.01 alpha:1];
+// ⌘1 through ⌘9 open that row directly.
+- (BOOL)openRowForShortcutEvent:(NSEvent *)event {
+    const NSEventModifierFlags mask = (NSEventModifierFlagOption |
+                                       NSEventModifierFlagCommand |
+                                       NSEventModifierFlagShift |
+                                       NSEventModifierFlagControl);
+    if ((event.modifierFlags & mask) != NSEventModifierFlagCommand) {
+        return NO;
+    }
+    NSString *characters = event.charactersIgnoringModifiers;
+    if (characters.length != 1) {
+        return NO;
+    }
+    const unichar c = [characters characterAtIndex:0];
+    if (c < '1' || c > '9') {
+        return NO;
+    }
+    const NSInteger row = c - '1';
+    if (row >= _table.numberOfRows) {
+        NSBeep();
+        return YES;
+    }
+    [_table selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    [self openSelectedRow];
+    return YES;
 }
 
 #pragma mark - NSTableViewDataSource and NSTableViewDelegate
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return _model.items.count;
+    return _model.items.count + _bufferHits.count;
+}
+
+- (NSString *)shortcutForRow:(NSInteger)row {
+    if (row >= iTermOpenQuicklyMaxShortcutRow) {
+        return nil;
+    }
+    // Localization unneeded: a key combination.
+    return [NSString stringWithFormat:@"⌘%d", (int)row + 1];
+}
+
+- (void)configureSessionTile:(iTermOpenQuicklyTileView *)tile forSession:(PTYSession *)session {
+    [tile configureSessionWithBackgroundColor:session.backgroundColor
+                                    textColor:session.foregroundColor
+                                  cursorColor:session.cursorColor
+                                     tabColor:session.tabColor];
+}
+
+// A line of scrollback that matched: the line itself as the title, and which
+// session it's in as the subtitle.
+- (void)configureCell:(iTermOpenQuicklyPaletteCellView *)cell
+         forBufferHit:(id<iTermGlobalSearchResultProtocol>)hit
+                  row:(NSInteger)row {
+    PTYSession *session = hit.session;
+    [self configureSessionTile:cell.tile forSession:session];
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    if (session.name.length) {
+        [parts addObject:session.name];
+    }
+    NSString *location = [self locationForSession:session];
+    if (location.length) {
+        [parts addObject:location];
+    }
+    // Localization unneeded: list separator.
+    NSAttributedString *subtitle = [[NSAttributedString alloc] initWithString:[parts componentsJoinedByString:@"  ·  "]];
+    // Snippets can span soft-wrapped lines; keep the row to one line.
+    NSMutableAttributedString *title = [hit.snippet mutableCopy];
+    [title.mutableString replaceOccurrencesOfString:@"\n"
+                                         withString:@" "
+                                            options:0
+                                              range:NSMakeRange(0, title.length)];
+    [cell configureWithTitle:title subtitle:subtitle shortcut:[self shortcutForRow:row]];
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    iTermOpenQuicklyTableCellView *result = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-    iTermOpenQuicklyItem *item = _model.items[row];
-    item.view = result;
-    result.imageView.image = item.icon;
-
-    result.textField.attributedStringValue =
-        item.title ?: [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"OpenQuickly.Untitled", nil, [NSBundle mainBundle], @"Untitled", @"Fallback title for an untitled Open Quickly item") attributes:@{}];
-    [result.textField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
-    if (item.detail) {
-        result.detailTextField.attributedStringValue = item.detail;
-        [result.detailTextField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
-    } else {
-        result.detailTextField.stringValue = @"";
+    iTermOpenQuicklyPaletteCellView *cell = [tableView makeViewWithIdentifier:iTermOpenQuicklyPaletteCellView.reuseIdentifier owner:self];
+    if (!cell) {
+        cell = [[iTermOpenQuicklyPaletteCellView alloc] initWithFrame:NSZeroRect];
     }
-    NSColor *color;
-    NSColor *detailColor;
-    color = [NSColor labelColor];
-    detailColor = [NSColor secondaryLabelColor];
-    result.textField.font = [NSFont systemFontOfSize:13];
-    result.textField.textColor = color;
-    result.detailTextField.textColor = detailColor;
-    return result;
+    id<iTermGlobalSearchResultProtocol> hit = [self bufferHitForRow:row];
+    if (hit) {
+        [self configureCell:cell forBufferHit:hit row:row];
+        return cell;
+    }
+    iTermOpenQuicklyItem *item = _model.items[row];
+    NSAttributedString *title = item.title ?: [[NSAttributedString alloc] initWithString:NSLocalizedStringWithDefaultValue(@"OpenQuickly.Untitled", nil, [NSBundle mainBundle], @"Untitled", @"Fallback title for an untitled Open Quickly item")];
+    NSAttributedString *subtitle = item.detail;
+
+    PTYSession *session = [item isKindOfClass:[iTermOpenQuicklySessionItem class]] ? [self sessionForRow:row] : nil;
+    if (session) {
+        [self configureSessionTile:cell.tile forSession:session];
+        if (subtitle.length == 0) {
+            subtitle = [self subtitleForSession:session];
+        }
+    } else {
+        [cell.tile configureIcon:item.icon];
+    }
+    [cell configureWithTitle:title subtitle:subtitle shortcut:[self shortcutForRow:row]];
+    return cell;
 }
 
 - (NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row {
-    return [[iTermOpenQuicklyTableRowView_BigSur alloc] init];
+    return [[iTermOpenQuicklyPaletteRowView alloc] init];
 }
 
 - (void)doubleClick:(id)sender {
@@ -582,9 +917,6 @@
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    if (_suppressSelectionPreviewUpdates) {
-        return;
-    }
     [self refreshPreview];
 }
 
@@ -602,8 +934,7 @@
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification {
-    [_previewPanel teardown];
-    [self.window orderOut:nil];
+    [self close:nil];
 }
 
 #pragma mark - NSControlDelegate
@@ -655,6 +986,10 @@
 }
 
 #pragma mark - iTermOpenQuicklyTextFieldDelegate
+
+- (BOOL)openQuicklyTextFieldHandleKeyEquivalent:(NSEvent *)event {
+    return [self openRowForShortcutEvent:event];
+}
 
 // Handle arrow keys while text field is key.
 - (void)keyDown:(NSEvent *)theEvent {
@@ -711,9 +1046,10 @@
 
 #pragma mark - String Formatting
 
-// Highlight and underline characters in |source| at indices in |indexSet|.
-// This isn't really appropriate for the model to do but it's much simpler and
-// more efficient this way.
+// Mark characters in |source| at indices in |indexSet| with a bold font. The
+// cell view restyles bold runs as fuzzy-match highlights. This isn't really
+// appropriate for the model to do but it's much simpler and more efficient
+// this way.
 - (NSAttributedString *)attributedStringFromString:(NSString *)source
                              byHighlightingIndices:(NSIndexSet *)indexSet {
     NSMutableAttributedString *attributedString =
@@ -730,7 +1066,8 @@
 - (NSDictionary *)attributes {
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineBreakMode = NSLineBreakByTruncatingTail;
-    return @{ NSParagraphStyleAttributeName: style };
+    return @{ NSFontAttributeName: [NSFont systemFontOfSize:13],
+              NSParagraphStyleAttributeName: style };
 }
 
 @end

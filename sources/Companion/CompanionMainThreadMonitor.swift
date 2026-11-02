@@ -91,7 +91,7 @@ final class CompanionMainThreadMonitor: CompanionMainStallSource {
     static let shared = CompanionMainThreadMonitor()
 
     /// Seconds since boot, not counting time asleep.
-    static func uptimeExcludingSleep() -> TimeInterval {
+    @Sendable static func uptimeExcludingSleep() -> TimeInterval {
         return TimeInterval(clock_gettime_nsec_np(CLOCK_UPTIME_RAW)) / 1_000_000_000
     }
 

@@ -795,9 +795,13 @@ final class TmuxWorkgroupLiveHarness: XCTestCase {
         let done = expectation(description: "both")
         done.expectedFulfillmentCount = 2
         let pair = [a, b].map { client in
-            TmuxWorkgroupRepairer(gatewayProvider: { [weak client] in client?.gateway },
-                                  sessionID: client.sessionID, instanceID: instance,
-                                  identity: client.identity!)
+            // Read these before the closure: Swift 6.2 treats `client` beside a
+            // `[weak client]` capture in the same call as the weak optional.
+            let sessionID = client.sessionID
+            let identity = client.identity!
+            return TmuxWorkgroupRepairer(gatewayProvider: { [weak client] in client?.gateway },
+                                         sessionID: sessionID, instanceID: instance,
+                                         identity: identity)
         }
         repairers += pair
         for repairer in pair {

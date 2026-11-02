@@ -1,7 +1,6 @@
 #import "iTermOpenQuicklyItem.h"
 #import "SFSymbolEnum/SFSymbolEnum.h"
 #import "iTermLogoGenerator.h"
-#import "iTermOpenQuicklyTableCellView.h"
 #import "NSImage+iTerm.h"
 
 @implementation iTermOpenQuicklyItem

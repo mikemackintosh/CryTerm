@@ -220,6 +220,15 @@ class OllamaModelDiscovery: NSObject {
                                       headers: [[String: String]],
                                       timeout: TimeInterval,
                                       completion: @escaping ([String], String?) -> Void) {
+        // This build never talks to LLM servers, local ones included.
+        guard iTermAdvancedSettingsModel.generativeAIAllowed() else {
+            DispatchQueue.main.async {
+                completion([], String(localized: "Ollama.Discovery.NotInThisBuild",
+                                      defaultValue: "This build of iTerm2 doesn’t connect to AI services.",
+                                      comment: "Error shown by Fetch Models because this build never contacts AI services"))
+            }
+            return
+        }
         guard let request = tagsRequest(fromEndpoint: endpoint, headers: headers, timeout: timeout) else {
             DispatchQueue.main.async {
                 completion([], String(localized: "Ollama.Discovery.BadURL",
@@ -268,6 +277,10 @@ class OllamaModelDiscovery: NSObject {
                             headers: [[String: String]],
                             timeout: TimeInterval,
                             completion: @escaping ([AIMetadata.Model]?) -> Void) {
+        guard iTermAdvancedSettingsModel.generativeAIAllowed() else {
+            DispatchQueue.main.async { completion(nil) }
+            return
+        }
         guard let request = tagsRequest(fromEndpoint: endpoint, headers: headers, timeout: timeout) else {
             DispatchQueue.main.async { completion(nil) }
             return

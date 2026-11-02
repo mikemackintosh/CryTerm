@@ -126,9 +126,6 @@ extern NSString *const iTermAdvancedSettingsDidChange;
 + (BOOL)autoLockSessionNameOnEdit;
 + (int)autocompleteMaxOptions;
 + (BOOL)autodetectMouseReportingStuck;
-#ifdef ENABLE_DEPRECATED_ADVANCED_SETTINGS
-+ (NSString *)autoLogFormat;  // Use the per-profile setting instead. This is only around for migrating the default.
-#endif
 + (BOOL)autologAppends;
 + (NSString *)badgeFont;
 + (BOOL)badgeFontIsBold;
@@ -212,7 +209,6 @@ extern NSString *const iTermAdvancedSettingsDidChange;
 + (BOOL)disallowCopyEmptyString;
 + (BOOL)disclaimChildren;
 + (BOOL)disregardDockSettingToOpenTabsInsteadOfWindows;
-+ (BOOL)dockIconTogglesWindow DEPRECATED_ATTRIBUTE;
 + (BOOL)doNotSetCtype;
 + (BOOL)doubleClickTabToEdit;
 + (BOOL)duplicatedTabsOpenAdjacentToOriginal;
@@ -288,7 +284,6 @@ extern NSString *const iTermAdvancedSettingsDidChange;
 + (double)hotKeyDoubleTapMinDelay;
 + (double)hotkeyTermAnimationDuration;
 + (BOOL)hotkeyWindowsExcludedFromCycling;
-+ (BOOL)hotkeyWindowFloatsAboveOtherWindows DEPRECATED_ATTRIBUTE;
 + (double)idempotentTriggerModeRateLimit;
 + (double)idleTimeSeconds;
 + (BOOL)ignoreHardNewlinesInURLs;
@@ -390,9 +385,6 @@ extern NSString *const iTermAdvancedSettingsDidChange;
 + (int)numberOfLinesForAccessibility;
 + (NSString *)onePasswordAccount;
 + (void)setOnePasswordAccount:(NSString *)value;
-+ (BOOL)openFileInNewWindows;
-+ (BOOL)openFileInSplitPanes;
-+ (BOOL)openFileInVerticalSplitPane;
 + (int)newInstanceOpenStyle;
 + (BOOL)openFileOverridesSendText;
 + (BOOL)openNewWindowAtStartup;

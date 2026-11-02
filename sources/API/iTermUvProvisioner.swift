@@ -346,15 +346,33 @@ class iTermUvProvisioner: NSObject {
     // python-runtime.json marker. iterm2 and certifi are always installed. Returns
     // the marker on success (its remappedFrom tells the caller whether to warn the
     // user that the Python version changed), or an error.
+    // willBuild is called with the full package list and the resolved Python version
+    // before anything is downloaded or installed; returning false cancels.
     static func provisionFullEnvironment(uvPath: String,
                                          pythonInstallDir: String,
                                          cacheDir: String,
                                          container: String,
                                          requestedPythonVersion: String,
-                                         dependencies: [String]) -> Result<iTermPythonRuntimeMarker, Error> {
+                                         dependencies: [String],
+                                         willBuild: (_ packages: [String], _ pythonVersion: String) -> Bool) -> Result<iTermPythonRuntimeMarker, Error> {
         let environment = mergedEnvironment(pythonInstallDir: pythonInstallDir, cacheDir: cacheDir)
         let available = availableMinors(uvPath: uvPath, environment: environment)
         let resolved = iTermUvPythonVersion.resolve(requested: requestedPythonVersion, available: available)
+
+        // The always-installed packages (iterm2, certifi, pyobjc) come from the bundled,
+        // hash-pinned lock for this Python version. With no lock, fail closed rather than
+        // install unpinned.
+        guard let lockPath = PythonPackageLock.path() else {
+            return .failure(PythonPackageLock.missingLockError())
+        }
+        // The script's own dependencies. For an imported script they come from a third
+        // party's setup.cfg, so show them with the pinned set and ask before creating the
+        // venv (which can download a Python interpreter) or installing anything.
+        let scriptDependencies = orderedUnique(dependencies)
+        let packages = PythonPackageLock.pins(named: alwaysInstalledPackages, forPythonMinor: resolved.version, inLockAt: lockPath) + scriptDependencies
+        guard willBuild(packages, resolved.version) else {
+            return .failure(cancelError())
+        }
 
         let fileManager = FileManager.default
         let venvPath = (container as NSString).appendingPathComponent(iTermScriptRuntime.venvDirectoryName)
@@ -375,14 +393,29 @@ class iTermUvProvisioner: NSObject {
         }
 
         let venvPython = (buildPath as NSString).appendingPathComponent("bin/python")
-        // The always-installed packages (iterm2, certifi, pyobjc) come in addition to
-        // the script's declared dependencies.
-        let packages = orderedUnique(dependencies + alwaysInstalledPackages)
         if let error = run(uvPath,
-                           iTermUvCommand.pipInstallArgs(venvPythonPath: venvPython, packages: packages),
+                           iTermUvCommand.lockedInstallArgs(venvPythonPath: venvPython, lockPath: lockPath),
                            environment) {
             try? fileManager.removeItem(atPath: buildPath)
             return .failure(error)
+        }
+        if !scriptDependencies.isEmpty {
+            let constraintsPath: String
+            do {
+                constraintsPath = try PythonPackageLock.writeConstraints(forLockAt: lockPath, in: cacheDir)
+            } catch {
+                try? fileManager.removeItem(atPath: buildPath)
+                return .failure(error)
+            }
+            defer { try? fileManager.removeItem(atPath: constraintsPath) }
+            if let error = run(uvPath,
+                               iTermUvCommand.constrainedInstallArgs(venvPythonPath: venvPython,
+                                                                     constraintsPath: constraintsPath,
+                                                                     packages: scriptDependencies),
+                               environment) {
+                try? fileManager.removeItem(atPath: buildPath)
+                return .failure(error)
+            }
         }
 
         // Everything the new venv needs is present; put it in place. When an old .venv
@@ -657,15 +690,21 @@ class iTermUvProvisioner: NSObject {
             Self.provisionQueue.async {
                 Self.beginProvisioning()
                 defer { Self.endProvisioning() }
-                if let provisioningDidBegin = provisioningDidBegin {
-                    DispatchQueue.main.async { provisioningDidBegin() }
-                }
                 let result = Self.provisionFullEnvironment(uvPath: Self.uvBinaryPath,
                                                            pythonInstallDir: Self.pythonInstallDirectory,
                                                            cacheDir: Self.cacheDirectory,
                                                            container: container,
                                                            requestedPythonVersion: requestedPythonVersion,
-                                                           dependencies: dependencies)
+                                                           dependencies: dependencies) { packages, pythonVersion in
+                    // Ask before the progress window opens, so a decline leaves nothing behind.
+                    guard PythonInstallConsent.confirm(packages: packages, pythonVersion: pythonVersion) else {
+                        return false
+                    }
+                    if let provisioningDidBegin = provisioningDidBegin {
+                        DispatchQueue.main.async { provisioningDidBegin() }
+                    }
+                    return true
+                }
                 let resultError: NSError?
                 switch result {
                 case .success(let marker):
@@ -995,6 +1034,21 @@ class iTermUvProvisioner: NSObject {
                     }
                     DispatchQueue.main.async { completion(error, nil) }
                 }
+                // The packages come from the bundled hash-pinned lock for this version; with
+                // none, fail closed rather than install unpinned.
+                guard let lockPath = PythonPackageLock.path() else {
+                    DispatchQueue.main.async { completion(PythonPackageLock.missingLockError(), nil) }
+                    return
+                }
+                // Building a venv can download a Python interpreter and installs packages
+                // from PyPI. Ask first, every time; a decline is a quiet cancel.
+                guard PythonInstallConsent.confirm(packages: PythonPackageLock.pins(named: Self.alwaysInstalledPackages,
+                                                                                    forPythonMinor: resolved.version,
+                                                                                    inLockAt: lockPath),
+                                                   pythonVersion: resolved.version) else {
+                    DispatchQueue.main.async { completion(Self.cancelError(), nil) }
+                    return
+                }
                 // Start from a clean directory so a previously interrupted build can't
                 // leave stray files behind.
                 try? FileManager.default.removeItem(atPath: venvDirectory)
@@ -1006,7 +1060,7 @@ class iTermUvProvisioner: NSObject {
                     return
                 }
                 if let error = Self.run(Self.uvBinaryPath,
-                                        iTermUvCommand.pipInstallArgs(venvPythonPath: interpreter, packages: Self.alwaysInstalledPackages),
+                                        iTermUvCommand.lockedInstallArgs(venvPythonPath: interpreter, lockPath: lockPath),
                                         environment) {
                     // Do not leave a half-built venv: the interpreter exists but the
                     // packages do not, and every later launch would trust it.
@@ -1033,48 +1087,13 @@ class iTermUvProvisioner: NSObject {
         }
     }
 
-    // MARK: - Periodic background upgrades
+    // MARK: - Upgrades
 
-    // Throttled across launches (persisted) so the check runs about once a day.
-    private static let upgradeRateLimit =
-        iTermPersistentRateLimitedUpdate(name: "CheckForUpdatedUv", minimumInterval: 24 * 60 * 60)
+    // There is deliberately no background upgrade check: uv and the shared venvs'
+    // modules change only when the user asks.
 
-    // Once a day at most: if the manifest offers a newer uv, silently replace the
-    // installed binary, and upgrade iterm2/certifi/pyobjc to the latest in every
-    // provisioned shared basic-script venv. A no-op until uv has been installed, so it
-    // is safe (and intended) to call at every launch. Without this, a first-installed
-    // uv is never re-checked, so a broken uv could never be replaced and basic scripts'
-    // iterm2 module would never update.
-    @objc func performPeriodicUpgradeCheck() {
-        Self.upgradeRateLimit.performRateLimitedBlock {
-            // Run on a background queue, NOT provisionQueue: the network fetch has
-            // unbounded latency and must never block a user-visible provision or launch
-            // queued behind it. The install swap and pip upgrades hop onto provisionQueue
-            // themselves so they stay serialized with provisioning. This runs even with
-            // the gate off (guarded only by isInstalled): a script provisioned under uv
-            // keeps using it regardless of the gate, so keeping uv and the shared modules
-            // current is intended.
-            DispatchQueue.global(qos: .utility).async {
-                // Re-check installed state now: the persistent rate limit can defer this
-                // block up to ~a day, during which the user may have removed uv.
-                guard Self.isInstalled else {
-                    return
-                }
-                switch Self.upgradeUvBinaryIfNewerAvailable() {
-                case .upgraded(let from, let to):
-                    RLog("uv: upgraded uv from \(from) to \(to)")
-                case .failed(let message):
-                    RLog("uv: background upgrade check failed: \(message)")
-                case .upToDate:
-                    break
-                }
-                Self.enqueuePeriodicSharedVenvModuleUpgrades()
-            }
-        }
-    }
-
-    // User-invoked "Check for Updated Runtime": bypasses the daily rate limit, runs the
-    // same upgrade pair, and reports a result instead of being fire-and-forget. Because
+    // User-invoked "Check for Updated Runtime": upgrades uv and the shared venvs'
+    // modules, and reports the result. Because
     // installedUvVersion returns "unknown" for a corrupt or unreadable binary (which
     // loses to any manifest version), this also repairs such a binary. completion runs
     // on the main queue with (success, user-facing message).
@@ -1085,9 +1104,23 @@ class iTermUvProvisioner: NSObject {
                 return
             }
             let outcome = Self.upgradeUvBinaryIfNewerAvailable()
-            // Refresh the shared-venv modules regardless, so a check also picks up newer
-            // iterm2/certifi/pyobjc even when uv itself is already current.
-            Self.provisionQueue.sync { Self.upgradeSharedVenvModules() }
+            // Bring the shared venvs' modules to this iTerm2 version's hash-pinned locks,
+            // even when uv itself is already current. That installs from PyPI, so list
+            // the exact versions per Python version and confirm first.
+            let minors = Self.provisionedSharedVenvMinors()
+            let pinned = minors.flatMap { minor -> [String] in
+                guard let lockPath = PythonPackageLock.path() else {
+                    return []
+                }
+                // Localization unneeded: a package pin with its Python version.
+                return PythonPackageLock.pins(named: Self.alwaysInstalledPackages, forPythonMinor: minor, inLockAt: lockPath)
+                    .map { "\($0) (Python \(minor))" }
+            }
+            if !pinned.isEmpty,
+               PythonInstallConsent.confirm(packages: pinned,
+                                            pythonVersion: minors.joined(separator: ", ")) {
+                Self.provisionQueue.sync { Self.upgradeSharedVenvModules() }
+            }
             let ok: Bool
             let message: String
             switch outcome {
@@ -1247,27 +1280,25 @@ class iTermUvProvisioner: NSObject {
         return provisionedStaleRemapInterpreter(forRequestedVersion: requestedVersion, venvsRoot: sharedVenvsRoot)
     }
 
-    // Upgrade the always-installed packages to the latest in every provisioned shared
-    // basic-script venv. Full-environment scripts manage their own dependencies
-    // (setup.cfg / Dependency Editor) and are intentionally left untouched. Runs on
-    // provisionQueue so it never races a concurrent shared-venv build. Note: `uv pip
-    // install --upgrade` is not transactional across the package set, so a mid-run
-    // failure can leave one package upgraded and others not (retried next day), and it
-    // can rewrite site-packages while a basic script is running from that venv; that is
-    // accepted as low risk for a once-a-day background refresh.
-    // Upgrade the always-installed modules in ONE shared venv. The caller decides how it
-    // is scheduled on provisionQueue.
+    // Upgrade the always-installed modules in ONE shared basic-script venv, on a user
+    // request, to the bundled lock for its Python version. Full-environment scripts
+    // manage their own dependencies (setup.cfg / Dependency Editor) and are
+    // intentionally left untouched. The install is not transactional across the
+    // package set, so a mid-run failure can leave some packages at the new pins and
+    // others not until the user checks again.
     private static func upgradeModulesInSharedVenv(minor: String, environment: [String: String]) {
         guard sharedVenvIsProvisioned(forMinor: minor) else {
             return
         }
+        guard let lockPath = PythonPackageLock.path() else {
+            RLog("uv: the package lock is missing; leaving the \(minor) venv unchanged")
+            return
+        }
         let interpreter = sharedVenvPython(forMinor: minor)
         if let error = run(uvBinaryPath,
-                           iTermUvCommand.pipInstallArgs(venvPythonPath: interpreter,
-                                                         packages: alwaysInstalledPackages,
-                                                         upgrade: true),
+                           iTermUvCommand.lockedInstallArgs(venvPythonPath: interpreter, lockPath: lockPath),
                            environment) {
-            RLog("uv: background module upgrade for the \(minor) venv failed: \(error.localizedDescription)")
+            RLog("uv: module update for the \(minor) venv failed: \(error.localizedDescription)")
         }
     }
 
@@ -1298,29 +1329,6 @@ class iTermUvProvisioner: NSObject {
         let environment = mergedEnvironment(pythonInstallDir: pythonInstallDirectory, cacheDir: cacheDirectory)
         for minor in provisionedSharedVenvMinors() {
             upgradeModulesInSharedVenv(minor: minor, environment: environment)
-        }
-    }
-
-    // Background daily refresh: upgrade one venv per provisionQueue item, and enqueue the
-    // NEXT venv only after the current one finishes (self-scheduling), NOT all N up front.
-    // provisionQueue is a serial FIFO queue that also serves user-visible work (script
-    // launches, full-env provisioning, the Dependency Editor's pip calls). Bulk-enqueueing
-    // would place a user request that arrives mid-refresh behind every remaining
-    // network-bound `uv pip install --upgrade`. Chaining means such a request, submitted
-    // while one venv is upgrading, is already ahead of the successor in FIFO order and runs
-    // between venvs instead of after the whole refresh.
-    private static func enqueuePeriodicSharedVenvModuleUpgrades() {
-        let environment = mergedEnvironment(pythonInstallDir: pythonInstallDirectory, cacheDir: cacheDirectory)
-        scheduleSharedVenvModuleUpgrade(minors: provisionedSharedVenvMinors(), index: 0, environment: environment)
-    }
-
-    private static func scheduleSharedVenvModuleUpgrade(minors: [String], index: Int, environment: [String: String]) {
-        guard index < minors.count else {
-            return
-        }
-        provisionQueue.async {
-            upgradeModulesInSharedVenv(minor: minors[index], environment: environment)
-            scheduleSharedVenvModuleUpgrade(minors: minors, index: index + 1, environment: environment)
         }
     }
 

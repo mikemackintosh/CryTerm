@@ -1070,7 +1070,7 @@ DQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Clear Buffer" keyEquivalent="k" identifier="Clear Buffer" id="217">
+                            <menuItem title="Clear Buffer" keyEquivalent="O" identifier="Clear Buffer" id="217">
                                 <accessibility identifier="Clear Buffer"/>
                                 <connections>
                                     <action selector="clearBuffer:" target="-1" id="220"/>
@@ -1256,7 +1256,7 @@ Gw
                             <menuItem isSeparatorItem="YES" id="gzL-UV-S2y">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Open Quickly" keyEquivalent="O" identifier="Open Quickly" id="Knm-gZ-dFc">
+                            <menuItem title="Open Quickly" keyEquivalent="k" identifier="Open Quickly" id="Knm-gZ-dFc">
                                 <accessibility identifier="Open Quickly"/>
                                 <connections>
                                     <action selector="openQuickly:" target="201" id="B7o-gt-d3A"/>

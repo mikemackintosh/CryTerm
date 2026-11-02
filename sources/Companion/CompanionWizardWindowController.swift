@@ -601,8 +601,12 @@ final class CompanionWizardWindowController: NSWindowController, NSWindowDelegat
         // A sheet that does not block when there is a window; app-modal otherwise.
         warning.window = window
         warning.runModalAsync { [weak self] _, _ in
-            self?.close()
-            CompanionPairingWindowController.shared.showAndBeginPairing()
+            // iTermWarning calls this on the main thread. Swift 6.2 imports the
+            // block as @Sendable, so say so explicitly to reach main-actor state.
+            MainActor.assumeIsolated {
+                self?.close()
+                CompanionPairingWindowController.shared.showAndBeginPairing()
+            }
         }
     }
 

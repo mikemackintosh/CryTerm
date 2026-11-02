@@ -33,7 +33,7 @@ iTerm2 is a powerful terminal emulator for macOS that brings the terminal into t
 - **Copy Mode** - Vim-like keyboard selection. Navigate and select text without touching the mouse. Works with marks to jump between command prompts.
 - **Instant Replay** - Scrub backward through terminal history to see exactly what was on screen at any moment, with timestamps. Perfect for catching fleeting errors.
 - **Python Scripting API** - Full automation and customization via Python. Create custom status bar components, triggers, menu items, or entirely new features.
-- **Open Quickly** - Cmd-Shift-O opens a search across all sessions by tab title, command, hostname, directory, or badge. Navigate large session collections instantly.
+- **Open Quickly** - Cmd-K opens a search across all sessions by tab title, command, hostname, directory, or badge. Navigate large session collections instantly.
 
 ---
 

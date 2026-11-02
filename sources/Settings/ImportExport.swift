@@ -1090,20 +1090,22 @@ private struct ScriptsImporterExporter {
                 if item.lastPathComponent.lowercased() == "autolaunch" {
                     continue
                 }
-                try export(item: item, to: destination, autolaunch: false)
+                try export(item: item, to: destination)
             }
         }
         do {
+            // Scripts left in an old AutoLaunch folder are exported like any other
+            // script; nothing runs at launch any more.
             let autolaunch = base.appendingPathComponent("AutoLaunch")
             let items = try? FileManager.default.contentsOfDirectory(at: autolaunch, includingPropertiesForKeys: nil)
             for item in (items ?? []) {
-                try export(item: item, to: destination, autolaunch: true)
+                try export(item: item, to: destination)
             }
         }
     }
 
-    private func export(item: URL, to destination: URL, autolaunch: Bool) throws {
-        DLog("Export \(item.path) to \(destination.path), autolaunch=\(autolaunch)")
+    private func export(item: URL, to destination: URL) throws {
+        DLog("Export \(item.path) to \(destination.path)")
         if !iTermScriptExporter.urlIsScript(item) {
             DLog("Skip non-script \(item.path)")
             return
@@ -1115,18 +1117,12 @@ private struct ScriptsImporterExporter {
         let group = DispatchGroup()
         group.enter()
         var error: String?
-        let name: String
-        if autolaunch {
-            name = "autolaunch \(UUID().uuidString).zip"
-        } else {
-            name = "script \(UUID().uuidString).zip"
-        }
+        let name = "script \(UUID().uuidString).zip"
         let zip = destination.appendingPathComponent(name)
         iTermScriptExporter.exportScript(at: item,
                                          signing: nil,
                                          callbackQueue: DispatchQueue.global(),
-                                         destination: zip,
-                                         autolaunch: autolaunch) { maybeError, maybeZip in
+                                         destination: zip) { maybeError, maybeZip in
             error = maybeError
             group.leave()
         }
@@ -1145,12 +1141,12 @@ private struct ScriptsImporterExporter {
         for (i, path) in items.enumerated() {
             DLog("\(path)")
             setStatus?(String(localized: "ImportExport.ImportScriptProgress", defaultValue: "Import script \(i + 1) of \(items.count)", comment: "Progress status while importing scripts; first number is current, second is total"))
-            importScript(from: path, autolaunch: path.lastPathComponent.hasPrefix("autolaunch"))
+            importScript(from: path)
         }
     }
 
 
-    private func importScript(from source: URL, autolaunch: Bool) {
+    private func importScript(from source: URL) {
         var error: String?
 
         var unblockRunloop = false
@@ -1164,7 +1160,6 @@ private struct ScriptsImporterExporter {
         DLog("Start importing")
         iTermScriptImporter.importScript(from: source,
                                          userInitiated: true,
-                                         offerAutoLaunch: autolaunch,
                                          callbackQueue: DispatchQueue.main,
                                          avoidUI: true) { maybeErrorMessage, _, _ in
             DLog("Done \(String(describing: maybeErrorMessage))")
@@ -1173,7 +1168,7 @@ private struct ScriptsImporterExporter {
             CFRunLoopStop(RunLoop.current.getCFRunLoop())
         }
         waitForDone()
-        RLog("\(source.path) \(autolaunch) \(error ?? "ok")")
+        RLog("\(source.path) \(error ?? "ok")")
     }
 
     // The scripts path is passed in (rather than re-queried) because it

@@ -135,66 +135,30 @@ NSString *const iTermScriptMetadataName = @"metadata.json";
     return [iTermScriptArchive archiveForScriptIn:container named:name fullEnvironment:YES];
 }
 
-- (BOOL)wantsAutoLaunch {
-    return [[NSNumber castFrom:self.metadata[@"AutoLaunch"]] boolValue];
-}
-
-- (BOOL)userAcceptsTrustedScriptAutoLaunchInstall {
-    NSString *body = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptArchive.TrustedAutoLaunchMessage", nil, [NSBundle mainBundle], @"“%@” would like to launch automatically when iTerm2 starts. Would you like to allow that?", @"Prompt asking whether to allow a trusted script to auto-launch; %@ is the script name"), self.name];
-    const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:body
-                                                                       actions:@[ NSLocalizedStringWithDefaultValue(@"ScriptArchive.LaunchAutomatically", nil, [NSBundle mainBundle], @"Launch Automatically", @"Button to allow a script to launch automatically"), NSLocalizedStringWithDefaultValue(@"ScriptArchive.LaunchManually", nil, [NSBundle mainBundle], @"Lauch Manually", @"Button to require launching a script manually") ]
-                                                                     accessory:nil
-                                                                    identifier:nil
-                                                                   silenceable:kiTermWarningTypePersistent
-                                                                       heading:NSLocalizedStringWithDefaultValue(@"ScriptArchive.AllowAutoLaunchHeading", nil, [NSBundle mainBundle], @"Allow Auto-Launch?", @"Heading for the allow-auto-launch dialog")
-                                                                        window:nil];
-    return (selection == kiTermWarningSelection0);
-}
-
-- (BOOL)userAcceptsExplicitAutoLaunchInstall {
-    NSString *body = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptArchive.ExplicitAutoLaunchMessage", nil, [NSBundle mainBundle], @"“%@” can launch automatically when iTerm2 starts. Would you like to allow that?", @"Prompt asking whether to allow a script to auto-launch; %@ is the script name"), self.name];
-    const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:body
-                                                                       actions:@[ NSLocalizedStringWithDefaultValue(@"ScriptArchive.LaunchAutomatically", nil, [NSBundle mainBundle], @"Launch Automatically", @"Button to allow a script to launch automatically"), NSLocalizedStringWithDefaultValue(@"ScriptArchive.LaunchManually", nil, [NSBundle mainBundle], @"Lauch Manually", @"Button to require launching a script manually") ]
-                                                                     accessory:nil
-                                                                    identifier:nil
-                                                                   silenceable:kiTermWarningTypePersistent
-                                                                       heading:NSLocalizedStringWithDefaultValue(@"ScriptArchive.AllowAutoLaunchHeading", nil, [NSBundle mainBundle], @"Allow Auto-Launch?", @"Heading for the allow-auto-launch dialog")
-                                                                        window:nil];
-    return (selection == kiTermWarningSelection0);
-}
-
 - (void)installTrusted:(BOOL)trusted
-       offerAutoLaunch:(BOOL)offerAutoLaunch
                avoidUI:(BOOL)avoidUI
   provisioningDidBegin:(void (^)(void))provisioningDidBegin
         withCompletion:(void (^)(NSError *, NSURL *location))completion {
-    RLog(@"trusted=%@ offerAutoLaunch=%@", @(trusted), @(offerAutoLaunch));
+    RLog(@"trusted=%@", @(trusted));
     if (self.fullEnvironment) {
         [self installFullEnvironmentTrusted:trusted
-                            offerAutoLaunch:offerAutoLaunch
                                     avoidUI:avoidUI
                        provisioningDidBegin:provisioningDidBegin
                                  completion:completion];
     } else {
         // A basic script install is an instant file move; no provisioning phase.
         [self installBasicTrusted:trusted
-                  offerAutoLaunch:offerAutoLaunch
                           avoidUI:avoidUI
                        completion:completion];
     }
 }
 
 - (void)installBasicTrusted:(BOOL)trusted
-            offerAutoLaunch:(BOOL)offerAutoLaunch
                     avoidUI:(BOOL)avoidUI
                  completion:(void (^)(NSError *, NSURL *location))completion {
     NSString *from = [self.container stringByAppendingPathComponent:self.name];
-    NSString *to;
-    if ([self shouldAutoLaunchWhenTrusted:trusted offerAutoLaunch:offerAutoLaunch avoidUI:avoidUI]) {
-        to = [[[NSFileManager defaultManager] autolaunchScriptPathCreatingLink] stringByAppendingPathComponent:self.name];
-    } else {
-        to = [[[NSFileManager defaultManager] scriptsPathWithoutSpaces] stringByAppendingPathComponent:self.name];
-    }
+    // Scripts never install into AutoLaunch: nothing runs at launch.
+    NSString *to = [[[NSFileManager defaultManager] scriptsPathWithoutSpaces] stringByAppendingPathComponent:self.name];
     NSError *error = nil;
     [[NSFileManager defaultManager] moveItemAtPath:from
                                             toPath:to
@@ -202,39 +166,11 @@ NSString *const iTermScriptMetadataName = @"metadata.json";
     completion(error, [NSURL fileURLWithPath:to]);
 }
 
-- (BOOL)shouldOfferAutoLaunchWhenTrusted:(BOOL)trusted
-                         offerAutoLaunch:(BOOL)offerAutoLaunch {
-    if (offerAutoLaunch) {
-        return YES;
-    }
-    if (trusted && [self wantsAutoLaunch]) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)shouldAutoLaunchWhenTrusted:(BOOL)trusted
-                    offerAutoLaunch:(BOOL)offerAutoLaunch
-                            avoidUI:(BOOL)avoidUI {
-    if (![self shouldOfferAutoLaunchWhenTrusted:trusted offerAutoLaunch:offerAutoLaunch]) {
-        return NO;
-    }
-    if (avoidUI) {
-        return YES;
-    }
-    if (offerAutoLaunch) {
-        return [self userAcceptsExplicitAutoLaunchInstall];
-    } else {
-        return [self userAcceptsTrustedScriptAutoLaunchInstall];
-    }
-}
-
 - (void)installFullEnvironmentTrusted:(BOOL)trusted
-                      offerAutoLaunch:(BOOL)offerAutoLaunch
                               avoidUI:(BOOL)avoidUI
                  provisioningDidBegin:(void (^)(void))provisioningDidBegin
                            completion:(void (^)(NSError *, NSURL *location))completion {
-    DLog(@"trusted=%@ offerAutoLaunch=%@", @(trusted), @(offerAutoLaunch));
+    DLog(@"trusted=%@", @(trusted));
     NSString *from = [self.container stringByAppendingPathComponent:self.name];
 
     NSString *setupCfg = [from stringByAppendingPathComponent:iTermScriptSetupCfgName];
@@ -258,12 +194,8 @@ NSString *const iTermScriptMetadataName = @"metadata.json";
     dependencies = [dependencies arrayByRemovingObject:@"iterm2"];
 
     // Decide where to put it and make the directory if needed.
-    NSString *containingFolder;
-    if ([self shouldAutoLaunchWhenTrusted:trusted offerAutoLaunch:offerAutoLaunch avoidUI:avoidUI]) {
-        containingFolder = [[NSFileManager defaultManager] autolaunchScriptPathCreatingLink];
-    } else {
-        containingFolder = [[NSFileManager defaultManager] scriptsPathWithoutSpaces];
-    }
+    // Scripts never install into AutoLaunch: nothing runs at launch.
+    NSString *containingFolder = [[NSFileManager defaultManager] scriptsPathWithoutSpaces];
     DLog(@"mkdir %@", containingFolder);
     [[NSFileManager defaultManager] createDirectoryAtPath:containingFolder
                               withIntermediateDirectories:YES

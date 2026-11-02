@@ -38,7 +38,6 @@
           signingIdentity:(SIGIdentity *)sigIdentity
             callbackQueue:(dispatch_queue_t)callbackQueue
               destination:(NSURL *)destination
-               autolaunch:(BOOL)autolaunch
                completion:(void (^)(NSString *errorMessage, NSURL *zipURL))completion {
     NSURL *relativeURL = [self relativeURLFromFullURL:fullURL];
     if (!relativeURL) {
@@ -60,8 +59,7 @@
                               named:[name stringByDeletingPathExtension]
                 toFullEnvironmentIn:temp];
         [self writeMetadataTo:[NSURL fileURLWithPath:temp]
-                    sourceURL:fullURL
-                   autolaunch:autolaunch];
+                    sourceURL:fullURL];
         NSURL *tempURL = [NSURL fileURLWithPath:temp];
         [self exportFullEnvironmentScriptAtURL:tempURL
                                    relativeURL:[NSURL fileURLWithPath:scriptName]
@@ -78,8 +76,7 @@
 
     // Export full environment script
     [self writeMetadataTo:fullURL
-                sourceURL:fullURL
-               autolaunch:autolaunch];
+                sourceURL:fullURL];
     [self exportFullEnvironmentScriptAtURL:fullURL
                                relativeURL:relativeURL
                                       name:name
@@ -90,9 +87,10 @@
 }
 
 + (void)writeMetadataTo:(NSURL *)destinationURL
-              sourceURL:(NSURL *)sourceURL
-             autolaunch:(BOOL)autolaunch {
-    NSDictionary *metadata = @{ @"AutoLaunch": @(autolaunch) };
+              sourceURL:(NSURL *)sourceURL {
+    // Kept (empty) for archive-format compatibility; it used to carry an
+    // AutoLaunch request, which iTerm2 no longer honors.
+    NSDictionary *metadata = @{};
     [[NSJSONSerialization it_jsonStringForObject:metadata] writeToURL:[destinationURL URLByAppendingPathComponent:@"metadata.json"]
                                                            atomically:NO
                                                              encoding:NSUTF8StringEncoding

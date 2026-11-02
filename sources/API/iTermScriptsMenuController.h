@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMenuItem *installRuntimeMenuItem;
 @property (nonatomic, readonly) NSArray<NSString *> *allScripts;
 
-+ (BOOL)autoLaunchFolderExists;
 
 - (NSArray<iTermScriptItem *> *)scriptItems;
 
@@ -32,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMenu:(NSMenu *)menu;
 
 - (void)build;
-- (BOOL)runAutoLaunchScriptsIfNeeded;
 // Re-title/re-target the runtime menu item for the current gate + install state.
 - (void)updateInstallRuntimeMenuItem;
 - (void)revealScriptsInFinder;
@@ -50,9 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)chooseAndExportScript;
 - (void)chooseAndImportScript;
 
-- (BOOL)scriptShouldAutoLaunchWithFullPath:(NSString *)fullPath;
-- (void)moveScriptToAutoLaunch:(NSString *)fullPath;
-- (BOOL)couldMoveScriptToAutoLaunch:(NSString *)fullPath;
 
 - (void)importDidFinishWithErrorMessage:(nullable NSString *)errorMessage
                                location:(NSURL *)location

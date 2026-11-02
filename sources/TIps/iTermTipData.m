@@ -28,7 +28,7 @@
             @"0002": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0002.Title", nil, [NSBundle mainBundle], @"Password Manager", @"Tip of the day title, id 0002"),
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0002.Body", nil, [NSBundle mainBundle], @"Did you know iTerm2 has a password manager? Open it with “Window > Password Manager.” You can define a Trigger to open it for you at a password prompt in “Settings > Profiles > Advanced > Triggers.”", @"Tip of the day body, id 0002") },
             @"0003": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0003.Title", nil, [NSBundle mainBundle], @"Open Quickly", @"Tip of the day title, id 0003"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0003.Body", nil, [NSBundle mainBundle], @"You can quickly search through your sessions with “View > Open Quickly” (⇧⌘O). You can type a query and sessions whose name, badge, current hostname, current user name, recent commands, and recent working directories match will be surfaced. It works best with Shell Integration so the user name, hostname, command, and directories can be known even while sshed.", @"Tip of the day body, id 0003"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0003.Body", nil, [NSBundle mainBundle], @"You can quickly search through your sessions with “View > Open Quickly” (⌘K). You can type a query and sessions whose name, badge, current hostname, current user name, recent commands, and recent working directories match will be surfaced. It works best with Shell Integration so the user name, hostname, command, and directories can be known even while sshed.", @"Tip of the day body, id 0003"),
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0004": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0004.Title", nil, [NSBundle mainBundle], @"Undo Close", @"Tip of the day title, id 0004"),
@@ -408,7 +408,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0120.Body", nil, [NSBundle mainBundle], @"Select a block of JSON text and choose “Edit > Replace Selection > Replace with Pretty-Printed JSON” to make it readable. Perfect for debugging API responses and log files.", @"Tip of the day body, id 0120") },
 
             @"0121": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0121.Title", nil, [NSBundle mainBundle], @"Command Palette", @"Tip of the day title, id 0121"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0121.Body", nil, [NSBundle mainBundle], @"Open Quickly (⇧⌘O) is now a command palette! Just type the name of a menu item to activate it.", @"Tip of the day body, id 0121") },
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0121.Body", nil, [NSBundle mainBundle], @"Open Quickly (⌘K) is now a command palette! Just type the name of a menu item to activate it.", @"Tip of the day body, id 0121") },
 
             @"0122": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0122.Title", nil, [NSBundle mainBundle], @"Click Paths in Shell Prompts", @"Tip of the day title, id 0122"),
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0122.Body", nil, [NSBundle mainBundle], @"Enable “Settings > Profiles > Terminal > Click on a path in a shell prompt to open Navigator” to navigate your filesystem by clicking on paths in your prompt. Requires Shell Integration.", @"Tip of the day body, id 0122") },

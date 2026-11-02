@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
 @class iTermLogoGenerator;
-@class iTermOpenQuicklyTableCellView;
 @class iTermVariableScope;
 @protocol iTermGenericNamedMarkReading;
 @class PTYSession;
@@ -22,10 +21,6 @@
 // How well this item matches the query. Just a non-negative number. Higher
 // scores are better matches.
 @property(nonatomic, assign) double score;
-
-// The view. We have to hold on to this to change the text color for
-// non-highlighted items. This is hacky :(
-@property(nonatomic, retain) iTermOpenQuicklyTableCellView *view;
 
 // Icon to display with item. Should be overridden by subclasses.
 @property(nonatomic, readonly) NSImage *icon;

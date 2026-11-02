@@ -36,14 +36,12 @@
 
 // Prefs-level keys
 #define KEY_DEFAULT_GUID                @"Default Bookmark Guid"  // use this instead (not in a bookmark)
-#define KEY_DEPRECATED_BOOKMARKS        @"Bookmarks"  // Deprecated
 #define KEY_NEW_BOOKMARKS               @"New Bookmarks"
 #define KEY_DEFAULT_BROWSER_GUID        @"Default Browser Profile Guid"
 
 #pragma mark - Profile-level keys
 // IMPORTANT: If you add keys, also modify doCopyFrom in PreferencePanel.m.
 
-#define KEY_CHILDREN                    @"Children"  // Deprecated
 #define KEY_NAME                        @"Name"
 #define KEY_DESCRIPTION                 @"Description"  // Deprecated
 #define KEY_CUSTOM_COMMAND              @"Custom Command"
@@ -54,14 +52,9 @@
 #define KEY_CUSTOM_DIRECTORY            @"Custom Directory"  // values are Yes, No, Recycle, Advanced
 #define KEY_WORKING_DIRECTORY           @"Working Directory"
 #define KEY_BADGE_FORMAT                @"Badge Text"
-#define KEY_TERMINAL_PROFILE            @"Terminal Profile"  // Deprecated
-#define KEY_KEYBOARD_PROFILE            @"Keyboard Profile"  // Deprecated
-#define KEY_DISPLAY_PROFILE             @"Display Profile"  // Deprecated
 #define KEY_SHORTCUT                    @"Shortcut"
 #define KEY_ICON                        @"Icon"  // Number with iTermProfileIcon enum
 #define KEY_ICON_PATH                   @"Custom Icon Path"
-#define KEY_BONJOUR_GROUP               @"Bonjour Group"  // Deprecated
-#define KEY_BONJOUR_SERVICE             @"Bonjour Service"  // Deprecated
 #define KEY_BONJOUR_SERVICE_ADDRESS     @"Bonjour Service Address"  // Deprecated
 #define KEY_TAGS                        @"Tags"
 #define KEY_GUID                        @"Guid"
@@ -150,7 +143,6 @@
 // for browser only, at least for now
 #define KEY_WIDTH                  @"Width in Points"  // NSNumber
 #define KEY_HEIGHT                 @"Height in Points"  // NSNumber
-#define KEY_FULLSCREEN             @"Full Screen"  // DEPRECATED
 #define KEY_WINDOW_TYPE            @"Window Type"
 #define KEY_USE_CUSTOM_WINDOW_TITLE           @"Use Custom Window Title"
 #define KEY_CUSTOM_WINDOW_TITLE               @"Custom Window Title"
@@ -178,7 +170,6 @@
 #define KEY_CURSOR_BLINK_HIDDEN_DWELL       @"Cursor Blink Hidden Dwell"
 #define KEY_BLINK_ALLOWED          @"Blink Allowed"
 #define KEY_CURSOR_TYPE            @"Cursor Type"
-#define KEY_DISABLE_BOLD           @"Disable Bold"  // DEPRECATED
 #define KEY_USE_BOLD_FONT          @"Use Bold Font"
 #define KEY_THIN_STROKES           @"Thin Strokes"
 #define KEY_USE_ITALIC_FONT        @"Use Italic Font"
@@ -187,7 +178,6 @@
 #define KEY_BLEND                  @"Blend"
 #define KEY_BLUR                   @"Blur"
 #define KEY_BLUR_RADIUS            @"Blur Radius"
-#define KEY_ANTI_ALIASING          @"Anti Aliasing"  // DEPRECATED
 #define KEY_ASCII_ANTI_ALIASED     @"ASCII Anti Aliased"
 #define KEY_USE_NONASCII_FONT      @"Use Non-ASCII Font"
 #define KEY_NONASCII_ANTI_ALIASED  @"Non-ASCII Anti Aliased"
@@ -195,7 +185,6 @@
 #define KEY_BACKGROUND_IMAGE_SOURCE_MODE @"Background Image Source Mode"  // iTermBackgroundImageSourceMode enum
 #define KEY_BACKGROUND_IMAGE_FOLDER_LOCATION @"Background Image Folder Location"
 #define KEY_BACKGROUND_IMAGE_FOLDER_INTERVAL @"Background Image Folder Interval"
-#define KEY_BACKGROUND_IMAGE_TILED_DEPRECATED @"Background Image Is Tiled"  // DEPRECATED
 #define KEY_ASCII_LIGATURES        @"ASCII Ligatures"
 #define KEY_NON_ASCII_LIGATURES    @"Non-ASCII Ligatures"
 #define KEY_BACKGROUND_IMAGE_MODE  @"Background Image Mode"  // iTermBackgroundImageMode enum
@@ -216,11 +205,8 @@
 #define KEY_OPEN_TOOLBELT                     @"Open Toolbelt"
 #define KEY_HIDE_AFTER_OPENING                @"Hide After Opening"
 #define KEY_LOCK_WINDOW_SIZE_AUTOMATICALLY    @"Lock Window Size Automatically"
-#define KEY_SYNC_TITLE_DEPRECATED             @"Sync Title"  // DEPRECATED
 #define KEY_SESSION_END_ACTION                @"Close Sessions On End"  // iTermSessionEndAction
-#define KEY_TREAT_NON_ASCII_AS_DOUBLE_WIDTH   @"Non Ascii Double Width"  // DEPRECATED
 #define KEY_AMBIGUOUS_DOUBLE_WIDTH            @"Ambiguous Double Width"
-#define KEY_USE_HFS_PLUS_MAPPING              @"Use HFS Plus Mapping"  // DEPRECATED
 #define KEY_UNICODE_NORMALIZATION             @"Unicode Normalization"
 #define KEY_SILENCE_BELL                      @"Silence Bell"
 // Empty for the system alert sound, the name of an installed sound, or the path to an
@@ -279,7 +265,6 @@ extern NSString *const iTermProgressBarColorSchemeOrange;
 #define KEY_UNLIMITED_SCROLLBACK              @"Unlimited Scrollback"
 #define KEY_TERMINAL_TYPE                     @"Terminal Type"
 #define KEY_ANSWERBACK_STRING                 @"Answerback String"
-#define KEY_USE_CANONICAL_PARSER              @"Use Canonical Parser"  // Deprecated
 #define KEY_PLACE_PROMPT_AT_FIRST_COLUMN      @"Place Prompt at First Column"
 #define KEY_SHOW_MARK_INDICATORS              @"Show Mark Indicators"
 #define KEY_USE_THEME_MARK_COLORS             @"Use Theme Mark Colors"
@@ -297,7 +282,6 @@ extern NSString *const iTermProgressBarColorSchemeOrange;
 #define KEY_SEND_CODE_WHEN_IDLE               @"Send Code When Idle"
 #define KEY_IDLE_CODE                         @"Idle Code"
 #define KEY_IDLE_PERIOD                       @"Idle Period"
-#define KEY_PROMPT_CLOSE_DEPRECATED           @"Prompt Before Closing"  // Deprecated due to bad migration in 8/28 build
 #define KEY_PROMPT_CLOSE                      @"Prompt Before Closing 2"
 #define KEY_JOBS                              @"Jobs to Ignore"
 #define KEY_REDUCE_FLICKER                    @"Reduce Flicker"
@@ -308,10 +292,7 @@ extern NSString *const iTermProgressBarColorSchemeOrange;
 #define KEY_DEFAULT_PANE_LOCKED               @"Default Pane Locked"
 #define KEY_BUFFER_BY_DEFAULT                 @"Buffer Input by Default"
 
-// NOTE: KEY_SHOW_TIMESTAMPS was the original value. It is no longer used, and we just keep it around for migration to the new settings.
-#define KEY_SHOW_TIMESTAMPS                   @"Show Timestamps"  // NSNumber iTermTimestampsMode
 
-// These have computed values to ease migration from KEY_SHOW_TIMESTAMPS.
 #define KEY_TIMESTAMPS_STYLE                  @"Timestamps Style"  // Cannot be .off
 #define KEY_TIMESTAMPS_VISIBLE                @"Timestamps Visible"  // Boolean
 
@@ -649,7 +630,6 @@ NSString *iTermPathToSSH(void);
 + (NSFont *)fontWithDesc:(NSString *)fontDesc ligaturesEnabled:(BOOL)ligaturesEnabled;
 
 // This is deprecated in favor of -[NSString fontValue] and -[NSFont stringValue].
-+ (NSString *)descFromFont:(NSFont*)font __attribute__((deprecated));
 + (void)computeCommandForProfile:(Profile *)profile
                       objectType:(iTermObjectType)objectType
                            scope:(iTermVariableScope *)scope

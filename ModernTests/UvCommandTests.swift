@@ -17,20 +17,24 @@ final class UvCommandTests: XCTestCase {
                        ["venv", "--relocatable", "--python", "3.9", "/scripts/A/.venv"])
     }
 
-    func testPipInstallArgsAreWheelsOnly() {
-        // --only-binary :all: is what proves no compiler is required; it must always
-        // be present so a source-only dependency fails loudly rather than compiling.
+    func testLockedInstallArgsRequireHashesAndWheels() {
+        // --require-hashes makes uv install only the files recorded in the lock;
+        // --only-binary :all: proves no compiler is required. Both must always be present.
         XCTAssertEqual(
-            iTermUvCommand.pipInstallArgs(venvPythonPath: "/scripts/A/.venv/bin/python",
-                                          packages: ["iterm2", "pyobjc", "certifi"]),
+            iTermUvCommand.lockedInstallArgs(venvPythonPath: "/scripts/A/.venv/bin/python",
+                                             lockPath: "/app/PythonLocks/python3.12.lock"),
             ["pip", "install", "--python", "/scripts/A/.venv/bin/python",
-             "--only-binary", ":all:", "iterm2", "pyobjc", "certifi"])
+             "--only-binary", ":all:", "--require-hashes", "-r", "/app/PythonLocks/python3.12.lock"])
     }
 
-    func testPipInstallArgsWithNoPackages() {
+    func testConstrainedInstallArgsHoldScriptDependenciesToTheLock() {
+        // -c keeps a script's own dependencies from replacing a hash-verified package.
         XCTAssertEqual(
-            iTermUvCommand.pipInstallArgs(venvPythonPath: "/p/bin/python", packages: []),
-            ["pip", "install", "--python", "/p/bin/python", "--only-binary", ":all:"])
+            iTermUvCommand.constrainedInstallArgs(venvPythonPath: "/p/bin/python",
+                                                  constraintsPath: "/tmp/c.txt",
+                                                  packages: ["requests", "rich>=13"]),
+            ["pip", "install", "--python", "/p/bin/python", "--only-binary", ":all:",
+             "-c", "/tmp/c.txt", "requests", "rich>=13"])
     }
 
     func testPythonListArgsRequestJSONAndAllVersions() {

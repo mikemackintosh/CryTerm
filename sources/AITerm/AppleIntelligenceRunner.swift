@@ -42,6 +42,13 @@ enum AppleIntelligenceRunnerError: LocalizedError {
 // pair still recomputes; the tab-title feature always passes the same pair, so after the
 // first generation these are free. A FAILED count is not cached, so it retries and the
 // caller's estimate fallback applies until a real count lands.
+//
+// `compiler(>=6.3)` stands in for “built with the macOS 26.4 SDK or newer”:
+// SystemLanguageModel.tokenCount(for:) and GenerationOptions(samplingMode:) first
+// appear there, and Xcode 26.3 (Swift 6.2, macOS 26.2 SDK) can't see them.
+// Builds from that toolchain take the
+// estimate path, the same one a pre-26.4 OS takes at run time.
+#if compiler(>=6.3)
 @available(macOS 26.4, *)
 private actor TokenCountCache {
     static let shared = TokenCountCache()
@@ -71,6 +78,7 @@ private actor TokenCountCache {
         return count
     }
 }
+#endif
 
 @available(macOS 26, *)
 enum AppleIntelligenceRunner {
@@ -110,7 +118,12 @@ enum AppleIntelligenceRunner {
         try checkAllowed()
         let session = LanguageModelSession(model: .default,
                                            instructions: system ?? "")
+#if compiler(>=6.3)
         let options = GenerationOptions(samplingMode: .greedy)
+#else
+        // The macOS 26.2 SDK spells this parameter `sampling:`.
+        let options = GenerationOptions(sampling: .greedy)
+#endif
         return try await session.respond(to: user,
                                          generating: type,
                                          options: options).content
@@ -157,6 +170,7 @@ enum AppleIntelligenceRunner {
         // is floored to nothing.
         let budget: Int
         let count: (String) async throws -> Int
+#if compiler(>=6.3)
         if #available(macOS 26.4, *) {
             let model = SystemLanguageModel.default
             // Fall back to a conservative estimate, not 0, when a count is
@@ -186,6 +200,16 @@ enum AppleIntelligenceRunner {
                                        schemaTokens: 0)
             count = { onProgress(); return Self.estimatedTokenUpperBound($0) }
         }
+#else
+        // Built against the macOS 26.2 SDK, which has no tokenCount(for:): always
+        // take the estimate path. Keep in sync with the `else` branch above.
+        let reserve = max(160, instructionEstimate + 96)
+        budget = Self.promptBudget(maxContextTokens: maxContextTokens,
+                                   outputReserve: outputReserve,
+                                   instructionTokens: reserve,
+                                   schemaTokens: 0)
+        count = { onProgress(); return Self.estimatedTokenUpperBound($0) }
+#endif
         let fits: (String) async throws -> Bool = { try await count($0) <= budget }
 
         // The max(256, ...) floor keeps budget positive, but a floored-up budget
@@ -249,7 +273,12 @@ enum AppleIntelligenceRunner {
         // window, throwing exceededContextWindowSize (caught as .produced(nil), which
         // stamps the screen as permanently untitleable). A 2-to-4-word title needs far
         // fewer than 256 tokens, so this never truncates a real title.
+#if compiler(>=6.3)
         let options = GenerationOptions(samplingMode: .greedy, maximumResponseTokens: outputReserve)
+#else
+        // The macOS 26.2 SDK spells this parameter `sampling:`.
+        let options = GenerationOptions(sampling: .greedy, maximumResponseTokens: outputReserve)
+#endif
         // The whole-line fit search keeps only whole lines from the tail, so if the
         // single last visible line alone exceeds the budget (a soft-wrapped logical
         // line spanning most of a large grid, e.g. a pasted minified blob) it

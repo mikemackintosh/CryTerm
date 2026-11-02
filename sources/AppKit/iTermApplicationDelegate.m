@@ -156,7 +156,6 @@ NSString *const iTermDidToggleAlertOnMarksInOffscreenSessionsNotification = @"iT
 
 static NSString *const kScreenCharRestorableStateKey = @"kScreenCharRestorableStateKey";
 static NSString *const kURLStoreRestorableStateKey = @"kURLStoreRestorableStateKey";
-static NSString *const kHotkeyWindowRestorableState = @"kHotkeyWindowRestorableState";  // deprecated
 static NSString *const kHotkeyWindowsRestorableStates = @"kHotkeyWindowsRestorableState";  // deprecated
 static NSString *const iTermBuriedSessionState = @"iTermBuriedSessionState";
 static NSString *const iTermUndoCloseState = @"iTermUndoCloseState";
@@ -809,7 +808,6 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
         }
         [iTermScriptImporter importScriptFromURL:[NSURL fileURLWithPath:filename]
                                    userInitiated:NO
-                                 offerAutoLaunch:NO
                                    callbackQueue:dispatch_get_main_queue()
                                          avoidUI:NO
                                       completion:^(NSString * _Nullable errorMessage, BOOL quiet, NSURL *location) {
@@ -905,21 +903,7 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
             DLog(@"Disable auto frame. Profile is:\n%@", bookmark);
         }
         RLog(@"application:openFile: launching new session in window %@", windowController);
-        iTermOpenStyle style = iTermOpenStyleTab;
-        NSInteger stylePreference = [iTermAdvancedSettingsModel newInstanceOpenStyle];
-        if (stylePreference >= 0 && stylePreference <= iTermOpenStyleFloatingPane) {
-            style = (iTermOpenStyle)stylePreference;
-        } else if ([iTermAdvancedSettingsModel openFileInNewWindows]) {
-            style = iTermOpenStyleWindow;
-        } else if ([iTermAdvancedSettingsModel openFileInSplitPanes]) {
-            if ([iTermAdvancedSettingsModel openFileInVerticalSplitPane]) {
-                style = iTermOpenStyleVerticalSplit;
-            } else {
-                style = iTermOpenStyleHorizontalSplit;
-            }
-        } else {
-            style = iTermOpenStyleTab;
-        }
+        const iTermOpenStyle style = [self openStyleForOpeningFile];
         [iTermSessionLauncher launchBookmark:bookmark
                                   inTerminal:windowController
                                        style:style
@@ -1309,7 +1293,6 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
     }
 
     NSArray *hotkeyWindowsStates = nil;
-    NSDictionary *legacyState = nil;
     hotkeyWindowsStates = [coder decodeObjectForKey:kHotkeyWindowsRestorableStates];
     if (hotkeyWindowsStates) {
         // We have to create the hotkey window now because we need to attach to servers before
@@ -1336,7 +1319,6 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
                                 kPortholeRestorableStateKey: portholeState ?: @{},
                                 kURLStoreRestorableStateKey: urlStoreState ?: @{},
                                 kHotkeyWindowsRestorableStates: hotkeyWindowsStates ?: @[],
-                                kHotkeyWindowRestorableState: legacyState ?: @{},
                                 iTermBuriedSessionState: _buriedSessionsState ?: @[] };
         NSString *log = [dict sizeInfo];
         [log writeToFile:[NSString stringWithFormat:@"/tmp/statesize.app-%p.txt", self] atomically:NO encoding:NSUTF8StringEncoding error:nil];
@@ -1634,11 +1616,10 @@ void TurnOnDebugLoggingAutomatically(void) {
     // to the global default provider while /api/tags is fetched.
     [[iTermOllamaModelCache shared] loadPersistedModels];
     [[iTermLaunchServices sharedInstance] registerForiTerm2Scheme];
-    // Once a day at most, check for a newer uv (silently replace it) and refresh the
-    // iterm2 module in provisioned basic-script venvs. A no-op until uv is installed.
-    // Skipped under unit tests to avoid network access.
+    // There is deliberately no background update check for uv or the Python modules:
+    // nothing is downloaded or installed unless the user asks for it (Scripts >
+    // Manage > Check for Updated Runtime). Skipped under unit tests.
     if (![NSApp isRunningUnitTests]) {
-        [[iTermUvProvisioner shared] performPeriodicUpgradeCheck];
         // Reclaim orphaned ~90 MB uv install temps left by a crash mid-install.
         [[iTermUvProvisioner shared] sweepOrphanedInstallTemps];
     }
@@ -2584,14 +2565,8 @@ static iTermKeyEventReplayer *gReplayer;
     }
     [[iTermController sharedInstance] setStartingUp:YES];
 
-    // Check if we have an autolaunch script to execute. Do it only once, i.e. at application launch.
-    BOOL ranAutoLaunchScripts = NO;
-    if (![self isAppleScriptTestApp] &&
-        ![[NSApplication sharedApplication] isRunningUnitTests]) {
-        DLog(@"Run autolaunch scripts if needed");
-        ranAutoLaunchScripts = [self.scriptsMenuController runAutoLaunchScriptsIfNeeded];
-    }
-    DLog(@"ranAutoLaunchScripts=%@", @(ranAutoLaunchScripts));
+    // Scripts never run at launch. Scripts in the AutoLaunch folder stay in the
+    // Scripts menu and run only when the user picks them.
 
     if ([WindowArrangements defaultArrangementName] == nil &&
         [WindowArrangements arrangementWithName:LEGACY_DEFAULT_ARRANGEMENT_NAME] != nil) {
@@ -2610,7 +2585,7 @@ static iTermKeyEventReplayer *gReplayer;
     if ([iTermPreferences boolForKey:kPreferenceKeyOpenArrangementAtStartup]) {
         // Open the saved arrangement at startup.
         [[iTermController sharedInstance] loadWindowArrangementWithName:[WindowArrangements defaultArrangementName]];
-    } else if ([self shouldOpenUntitledFileAfterRunningAutoLaunchScripts:ranAutoLaunchScripts]) {
+    } else if ([self shouldOpenUntitledFileAtStartup]) {
         // This opens the initial untitled window when needed. -applicationOpenUntitledFile is
         // called for both the initial window (unreliably) and also when clicking on the dock with
         // no windows.
@@ -2624,7 +2599,7 @@ static iTermKeyEventReplayer *gReplayer;
     [iTermLaunchExperienceController performStartupActivities];
 }
 
-- (BOOL)shouldOpenUntitledFileAfterRunningAutoLaunchScripts:(BOOL)ranAutoLaunchScripts {
+- (BOOL)shouldOpenUntitledFileAtStartup {
     if ([self isAppleScriptTestApp]) {
         return NO;
     }
@@ -2647,9 +2622,6 @@ static iTermKeyEventReplayer *gReplayer;
     const BOOL alwaysOpen = [iTermPreferences boolForKey:kPreferenceKeyAlwaysOpenWindowAtStartup];
     if (alwaysOpen) {
         return YES;
-    }
-    if (ranAutoLaunchScripts) {
-        return NO;
     }
     if ([[[iTermHotKeyController sharedInstance] profileHotKeys] count] > 0) {
         return NO;
@@ -3947,12 +3919,16 @@ static iTermKeyEventReplayer *gReplayer;
     [[iTermApplication sharedApplication] setIsUIElement:enableLSUI];
 }
 
-- (PseudoTerminal *)terminalToOpenFileIn {
-    if ([iTermAdvancedSettingsModel openFileInNewWindows]) {
-        return nil;
-    } else {
-        return [self currentTerminal];
+- (iTermOpenStyle)openStyleForOpeningFile {
+    const NSInteger preference = [iTermAdvancedSettingsModel newInstanceOpenStyle];
+    if (preference >= 0 && preference <= iTermOpenStyleFloatingPane) {
+        return (iTermOpenStyle)preference;
     }
+    return iTermOpenStyleTab;
+}
+
+- (PseudoTerminal *)terminalToOpenFileIn {
+    return [self currentTerminal];
 }
 
 - (void)updateScreenParametersInAllTerminals {
@@ -3969,15 +3945,7 @@ static iTermKeyEventReplayer *gReplayer;
 
 - (BOOL)possiblyTmuxValueForWindow:(BOOL)isWindow cancel:(BOOL *)cancel {
     *cancel = NO;
-    static NSString *const legacyKey = @"NoSyncNewWindowOrTabFromTmuxOpensTmux";
-    NSString *key;
-    if ([iTermWarning identifierIsSilenced:legacyKey]) {
-        key = legacyKey;
-    } else if (isWindow) {
-        key = @"NoSyncNewWindowFromTmuxOpensTmux";
-    } else {
-        key = @"NoSyncNewTabFromTmuxOpensTmux";
-    }
+    NSString *const key = isWindow ? @"NoSyncNewWindowFromTmuxOpensTmux" : @"NoSyncNewTabFromTmuxOpensTmux";
 
     if ([[[[iTermController sharedInstance] currentTerminal] currentSession] isTmuxClient]) {
         // Use complete per-case sentences rather than injecting a translated "window"/"tab" noun

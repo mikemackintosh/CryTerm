@@ -437,7 +437,8 @@ final class UvProvisionerLiveTests: XCTestCase {
             cacheDir: (root as NSString).appendingPathComponent("cache"),
             container: container,
             requestedPythonVersion: "3.9",
-            dependencies: [])
+            dependencies: [],
+            willBuild: { _, _ in true })  // This live test installs on purpose.
         switch result {
         case .failure(let error):
             XCTFail("provisioning failed: \(error)")

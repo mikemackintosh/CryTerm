@@ -65,7 +65,6 @@ extern NSNotificationName iTermScriptsFolderDidChange;
 - (NSString *)fontsDirectory;
 
 // Path to special auto-launch script that is run at startup.
-- (NSString *)legacyAutolaunchScriptPath;  // applescript
 - (NSString *)autolaunchScriptPath;  // scripting API
 - (NSString *)autolaunchScriptPathCreatingLink;  // scripting API
 

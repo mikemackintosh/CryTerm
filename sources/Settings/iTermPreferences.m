@@ -72,8 +72,6 @@ NSString *const kPreferenceKeyAllowClipboardAccessFromTerminal = @"AllowClipboar
 NSString *const kPreferenceKeyCharactersConsideredPartOfAWordForSelection = @"WordCharacters";
 NSString *const kPreferenceKeyCharactersConsideredPartOfAWordForSelectionMode = @"WordSelectionMode";
 NSString *const kPreferenceKeyWordSelectionRegexPattern = @"WordSelectionRegexPattern";
-NSString *const kPreferenceKeySmartWindowPlacement_Deprecated = @"SmartPlacement";
-NSString *const kPreferenceKeyUseAutoSaveFrames_Deprecated = @"RememberWindowPositions";
 NSString *const kPreferenceKeyWindowPlacement = @"WindowPlacement";
 NSString *const kPreferenceKeyAdjustWindowForFontSizeChange = @"AdjustWindowForFontSizeChange";
 NSString *const kPreferenceKeyMaximizeVerticallyOnly = @"MaxVertically";
@@ -107,7 +105,6 @@ NSString *const kPhonyPreferenceKeyInstallAIPlugin = @"NoUserDefault Install AI 
 NSString *const kPreferenceKeyBidi = @"Bidi";  // Bool
 NSString *const kPreferenceKeySshIntegrationForURLs = @"SshIntegrationForURLs";  // Bool
 
-NSString *const kPreferenceKeyTabStyle_Deprecated = @"TabStyle";  // Pre-10.14
 NSString *const kPreferenceKeyTabStyle = @"TabStyleWithAutomaticOption";  // Pre-10.14
 NSString *const kPreferenceKeyTabPosition = @"TabViewType";
 NSString *const kPreferenceKeyStatusBarPosition = @"StatusBarPosition";
@@ -117,7 +114,6 @@ NSString *const kPreferenceKeyHideTabBar = @"HideTab";
 NSString *const kPreferenceKeyHideTabNumber = @"HideTabNumber";
 NSString *const kPreferenceKeyPreserveWindowSizeWhenTabBarVisibilityChanges = @"PreserveWindowSizeWhenTabBarVisibilityChanges";
 NSString *const kPreferenceKeyPreserveWindowSizeToKeepOnScreenWhenTabBarVisibilityChanges = @"PreserveWindowSizeToKeepOnScreenWhenTabBarVisibilityChanges";
-NSString *const kPreferenceKeyHideTabCloseButton = @"HideTabCloseButton";  // Deprecated
 NSString *const kPreferenceKeyTabsHaveCloseButton = @"TabsHaveCloseButton";
 NSString *const kPreferenceKeyHideTabActivityIndicator = @"HideActivityIndicator";
 NSString *const kPreferenceKeyShowNewOutputIndicator = @"ShowNewOutputIndicator";
@@ -133,8 +129,6 @@ NSString *const kPreferenceKeyShowMenuBarItem = @"ShowMenuBarItem";
 NSString *const kPreferenceKeyMenuBarItemString = @"MenuBarItemString";
 NSString *const kPreferenceKeyFlashTabBarInFullscreen = @"FlashTabBarInFullscreen";
 NSString *const kPreferenceKeyShowWindowNumber = @"WindowNumber";
-NSString *const kPreferenceKeyShowJobName_Deprecated = @"JobName";
-NSString *const kPreferenceKeyShowProfileName_Deprecated = @"ShowBookmarkName";  // The key predates bookmarks being renamed to profiles
 NSString *const kPreferenceKeyDimOnlyText = @"DimOnlyText";
 NSString *const kPreferenceKeyDimmingAmount = @"SplitPaneDimmingAmount";
 NSString *const kPreferenceKeyDimInactiveSplitPanes = @"DimInactiveSplitPanes";
@@ -146,7 +140,6 @@ NSString *const kPreferenceKeyEnableProxyIcon = @"EnableProxyIcon";
 NSString *const kPreferenceKeyDimBackgroundWindows = @"DimBackgroundWindows";
 NSString *const kPreferenceKeySeparateStatusBarsPerPane = @"SeparateStatusBarsPerPane";
 
-NSString *const kPreferenceKeyControlRemapping_Deprecated = @"Control"; // deprecated
 NSString *const kPreferenceKeyLeftControlRemapping = @"LeftControl";
 NSString *const kPreferenceKeyRightControlRemapping = @"RightControl";
 NSString *const kPreferenceKeyLeftOptionRemapping = @"LeftOption";
@@ -175,9 +168,6 @@ NSString *const kPreferenceKeyForceKeyboardOncePerSession = @"ForceKeyboardOnceP
 NSString *const kPreferenceKeyAllowSymbolicHotKeys = @"AllowSymbolicHotKeys";  // bool
 NSString *const kPreferenceKeyKeyboardLocale = @"KeyboardLocale";  // string
 NSString *const kPreferenceKeyRemapModifiersGlobally = @"RemapModifiersGlobally";  // bool
-NSString *const kPreferenceKeyHotKeyTogglesWindow_Deprecated = @"HotKeyTogglesWindow";  // deprecated
-NSString *const kPreferenceKeyHotkeyProfileGuid_Deprecated = @"HotKeyBookmark";  // deprecated
-NSString *const kPreferenceKeyHotkeyAutoHides_Deprecated = @"HotkeyAutoHides";  // deprecated
 
 NSString *const kPreferenceKeyCmdClickOpensURLs = @"CommandSelection";
 NSString *const kPreferenceKeyControlLeftClickBypassesContextMenu = @"PassOnControlClick";
@@ -751,8 +741,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyCharactersConsideredPartOfAWordForSelection: @"/-+\\~_.",
                   kPreferenceKeyCharactersConsideredPartOfAWordForSelectionMode: @(iTermSelectionWordModeCharacterList),
                   kPreferenceKeyWordSelectionRegexPattern: @"-|\\+|\\\\|~|_",
-                  kPreferenceKeySmartWindowPlacement_Deprecated: @NO,
-                  kPreferenceKeyUseAutoSaveFrames_Deprecated: @NO,
                   kPreferenceKeyWindowPlacement: @(iTermWindowPlacementPosition),
                   kPreferenceKeyAdjustWindowForFontSizeChange: @YES,
                   kPreferenceKeyMaximizeVerticallyOnly: @NO,
@@ -832,7 +820,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyAIPermissionWriteToFilesystem: @(iTermAIPermissionAsk),
                   kPreferenceKeyAIPermissionActInWebBrowser: @(iTermAIPermissionAsk),
 
-                  kPreferenceKeyTabStyle_Deprecated: @(TAB_STYLE_LIGHT),
                   kPreferenceKeyTabStyle: @(TAB_STYLE_LIGHT),
                   
                   kPreferenceKeyTabPosition: @(TAB_POSITION_TOP),
@@ -843,7 +830,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyHideTabNumber: @NO,
                   kPreferenceKeyPreserveWindowSizeWhenTabBarVisibilityChanges: @NO,
                   kPreferenceKeyPreserveWindowSizeToKeepOnScreenWhenTabBarVisibilityChanges: @NO,
-                  kPreferenceKeyHideTabCloseButton: @NO,  // Deprecated
                   kPreferenceKeyTabsHaveCloseButton: @YES,
                   kPreferenceKeyHideTabActivityIndicator: @NO,
                   kPreferenceKeyShowNewOutputIndicator: @YES,
@@ -860,8 +846,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyMenuBarItemString: @"",
                   kPreferenceKeyFlashTabBarInFullscreen:@NO,
                   kPreferenceKeyShowWindowNumber: @YES,
-                  kPreferenceKeyShowJobName_Deprecated: @YES,
-                  kPreferenceKeyShowProfileName_Deprecated: @NO,
                   kPreferenceKeyDimOnlyText: @NO,
                   kPreferenceKeyDimmingAmount: @0.4,
                   kPreferenceKeyDimInactiveSplitPanes: @YES,
@@ -873,7 +857,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyDimBackgroundWindows: @NO,
                   kPreferenceKeySeparateStatusBarsPerPane: @NO,
 
-                  kPreferenceKeyControlRemapping_Deprecated: @(kPreferencesModifierTagLegacyRightControl),
                   kPreferenceKeyLeftControlRemapping: @(kPreferencesModifierTagLeftControl),
                   kPreferenceKeyRightControlRemapping: @(kPreferencesModifierTagRightControl),
                   kPreferenceKeyKeyboardLocale: [NSNull null],
@@ -898,9 +881,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyOpenQuicklyHotKeyCode: @0,
                   kPreferenceKeyOpenQuicklyHotkeyCharacter: @0,
                   kPreferenceKeyOpenQuicklyHotkeyModifiers: @0,
-                  kPreferenceKeyHotKeyTogglesWindow_Deprecated: @NO,
-                  kPreferenceKeyHotkeyProfileGuid_Deprecated: [NSNull null],
-                  kPreferenceKeyHotkeyAutoHides_Deprecated: @YES,
                   kPreferenceKeyEnableHapticFeedbackForEsc: @NO,
                   kPreferenceKeyEnableSoundForEsc: @NO,
                   kPreferenceKeyVisualIndicatorForEsc: @NO,
@@ -1026,10 +1006,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyCharactersConsideredPartOfAWordForSelection: BLOCK(computedWordChars),
                   kPreferenceKeyTabStyle: BLOCK(computedTabStyle),
                   kPreferenceKeyUseMetal: BLOCK(computedUseMetal),
-                  kPreferenceKeyTabsHaveCloseButton: BLOCK(computedTabsHaveCloseButton),
-                  kPreferenceKeyLeftControlRemapping: BLOCK(computedLeftControlRemapping),
-                  kPreferenceKeyRightControlRemapping: BLOCK(computedRightControlRemapping),
-                  kPreferenceKeyWindowPlacement: BLOCK(computedWindowPlacement),
                   kPreferenceKeyHideTabBar: BLOCK(computedHideTabBar),
                   };
     }
@@ -1245,63 +1221,6 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
     }
     // New value is not set yet. This migrates all users to automatic.
     return @(TAB_STYLE_AUTOMATIC);
-}
-
-+ (NSNumber *)computedLeftControlRemapping {
-    NSNumber *value;
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyLeftControlRemapping];
-    if (value) {
-        return value;
-    }
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyControlRemapping_Deprecated];
-    if (value) {
-        return @(value.intValue);
-    }
-    return [self defaultObjectForKey:kPreferenceKeyLeftControlRemapping];
-}
-
-+ (NSNumber *)computedWindowPlacement {
-    NSNumber *value;
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyWindowPlacement];
-    if (value) {
-        return value;
-    }
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeySmartWindowPlacement_Deprecated];
-    if (value.boolValue) {
-        return @(iTermWindowPlacementSmart);
-    }
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyUseAutoSaveFrames_Deprecated];
-    if (value.boolValue) {
-        return @(iTermWindowPlacementSizeAndPosition);
-    }
-    return [self defaultObjectForKey:kPreferenceKeyWindowPlacement];
-}
-
-+ (NSNumber *)computedRightControlRemapping {
-    NSNumber *value;
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyRightControlRemapping];
-    if (value) {
-        return value;
-    }
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyControlRemapping_Deprecated];
-    if (value) {
-        return @(value.intValue);
-    }
-    return [self defaultObjectForKey:kPreferenceKeyRightControlRemapping];
-}
-+ (NSNumber *)computedTabsHaveCloseButton {
-    NSNumber *value;
-    value = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyTabsHaveCloseButton];
-    if (value) {
-        return value;
-    }
-
-    value = [[iTermUserDefaults userDefaults] objectForKey:@"eliminateCloseButtons"];
-    if (value) {
-        return @(!value.boolValue);
-    }
-
-    return [self defaultObjectForKey:kPreferenceKeyTabsHaveCloseButton];
 }
 
 + (NSNumber *)computedUseMetal {

@@ -39,7 +39,6 @@
 #import "iTermDynamicProfileManager.h"
 #import "iTermExpressionEvaluator.h"
 #import "iTermHotKeyController.h"
-#import "iTermHotKeyMigrationHelper.h"
 #import "iTermHotKeyProfileBindingController.h"
 #import "iTermKeyMappings.h"
 #import "iTermMigrationHelper.h"
@@ -290,16 +289,6 @@ iTermPercentage iTermPercentageFromProfile(Profile *profile, iTermWindowType win
     if (self) {
         NSUserDefaults* prefs = [iTermUserDefaults userDefaults];
         _dynamicProfileManager = [iTermDynamicProfileManager sharedInstance];
-        if ([prefs objectForKey:KEY_DEPRECATED_BOOKMARKS] &&
-            [[prefs objectForKey:KEY_DEPRECATED_BOOKMARKS] isKindOfClass:[NSDictionary class]] &&
-            ![prefs objectForKey:KEY_NEW_BOOKMARKS]) {
-            // Have only old-style bookmarks. Load them and convert them to new-style
-            // bookmarks.
-            [iTermMigrationHelper recursiveMigrateBookmarks:[prefs objectForKey:KEY_DEPRECATED_BOOKMARKS] path:@[]];
-            [prefs removeObjectForKey:KEY_DEPRECATED_BOOKMARKS];
-            [prefs setObject:[[ProfileModel sharedInstance] rawData] forKey:KEY_NEW_BOOKMARKS];
-            [[ProfileModel sharedInstance] removeAllBookmarks];
-        }
 
         iTermProfilesMenuController *menuController = [[iTermProfilesMenuController alloc] init];
         [[ProfileModel sharedInstance] setMenuController:menuController];
@@ -375,7 +364,6 @@ iTermPercentage iTermPercentageFromProfile(Profile *profile, iTermWindowType win
             [[ProfileModel sharedInstance] setDefaultByGuid:originalDefaultGuid];
         }
 
-        [[iTermHotKeyMigrationHelper sharedInstance] migrateSingleHotkeyToMulti];
         if (@available(macOS 15, *)) {
             [iTermMigrationHelper askToRemoveDeprecatedKeyMappingsIfNeeded];
         }
@@ -535,10 +523,6 @@ iTermPercentage iTermPercentageFromProfile(Profile *profile, iTermWindowType win
         }
     }
     [[ProfileModel sharedInstance] removeBookmarksAtIndices:toRemove];
-}
-
-+ (NSString*)descFromFont:(NSFont*)font {
-    return [font stringValue];
 }
 
 + (void)setDefaultsInBookmark:(NSMutableDictionary*)aDict {

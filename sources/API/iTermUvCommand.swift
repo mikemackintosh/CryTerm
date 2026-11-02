@@ -50,15 +50,21 @@ enum iTermUvCommand {
         return ["venv", "--relocatable", "--python", pythonVersion, venvPath]
     }
 
-    // Install packages into an existing venv, wheels only. --only-binary :all: is
-    // what enforces the no-compiler guarantee: a source-only dependency fails
-    // loudly instead of silently trying to build.
-    static func pipInstallArgs(venvPythonPath: String, packages: [String], upgrade: Bool = false) -> [String] {
-        var arguments = ["pip", "install", "--python", venvPythonPath, "--only-binary", ":all:"]
-        if upgrade {
-            arguments.append("--upgrade")
-        }
-        return arguments + packages
+    // Install the locked package set (iterm2, certifi, pyobjc and their dependencies)
+    // into an existing venv: exactly the files recorded in the lock, each verified by
+    // hash. --only-binary :all: also enforces the no-compiler guarantee.
+    static func lockedInstallArgs(venvPythonPath: String, lockPath: String) -> [String] {
+        return ["pip", "install", "--python", venvPythonPath, "--only-binary", ":all:",
+                "--require-hashes", "-r", lockPath]
+    }
+
+    // Install a script's own dependencies, wheels only, held to the locked versions
+    // (-c) so they can't replace a hash-verified package with a different release.
+    static func constrainedInstallArgs(venvPythonPath: String,
+                                       constraintsPath: String,
+                                       packages: [String]) -> [String] {
+        return ["pip", "install", "--python", venvPythonPath, "--only-binary", ":all:",
+                "-c", constraintsPath] + packages
     }
 
     // List the python-build-standalone versions uv can DOWNLOAD as JSON, used to discover

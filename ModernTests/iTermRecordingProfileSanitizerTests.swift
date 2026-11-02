@@ -109,25 +109,15 @@ final class iTermRecordingProfileSanitizerTests: XCTestCase {
         XCTAssertNil(result[KEY_NORMAL_FONT])
     }
 
-    // Old recordings may carry deprecated keys that still affect rendering.
-    // They have no validators, so they are converted to their replacements.
-    func testDeprecatedRenderingKeysAreMigrated() {
-        let result = sanitize([KEY_USE_HFS_PLUS_MAPPING: true,
-                               KEY_DISABLE_BOLD: true])
-        XCTAssertEqual(result[KEY_UNICODE_NORMALIZATION] as? Int,
-                       Int(iTermUnicodeNormalization.hfsPlus.rawValue))
-        XCTAssertEqual(result[KEY_USE_BOLD_FONT] as? Bool, false)
-        XCTAssertNil(result[KEY_USE_HFS_PLUS_MAPPING])
-        XCTAssertNil(result[KEY_DISABLE_BOLD])
-    }
-
-    func testDeprecatedKeysDoNotOverrideModernOnes() {
-        let result = sanitize([KEY_USE_HFS_PLUS_MAPPING: true,
-                               KEY_UNICODE_NORMALIZATION: Int(iTermUnicodeNormalization.NFC.rawValue),
-                               KEY_DISABLE_BOLD: true,
+    // Old recordings may carry keys iTerm2 no longer reads. They are dropped,
+    // not converted, and never override the modern keys.
+    func testRemovedKeysAreDroppedNotConverted() {
+        let result = sanitize(["Use HFS Plus Mapping": true,
+                               "Disable Bold": true,
                                KEY_USE_BOLD_FONT: true])
-        XCTAssertEqual(result[KEY_UNICODE_NORMALIZATION] as? Int,
-                       Int(iTermUnicodeNormalization.NFC.rawValue))
+        XCTAssertNil(result["Use HFS Plus Mapping"])
+        XCTAssertNil(result["Disable Bold"])
+        XCTAssertNil(result[KEY_UNICODE_NORMALIZATION])
         XCTAssertEqual(result[KEY_USE_BOLD_FONT] as? Bool, true)
     }
 

@@ -24,7 +24,7 @@ class iTermAITermGatekeeper: NSObject {
         DLog("check")
         if !iTermAdvancedSettingsModel.generativeAIAllowed() {
             if !silent {
-                iTermWarning.show(withTitle: String(localized: "AITermGatekeeper.GenerativeAIDisabled", defaultValue: "Generative AI features have been disabled. Check with your system administrator.", comment: "Warning shown when generative AI is disabled by policy"),
+                iTermWarning.show(withTitle: String(localized: "AITermGatekeeper.NotInThisBuild", defaultValue: "This build of iTerm2 doesn’t connect to AI services, so AI features are turned off.", comment: "Warning shown when the user tries an AI feature in a build that never contacts AI services"),
                                   actions: [iTermLocalizedOK()],
                                   accessory: nil,
                                   identifier: nil,

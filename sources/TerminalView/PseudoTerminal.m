@@ -92,7 +92,6 @@
 #import "iTermFunctionCallTextFieldDelegate.h"
 #import "iTermGraphEncoder.h"
 #import "iTermHotKeyController.h"
-#import "iTermHotKeyMigrationHelper.h"
 #import "iTermImageView.h"
 #import "iTermInstantReplayWindowController.h"
 #import "iTermKeyMappings.h"
@@ -3785,14 +3784,8 @@ typedef NS_ENUM(NSInteger, iTermCloseSubject) {
     if (!guid) {
         // Something went wrong and we don't know the GUID. Or you just upgraded and a GUID wasn't
         // saved because it's new.
-        if ([[iTermHotKeyMigrationHelper sharedInstance] didMigration] && [[[iTermHotKeyController sharedInstance] profileHotKeys] count] == 1) {
-            iTermProfileHotKey *profileHotKey = [[[iTermHotKeyController sharedInstance] profileHotKeys] firstObject];
-            guid = profileHotKey.profile[KEY_GUID];
-            RLog(@"Restoring an arrangement with a hotkey window but its profile's GUID is missing. Guessing that it's the profile named %@ because there is only one hotkey profile", profileHotKey.profile[KEY_NAME]);
-        } else {
-            RLog(@"Restoring an arrangement with a hotkey window but its profile's GUID is missing. There is more than one hotkey profile so I give up.");
-            return NO;
-        }
+        RLog(@"Restoring an arrangement with a hotkey window but its profile's GUID is missing. Not restoring it.");
+        return NO;
     }
     BOOL foundHotKey = NO;
     for (iTermProfileHotKey *hotKey in [[iTermHotKeyController sharedInstance] profileHotKeys]) {

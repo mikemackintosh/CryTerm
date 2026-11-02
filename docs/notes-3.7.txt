@@ -360,6 +360,44 @@ New Features:
   connected to.
 
 Improvements:
+- Open Quickly has been redesigned as a wide
+  panel: matches on the left, and on the right a
+  live preview of the highlighted session with
+  its window, tab, pane, directory, and command.
+  Each session shows in its own colors, and the
+  first nine rows open with ⌘1 through ⌘9.
+- Open Quickly now also searches the text of
+  every session’s scrollback, case-insensitively,
+  once you type three or more characters. Pick a
+  matching line to jump to it.
+- Open Quickly’s shortcut is now ⌘K, and Clear
+  Buffer has moved to ⇧⌘O. Change either in
+  Settings > Keys > Key Bindings.
+- iTerm2 no longer updates the Python runtime or
+  its packages in the background. To update,
+  choose Scripts > Manage > Check for Updated
+  Runtime.
+- Before installing Python packages for a
+  script, iTerm2 shows which packages and
+  versions it will install and asks first.
+- Python scripts now get iterm2, certifi, pyobjc,
+  and their dependencies at fixed versions, and
+  each download is checked against a recorded
+  hash before it is installed.
+- AutoLaunch scripts no longer run when iTerm2
+  starts. They still appear in the Scripts menu,
+  where you can run them yourself.
+- Settings that older versions of iTerm2
+  replaced long ago, such as the original global
+  hotkey window, are no longer converted to their
+  replacements.
+- The AddNote and AddHiddenNote escape sequences
+  have been removed. Use AddAnnotation and
+  AddHiddenAnnotation instead.
+- iTerm2 never connects to AI services such as
+  OpenAI, Anthropic, Gemini, or Ollama. AI
+  features are turned off and can’t be turned
+  back on.
 - zsh, fish, and tcsh Shell Integration now mark
   the right-hand prompt, so Select Current Command
   and saved commands leave it out. In tcsh this

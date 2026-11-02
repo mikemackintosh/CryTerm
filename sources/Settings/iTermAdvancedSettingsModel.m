@@ -283,7 +283,6 @@ DEFINE_SETTABLE_BOILERPLATE(name, capitalizedName, NSString *, kiTermAdvancedSet
 
 #pragma mark -
 
-#define DEFINE_DEPRECATED_STRING(name, theDefault, theCategory, theDescription) DEFINE_STRING(name, theDefault, theCategory, theDescription); + (BOOL)deprecated_##name { return YES; }
 // Convenience default value for boolean settings that are on for beta users.
 #if BETA
 #define YES_IF_BETA_ELSE_NO YES
@@ -316,7 +315,7 @@ BOOL UseSystemCursorWhenPossibleDefault(void) {
     [self enumerateMethods:^(Method method, SEL selector) {
         NSString *name = NSStringFromSelector(selector);
         NSString *prefix = @"advancedSettingsModelDictionary_";
-        if ([name hasPrefix:prefix] && ![self settingIsDeprecated:[name stringByRemovingPrefix:prefix]]) {
+        if ([name hasPrefix:prefix]) {
             NSDictionary *(*impl)(id, SEL) = (NSDictionary *(*)(id, SEL))method_getImplementation(method);
             NSDictionary *dict = impl(self, selector);
             block(dict);
@@ -324,11 +323,6 @@ BOOL UseSystemCursorWhenPossibleDefault(void) {
     }];
 }
 
-+ (BOOL)settingIsDeprecated:(NSString *)name {
-    NSString *string = [@"deprecated_" stringByAppendingString:name];
-    SEL selector = NSSelectorFromString(string);
-    return [self respondsToSelector:selector];
-}
 #pragma mark Tabs
 
 #define SECTION_TABS @"Tabs"
@@ -500,8 +494,6 @@ DEFINE_INT(bufferDepth, 40, SECTION_TERMINAL, NSLocalizedStringWithDefaultValue(
 #define SECTION_HOTKEY @"Hotkey"
 DEFINE_FLOAT(hotkeyTermAnimationDuration, 0.25, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.hotkeyTermAnimationDuration", nil, [NSBundle mainBundle], @"Duration in seconds of the hotkey window animation.\nWarning: reducing this value may cause problems if you have multiple displays.", @"Advanced setting: hotkeyTermAnimationDuration"));
 DEFINE_FLOAT(openQuicklyAnimationDuration, 0.12, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.openQuicklyAnimationDuration", nil, [NSBundle mainBundle], @"Duration in seconds of the Open Quickly window height animation.\nSet to 0 to disable the animation.", @"Advanced setting: openQuicklyAnimationDuration"));
-DEFINE_BOOL(dockIconTogglesWindow, NO, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.dockIconTogglesWindow", nil, [NSBundle mainBundle], @"If the only window is a hotkey window, then clicking the dock icon shows or hides it.", @"Advanced setting: dockIconTogglesWindow"));
-DEFINE_BOOL(hotkeyWindowFloatsAboveOtherWindows, NO, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.hotkeyWindowFloatsAboveOtherWindows", nil, [NSBundle mainBundle], @"The hotkey window floats above other windows even when another application is active.\nYou must disable “Settings > Keys > Hotkey window hides when focus is lost” for this setting to be effective.", @"Advanced setting: hotkeyWindowFloatsAboveOtherWindows"));
 DEFINE_FLOAT(hotKeyDoubleTapMaxDelay, 0.3, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.hotKeyDoubleTapMaxDelay", nil, [NSBundle mainBundle], @"The maximum amount of time allowed between presses of a modifier key when performing a modifier double-tap.", @"Advanced setting: hotKeyDoubleTapMaxDelay"));
 DEFINE_FLOAT(hotKeyDoubleTapMinDelay, 0.01, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.hotKeyDoubleTapMinDelay", nil, [NSBundle mainBundle], @"The minimum amount of time required between presses of a modifier key when performing a modifier double-tap.", @"Advanced setting: hotKeyDoubleTapMinDelay"));
 DEFINE_BOOL(showPinnedIndicator, NO, SECTION_HOTKEY, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.showPinnedIndicator", nil, [NSBundle mainBundle], @"Show indicator for pinned hotkey windows.", @"Advanced setting: showPinnedIndicator"));
@@ -695,8 +687,6 @@ DEFINE_BOOL(bootstrapDaemon, YES, SECTION_SESSION, NSLocalizedStringWithDefaultV
 DEFINE_BOOL(killJobsInServersOnQuit, YES, SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.killJobsInServersOnQuit", nil, [NSBundle mainBundle], @"User-initiated Quit (⌘Q) of iTerm2 will kill all running jobs.\nApplies only when session restoration is on.", @"Advanced setting: killJobsInServersOnQuit"));
 DEFINE_SETTABLE_BOOL(suppressRestartAnnouncement, SuppressRestartAnnouncement, NO, SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.suppressRestartAnnouncement", nil, [NSBundle mainBundle], @"Suppress the Restart Session offer.\nWhen a session terminates, it will offer to restart itself. Turn this on to suppress the offer permanently.", @"Advanced setting: suppressRestartAnnouncement"));
 DEFINE_BOOL(showSessionRestoredBanner, YES, SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.showSessionRestoredBanner", nil, [NSBundle mainBundle], @"When restoring a session without restoring a running job, draw a banner saying “Session Contents Restored” below the restored contents.", @"Advanced setting: showSessionRestoredBanner"));
-DEFINE_DEPRECATED_STRING(autoLogFormat,
-                         @"\\(creationTimeString).\\(profileName).\\(termid).\\(iterm2.pid).\\(autoLogId).log", SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.autoLogFormat", nil, [NSBundle mainBundle], @"Format for automatic session log filenames.\nSee the Badges documentation for supported substitutions.", @"Advanced setting: autoLogFormat"));
 DEFINE_BOOL(autologAppends, YES, SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.autologAppends", nil, [NSBundle mainBundle], @"Automatic session logging appends to existing files.\nWhen set to No, the file will be overwritten instead.", @"Advanced setting: autologAppends"));
 DEFINE_STRING(logTimestampFormat, @"yyyy-MM-dd hh.mm.ss.SSS", SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.logTimestampFormat", nil, [NSBundle mainBundle], @"Format for log timestamps. See Unicode TR 35-31 for syntax.\nYou must restart iTerm2 for changes to this setting to take effect.", @"Advanced setting: logTimestampFormat"));
 DEFINE_BOOL(focusNewSplitPaneWithFocusFollowsMouse, YES, SECTION_SESSION, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.focusNewSplitPaneWithFocusFollowsMouse", nil, [NSBundle mainBundle], @"When focus follows mouse is enabled, should new split panes automatically be focused?", @"Advanced setting: focusNewSplitPaneWithFocusFollowsMouse"));
@@ -720,10 +710,7 @@ DEFINE_STRING(sessionFinishedMessageText, @"Finished", SECTION_SESSION, NSLocali
 
 #define SECTION_WINDOWS @"Windows"
 
-DEFINE_BOOL(openFileInNewWindows, NO, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.openFileInNewWindows", nil, [NSBundle mainBundle], @"DEPRECATED: Use “How should new instances be opened” instead.\nOpen files in new windows, not new tabs or split panes.\nThis affects shell scripts opened from Finder, for example. See also “Open files in split panes”.", @"Advanced setting: openFileInNewWindows"));
-DEFINE_BOOL(openFileInSplitPanes, NO, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.openFileInSplitPanes", nil, [NSBundle mainBundle], @"DEPRECATED: Use “How should new instances be opened” instead.\nOpen files in split panes.\nThis affects shell scripts opened from Finder, for example. You must set “Open files in new windows, not new tabs” to “No” for this to take effect. See also “When opening a file in a split pane, should it be a vertical split?”", @"Advanced setting: openFileInSplitPanes"));
-DEFINE_BOOL(openFileInVerticalSplitPane, YES, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.openFileInVerticalSplitPane", nil, [NSBundle mainBundle], @"DEPRECATED: Use “How should new instances be opened” instead.\nWhen opening a file in a split pane, should it be a vertical split?", @"Advanced setting: openFileInVerticalSplitPane"))
-DEFINE_INT(newInstanceOpenStyle, -1, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.newInstanceOpenStyle", nil, [NSBundle mainBundle], @"How should new instances be opened when triggered by scripts or external applications?\n-1: Use legacy settings (default)\n0: New Window\n1: New Tab\n2: Vertical Split Pane\n3: Horizontal Split Pane\n4: Floating Pane\nThis provides a unified setting for controlling external instance creation.", @"Advanced setting: newInstanceOpenStyle"))
+DEFINE_INT(newInstanceOpenStyle, 1, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.newInstanceOpenStyle", nil, [NSBundle mainBundle], @"How should new instances be opened when triggered by scripts or external applications?\n0: New Window\n1: New Tab (default)\n2: Vertical Split Pane\n3: Horizontal Split Pane\n4: Floating Pane\nThis provides a unified setting for controlling external instance creation.", @"Advanced setting: newInstanceOpenStyle"))
 DEFINE_BOOL(disableWindowSizeSnap, NO, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.disableWindowSizeSnap", nil, [NSBundle mainBundle], @"Terminal windows resize smoothly.\nDisables snapping to character grid. Holding Control will temporarily disable snap-to-grid.", @"Advanced setting: disableWindowSizeSnap"));
 DEFINE_BOOL(profilesWindowJoinsActiveSpace, NO, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.profilesWindowJoinsActiveSpace", nil, [NSBundle mainBundle], @"If the Profiles window is open, it always moves to join the active Space.\nYou must restart iTerm2 for a change in this setting to take effect.", @"Advanced setting: profilesWindowJoinsActiveSpace"));
 DEFINE_BOOL(darkThemeHasBlackTitlebar, YES, SECTION_WINDOWS, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.darkThemeHasBlackTitlebar", nil, [NSBundle mainBundle], @"Dark themes give terminal windows black title bars by default.", @"Advanced setting: darkThemeHasBlackTitlebar"));
@@ -758,9 +745,8 @@ DEFINE_BOOL(leftAlignTitleBarMinimalTahoe, YES, SECTION_WINDOWS, NSLocalizedStri
 
 #define SECTION_TMUX @"Tmux Integration"
 
-DEFINE_BOOL(noSyncNewWindowOrTabFromTmuxOpensTmux, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.noSyncNewWindowOrTabFromTmuxOpensTmux", nil, [NSBundle mainBundle], @"Suppress alert asking what kind of tab/window to open in tmux integration. Affects both windows and tabs.\nThis setting predates having separate settings for windows vs tabs. If it is off, then the two new settings will take effect.", @"Advanced setting: noSyncNewWindowOrTabFromTmuxOpensTmux"));
-DEFINE_BOOL(noSyncNewWindowFromTmuxOpensTmux, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.noSyncNewWindowFromTmuxOpensTmux", nil, [NSBundle mainBundle], @"Suppress alert asking what kind of window to open in tmux integration.\nNOTE: This only takes effect if the now-deprecated “Suppress alert asking what kind of tab/window to open in tmux integration” setting is off.", @"Advanced setting: noSyncNewWindowFromTmuxOpensTmux"));
-DEFINE_BOOL(noSyncNewTabFromTmuxOpensTmux, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.noSyncNewTabFromTmuxOpensTmux", nil, [NSBundle mainBundle], @"Suppress alert asking what kind of tab to open in tmux integration.\nNOTE: This only takes effect if the now-deprecated “Suppress alert asking what kind of tab/window to open in tmux integration” setting is off.", @"Advanced setting: noSyncNewTabFromTmuxOpensTmux"));
+DEFINE_BOOL(noSyncNewWindowFromTmuxOpensTmux, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.noSyncNewWindowFromTmuxOpensTmux", nil, [NSBundle mainBundle], @"Suppress alert asking what kind of window to open in tmux integration.", @"Advanced setting: noSyncNewWindowFromTmuxOpensTmux"));
+DEFINE_BOOL(noSyncNewTabFromTmuxOpensTmux, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.noSyncNewTabFromTmuxOpensTmux", nil, [NSBundle mainBundle], @"Suppress alert asking what kind of tab to open in tmux integration.", @"Advanced setting: noSyncNewTabFromTmuxOpensTmux"));
 DEFINE_BOOL(tolerateUnrecognizedTmuxCommands, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.tolerateUnrecognizedTmuxCommands", nil, [NSBundle mainBundle], @"Tolerate unrecognized commands from server.\nIf disabled, an unknown command from tmux (such as output from ssh or wall) will end the session. Turning this off helps detect dead ssh sessions.", @"Advanced setting: tolerateUnrecognizedTmuxCommands"));
 DEFINE_BOOL(useBlackFillerColorForTmuxInFullScreen, NO, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.useBlackFillerColorForTmuxInFullScreen", nil, [NSBundle mainBundle], @"Use black for filler area in tmux windows in full screen.", @"Advanced setting: useBlackFillerColorForTmuxInFullScreen"));
 DEFINE_SETTABLE_OPTIONAL_BOOL(tmuxWindowsShouldCloseAfterDetach, TmuxWindowsShouldCloseAfterDetach, nil, SECTION_TMUX, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.tmuxWindowsShouldCloseAfterDetach", nil, [NSBundle mainBundle], @"Close tmux windows after detaching?\nThis only takes effect when “Settings > Profiles > Session > After a session ends” is set to “No Action”.", @"Advanced setting: tmuxWindowsShouldCloseAfterDetach"));
@@ -960,7 +946,22 @@ DEFINE_BOOL(chaseAnchoredScreen, NO, SECTION_EXPERIMENTAL, NSLocalizedStringWith
 DEFINE_STRING(codeciergeGhostRidingPrompt, @"You operate a terminal emulator for me. My goal is $GOAL. $CONTEXT. Ask clarifying questions as needed and run commands using the execute function when you're ready. When I've reached my goal, remind me to click the End Task button.", SECTION_EXPERIMENTAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.codeciergeGhostRidingPrompt", nil, [NSBundle mainBundle], @"Prompt to send to LLM for Codecierge when it is able to execute commands automatically.\n$GOAL and $CONTEXT are replaced with the user-specified goal and info about the running environment, respectively.", @"Advanced setting: codeciergeGhostRidingPrompt"));
 DEFINE_INT(codeciergeCommandWarningCount, 10, SECTION_EXPERIMENTAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.codeciergeCommandWarningCount", nil, [NSBundle mainBundle], @"After this many commands, make codecierge confirm that you intend to keep it enabled.", @"Advanced setting: codeciergeCommandWarningCount"));
 DEFINE_STRING(codeciergeRegularPrompt, @"You help a me in a terminal emulator. My goal is $GOAL. $CONTEXT. Start by suggesting a command. Don't overwhelm me with too much information: just go one step at a time. When I've reached my goal, remind me to click the End Task button.", SECTION_EXPERIMENTAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.codeciergeRegularPrompt", nil, [NSBundle mainBundle], @"Prompt to send to LLM for Codecierge when it is NOT able to execute commands automatically.\n$GOAL and $CONTEXT are replaced with the user-specified goal and info about the running environment, respectively.", @"Advanced setting: codeciergeRegularPrompt"));
-DEFINE_BOOL(generativeAIAllowed, YES, SECTION_GENERAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.generativeAIAllowed", nil, [NSBundle mainBundle], @"Allow the use of large language model APIs?\nThe purpose of this setting is to make it easy for managed environments to disable the use of LLMs. The user defaults key is `GenerativeAIAllowed`.", @"Advanced setting: generativeAIAllowed"));
+// This build never sends anything to an LLM service, so generative AI is
+// always off and no user default can turn it on. It is not an advanced
+// setting. Unit tests may still set GenerativeAIAllowed to cover both sides
+// of each gate; outside a test host the key is ignored.
++ (BOOL)generativeAIAllowed {
+    static BOOL runningUnderTests;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        runningUnderTests = (NSClassFromString(@"XCTestCase") != nil);
+    });
+    if (!runningUnderTests) {
+        return NO;
+    }
+    id value = [[iTermUserDefaults userDefaults] objectForKey:@"GenerativeAIAllowed"];
+    return value ? [value boolValue] : YES;
+}
 DEFINE_BOOL(companionPairingAllowed, YES, SECTION_GENERAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.companionPairingAllowed", nil, [NSBundle mainBundle], @"Allow pairing a companion iOS device?\nOff by default while this feature is in development. When off, the Companion Device Settings menu item is hidden. Managed environments can also use this to disable the feature. The user defaults key is `CompanionPairingAllowed`.", @"Advanced setting: companionPairingAllowed"));
 DEFINE_STRING(companionRelayOrigin, @"https://relay.iterm2.com", SECTION_GENERAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.companionRelayOrigin", nil, [NSBundle mainBundle], @"Relay origin for companion iOS device pairing.\nMust be a bare https origin (scheme and host, no path), such as https://companion-relay.iterm2.com. The relay is the only transport, so this must be set for pairing to work; forks can point it at their own Worker. Leave empty to disable the relay entirely. The user defaults key is `CompanionRelayOrigin`.", @"Advanced setting: companionRelayOrigin"));
 DEFINE_STRING(companionResolverURL, @"https://resolver.iterm2.com/shardmap.json", SECTION_GENERAL, NSLocalizedStringWithDefaultValue(@"AdvancedSetting.companionResolverURL", nil, [NSBundle mainBundle], @"Shard-map URL for companion iOS device pairing.\nAn https URL pointing directly at the static shard-map JSON, used to find the relay shard that serves the phone-to-mac connection. It is fetched verbatim (nothing is appended). Leave empty to use direct connections (such as if you run your own relay).", @"Advanced setting: companionResolverURL"));

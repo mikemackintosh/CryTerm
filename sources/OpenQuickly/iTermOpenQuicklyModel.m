@@ -180,117 +180,14 @@ static const double kProfileNameMultiplierForWindowItem = 0.08;
     return term.window.title ?: @"";
 }
 
-// Returns a function PTYSession -> (Feature name, Feature value) that gives the value which most distinguishes sessions from one another.
-- (iTermTuple<NSString *, NSString *> *(^)(PTYSession *))detailFunctionForSessions:(NSArray<PTYSession *> *)sessions {
-    // These blocks run per session per keystroke, so hoist the localized feature names out of the
-    // block bodies (the strings are constant across sessions and calls).
-    NSString *directoryName = NSLocalizedStringWithDefaultValue(@"OpenQuickly.FeatureDirectory", nil, [NSBundle mainBundle], @"Directory", @"Open Quickly feature name: directory");
-    NSString *commandName = NSLocalizedStringWithDefaultValue(@"OpenQuickly.FeatureCommand", nil, [NSBundle mainBundle], @"Command", @"Open Quickly feature name: command");
-    NSString *hostName = NSLocalizedStringWithDefaultValue(@"OpenQuickly.FeatureHost", nil, [NSBundle mainBundle], @"Host", @"Open Quickly feature name: host");
-    NSString *badgeName = NSLocalizedStringWithDefaultValue(@"OpenQuickly.FeatureBadge", nil, [NSBundle mainBundle], @"Badge", @"Open Quickly feature name: badge");
-    NSString *webSiteName = NSLocalizedStringWithDefaultValue(@"OpenQuickly.FeatureWebSite", nil, [NSBundle mainBundle], @"Web Site", @"Open Quickly feature name: web site");
-    iTermTriple<NSString *, NSString *, NSNumber *> *(^pwd)(PTYSession *) = ^id(PTYSession *session) {
-        return [iTermTriple tripleWithObject:directoryName
-                                   andObject:session.variablesScope.path
-                                   object:@(session.variablesScope.path.length > 0)];
-    };
-    iTermTriple<NSString *, NSString *, NSNumber *> *(^command)(PTYSession *) = ^id(PTYSession *session) {
-        return [iTermTriple tripleWithObject:commandName
-                                   andObject:session.commands.lastObject
-                                   object:@(session.commands.lastObject.length > 0)];
-    };
-    iTermTriple<NSString *, NSString *, NSNumber *> *(^hostname)(PTYSession *) = ^id(PTYSession *session) {
-        return [iTermTriple tripleWithObject:hostName
-                                   andObject:session.currentHost.usernameAndHostname
-                                   object:@(session.currentHost != nil)];
-    };
-    iTermTriple<NSString *, NSString *, NSNumber *> *(^badge)(PTYSession *) = ^id(PTYSession *session) {
-        return [iTermTriple tripleWithObject:badgeName
-                                   andObject:session.badgeLabel
-                                   object:@(session.badgeLabel.length > 0)];
-    };
-    iTermTriple<NSString *, NSString *, NSNumber *> *(^webSite)(PTYSession *) = ^id(PTYSession *session) {
-        return [iTermTriple tripleWithObject:webSiteName
-                                   andObject:session.webSiteTitle ?: @""
-                                      object:@(session.webSiteTitle.length > 0)];
-    };
-
-    // functions and functionValues are parallel arrays.
-    NSArray<iTermTriple<NSString *, NSString *, NSNumber *>  *(^)(PTYSession *)> *functions = @[ pwd, command, hostname, badge ];
-    if ([iTermBrowserGateway browserAllowedCheckingIfNot:NO]) {
-        functions = [functions arrayByAddingObject:webSite];
-    }
-    NSMutableArray<NSMutableArray *> *functionValues = [NSMutableArray array];
-    [functions enumerateObjectsUsingBlock:^(iTermTriple<NSString *, NSString *, NSNumber *>  *(^ _Nonnull obj)(PTYSession *), NSUInteger idx, BOOL * _Nonnull stop) {
-        [functionValues addObject:[NSMutableArray array]];
-    }];
-    [sessions enumerateObjectsUsingBlock:^(PTYSession * _Nonnull session, NSUInteger sessionIndex, BOOL * _Nonnull stop) {
-        [functions enumerateObjectsUsingBlock:^(iTermTriple<NSString *, NSString *, NSNumber *>  *(^ _Nonnull f)(PTYSession *), NSUInteger functionIndex, BOOL * _Nonnull stop) {
-            iTermTriple<NSString *, NSString *, NSNumber *>  *value = f(session);
-            if (value) {
-                [functionValues[functionIndex] addObject:value];
-            }
-        }];
-    }];
-
-    // indexes is the set of indexes that have values for all sessions.
-    NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-    [functionValues enumerateObjectsUsingBlock:^(NSMutableArray * _Nonnull values, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (values.count == sessions.count) {
-            [indexes addIndex:idx];
-        }
-    }];
-
-    // filteredFunction[Value]s is those functions and values that are usable by all sessions
-    NSMutableArray<iTermTriple<NSString *, NSString *, NSNumber *>  *(^)(PTYSession *)> *filteredFunctions = [NSMutableArray array];
-    NSMutableArray<NSMutableArray *> *filteredFunctionValues = [NSMutableArray array];
-    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-        [filteredFunctions addObject:functions[idx]];
-        [filteredFunctionValues addObject:functionValues[idx]];
-    }];
-    double (^variance)(NSArray<iTermTriple<NSString *, NSString *, NSNumber *>  *> *) = ^double(NSArray<iTermTriple<NSString *, NSString *, NSNumber *>  *> *tuples) {
-        NSSet<NSString *> *set = [NSSet setWithArray:[tuples mapWithBlock:^id _Nonnull(iTermTuple<NSString *,NSString *> * _Nonnull tuple) {
-            return tuple.secondObject;
-        }]];
-        return set.count;
-    };
-
-    // Indexes into filteredFunction[Value]s sorted by variance. The functions at the end of the list discriminate sessions better.
-    NSArray<NSNumber *> *sortedIndexes = [NSArray sequenceWithRange:NSMakeRange(0, filteredFunctionValues.count)];
-    sortedIndexes = [sortedIndexes sortedArrayUsingComparator:^NSComparisonResult(NSNumber *li, NSNumber *ri) {
-        NSMutableArray<iTermTriple<NSString *, NSString *, NSNumber *>  *> *obj1 = filteredFunctionValues[li.unsignedIntegerValue];
-        NSMutableArray<iTermTriple<NSString *, NSString *, NSNumber *>  *> *obj2 = filteredFunctionValues[ri.unsignedIntegerValue];
-        return [@(variance(obj1)) compare:@(variance(obj2))];
-    }];
-    if (sortedIndexes.count == 0) {
-        return nil;
-    }
-
-    // Return a function that can be called with a session to get its description.
-    return ^id(PTYSession *session) {
-        for (NSNumber *i in sortedIndexes.reversed) {
-            iTermTriple<NSString *, NSString *, NSNumber *> *candidate = filteredFunctions[i.unsignedIntegerValue](session);
-            if (candidate.thirdObject.boolValue) {
-                // The value for this session is valid.
-                return [iTermTuple tupleWithObject:candidate.firstObject
-                                         andObject:candidate.secondObject];
-            }
-        }
-        return nil;
-    };
-}
-
 - (void)addSessionLocationToItems:(NSMutableArray<iTermOpenQuicklyItem *> *)items
                     withMatcher:(iTermMinimumSubsequenceMatcher *)matcher {
     // The session the user is already in is never a useful jump target, so
-    // exclude it from results. This makes Cmd-Shift-O + Enter toggle to the
+    // exclude it from results. This makes Cmd-K + Enter toggle to the
     // most-recently-used other pane.
     PTYSession *currentSession = [[iTermController sharedInstance] currentTerminal].currentSession;
     DLog(@"OpenQuickly MRU: excluding current session guid=%@ name=%@",
          currentSession.guid, currentSession.name);
-
-    // (feature name, display string)
-    iTermTuple<NSString *, NSString *> *(^detailFunction)(PTYSession *) = [self detailFunctionForSessions:self.sessions];
 
     // Find the largest activity ordinal across all sessions. Used below to
     // turn each session's lastActivityOrdinal into a per-session score
@@ -331,9 +228,12 @@ static const double kProfileNameMultiplierForWindowItem = 0.08;
                 DLog(@"OpenQuickly MRU: guid=%@ name=%@ ordinal=%@ maxOrdinal=%@ recency=%f score=%f",
                      session.guid, session.name, @(session.lastActivityOrdinal), @(maxOrdinal), recency, item.score);
             }
-            iTermTuple<NSString *, NSAttributedString *> *detail = [self detailForSession:session features:features];
-            // "Feature: value" giving why this session was recalled.
-            item.detail = detail.secondObject;
+            if (matcher.query.length > 0 && attributedName.length == 0) {
+                // "Feature: value" giving why this session was recalled, when it
+                // wasn't its name. Otherwise leave it nil and let the view
+                // describe where the session is and what it's running.
+                item.detail = [self detailForSession:session features:features].secondObject;
+            }
             if (attributedName.length) {
                 item.title = attributedName;
             } else {
@@ -343,25 +243,6 @@ static const double kProfileNameMultiplierForWindowItem = 0.08;
             }
 
             item.identifier = session.guid;
-            if (detailFunction) {
-                iTermTuple<NSString *, NSString *> *detailTuple = detailFunction(session);
-                if (detailTuple) {
-                    // "Feature: value" giving identifying info about this session to distinguish it from others. Query-independent.
-                    NSAttributedString *refinement =
-                    [self.delegate openQuicklyModelAttributedStringForDetail:detailTuple.secondObject
-                                                                 featureName:detailTuple.firstObject];
-                    if (![detailTuple.firstObject isEqual:detail.firstObject] && item.detail != nil) {
-                        NSMutableAttributedString *temp = [item.detail mutableCopy];
-                        NSAttributedString *emdash = [[NSAttributedString alloc] initWithString:@" — "
-                                                                                     attributes:[item.detail attributesAtIndex:0 effectiveRange:nil]];
-                        [temp appendAttributedString:emdash];
-                        [temp appendAttributedString:refinement];
-                        item.detail = temp;
-                    } else {
-                        item.detail = refinement;
-                    }
-                }
-            }
             [items addObject:item];
         }
     }

@@ -148,8 +148,6 @@ static NSString *const iTermStatusBarRPCRegistrationRequestV2Key = @"registratio
     NSArray<iTermVariableReference *> *_dependencies;
     NSMutableSet<NSString *> *_missingFunctions;
     NSString *_errorMessage;  // Nil if the last evaluation was successful.
-    NSDate *_dateOfLaunchToFix;
-    NSString *_fullPath;
     BOOL _computedIcon;
     NSImage *_icon;
 }
@@ -384,37 +382,7 @@ static NSString *const iTermStatusBarRPCRegistrationRequestV2Key = @"registratio
      }];
 }
 
-- (void)maybeOfferToMoveScriptToAutoLaunch {
-    if (-[_dateOfLaunchToFix timeIntervalSinceNow] >= 1) {
-        return;
-    }
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        return;
-    }
-    iTermScriptsMenuController *menuController = [[[iTermApplication sharedApplication] delegate] scriptsMenuController];
-    if ([menuController scriptShouldAutoLaunchWithFullPath:_fullPath]) {
-        return;
-    }
-    if (![menuController couldMoveScriptToAutoLaunch:_fullPath]) {
-        return;
-    }
-
-    if ([iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"StatusBarRPC.MoveToAutoLaunchTitle", nil, [NSBundle mainBundle], @"This will move the script into the AutoLaunch folder.", @"Warning shown before moving a script into the AutoLaunch folder")
-                                   actions:@[ iTermLocalizedOK(), iTermLocalizedCancel() ]
-                                 accessory:nil
-                                identifier:[NSString stringWithFormat:@"NoSyncAutoLaunchScript_%@", _fullPath]
-                               silenceable:kiTermWarningTypePermanentlySilenceable
-                                   heading:NSLocalizedStringWithDefaultValue(@"StatusBarRPC.MoveToAutoLaunchHeading", nil, [NSBundle mainBundle], @"Always launch this script when iTerm2 starts?", @"Heading for the warning shown before moving a script into the AutoLaunch folder")
-                                    window:self.delegate.textField.window] == kiTermWarningSelection0) {
-        [menuController moveScriptToAutoLaunch:_fullPath];
-    }
-}
-
 - (void)handleSuccessfulEvaluationWithValue:(id)value {
-    // Dispatch async so the user can see that it fixed it.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self maybeOfferToMoveScriptToAutoLaunch];
-    });
     NSString *stringValue = [NSString castFrom:value];
     NSArray *arrayValue = [NSArray castFrom:value];
     _errorMessage = nil;
@@ -518,8 +486,6 @@ static NSString *const iTermStatusBarRPCRegistrationRequestV2Key = @"registratio
     DLog(@"%@", fullPath);
     iTermScriptsMenuController *menuController = [[[iTermApplication sharedApplication] delegate] scriptsMenuController];
     [menuController launchScriptWithAbsolutePath:fullPath arguments:@[] explicitUserAction:YES];
-    _dateOfLaunchToFix = [NSDate date];
-    _fullPath = [fullPath copy];
 }
 
 - (void)revealInFinder {

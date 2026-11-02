@@ -283,21 +283,6 @@ class iTermRecordingProfileSanitizer: NSObject {
         return allowedBaseKeys.contains(iTermProfilePreferences.baseColorKey(forKey: key))
     }
 
-    // Deprecated keys that still affect drawing have no validators, so convert
-    // them to their replacements instead of allowing them.
-    private static func migrateDeprecatedKeys(from untrusted: [AnyHashable: Any],
-                                              into result: inout [String: Any]) {
-        if result[KEY_UNICODE_NORMALIZATION] == nil,
-           let hfsPlus = untrusted[KEY_USE_HFS_PLUS_MAPPING] as? NSNumber {
-            let form: iTermUnicodeNormalization = hfsPlus.boolValue ? .hfsPlus : .none
-            result[KEY_UNICODE_NORMALIZATION] = Int(form.rawValue)
-        }
-        if result[KEY_USE_BOLD_FONT] == nil,
-           let disableBold = untrusted[KEY_DISABLE_BOLD] as? NSNumber {
-            result[KEY_USE_BOLD_FONT] = !disableBold.boolValue
-        }
-    }
-
     @objc(sanitizedProfile:)
     static func sanitizedProfile(_ untrusted: [AnyHashable: Any]) -> [String: Any] {
         var result = [String: Any]()
@@ -315,7 +300,6 @@ class iTermRecordingProfileSanitizer: NSObject {
             }
             result[key] = value
         }
-        migrateDeprecatedKeys(from: untrusted, into: &result)
         // Make sure the GUID doesn't match an existing one.
         result[KEY_GUID] = UUID().uuidString
         return result

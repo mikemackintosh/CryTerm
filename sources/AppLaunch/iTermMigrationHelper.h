@@ -24,7 +24,6 @@ typedef NS_ENUM(NSUInteger, iTermMigrationHelperShouldRemoveDeprecatedKeyMapping
 @interface iTermMigrationHelper : NSObject
 
 + (void)migrateApplicationSupportDirectoryIfNeeded;
-+ (void)recursiveMigrateBookmarks:(NSDictionary*)node path:(NSArray*)path;
 + (void)migrateOpenAIKeyIfNeeded;
 
 // If this was never called before, check if there's anything with a bad keymapping. If there was one and we have never asked, then ask.

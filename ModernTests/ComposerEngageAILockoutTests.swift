@@ -76,7 +76,7 @@ final class ComposerEngageAILockoutTests: XCTestCase, iTermWarningHandler {
         XCTAssertEqual(shownAlerts.count, 1)
         let alert = try XCTUnwrap(shownAlerts.first)
         XCTAssertEqual(alert.heading, "Feature Unavailable")
-        XCTAssertTrue(alert.text.contains("Generative AI features have been disabled"),
+        XCTAssertTrue(alert.text.contains("doesn’t connect to AI services"),
                       "Unexpected warning text: \(alert.text)")
         XCTAssertEqual(try textView(of: composer).string, "delete every log file",
                        "The composer text must be left alone")

@@ -13,12 +13,6 @@
 #import "iTermCommandHistoryCommandUseMO.h"
 #import "iTermCommandHistoryEntryMO.h"
 
-// Keys for serializing an entry
-static NSString *const kCommand = @"command";
-static NSString *const kUses = @"uses";
-static NSString *const kLastUsed = @"last used";
-static NSString *const kCommandUses = @"use times";  // The name is a historical artifact
-
 @implementation iTermCommandHistoryEntryMO (iTermShellHistoryController)
 
 + (instancetype)commandHistoryEntryInContext:(NSManagedObjectContext *)context {
@@ -28,29 +22,6 @@ static NSString *const kCommandUses = @"use times";  // The name is a historical
 
 + (NSString *)entityName {
     return @"CommandHistoryEntry";
-}
-
-+ (instancetype)commandHistoryEntryFromDeprecatedDictionary:(NSDictionary *)dict
-                                                  inContext:(NSManagedObjectContext *)context {
-    iTermCommandHistoryEntryMO *managedObject =
-        [NSEntityDescription insertNewObjectForEntityForName:@"CommandHistoryEntry"
-                                      inManagedObjectContext:context];
-    managedObject.command = dict[kCommand];
-    managedObject.timeOfLastUse = dict[kLastUsed];
-    managedObject.numberOfUses = dict[kUses];
-    for (id serializedCommandUse in dict[kCommandUses]) {
-        iTermCommandHistoryCommandUseMO *useManagedObject =
-            [iTermCommandHistoryCommandUseMO commandHistoryCommandUseFromDeprecatedSerialization:serializedCommandUse
-                                                                                       inContext:context];
-        assert(useManagedObject);
-
-        useManagedObject.entry = managedObject;
-        useManagedObject.command = managedObject.command;
-        [managedObject addUsesObject:useManagedObject];
-    }
-
-    return managedObject;
-
 }
 
 // Core data is a piece of garbage. The generated code throws an exception when there's a

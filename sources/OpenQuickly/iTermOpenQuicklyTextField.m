@@ -14,6 +14,17 @@
     modflag = [theEvent it_modifierFlags];
     keycode = [theEvent keyCode];
 
+    // Not -textFieldIsFirstResponder: it asks the window for its *default*
+    // field editor, which Open Quickly never creates (it supplies its own via
+    // windowWillReturnFieldEditor:toObject:), so that check is always NO
+    // here. Declining a key equivalent lets AppKit offer it to other windows,
+    // so ⌘1 would select tab 1 of a terminal window and close the palette.
+    if (self.currentEditor != nil &&
+        [_arrowHandler respondsToSelector:@selector(openQuicklyTextFieldHandleKeyEquivalent:)] &&
+        [_arrowHandler openQuicklyTextFieldHandleKeyEquivalent:theEvent]) {
+        return YES;
+    }
+
     if (![self textFieldIsFirstResponder]) {
         return NO;
     }

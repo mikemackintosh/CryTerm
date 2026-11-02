@@ -22,8 +22,6 @@
 @property(nonatomic, readonly) NSString *lastDirectory;
 
 + (instancetype)commandHistoryEntryInContext:(NSManagedObjectContext *)context;
-+ (instancetype)commandHistoryEntryFromDeprecatedDictionary:(NSDictionary *)dictionary
-                                                  inContext:(NSManagedObjectContext *)context;
 + (NSString *)entityName;
 
 - (NSComparisonResult)compareUseTime:(iTermCommandHistoryEntryMO *)other;

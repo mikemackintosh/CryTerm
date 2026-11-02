@@ -110,7 +110,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation iTermScriptsMenuController {
     NSMenu *_scriptsMenu;
-    BOOL _ranAutoLaunchScript;
     SCEvents *_events;
     NSArray<NSString *> *_allScripts;
     BOOL _disableEnumeration;
@@ -539,13 +538,13 @@ NS_ASSUME_NONNULL_BEGIN
         } else if ([scriptExtensions containsObject:[file pathExtension]]) {
             [parentFolderItem addChild:[[iTermScriptItem alloc] initFileWithPath:path parent:parentFolderItem]];
         } else if ([file.pathExtension isEqualToString:@"its"]) {
-            [self didFindScriptArchive:path autolaunch:parentFolderItem.isAutoLaunchFolderItem];
+            [self didFindScriptArchive:path];
         }
     }
 }
 
-- (void)didFindScriptArchive:(NSString *)file autolaunch:(BOOL)autolaunch {
-    RLog(@"didFindScriptArchive:%@ autolaunch:%@", file, @(autolaunch));
+- (void)didFindScriptArchive:(NSString *)file {
+    RLog(@"didFindScriptArchive:%@", file);
     static NSMutableSet<NSString *> *alreadyFound;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -576,7 +575,6 @@ NS_ASSUME_NONNULL_BEGIN
             DLog(@"Import from %@", url);
             [iTermScriptImporter importScriptFromURL:url
                                        userInitiated:YES
-                                     offerAutoLaunch:autolaunch
                                        callbackQueue:dispatch_get_main_queue()
                                              avoidUI:NO
                                           completion:^(NSString * _Nullable errorMessage, BOOL quiet, NSURL *location) {
@@ -628,17 +626,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)runAutoLaunchScriptsIfNeeded {
-    if (self.shouldRunAutoLaunchScripts) {
-        [self runAutoLaunchScripts];
-        return YES;
-    } else {
-        DLog(@"Not running auto-launch scripts");
-        _ranAutoLaunchScript = YES;
-        return NO;
-    }
-}
-
 - (void)revealScriptsInFinder {
     NSString *scriptsPath = [[NSFileManager defaultManager] scriptsPath];
 
@@ -686,9 +673,8 @@ NS_ASSUME_NONNULL_BEGIN
      ^BOOL(NSURL *url) {
         return [url.path.stringByResolvingSymlinksInPath isEqualToString:autoLaunchPath] || [iTermScriptExporter urlIsScript:url];
     }
-                                autoLaunchByDefault:NO
                                          completion:
-     ^(NSArray<NSURL *> *urls, SIGIdentity *signingIdentity, BOOL autolaunch) {
+     ^(NSArray<NSURL *> *urls, SIGIdentity *signingIdentity) {
         if (!urls) {
             return;
         }
@@ -697,7 +683,6 @@ NS_ASSUME_NONNULL_BEGIN
                                    signingIdentity:signingIdentity
                                      callbackQueue:dispatch_get_main_queue()
                                        destination:nil
-                                        autolaunch:autolaunch
                                         completion:^(NSString *errorMessage, NSURL *zipURL) {
                 if (errorMessage || !zipURL) {
                     [iTermWarning showWarningWithTitle:errorMessage ?: NSLocalizedStringWithDefaultValue(@"ScriptsMenu.FailedToCreateArchive", nil, [NSBundle mainBundle], @"Failed to create archive", @"Fallback message shown when creating a script archive fails")
@@ -744,7 +729,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
     [iTermScriptImporter importScriptFromURL:url
                                userInitiated:YES
-                             offerAutoLaunch:NO
                                callbackQueue:dispatch_get_main_queue()
                                      avoidUI:NO
                                   completion:^(NSString * _Nullable errorMessage, BOOL quiet, NSURL *location) {
@@ -793,46 +777,6 @@ NS_ASSUME_NONNULL_BEGIN
                             explicitUserAction:YES];
         }
     }
-}
-
-- (BOOL)scriptShouldAutoLaunchWithFullPath:(NSString *)fullPath {
-    return [fullPath hasPrefix:[[iTermScriptsMenuController autolaunchScriptPath] stringByAppendingString:@"/"]];
-}
-
-- (NSString *)autoLaunchPathIfFullPathWereMovedToAutoLaunch:(NSString *)fullPath {
-    return [[iTermScriptsMenuController autolaunchScriptPath] stringByAppendingPathComponent:fullPath.lastPathComponent];
-}
-
-- (BOOL)couldMoveScriptToAutoLaunch:(NSString *)fullPath {
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        return NO;
-    }
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
-        return NO;
-    }
-    [[NSFileManager defaultManager] createDirectoryAtPath:[iTermScriptsMenuController autolaunchScriptPath]
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:nil];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[iTermScriptsMenuController autolaunchScriptPath]]) {
-        return NO;
-    }
-
-    NSString *destination = [self autoLaunchPathIfFullPathWereMovedToAutoLaunch:fullPath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:destination]) {
-        return NO;
-    }
-    return YES;
-}
-
-- (void)moveScriptToAutoLaunch:(NSString *)fullPath {
-    [[NSFileManager defaultManager] createDirectoryAtPath:[iTermScriptsMenuController autolaunchScriptPath]
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:nil];
-    NSString *destination = [self autoLaunchPathIfFullPathWereMovedToAutoLaunch:fullPath];
-    [[NSFileManager defaultManager] moveItemAtPath:fullPath
-                                            toPath:destination error:nil];
 }
 
 #pragma mark - Actions
@@ -1609,82 +1553,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)autolaunchScriptPath {
     return [[NSFileManager defaultManager] autolaunchScriptPath];
-}
-
-+ (NSString *)legacyAutolaunchScriptPath {
-    return [[NSFileManager defaultManager] legacyAutolaunchScriptPath];
-}
-
-+ (BOOL)autoLaunchFolderExists {
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        DLog(@"Not homeDirectoryDotDir");
-        return NO;
-    }
-    return ([[NSFileManager defaultManager] fileExistsAtPath:iTermScriptsMenuController.legacyAutolaunchScriptPath] ||
-            [[NSFileManager defaultManager] fileExistsAtPath:iTermScriptsMenuController.autolaunchScriptPath]);
-}
-
-- (BOOL)shouldRunAutoLaunchScripts {
-    if (_ranAutoLaunchScript) {
-        DLog(@"Already ran");
-        return NO;
-    }
-    return [iTermScriptsMenuController autoLaunchFolderExists];
-}
-
-- (void)runAutoLaunchScripts {
-    DLog(@"run auto launch scripts");
-    _ranAutoLaunchScript = YES;
-
-    [self runLegacyAutoLaunchScripts];
-    [self runModernAutoLaunchScripts];
-}
-
-- (void)runModernAutoLaunchScripts {
-    if (![[NSFileManager defaultManager] homeDirectoryDotDir]) {
-        DLog(@"Not homeDirectoryDotDir");
-        return;
-    }
-    NSString *scriptsPath = [[NSFileManager defaultManager] autolaunchScriptPath];
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:scriptsPath];
-    for (NSString *file in enumerator) {
-        DLog(@"%@", file);
-        if ([file hasPrefix:@"."]) {
-            continue;
-        }
-        if ([file.lastPathComponent isEqualToString:@"__pycache__"]) {
-            // Python drops a __pycache__ directory next to single-file
-            // scripts. It is not a script, so skip it silently instead of
-            // warning that it is malformed.
-            [enumerator skipDescendants];
-            continue;
-        }
-        NSString *path = [scriptsPath stringByAppendingPathComponent:file];
-        if ([[NSFileManager defaultManager] itemIsDirectory:path]) {
-            [enumerator skipDescendants];
-        }
-        [self runAutoLaunchScript:path];
-    }
-}
-
-- (void)runAutoLaunchScript:(NSString *)path {
-    DLog(@"%@", path);
-    [self launchScriptWithAbsolutePath:path arguments:@[] explicitUserAction:NO];
-}
-
-- (void)runLegacyAutoLaunchScripts {
-    NSURL *aURL = [NSURL fileURLWithPath:iTermScriptsMenuController.legacyAutolaunchScriptPath];
-
-    // Make sure our script suite registry is loaded
-    [NSScriptSuiteRegistry sharedScriptSuiteRegistry];
-
-    NSError *error = nil;
-    NSUserAppleScriptTask *script = [[NSUserAppleScriptTask alloc] initWithURL:aURL error:&error];
-    if (!script) {
-        return;
-    }
-    DLog(@"Execute %@", aURL);
-    [script executeWithAppleEvent:nil completionHandler:nil];
 }
 
 #pragma mark - SCEventListenerProtocol

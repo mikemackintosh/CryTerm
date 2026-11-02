@@ -37,11 +37,10 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
 
 + (void)importScriptFromURL:(NSURL *)downloadedURL
               userInitiated:(BOOL)userInitiated
-            offerAutoLaunch:(BOOL)offerAutoLaunch
               callbackQueue:(dispatch_queue_t)callbackQueue
                     avoidUI:(BOOL)avoidUI
                  completion:(void (^)(NSString *errorMessage, BOOL quiet, NSURL *location))completion {
-    RLog(@"dowloadedURL=%@ userInitiated=%@ offerAutoLaunch=%@", downloadedURL, @(userInitiated), @(offerAutoLaunch));
+    RLog(@"dowloadedURL=%@ userInitiated=%@", downloadedURL, @(userInitiated));
     static dispatch_queue_t queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -53,7 +52,6 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reallyImportScriptFromURL:downloadedURL
                               userInitiated:userInitiated
-                            offerAutoLaunch:offerAutoLaunch
                               callbackQueue:callbackQueue
                                     avoidUI:avoidUI
                                  completion:^(NSString *errorMessage, BOOL quiet, NSURL *location) {
@@ -68,11 +66,10 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
 
 + (void)reallyImportScriptFromURL:(NSURL *)downloadedURL
                     userInitiated:(BOOL)userInitiated
-                  offerAutoLaunch:(BOOL)offerAutoLaunch
                     callbackQueue:(dispatch_queue_t)callbackQueue
                           avoidUI:(BOOL)avoidUI
                        completion:(void (^)(NSString *errorMessage, BOOL quiet, NSURL *location))completion {
-    DLog(@"downloadedURL=%@ userInitiated=%@ offerAutoLauch=%@", downloadedURL, @(userInitiated), @(offerAutoLaunch));
+    DLog(@"downloadedURL=%@ userInitiated=%@", downloadedURL, @(userInitiated));
     if (sInstallingScript) {
         RLog(@"already installing");
         completion(NSLocalizedStringWithDefaultValue(@"ScriptImporter.ImportInProgress", nil, [NSBundle mainBundle], @"Another import is in progress. Please try again after it completes.", @"Error shown when a second script import is attempted while one is already running"), NO, nil);
@@ -134,7 +131,6 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
             }
             [self didUnzipSuccessfullyTo:tempDir
                                  trusted:trusted
-                         offerAutoLaunch:offerAutoLaunch
                                   reveal:reveal
                                  avoidUI:avoidUI
                     provisioningDidBegin:provisioningDidBegin
@@ -278,14 +274,12 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
 
 + (void)didUnzipSuccessfullyTo:(NSString *)tempDir
                        trusted:(BOOL)trusted
-               offerAutoLaunch:(BOOL)offerAutoLaunch
                         reveal:(BOOL)reveal
                        avoidUI:(BOOL)avoidUI
           provisioningDidBegin:(void (^)(void))provisioningDidBegin
                 withCompletion:(void (^)(NSString *errorMessage, BOOL, NSURL *location))completion {
     [self didUnzipSuccessfullyTo:tempDir
                          trusted:trusted
-                 offerAutoLaunch:offerAutoLaunch
                           reveal:reveal
                          avoidUI:avoidUI
             provisioningDidBegin:provisioningDidBegin
@@ -300,16 +294,14 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
 // no script.
 + (void)didUnzipSuccessfullyTo:(NSString *)tempDir
                        trusted:(BOOL)trusted
-               offerAutoLaunch:(BOOL)offerAutoLaunch
                         reveal:(BOOL)reveal
                        avoidUI:(BOOL)avoidUI
           provisioningDidBegin:(void (^)(void))provisioningDidBegin
           replacedScriptBackup:(NSString *)replacedScriptBackup
                 withCompletion:(void (^)(NSString *errorMessage, BOOL, NSURL *location))completion {
-    DLog(@"didUnzipSuccessfullyTo:%@, trusted:%@, offerAutoLaunch:%@, reveal:%@, avoidUI:%@",
+    DLog(@"didUnzipSuccessfullyTo:%@, trusted:%@, reveal:%@, avoidUI:%@",
          tempDir,
          @(trusted),
-         @(offerAutoLaunch),
          @(reveal),
          @(avoidUI));
 
@@ -365,7 +357,6 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
             }
             [self didUnzipSuccessfullyTo:tempDir
                                  trusted:trusted
-                         offerAutoLaunch:offerAutoLaunch
                                   reveal:reveal
                                  avoidUI:avoidUI
                     provisioningDidBegin:provisioningDidBegin
@@ -379,7 +370,6 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
     }
 
     [archive installTrusted:trusted
-            offerAutoLaunch:offerAutoLaunch
                     avoidUI:avoidUI
        provisioningDidBegin:provisioningDidBegin
              withCompletion:^(NSError *error, NSURL *location) {

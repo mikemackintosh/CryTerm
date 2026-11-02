@@ -9,7 +9,6 @@
 #import "iTermProfilePreferences.h"
 #import "iTermUserDefaults.h"
 
-#define ENABLE_DEPRECATED_ADVANCED_SETTINGS
 
 #import "DebugLogging.h"
 #import "ITAddressBookMgr.h"
@@ -1236,7 +1235,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
                   KEY_LOGGING_STYLE: @(iTermLoggingStyleRaw),
                   KEY_LOGDIR: @"",
                   KEY_ARCHIVEDIR: @"",
-                  KEY_LOG_FILENAME_FORMAT: [iTermAdvancedSettingsModel autoLogFormat],
+                  KEY_LOG_FILENAME_FORMAT: @"\\(creationTimeString).\\(profileName).\\(termid).\\(iterm2.pid).\\(autoLogId).log",
                   KEY_SEND_CODE_WHEN_IDLE: @NO,
                   KEY_IDLE_CODE: @0,
                   KEY_IDLE_PERIOD: @60,
@@ -1293,8 +1292,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
                   KEY_PREVENT_APS: @NO,
                   KEY_OPEN_PASSWORD_MANAGER_AUTOMATICALLY: @NO,
                   KEY_TIMESTAMPS_STYLE: @(iTermTimestampsModeOverlap),
-                  // Migration path for former advanced setting
-                  KEY_TIMESTAMPS_VISIBLE: [[iTermUserDefaults userDefaults] objectForKey:@"ShowTimestampsByDefault"] ?: @NO,
+                  KEY_TIMESTAMPS_VISIBLE: @NO,
                   KEY_USE_SEPARATE_COLORS_FOR_LIGHT_AND_DARK_MODE: @NO,
                   KEY_SNIPPETS_FILTER: @[],
 
@@ -1552,12 +1550,6 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
         return value;
     }
 
-    // If the deprecated boolean was set, use it
-    value = profile[KEY_USE_HFS_PLUS_MAPPING];
-    if (value) {
-        return value.boolValue ? @(iTermUnicodeNormalizationHFSPlus) : @(iTermUnicodeNormalizationNone);
-    }
-
     // Fall back to the default from the dictionary.
     return [self defaultObjectForKey:key];
 }
@@ -1581,11 +1573,6 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
     if (profile[KEY_BACKGROUND_IMAGE_MODE] != nil) {
         return profile[KEY_BACKGROUND_IMAGE_MODE];
     }
-    NSNumber *tiled = profile[KEY_BACKGROUND_IMAGE_TILED_DEPRECATED];
-    if (tiled.boolValue) {
-        return @(iTermBackgroundImageModeTile);
-    }
-    
     return @(iTermBackgroundImageModeStretch);
 }
 
@@ -1659,11 +1646,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
     if (actual) {
         return actual;
     }
-    NSNumber *fallback = [NSNumber castFrom:profile[KEY_SHOW_TIMESTAMPS]];
-    if (!fallback || fallback.unsignedIntegerValue == iTermTimestampsModeOff) {
-        return @(iTermTimestampsModeOverlap);
-    }
-    return fallback;
+    return @(iTermTimestampsModeOverlap);
 }
 
 + (id)browserExtensionsRoot:(Profile *)profile {
@@ -1679,19 +1662,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
 }
 
 + (id)timestampsVisible:(Profile *)profile {
-    NSNumber *visibleSetting = [NSNumber castFrom:profile[KEY_TIMESTAMPS_VISIBLE]];
-    NSNumber *legacySetting = [NSNumber castFrom:profile[KEY_SHOW_TIMESTAMPS]];
-
-    if (visibleSetting) {
-        // Modern code path
-        return visibleSetting;
-    }
-    if (legacySetting) {
-        // Migreate legacy setting
-        return @(((iTermTimestampsMode)legacySetting.unsignedIntegerValue) != iTermTimestampsModeOff);
-    }
-    // Default code path
-    return @NO;
+    return [NSNumber castFrom:profile[KEY_TIMESTAMPS_VISIBLE]] ?: @NO;
 }
 
 + (id)treatOptionAsAlt:(Profile *)profile {
@@ -1763,44 +1734,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
         return @(iTermTitleComponentsSessionName);
     }
 
-    // Respect any existing now-deprecated settings.
-    NSNumber *stickyNumber = [[iTermUserDefaults userDefaults] objectForKey:KEY_SYNC_TITLE_DEPRECATED];
-    NSNumber *showJobNumber = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyShowJobName_Deprecated];
-    NSNumber *showProfileNameNumber = [[iTermUserDefaults userDefaults] objectForKey:kPreferenceKeyShowProfileName_Deprecated];
-
-    if (!stickyNumber && !showJobNumber && !showProfileNameNumber) {
-        // No deprecated settings; use the modern default.
-        return nil;
-    }
-
-    if (!stickyNumber) {
-        stickyNumber = @NO;
-    }
-    if (!showJobNumber) {
-        showJobNumber = @YES;
-    }
-    if (!showProfileNameNumber) {
-        showProfileNameNumber = @NO;
-    }
-
-    const BOOL sticky = stickyNumber.boolValue;
-    const BOOL showJob = showJobNumber.boolValue;
-    const BOOL showProfileName = showProfileNameNumber.boolValue;
-    NSUInteger titleComponents = 0;
-    if (showJob) {
-        titleComponents |= iTermTitleComponentsJob;
-    }
-    if (showProfileName) {
-        if (sticky) {
-            titleComponents |= iTermTitleComponentsProfileAndSessionName;
-        } else {
-            titleComponents |= iTermTitleComponentsSessionName;
-        }
-    } else {
-        titleComponents |= iTermTitleComponentsSessionName;
-    }
-
-    return @(titleComponents);
+    return nil;
 }
 
 @end

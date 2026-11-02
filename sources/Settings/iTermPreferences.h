@@ -181,8 +181,6 @@ extern NSString *const kPreferenceKeyAllowClipboardAccessFromTerminal;
 extern NSString *const kPreferenceKeyCharactersConsideredPartOfAWordForSelection;
 extern NSString *const kPreferenceKeyCharactersConsideredPartOfAWordForSelectionMode;
 extern NSString *const kPreferenceKeyWordSelectionRegexPattern;
-extern NSString *const kPreferenceKeySmartWindowPlacement_Deprecated;
-extern NSString *const kPreferenceKeyUseAutoSaveFrames_Deprecated;
 extern NSString *const kPreferenceKeyWindowPlacement;
 extern NSString *const kPreferenceKeyAdjustWindowForFontSizeChange;
 extern NSString *const kPreferenceKeyMaximizeVerticallyOnly;
@@ -277,7 +275,6 @@ extern NSString *const kPreferenceKeyAIPermissionWriteToFilesystem;
 extern NSString *const kPreferenceKeyAIPermissionActInWebBrowser;
 
 // Appearance
-extern NSString *const kPreferenceKeyTabStyle_Deprecated;
 extern NSString *const kPreferenceKeyTabStyle;
 extern NSString *const kPreferenceKeyTabPosition;
 extern NSString *const kPreferenceKeyStatusBarPosition;
@@ -285,7 +282,6 @@ extern NSString *const kPreferenceKeyHideTabBar;
 extern NSString *const kPreferenceKeyHideTabNumber;
 extern NSString *const kPreferenceKeyPreserveWindowSizeWhenTabBarVisibilityChanges;
 extern NSString *const kPreferenceKeyPreserveWindowSizeToKeepOnScreenWhenTabBarVisibilityChanges;
-extern NSString *const kPreferenceKeyHideTabCloseButton;  // DEPRECATED
 extern NSString *const kPreferenceKeyTabsHaveCloseButton;
 extern NSString *const kPreferenceKeyHideTabActivityIndicator;
 extern NSString *const kPreferenceKeyShowNewOutputIndicator;
@@ -301,8 +297,6 @@ extern NSString *const kPreferenceKeyFlashTabBarInFullscreen;
 extern NSString *const kPreferenceKeyStretchTabsToFillBar;
 extern NSString *const kPreferenceKeyScrollableSideTabBar;
 extern NSString *const kPreferenceKeyShowWindowNumber;
-extern NSString *const kPreferenceKeyShowJobName_Deprecated;  // DEPRECATED
-extern NSString *const kPreferenceKeyShowProfileName_Deprecated;  // DEPRECATED
 extern NSString *const kPreferenceKeyDimOnlyText;
 extern NSString *const kPreferenceKeyDimmingAmount;
 extern NSString *const kPreferenceKeyDimInactiveSplitPanes;
@@ -318,7 +312,6 @@ extern NSString *const kPreferenceKeySideMargins;
 extern NSString *const kPreferenceKeyTopBottomMargins;
 
 // Keys
-extern NSString *const kPreferenceKeyControlRemapping_Deprecated;  // Deprecated
 extern NSString *const kPreferenceKeyLeftControlRemapping;
 extern NSString *const kPreferenceKeyRightControlRemapping;
 extern NSString *const kPreferenceKeyLeftOptionRemapping;
@@ -352,9 +345,6 @@ extern NSString *const kPreferenceKeyRemapModifiersGlobally;
 extern NSString *const kPreferenceKeyLanguageAgnosticKeyBindings;
 
 // Migration to multi-hotkey window will move these settings into a profile.
-extern NSString *const kPreferenceKeyHotKeyTogglesWindow_Deprecated;  // Deprecated
-extern NSString *const kPreferenceKeyHotkeyProfileGuid_Deprecated;  // Deprecated
-extern NSString *const kPreferenceKeyHotkeyAutoHides_Deprecated;  // Deprecated
 
 // Pointer
 extern NSString *const kPreferenceKeyCmdClickOpensURLs;

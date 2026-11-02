@@ -52,10 +52,8 @@ typedef NS_ENUM(NSUInteger, iTermPythonRuntimeDownloaderStatus) {
 + (NSArray<NSString *> *)pythonVersionsAt:(NSString *)path;
 + (NSString * _Nullable)bestPythonVersionAt:(NSString *)path;
 
-// This downloads if any version is already installed and there's a newer version available.
-- (void)upgradeIfPossible;
-
-// Like upgradeIfPossible but shows the window immediately.
+// Checks for a newer runtime and offers to install it. Only ever called from a
+// user action: there is no background update check.
 - (void)userRequestedCheckForUpdate;
 
 // This downloads only if the minimum version is not installed.

@@ -741,8 +741,6 @@ andEditComponentWithIdentifier:(NSString *)identifier
     newDict[KEY_TAGS] = @[];
     newDict[KEY_BOUND_HOSTS] = @[];
     if ([[ProfileModel sharedInstance] bookmark:newDict hasTag:@"bonjour"]) {
-        [newDict removeObjectForKey:KEY_BONJOUR_GROUP];
-        [newDict removeObjectForKey:KEY_BONJOUR_SERVICE];
         [newDict removeObjectForKey:KEY_BONJOUR_SERVICE_ADDRESS];
         newDict[KEY_COMMAND_LINE] = @"";
         newDict[KEY_INITIAL_TEXT] = @"";

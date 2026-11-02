@@ -92,8 +92,7 @@ typedef NS_OPTIONS(int, VT100TerminalKeyReportingFlags) {
 
 @property(nonatomic, readonly) NSDictionary *stateDictionary;
 
-// True if receiving a file in multitoken mode, or if between BeginFile and
-// EndFile codes (which are deprecated).
+// True if receiving a file in multitoken mode.
 @property(nonatomic, readonly) BOOL receivingFile;
 
 // If nonnil then we're currently in a hypertext link.

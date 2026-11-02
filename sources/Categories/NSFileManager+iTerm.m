@@ -284,10 +284,6 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
     return path;
 }
 
-- (NSString *)legacyAutolaunchScriptPath {
-    return [[self scriptsPath] stringByAppendingPathComponent:@"AutoLaunch.scpt"];
-}
-
 - (NSString *)autolaunchScriptPath {
     return [[self scriptsPathWithoutSpaces] stringByAppendingPathComponent:@"AutoLaunch"];
 }

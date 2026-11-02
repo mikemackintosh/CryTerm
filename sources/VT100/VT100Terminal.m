@@ -115,8 +115,6 @@ NSString *const kTerminalStateDisableSMCUPAndRMCUPKey = @"Disable Alt Screen";
 NSString *const kTerminalStateSoftAlternateScreenModeKey = @"Soft Alternate Screen Mode";
 NSString *const kTerminalStateInCommandKey = @"In Command";
 NSString *const kTerminalStateUnicodeVersionStack = @"Unicode Version Stack";
-NSString *const kTerminalStateURL_DEPRECATED = @"URL";  // This was stored as an NSURL (which didn't work at all) and getting an URL code from an URL is hard (because it depends on the order of state restoration) and ultimately it's not that important to preserve this bit of state so it has been abandoned.
-NSString *const kTerminalStateURLParams_DEPRECATED = @"URL Params";
 NSString *const kTerminalStateReportKeyUp = @"Report Key Up";
 NSString *const kTerminalStateMetaSendsEscape = @"Meta Sends Escape";
 NSString *const kTerminalStateSendModifiers = @"Send Modifiers";
@@ -4455,11 +4453,9 @@ static NSString *VT100TerminalCompactFloat(CGFloat value) {
         if ([_delegate terminalIsTrusted]) {
             [_delegate terminalProfileShouldChangeTo:(NSString *)value];
         }
-    } else if ([key isEqualToString:@"AddNote"] ||  // Deprecated
-               [key isEqualToString:@"AddAnnotation"]) {
+    } else if ([key isEqualToString:@"AddAnnotation"]) {
         [_delegate terminalAddNote:(NSString *)value show:YES];
-    } else if ([key isEqualToString:@"AddHiddenNote"] ||  // Deprecated
-               [key isEqualToString:@"AddHiddenAnnotation"]) {
+    } else if ([key isEqualToString:@"AddHiddenAnnotation"]) {
         [_delegate terminalAddNote:(NSString *)value show:NO];
     } else if ([key isEqualToString:@"HighlightCursorLine"]) {
         [_delegate terminalSetHighlightCursorLine:value.length ? [value boolValue] : YES];
@@ -4571,10 +4567,6 @@ static NSString *VT100TerminalCompactFloat(CGFloat value) {
         if ([_delegate terminalIsTrusted]) {
             [_delegate terminalRequestUpload:value];
         }
-    } else if ([key isEqualToString:@"BeginFile"]) {
-        XLog(@"Deprecated and unsupported code BeginFile received. Use File instead.");
-    } else if ([key isEqualToString:@"EndFile"]) {
-        XLog(@"Deprecated and unsupported code EndFile received. Use File instead.");
     } else if ([key isEqualToString:@"EndCopy"]) {
         if ([_delegate terminalIsTrusted]) {
             [_delegate terminalCopyBufferToPasteboard];

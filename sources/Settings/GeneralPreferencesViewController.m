@@ -3920,9 +3920,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 - (NSString *)alwaysOpenLegend {
-    if ([iTermScriptsMenuController autoLaunchFolderExists]) {
-        return NSLocalizedStringWithDefaultValue(@"GeneralPrefs.AlwaysOpenAutoLaunch", nil, [NSBundle mainBundle], @"The presence of auto-launch scripts disables opening a window at startup.", @"Explains why opening a window at startup is disabled");
-    }
     if ([[[iTermHotKeyController sharedInstance] profileHotKeys] count] > 0) {
         return NSLocalizedStringWithDefaultValue(@"GeneralPrefs.AlwaysOpenHotkey", nil, [NSBundle mainBundle], @"The existence of hotkey windows disables opening a window at startup.", @"Explains why opening a window at startup is disabled");
     }
