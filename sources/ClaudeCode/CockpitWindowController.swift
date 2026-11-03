@@ -143,6 +143,17 @@ class CockpitWindowController: NSWindowController {
     // several sessions and posts a tabStatus update each would trigger
     // N back-to-back reloadData() calls.
     private var refreshScheduled = false
+    // Elapsed times and last output lines change without any notification,
+    // so the rows are re-read on this timer while the panel is on screen.
+    private var glanceTimer: Timer?
+    private static let glanceRefreshInterval: TimeInterval = 2
+    // Space on a selected session shows its live terminal in a popover
+    // (Quick Look style). See the Live preview extension.
+    fileprivate var previewPopover: NSPopover?
+    fileprivate var previewGuid: String?
+    fileprivate var previewTimer: Timer?
+    fileprivate var previewOutputTime: TimeInterval = -1
+    fileprivate var previewKeyMonitor: Any?
 
     private convenience init() {
         self.init(windowNibName: "Cockpit")
@@ -160,6 +171,7 @@ class CockpitWindowController: NSWindowController {
         configureStateFilterBar()
         configureCommandBar()
         registerForLiveUpdates()
+        installPreviewKeyMonitor()
         // First-time bootstrap. oldShape is empty (rootRows is empty),
         // so every window/group/session flows through applyDiff as an
         // insert and autoExpandNewlyAddedItems opens the new subtrees.
@@ -1588,6 +1600,19 @@ fileprivate final class CockpitRow {
     // status filter. nil for non-session rows / no reported status.
     var status: String?
     var statusColor: NSColor?
+    // Session rows only: "directory · job · elapsed" and the last line of
+    // output (see SessionGlance), plus the text a search matches besides the
+    // title. The output line is left out when the program reports its own
+    // detail, which says more than a screen scrape.
+    var glance: String?
+    var output: String?
+    var searchText: String = ""
+    // Lines under the title: the summary line (glance and/or detail) and
+    // the output line.
+    var secondaryLineCount: Int {
+        let hasSummary = (detail?.isEmpty == false) || (glance?.isEmpty == false)
+        return (hasSummary ? 1 : 0) + ((output?.isEmpty == false) ? 1 : 0)
+    }
     // True when this window or session has notify-on-status-change armed.
     // The cell shows a trailing bell when set. Only window and session
     // rows ever set it.
@@ -1748,17 +1773,26 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
     // Vertical breathing room above the title and below the detail.
     private static let verticalPadding: CGFloat = 8
 
-    // Row height the outline view should use for a row with or without
-    // a detail line. Single-line rows keep the original 24pt look.
-    static func rowHeight(hasDetail: Bool) -> CGFloat {
+    // The last line of output, in the terminal's spirit: monospaced and
+    // dimmer than the summary above it.
+    static let outputFont = NSFont.monospacedSystemFont(ofSize: NSFont.smallSystemFontSize - 1, weight: .regular)
+
+    // Row height for a row with this many lines under the title (the
+    // summary line, the output line). Single-line rows keep the original
+    // 24pt look.
+    static func rowHeight(secondaryLines: Int) -> CGFloat {
         let layoutManager = NSLayoutManager()
         let titleHeight = ceil(layoutManager.defaultLineHeight(
             for: NSFont.systemFont(ofSize: NSFont.systemFontSize)))
-        if !hasDetail {
+        if secondaryLines == 0 {
             return max(24, titleHeight + verticalPadding)
         }
         let detailHeight = ceil(layoutManager.defaultLineHeight(for: detailFont))
-        return titleHeight + detailSpacing + detailHeight + verticalPadding
+        var height = titleHeight + detailSpacing + detailHeight + verticalPadding
+        if secondaryLines > 1 {
+            height += detailSpacing + ceil(layoutManager.defaultLineHeight(for: outputFont))
+        }
+        return height
     }
 
     var cockpitTitle: String = "" {
@@ -1774,11 +1808,35 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
         didSet {
             if cockpitDetail != oldValue {
                 renderedDetail = cockpitDetail.flatMap(Self.renderDetailMarkdown)
-                detailField?.isHidden = (renderedDetail == nil)
+                updateDetailVisibility()
+            }
+        }
+    }
+
+    // "directory · job · elapsed", shown at the start of the detail line.
+    var cockpitGlance: String? {
+        didSet {
+            if cockpitGlance != oldValue {
+                updateDetailVisibility()
+            }
+        }
+    }
+
+    // The session's last line of output, on its own line.
+    var cockpitOutput: String? {
+        didSet {
+            if cockpitOutput != oldValue {
+                outputField?.isHidden = (cockpitOutput?.isEmpty ?? true)
                 applyText()
                 needsLayout = true
             }
         }
+    }
+
+    private func updateDetailVisibility() {
+        detailField?.isHidden = (renderedDetail == nil && (cockpitGlance?.isEmpty ?? true))
+        applyText()
+        needsLayout = true
     }
 
     // Shows a trailing bell when the row's window/session has notify-on-
@@ -1815,6 +1873,7 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
     }
 
     private var detailField: NSTextField?
+    private var outputField: NSTextField?
     private var renderedDetail: NSAttributedString?
     private var bellView: NSImageView?
     private var iconView: NSImageView?
@@ -1865,6 +1924,16 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
         field.autoresizingMask = []
         addSubview(field)
         detailField = field
+
+        let output = NSTextField(labelWithString: "")
+        output.font = Self.outputFont
+        output.lineBreakMode = .byTruncatingTail
+        output.maximumNumberOfLines = 1
+        output.isHidden = true
+        output.translatesAutoresizingMaskIntoConstraints = true
+        output.autoresizingMask = []
+        addSubview(output)
+        outputField = output
 
         let bell = CockpitPassthroughImageView()
         let config = NSImage.SymbolConfiguration(pointSize: 11, weight: .regular)
@@ -1950,19 +2019,23 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
         let trailing = stateWidth > 0 ? (stateWidth + Self.stateLabelTrailing * 2) : 0
         let width = max(0, bounds.width - leading - trailing)
         let titleHeight = ceil(textField.intrinsicContentSize.height)
-        let titleTop: CGFloat
-        if let detailField, !detailField.isHidden {
-            let detailHeight = ceil(detailField.intrinsicContentSize.height)
-            let total = titleHeight + Self.detailSpacing + detailHeight
-            titleTop = max(0, (bounds.height - total) / 2)
-            textField.frame = NSRect(x: leading, y: titleTop, width: width, height: titleHeight)
-            detailField.frame = NSRect(x: leading,
-                                       y: titleTop + titleHeight + Self.detailSpacing,
-                                       width: width,
-                                       height: detailHeight)
-        } else {
-            titleTop = (bounds.height - titleHeight) / 2
-            textField.frame = NSRect(x: leading, y: titleTop, width: width, height: titleHeight)
+        // Title, then the detail line and output line when shown, stacked
+        // and centered as a block. Lines below the title span the full
+        // width: only the title shares its line with the state word.
+        let below = [detailField, outputField].compactMap { field -> NSTextField? in
+            guard let field, !field.isHidden else { return nil }
+            return field
+        }
+        let belowHeights = below.map { ceil($0.intrinsicContentSize.height) }
+        let total = titleHeight + belowHeights.reduce(0) { $0 + Self.detailSpacing + $1 }
+        let titleTop = max(0, (bounds.height - total) / 2)
+        textField.frame = NSRect(x: leading, y: titleTop, width: width, height: titleHeight)
+        var y = titleTop + titleHeight
+        let fullWidth = max(0, bounds.width - leading - Self.stateLabelTrailing)
+        for (field, height) in zip(below, belowHeights) {
+            y += Self.detailSpacing
+            field.frame = NSRect(x: leading, y: y, width: fullWidth, height: height)
+            y += height
         }
         // Vertically center the icon/bell on the title line, not the whole
         // cell, so they line up with the name even with a detail line.
@@ -1997,24 +2070,53 @@ fileprivate final class CockpitTableCellView: NSTableCellView {
                 string: cockpitTitle,
                 attributes: [.foregroundColor: color])
         }
-        if let detailField, let renderedDetail {
+        if let detailField, let line = composedDetailLine() {
             if emphasized {
                 // On the blue selection fill, force the whole detail
                 // line (including any markdown links) to the selected
                 // text color so it stays legible.
-                let copy = renderedDetail.mutableCopy() as! NSMutableAttributedString
+                let copy = line.mutableCopy() as! NSMutableAttributedString
                 copy.addAttribute(.foregroundColor,
                                   value: NSColor.alternateSelectedControlTextColor,
                                   range: NSRange(location: 0, length: copy.length))
                 detailField.attributedStringValue = copy
             } else {
-                detailField.attributedStringValue = renderedDetail
+                detailField.attributedStringValue = line
             }
+        }
+        if let outputField {
+            outputField.stringValue = cockpitOutput ?? ""
+            outputField.textColor = emphasized
+                ? .alternateSelectedControlTextColor
+                : .tertiaryLabelColor
         }
         bellView?.contentTintColor = emphasized
             ? .alternateSelectedControlTextColor
             : .controlAccentColor
         applyIconTint()
+    }
+
+    // The summary (plain text) followed by the program's own markdown
+    // detail, separated by a middle dot. nil when there's neither.
+    private func composedDetailLine() -> NSAttributedString? {
+        let result = NSMutableAttributedString()
+        if let cockpitGlance, !cockpitGlance.isEmpty {
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.lineBreakMode = .byTruncatingTail
+            result.append(NSAttributedString(string: cockpitGlance,
+                                             attributes: [.font: Self.detailFont,
+                                                          .foregroundColor: NSColor.secondaryLabelColor,
+                                                          .paragraphStyle: paragraph]))
+        }
+        if let renderedDetail {
+            if result.length > 0 {
+                result.append(NSAttributedString(string: " · ",
+                                                 attributes: [.font: Self.detailFont,
+                                                              .foregroundColor: NSColor.secondaryLabelColor]))
+            }
+            result.append(renderedDetail)
+        }
+        return result.length > 0 ? result : nil
     }
 
     // Render the markdown detail string into a compact, single-line
@@ -2144,6 +2246,7 @@ extension CockpitWindowController: NSOutlineViewDataSource, NSOutlineViewDelegat
         // only a selection the user made marks chips as selection chips.
         let userChangedSelection = !isSyncingTargets
         syncComposerFromSelection()
+        previewFollowSelection()
         if userChangedSelection {
             selectionChips = Self.selectionChipTokens(previous: selectionChips,
                                                       chips: composerChipTargets().map { $0.token },
@@ -2166,6 +2269,8 @@ extension CockpitWindowController: NSOutlineViewDataSource, NSOutlineViewDelegat
         }
         cell.cockpitTitle = row.title
         cell.cockpitDetail = row.detail
+        cell.cockpitGlance = row.glance
+        cell.cockpitOutput = row.output
         cell.cockpitArmed = row.armed
         cell.cockpitIconSymbolName = iconSymbolName(for: row.kind)
         cell.cockpitState = row.status.map {
@@ -2198,8 +2303,8 @@ extension CockpitWindowController: NSOutlineViewDataSource, NSOutlineViewDelegat
     // fits under the title. Everything else keeps the original height.
     func outlineView(_ outlineView: NSOutlineView,
                      heightOfRowByItem item: Any) -> CGFloat {
-        let hasDetail = ((item as? CockpitRow)?.detail?.isEmpty == false)
-        return CockpitTableCellView.rowHeight(hasDetail: hasDetail)
+        let lines = (item as? CockpitRow)?.secondaryLineCount ?? 0
+        return CockpitTableCellView.rowHeight(secondaryLines: lines)
     }
 }
 
@@ -2208,6 +2313,16 @@ extension CockpitWindowController: NSOutlineViewDataSource, NSOutlineViewDelegat
 extension CockpitWindowController {
 
     fileprivate func registerForLiveUpdates() {
+        let timer = Timer(timeInterval: Self.glanceRefreshInterval, repeats: true) { [weak self] _ in
+            guard let self, let window = self.window,
+                  window.isVisible, window.occlusionState.contains(.visible) else {
+                return
+            }
+            self.scheduleRefresh()
+        }
+        timer.tolerance = Self.glanceRefreshInterval / 4
+        RunLoop.main.add(timer, forMode: .common)
+        glanceTimer = timer
         let center = NotificationCenter.default
         let names: [NSNotification.Name] = [
             .PTYSessionCreated,
@@ -2359,7 +2474,9 @@ extension CockpitWindowController {
                                  keptCache: inout [CockpitRow.Identity: CockpitRow]) -> CockpitRow? {
         switch row.kind {
         case .session:
-            let textOk = needle.isEmpty || row.title.lowercased().contains(needle)
+            let textOk = needle.isEmpty
+                || row.title.lowercased().contains(needle)
+                || row.searchText.contains(needle)
             let statusOk = status == nil || (row.status ?? Self.noStatusLabel) == status
             if textOk && statusOk {
                 return row
@@ -2545,10 +2662,7 @@ extension CockpitWindowController {
             row.title = title
             // The session's self-reported detail and state are shown in
             // every grouping mode now, not just byStatus.
-            row.detail = cockpitDetailText(for: session)
-            let status = cockpitStatus(for: session)
-            row.status = status?.text
-            row.statusColor = status?.color
+            fillSessionDetails(row, for: session)
             row.armed = NotifyOnStatusChangeController.instance.isSessionArmed(forGuid: session.guid)
             row.children = []
             freshCache[identity] = row
@@ -2629,8 +2743,6 @@ extension CockpitWindowController {
                                         freshCache: inout [CockpitRow.Identity: CockpitRow]) -> [CockpitRow] {
         var bucketed: [String: [CockpitRow]] = [:]
         for session in sessions {
-            let status = cockpitStatus(for: session)
-            let bucketKey = status?.text ?? Self.noStatusLabel
             let identity = CockpitRow.Identity.session(session.guid)
             let title = cockpitSessionTitle(for: session)
             let row = rowCache[identity]
@@ -2638,9 +2750,8 @@ extension CockpitWindowController {
                               kind: .session(guid: session.guid),
                               title: title)
             row.title = title
-            row.detail = cockpitDetailText(for: session)
-            row.status = status?.text
-            row.statusColor = status?.color
+            fillSessionDetails(row, for: session)
+            let bucketKey = row.status ?? Self.noStatusLabel
             row.armed = NotifyOnStatusChangeController.instance.isSessionArmed(forGuid: session.guid)
             row.children = []
             freshCache[identity] = row
@@ -2772,6 +2883,8 @@ extension CockpitWindowController {
         // the color is snapshotted separately; comparing text alone would
         // miss those and leave the old color rendered.
         var statusColorOf: [CockpitRow.Identity: NSColor?] = [:]
+        var glanceOf: [CockpitRow.Identity: String?] = [:]
+        var outputOf: [CockpitRow.Identity: String?] = [:]
     }
 
     private func snapshotTreeShape(of roots: [CockpitRow]) -> TreeShape {
@@ -2784,6 +2897,8 @@ extension CockpitWindowController {
             shape.armedOf[root.identity] = root.armed
             shape.statusOf[root.identity] = root.status
             shape.statusColorOf[root.identity] = root.statusColor
+            shape.glanceOf[root.identity] = root.glance
+            shape.outputOf[root.identity] = root.output
             snapshotChildren(of: root, into: &shape)
         }
         return shape
@@ -2799,6 +2914,8 @@ extension CockpitWindowController {
             shape.armedOf[child.identity] = child.armed
             shape.statusOf[child.identity] = child.status
             shape.statusColorOf[child.identity] = child.statusColor
+            shape.glanceOf[child.identity] = child.glance
+            shape.outputOf[child.identity] = child.output
             snapshotChildren(of: child, into: &shape)
         }
     }
@@ -2924,13 +3041,14 @@ extension CockpitWindowController {
             let armedChanged = old.armedOf[id] != new.armedOf[id]
             let statusChanged = old.statusOf[id] != new.statusOf[id]
                 || old.statusColorOf[id] != new.statusColorOf[id]
-            guard titleChanged || detailChanged || armedChanged || statusChanged,
+            let glanceChanged = old.glanceOf[id] != new.glanceOf[id]
+                || old.outputOf[id] != new.outputOf[id]
+            guard titleChanged || detailChanged || armedChanged || statusChanged || glanceChanged,
                   let row = rowCache[id] else {
                 continue
             }
             outlineView.reloadItem(row)
-            if detailChanged,
-               Self.hasDetail(old.detailOf[id]) != Self.hasDetail(new.detailOf[id]) {
+            if Self.secondaryLineCount(old, id) != Self.secondaryLineCount(new, id) {
                 heightChangedIdentities.append(id)
             }
         }
@@ -2961,6 +3079,13 @@ extension CockpitWindowController {
         return !detail.isEmpty
     }
 
+    // How many lines a row shows under its title, as recorded in a shape.
+    // Must agree with CockpitRow.secondaryLineCount.
+    private static func secondaryLineCount(_ shape: TreeShape, _ id: CockpitRow.Identity) -> Int {
+        let hasSummary = hasDetail(shape.detailOf[id]) || hasDetail(shape.glanceOf[id])
+        return (hasSummary ? 1 : 0) + (hasDetail(shape.outputOf[id]) ? 1 : 0)
+    }
+
     private func sessionState(for session: PTYSession) -> SessionState {
         let state = WorkgroupIntrospection.state(for: session)
         return state == .unknown ? .idle : state
@@ -2975,24 +3100,7 @@ extension CockpitWindowController {
     // from the tab status (the same source the Session Status tool uses).
     // nil when the session reports no status.
     private func cockpitStatus(for session: PTYSession) -> (text: String, color: NSColor)? {
-        guard let status = session.tabStatus,
-              let raw = status.statusText?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !raw.isEmpty else {
-            return nil
-        }
-        let color: NSColor
-        if status.hasStatusTextColor {
-            color = Self.nsColor(from: status.statusTextColor)
-        } else if status.hasIndicator {
-            color = Self.nsColor(from: status.indicatorColor)
-        } else {
-            color = .secondaryLabelColor
-        }
-        return (raw, color)
-    }
-
-    private static func nsColor(from c: iTermSRGBColor) -> NSColor {
-        return NSColor(srgbRed: CGFloat(c.r), green: CGFloat(c.g), blue: CGFloat(c.b), alpha: 1)
+        return SessionGlance.reportedStatus(of: session)
     }
 
     // Order statuses the way the Session Status tool does (its priority
@@ -3002,7 +3110,7 @@ extension CockpitWindowController {
         if status == Self.noStatusLabel {
             return (Int.max, status)
         }
-        return (StatusPrioritySettings.shared.priority(for: status), status.lowercased())
+        return (SessionGlance.priority(forStatus: status), status.lowercased())
     }
 
     private func cockpitWindowTitle(for terminal: PseudoTerminal) -> String {
@@ -3017,6 +3125,20 @@ extension CockpitWindowController {
             return prefix
         }
         return "\(prefix): \(raw)"
+    }
+
+    // Detail, status, summary and last output for a session row. A status
+    // the program reports wins; otherwise the state comes from shell
+    // integration (Running / Error / Idle), so plain shells get one too.
+    private func fillSessionDetails(_ row: CockpitRow, for session: PTYSession) {
+        let glance = SessionGlance(session: session)
+        let reported = cockpitStatus(for: session)
+        row.detail = cockpitDetailText(for: session)
+        row.status = reported?.text ?? glance.statusText
+        row.statusColor = reported?.color ?? glance.statusColor
+        row.glance = glance.summary()
+        row.output = (row.detail == nil) ? glance.lastLine : nil
+        row.searchText = glance.searchableText.lowercased()
     }
 
     // The live "detail" string a session publishes via its tab status
@@ -3365,3 +3487,134 @@ private final class CockpitNoopSyntaxHighlighter: NSObject, SyntaxHighlighting {
     func highlight(range: NSRange) {}
 }
 
+
+// MARK: - Live preview
+
+// Space on a selected session row shows that session's terminal in a
+// popover beside the row, refreshed while it's open; Space again (or a click
+// elsewhere) closes it. While it's open, moving the selection moves the
+// preview, so arrowing down the list pages through sessions.
+extension CockpitWindowController: NSPopoverDelegate {
+    fileprivate static let previewRefreshInterval: TimeInterval = 1
+    fileprivate static let previewMaximumSize = NSSize(width: 640, height: 420)
+
+    fileprivate func installPreviewKeyMonitor() {
+        guard previewKeyMonitor == nil else { return }
+        previewKeyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self,
+                  let window = self.window,
+                  event.window === window,
+                  window.firstResponder === self.outlineView,
+                  event.charactersIgnoringModifiers == " ",
+                  event.modifierFlags.intersection([.command, .control, .option, .shift]).isEmpty else {
+                return event
+            }
+            self.togglePreview()
+            return nil
+        }
+    }
+
+    private func selectedSessionRow() -> (row: Int, guid: String)? {
+        guard outlineView.numberOfSelectedRows == 1 else { return nil }
+        let row = outlineView.selectedRow
+        guard row >= 0,
+              let item = outlineView.item(atRow: row) as? CockpitRow,
+              case .session(let guid) = item.kind else {
+            return nil
+        }
+        return (row, guid)
+    }
+
+    fileprivate func togglePreview() {
+        if previewPopover?.isShown == true {
+            previewPopover?.close()
+            return
+        }
+        guard let selected = selectedSessionRow() else {
+            NSSound.beep()
+            return
+        }
+        showPreview(row: selected.row, guid: selected.guid)
+    }
+
+    fileprivate func previewFollowSelection() {
+        guard previewPopover?.isShown == true else { return }
+        guard let selected = selectedSessionRow() else {
+            previewPopover?.close()
+            return
+        }
+        if selected.guid != previewGuid {
+            showPreview(row: selected.row, guid: selected.guid)
+        }
+    }
+
+    private func showPreview(row: Int, guid: String) {
+        guard let session = iTermController.sharedInstance()?.anySession(withGUID: guid),
+              let image = session.terminalContentSnapshot() else {
+            NSSound.beep()
+            return
+        }
+        let popover = previewPopover ?? {
+            let popover = NSPopover()
+            popover.behavior = .semitransient
+            popover.animates = false
+            popover.delegate = self
+            let controller = NSViewController()
+            let imageView = NSImageView()
+            imageView.imageScaling = .scaleProportionallyUpOrDown
+            controller.view = imageView
+            popover.contentViewController = controller
+            previewPopover = popover
+            return popover
+        }()
+        previewGuid = guid
+        previewOutputTime = session.lastOutputTime
+        setPreviewImage(image)
+        let anchor = outlineView.rect(ofRow: row)
+        popover.show(relativeTo: anchor, of: outlineView, preferredEdge: .maxX)
+        startPreviewTimer()
+    }
+
+    private func setPreviewImage(_ image: NSImage) {
+        guard let popover = previewPopover,
+              let imageView = popover.contentViewController?.view as? NSImageView else {
+            return
+        }
+        imageView.image = image
+        let maximum = Self.previewMaximumSize
+        let scale = min(1, maximum.width / max(1, image.size.width), maximum.height / max(1, image.size.height))
+        popover.contentSize = NSSize(width: round(image.size.width * scale),
+                                     height: round(image.size.height * scale))
+    }
+
+    private func startPreviewTimer() {
+        guard previewTimer == nil else { return }
+        let timer = Timer(timeInterval: Self.previewRefreshInterval, repeats: true) { [weak self] _ in
+            self?.refreshPreview()
+        }
+        timer.tolerance = Self.previewRefreshInterval / 4
+        RunLoop.main.add(timer, forMode: .common)
+        previewTimer = timer
+    }
+
+    // Re-render only when the session printed something since last time.
+    private func refreshPreview() {
+        guard previewPopover?.isShown == true,
+              let guid = previewGuid,
+              let session = iTermController.sharedInstance()?.anySession(withGUID: guid) else {
+            previewPopover?.close()
+            return
+        }
+        guard session.lastOutputTime > previewOutputTime else { return }
+        previewOutputTime = session.lastOutputTime
+        if let image = session.terminalContentSnapshot() {
+            setPreviewImage(image)
+        }
+    }
+
+    func popoverDidClose(_ notification: Notification) {
+        previewTimer?.invalidate()
+        previewTimer = nil
+        previewGuid = nil
+    }
+}

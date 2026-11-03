@@ -240,4 +240,8 @@ extension iTermApplicationDelegate {
     @IBAction func revealCockpit(_ sender: Any?) {
         CockpitWindowController.shared.showAndFocusCommand()
     }
+
+    @IBAction func showSessionOverview(_ sender: Any?) {
+        SessionOverviewWindowController.shared.show()
+    }
 }

@@ -100,6 +100,41 @@ class MainMenuMangler: NSObject {
         }
     }
 
+    // Identifiers (from MainMenu.xib) of the menu items that only reach AI features.
+    static let aiMenuItemIdentifiers: Set<String> = [
+        "Engage Artificial Intelligence",
+        "Explain Output with AI",
+        "Show Inline Chat",
+        "Open AI Chat",
+        "AI Chats",
+    ]
+
+    // Removes matching items anywhere in `menu`, then any separator left
+    // doubled, leading, or trailing by the removal.
+    static func removeItems(withIdentifiers identifiers: Set<String>, from menu: NSMenu) {
+        var removedAny = false
+        for item in menu.items {
+            if let identifier = item.identifier?.rawValue, identifiers.contains(identifier) {
+                menu.removeItem(item)
+                removedAny = true
+            } else if let submenu = item.submenu {
+                removeItems(withIdentifiers: identifiers, from: submenu)
+            }
+        }
+        guard removedAny else { return }
+        var previousWasSeparator = true
+        for item in menu.items {
+            if item.isSeparatorItem && previousWasSeparator {
+                menu.removeItem(item)
+                continue
+            }
+            previousWasSeparator = item.isSeparatorItem
+        }
+        if let last = menu.items.last, last.isSeparatorItem {
+            menu.removeItem(last)
+        }
+    }
+
     private func removeIcons(in menu: NSMenu) {
         for item in menu.items {
             if !item.isSeparatorItem {
@@ -119,6 +154,13 @@ class MainMenuMangler: NSObject {
             if NSApp.mainMenu?.items.contains(web) ?? false {
                 NSApp.mainMenu?.removeItem(web)
             }
+        }
+
+        // This build never connects to AI services, so its AI menu items would
+        // only be dead ends. Removed rather than hidden: a hidden item's key
+        // equivalent can still fire.
+        if !iTermAdvancedSettingsModel.generativeAIAllowed(), let mainMenu = NSApp.mainMenu {
+            Self.removeItems(withIdentifiers: Self.aiMenuItemIdentifiers, from: mainMenu)
         }
 
         // Store original web menu key equivalents and scan for conflicts

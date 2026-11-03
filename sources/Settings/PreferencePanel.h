@@ -41,6 +41,9 @@ extern NSString *const kPreferencePanelDidUpdateProfileFields;
 extern NSString *const kSessionProfileDidChange;  // Posted by a session when it changes to update the Get Info window.
 extern NSString *const kPreferencePanelDidLoadNotification;
 extern NSString *const kPreferencePanelWillCloseNotification;
+// userInfo key of kPreferencePanelWillCloseNotification: @YES when the panel
+// is kept for the next open, so its view controllers must stay wired up.
+extern NSString *const kPreferencePanelWillCloseKeptForReuseKey;
 
 // All profiles should be reloaded.
 extern NSString *const kReloadAllProfiles;

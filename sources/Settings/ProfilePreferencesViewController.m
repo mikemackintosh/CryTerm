@@ -222,6 +222,10 @@ NSString *const kProfileSessionHotkeyDidChange = @"kProfileSessionHotkeyDidChang
 
 - (void)awakeFromNib {
     [_profilesListView setUnderlyingDatasource:[_delegate profilePreferencesModel]];
+    // Let the Settings window's frosted background show through the list.
+    NSTableView *profilesTable = _profilesListView.tableView;
+    profilesTable.backgroundColor = [NSColor clearColor];
+    profilesTable.enclosingScrollView.drawsBackground = NO;
 
     Profile *profile = [self selectedProfile];
     if (profile) {

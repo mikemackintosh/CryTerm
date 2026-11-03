@@ -19,7 +19,13 @@
 static const CGFloat kMargin = 8;
 // Narrower than this beside the buttons, the text gets a row of its own with the buttons beneath.
 static const CGFloat kMinimumTextWidthBesideButtons = 160;
-const CGFloat iTermAnnouncementViewHeightPadding = 29;
+// The banner is a card floating over the terminal: inset from the sides and
+// top, with the bottom 10 points left for its shadow.
+static const CGFloat kCardSideInset = 8;
+static const CGFloat kCardTopInset = 6;
+static const CGFloat kCardBottomInset = 10;
+static const CGFloat kCardCornerRadius = 12;
+const CGFloat iTermAnnouncementViewHeightPadding = 35;
 
 @interface iTermAnnouncementView ()
 @property(nonatomic, assign) iTermAnnouncementViewStyle style;
@@ -35,8 +41,7 @@ const CGFloat iTermAnnouncementViewHeightPadding = 29;
     NSButton *_closeButton;
     NSMutableArray *_actionButtons;
     SolidColorView *_internalView;
-    SolidColorView *_lineView;
-    NSVisualEffectView *_visualEffectView;
+    iTermFrostedCardView *_cardView;
     iTermShadowView *_shadowView;
     void (^_block)(int);
 }
@@ -80,37 +85,24 @@ const CGFloat iTermAnnouncementViewHeightPadding = 29;
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
-        frameRect.size.height -= 10;
-        frameRect.origin.y = 10;
-        frameRect.origin.x = 0;
+        frameRect = [self cardFrameForBounds:NSMakeRect(0, 0, NSWidth(frameRect), NSHeight(frameRect))];
 
         _shadowView = [[iTermShadowView alloc] initWithFrame:frameRect];
-        _shadowView.nsShadow.shadowOffset = CGSizeMake(0, 0);
-        _shadowView.nsShadow.shadowBlurRadius = 4;
-        _shadowView.nsShadow.shadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.1];
+        _shadowView.nsShadow.shadowOffset = CGSizeMake(0, -2);
+        _shadowView.nsShadow.shadowBlurRadius = 10;
+        _shadowView.nsShadow.shadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.3];
         _shadowView.inset = 0;
-        _shadowView.cornerRadius = 0;
+        _shadowView.cornerRadius = kCardCornerRadius;
         [self addSubview:_shadowView];
 
-        _visualEffectView = [[NSVisualEffectView alloc] initWithFrame:frameRect];
-        _visualEffectView.material = NSVisualEffectMaterialMenu;
-        _visualEffectView.blendingMode = NSVisualEffectBlendingModeWithinWindow;
-        _visualEffectView.state = NSVisualEffectStateActive;
-        _visualEffectView.emphasized = NO;
-        _visualEffectView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        [self addSubview:_visualEffectView];
+        // Translucent, like Open Quickly: the terminal shows through instead
+        // of a flat tinted bar.
+        _cardView = [[iTermFrostedCardView alloc] initWithFrame:frameRect cornerRadius:kCardCornerRadius];
+        [self addSubview:_cardView];
 
-        _internalView = [[SolidColorView alloc] initWithFrame:frameRect
-                                                        color:[NSColor it_dynamicColorForLightMode:[NSColor colorWithSRGBRed:1 green:1 blue:0.9 alpha:0.6]
-                                                                                          darkMode:[NSColor colorWithSRGBRed:0.25 green:0.25 blue:0.1 alpha:0.15]]];
+        _internalView = [[SolidColorView alloc] initWithFrame:frameRect color:[NSColor clearColor]];
         _internalView.autoresizingMask = NSViewWidthSizable | NSViewMaxYMargin;
         [self addSubview:_internalView];
-
-        const NSRect lineFrame = NSMakeRect(0, NSMinY(frameRect), NSWidth(frameRect), 1);
-        _lineView = [[SolidColorView alloc] initWithFrame:lineFrame
-                                                    color:[NSColor it_dynamicColorForLightMode:[NSColor colorWithWhite:0.8 alpha:1.0]
-                                                                                      darkMode:[NSColor colorWithWhite:0.2 alpha:1.0]]];
-        [self addSubview:_lineView];
 
         NSImage *closeImage = [NSImage it_imageNamed:@"closebutton" forClass:self.class];
         NSSize closeSize = closeImage.size;
@@ -374,13 +366,13 @@ const CGFloat iTermAnnouncementViewHeightPadding = 29;
     if (_actionButtons.count == 0) {
         return NO;
     }
-    const CGFloat besideButtons = NSWidth(self.bounds) - NSMaxX(_icon.frame) - kMargin - _buttonWidth;
+    const CGFloat besideButtons = NSWidth([self cardFrameForBounds:self.bounds]) - NSMaxX(_icon.frame) - kMargin - _buttonWidth;
     return besideButtons < kMinimumTextWidthBesideButtons;
 }
 
 - (CGFloat)textWidthStacked:(BOOL)stacked {
     const CGFloat right = stacked ? _closeButtonWidth : _buttonWidth;
-    return MAX(0, NSWidth(self.bounds) - NSMaxX(_icon.frame) - kMargin - right);
+    return MAX(0, NSWidth([self cardFrameForBounds:self.bounds]) - NSMaxX(_icon.frame) - kMargin - right);
 }
 
 - (CGFloat)textHeightForWidth:(CGFloat)width {
@@ -400,14 +392,17 @@ const CGFloat iTermAnnouncementViewHeightPadding = 29;
 
 // Lays out everything for the current size. Beside the buttons when there is room, otherwise the
 // text on top and the buttons on a row of their own beneath it.
+- (NSRect)cardFrameForBounds:(NSRect)bounds {
+    return NSMakeRect(kCardSideInset,
+                      kCardBottomInset,
+                      MAX(0, NSWidth(bounds) - kCardSideInset * 2),
+                      MAX(0, NSHeight(bounds) - kCardBottomInset - kCardTopInset));
+}
+
 - (void)layOutContents {
-    NSRect frameRect = self.bounds;
-    frameRect.size.height -= 10;
-    frameRect.origin.y = 10;
-    frameRect.origin.x = 0;
-    _visualEffectView.frame = frameRect;
+    const NSRect frameRect = [self cardFrameForBounds:self.bounds];
+    _cardView.frame = frameRect;
     _internalView.frame = frameRect;
-    _lineView.frame = NSMakeRect(0, NSMinY(frameRect), NSWidth(frameRect), 1);
     _shadowView.frame = frameRect;
 
     const CGFloat width = NSWidth(frameRect);

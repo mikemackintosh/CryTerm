@@ -595,10 +595,16 @@ final class OpenQuicklyPreviewPane: NSView {
 // Key hints along the bottom edge: what Return, ⌘1–9, arrows, and esc do.
 @objc(iTermOpenQuicklyHintBar)
 final class OpenQuicklyHintBar: NSView {
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
+    override convenience init(frame frameRect: NSRect) {
+        self.init(hints: Self.openQuicklyHints,
+                  tip: String(localized: "OpenQuickly.Hint.Commands",
+                              defaultValue: "Type / for commands",
+                              comment: "Open Quickly footer hint: typing a slash lists commands such as switching profiles"))
+        frame = frameRect
+    }
 
-        let hints: [(String, String)] = [
+    private static var openQuicklyHints: [(String, String)] {
+        return [
             // Localization unneeded: key symbols.
             ("↩", String(localized: "OpenQuickly.Hint.Switch",
                          defaultValue: "Switch",
@@ -613,6 +619,11 @@ final class OpenQuicklyHintBar: NSView {
                            defaultValue: "Close",
                            comment: "Open Quickly footer hint: Escape closes the palette")),
         ]
+    }
+
+    // `hints` pairs a key symbol with what it does; `tip` sits at the trailing edge.
+    init(hints: [(String, String)], tip: String?) {
+        super.init(frame: .zero)
         let groups: [NSView] = hints.map { key, text in
             let label = NSTextField(labelWithString: text)
             label.font = NSFont.systemFont(ofSize: 11.5)
@@ -628,9 +639,7 @@ final class OpenQuicklyHintBar: NSView {
         left.translatesAutoresizingMaskIntoConstraints = false
         addSubview(left)
 
-        let tip = NSTextField(labelWithString: String(localized: "OpenQuickly.Hint.Commands",
-                                                      defaultValue: "Type / for commands",
-                                                      comment: "Open Quickly footer hint: typing a slash lists commands such as switching profiles"))
+        let tip = NSTextField(labelWithString: tip ?? "")
         tip.font = NSFont.systemFont(ofSize: 11.5)
         tip.textColor = .tertiaryLabelColor
         tip.translatesAutoresizingMaskIntoConstraints = false

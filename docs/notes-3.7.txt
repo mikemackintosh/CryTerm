@@ -373,6 +373,46 @@ Improvements:
 - Open Quickly’s shortcut is now ⌘K, and Clear
   Buffer has moved to ⇧⌘O. Change either in
   Settings > Keys > Key Bindings.
+- Window > Session Overview (⌘J) shows a live
+  thumbnail of every session, captioned with its
+  status, directory, command, and last line of
+  output. Sessions waiting for you come first.
+  Type to filter, then press Return, click, or
+  press ⌘1 through ⌘9 to jump to one.
+- Jump to Selection has moved to ⌃⌘J. Change it
+  in Settings > Keys > Key Bindings.
+- Notices at the top of a session are now
+  translucent rounded cards that let the
+  terminal show through, matching Open Quickly.
+- The Settings window has a frosted, see-through
+  background, matching Open Quickly.
+- Settings opens quickly after the first time.
+  It used to rebuild every tab on each open.
+- Links and URLs always open in your system
+  browser. iTerm2 no longer offers to download
+  the Browser Plugin or shows web pages itself.
+- Install Shell Integration always uses the
+  scripts bundled with iTerm2. It no longer
+  offers to download and run an installer from
+  iterm2.com.
+- Install Nerd Font Bundle no longer downloads
+  fonts. If any are missing, it names them so
+  you can install them yourself.
+- AI menu items, the AI settings tab, and the
+  Codecierge tool are gone, since iTerm2 no
+  longer connects to AI services.
+- A selected command is now marked by a thin bar
+  in the left margin instead of a box around it
+  with the rest of the session shaded.
+- Every Cockpit row now shows the session’s
+  directory, command, how long it has been
+  running, and its last line of output. Shells
+  without a status of their own show Running,
+  Error, or Idle, using Shell Integration. The
+  filter also searches directories, commands,
+  and output.
+- Select a session in the Cockpit and press
+  Space to see its terminal live.
 - iTerm2 no longer updates the Python runtime or
   its packages in the background. To update,
   choose Scripts > Manage > Check for Updated

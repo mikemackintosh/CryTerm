@@ -77,8 +77,16 @@ class iTermBrowserGateway: NSObject {
         return nil
     }
 
+    // This build never shows web pages itself: links and URLs always open in
+    // the system browser, and it never offers to download the Browser Plugin.
+    // Every caller treats "not allowed" as "use the system browser".
+    @objc static let builtInBrowserEnabled = false
+
     @objc(browserAllowedCheckingIfNot:)
     static func browserAllowed(checkIfNo: Bool) -> Bool {
+        guard builtInBrowserEnabled else {
+            return false
+        }
         if let cached = cached.value {
             if !checkIfNo || cached {
                 return cached
@@ -102,6 +110,9 @@ class iTermBrowserGateway: NSObject {
 
     @objc
     static func shouldOfferPlugin() -> Bool {
+        guard builtInBrowserEnabled else {
+            return false
+        }
         return iTermAdvancedSettingsModel.browserProfiles() && !checkPluginInstalled()
     }
 
