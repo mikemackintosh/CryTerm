@@ -103,7 +103,12 @@ static NSString *const kDynamicToolURL = @"URL";
     [iTermToolbeltView registerToolWithName:kPasteHistoryToolName withClass:[ToolPasteHistory class]];
     [iTermToolbeltView registerToolWithName:kProfilesToolName withClass:[ToolProfiles class]];
     [iTermToolbeltView registerToolWithName:kSnippetsToolName withClass:[iTermToolSnippets class]];
-    [iTermToolbeltView registerToolWithName:kCodeciergeToolName withClass:[iTermToolCodecierge class]];
+    // Codecierge is an AI assistant. This build never connects to AI
+    // services, so the tool isn't offered; a saved toolbelt that lists it
+    // skips it like any unknown tool.
+    if ([iTermAdvancedSettingsModel generativeAIAllowed]) {
+        [iTermToolbeltView registerToolWithName:kCodeciergeToolName withClass:[iTermToolCodecierge class]];
+    }
 
     NSDictionary<NSString *, NSDictionary *> *dynamicTools = [[iTermUserDefaults userDefaults] objectForKey:kDynamicToolsKey];
     [dynamicTools enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, NSDictionary * _Nonnull dict, BOOL * _Nonnull stop) {

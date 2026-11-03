@@ -118,6 +118,7 @@ NSString *const kPreferencePanelDidUpdateProfileFields = @"kPreferencePanelDidUp
 NSString *const kSessionProfileDidChange = @"kSessionProfileDidChange";
 NSString *const kPreferencePanelDidLoadNotification = @"kPreferencePanelDidLoadNotification";
 NSString *const kPreferencePanelWillCloseNotification = @"kPreferencePanelWillCloseNotification";
+NSString *const kPreferencePanelWillCloseKeptForReuseKey = @"kPreferencePanelWillCloseKeptForReuseKey";
 
 static NSString *const iTermPreferencePanelSearchFieldToolbarItemIdentifier = @"iTermPreferencePanelSearchFieldToolbarItemIdentifier";
 static NSString *const iTermPrefsScrimMouseUpNotification = @"iTermPrefsScrimMouseUpNotification";
@@ -657,6 +658,7 @@ static iTermPreferencesSearchEngine *gSearchEngine;
 
     iTermPrefsPanel *panel = (iTermPrefsPanel *)self.window;
     panel.prefsPanelDelegate = self;
+    [self installTranslucentBackground];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(scrimMouseUp:)
@@ -683,6 +685,20 @@ static iTermPreferencesSearchEngine *gSearchEngine;
     if (!_editCurrentSessionMode) {
         [_profilesViewController selectDefaultProfile];
     }
+}
+
+// Frost the content area like Open Quickly and Session Overview. The view
+// sits beneath every tab, so controls keep drawing as before. The toolbar is
+// left to AppKit: a full-size content view would break the frame math in
+// -resizeWindowForTabViewItem:animated:.
+- (void)installTranslucentBackground {
+    NSView *root = self.window.contentView;
+    NSVisualEffectView *effect = [[NSVisualEffectView alloc] initWithFrame:root.bounds];
+    effect.blendingMode = NSVisualEffectBlendingModeBehindWindow;
+    effect.material = NSVisualEffectMaterialFullScreenUI;
+    effect.state = NSVisualEffectStateActive;
+    effect.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [root addSubview:effect positioned:NSWindowBelow relativeTo:nil];
 }
 
 - (void)layoutSubviewsForEditCurrentSessionMode {
@@ -856,7 +872,11 @@ andEditComponentWithIdentifier:(NSString *)identifier
     if (show) {
         [NSApp activateIgnoringOtherApps:YES];
     }
+    const BOOL reopening = self.isWindowLoaded && !self.window.isVisible;
     [self window];
+    if (reopening) {
+        [self refreshControlsForReuse];
+    }
     [_generalPreferencesViewController updateEnabledState];
     [_profilesViewController selectFirstProfileIfNecessary];
     if (!self.window.isVisible && show) {
@@ -996,14 +1016,39 @@ andEditComponentWithIdentifier:(NSString *)identifier
 - (void)windowWillClose:(NSNotification *)aNotification {
     [self.window saveFrameUsingName:self.nameForFrame];
     __typeof(self) strongSelf = self;
-    if (self == gSharedPreferencePanel) {
-        gSharedPreferencePanel = nil;
-    } else if (self == gSessionsPreferencePanel) {
+    // Settings is kept after it closes: rebuilding every tab from the nib made
+    // each ⌘, take seconds. The Edit Session panel still starts fresh, since
+    // it is reopened for a different session each time.
+    if (self == gSessionsPreferencePanel) {
         gSessionsPreferencePanel = nil;
+    } else if (self == gSharedPreferencePanel) {
+        [self clearSearchForReuse];
     }
 
     [strongSelf postWillCloseNotification];
     [[iTermUserDefaults userDefaults] synchronize];
+}
+
+- (BOOL)keptForReuse {
+    return self == gSharedPreferencePanel;
+}
+
+// The next open should not come back to a stale query and results.
+- (void)clearSearchForReuse {
+    NSSearchField *searchField = self.searchField;
+    searchField.stringValue = @"";
+    [self hideScrimAndSERP];
+}
+
+// Settings may have changed while the window was closed (from the menu, the
+// API, or another window), so bring every control up to date.
+- (void)refreshControlsForReuse {
+    for (id<iTermSearchableViewController> viewController in self.searchableViewControllers) {
+        iTermPreferencesBaseViewController *base = [iTermPreferencesBaseViewController castFrom:viewController];
+        // Despite its name, this reloads the value of every bound control.
+        [base updateNonDefaultIndicators];
+    }
+    [_profilesViewController refresh];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)aNotification {
@@ -1014,7 +1059,8 @@ andEditComponentWithIdentifier:(NSString *)identifier
 
 - (void)postWillCloseNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:kPreferencePanelWillCloseNotification
-                                                        object:self];
+                                                        object:self
+                                                      userInfo:@{ kPreferencePanelWillCloseKeptForReuseKey: @(self.keptForReuse) }];
 }
 
 - (void)updateSERPOrigin {

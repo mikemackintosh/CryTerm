@@ -3018,6 +3018,21 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [self updateValueForInfo:allowSendingClipboardInfo];
     [self updateValueForInfo:enableAIInfo];
     [self updateAIEnabled];
+    [self removeAITabIfAIIsDisallowed];
+}
+
+// This build never connects to AI services, so its AI settings would only be
+// dead ends. Drop the AI tab, and its entries from settings search.
+- (void)removeAITabIfAIIsDisallowed {
+    if ([iTermAdvancedSettingsModel generativeAIAllowed]) {
+        return;
+    }
+    for (NSTabViewItem *item in [_tabView.tabViewItems copy]) {
+        if (item.view && [_enableAI isDescendantOf:item.view]) {
+            [self removeSearchDocumentsForViewsInView:item.view];
+            [_tabView removeTabViewItem:item];
+        }
+    }
 }
 
 // The single source of per-prompt metadata: the preference key plus,

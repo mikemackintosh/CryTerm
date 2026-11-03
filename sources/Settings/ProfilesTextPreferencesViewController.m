@@ -428,6 +428,11 @@
 
 - (void)windowWillClose {
     [super windowWillClose];
+    if (self.preferencePanelKeptForReuse) {
+        // Removing every observer would also drop the base class's, leaving
+        // the reopened tab deaf to profile and setting changes.
+        return;
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

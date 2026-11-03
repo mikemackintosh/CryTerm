@@ -36,6 +36,9 @@ extern NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues;
 
 @property(nonatomic, weak) NSWindowController<iTermPreferencePanelSizing> * _Nullable preferencePanel;
 @property(nonatomic, readonly) NSMutableDictionary *internalState;
+// Set before -windowWillClose runs: YES when the Settings window is kept for
+// the next open, so subclasses must not tear down observers or bindings.
+@property(nonatomic, readonly) BOOL preferencePanelKeptForReuse;
 
 #pragma mark - Core Methods
 
@@ -100,6 +103,11 @@ extern NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues;
                  displayName:(NSString * _Nullable)displayName
                      phrases:(NSArray<NSString *> *)phrases
                          key:(NSString * _Nullable)key;
+
+// Drops the search documents for every view inside `container`, for a part of
+// the settings this build removes, so search doesn't offer settings that
+// aren't there.
+- (void)removeSearchDocumentsForViewsInView:(NSView *)container;
 
 // Call this after defining controls.
 - (void)commitControls;

@@ -564,14 +564,7 @@ final class SpecialExceptionsWindowController: NSWindowController {
                 self?.updateEnabled()
             }
             if let error {
-                switch error {
-                case .saveDownloadFailed, .downloadFailed, .fontInstallationFailed,
-                        .missingRequiredFonts, .unzipFailed:
-                    self?.showError(error.localizedDescription)
-
-                case .userDeniedPermission:
-                    break
-                }
+                self?.showError(error.localizedDescription)
             } else {
                 self?.importString(NerdFontInstaller.configString)
             }

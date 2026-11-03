@@ -1045,13 +1045,10 @@ class ShellIntegrationOfflineNushellInstallerTests: XCTestCase {
     }
 }
 
-// The online (download and run) installer types `curl … | bash`; the script iterm2.com serves
-// decides which shell it supports. Until it supports nushell, the installer must switch to the
-// Internet-free installer, which does, instead of reporting nushell as unsupported.
+// This build never pipes a script downloaded from iterm2.com into a shell. Continuing from the
+// first page goes straight to the Internet-free install, and anything that still asks for the
+// download-and-run install gets the Internet-free one instead, without typing `curl`.
 final class ShellIntegrationOnlineInstallerTests: XCTestCase {
-    private static let curlCommand = "\ncurl -L https://iterm2.com/shell_integration/v2/install_shell_integration.sh | bash\n"
-    private static let oldScriptNuError = "Your shell, nu, is not supported yet. Only tcsh, zsh, bash, and fish are supported. Sorry!"
-
     private var controller: iTermShellIntegrationWindowController!
     private var terminal: FakeShellIntegrationTerminal!
 
@@ -1061,8 +1058,6 @@ final class ShellIntegrationOnlineInstallerTests: XCTestCase {
         controller = iTermShellIntegrationWindowController(windowNibName: "iTermShellIntegrationWindowController")
         controller.delegate = terminal
         XCTAssertNotNil(controller.window)
-        controller.shellIntegrationInstallerConfirmDownloadAndRun()
-        XCTAssertTrue(controller.showingDownloadAndRunPage)
     }
 
     override func tearDown() {
@@ -1073,33 +1068,28 @@ final class ShellIntegrationOnlineInstallerTests: XCTestCase {
         super.tearDown()
     }
 
-    private func downloadAndRun(output: String) {
-        terminal.responses[Self.curlCommand] = output
+    private func assertOnInternetFreeInstallWithoutCurl(file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertFalse(controller.showingDownloadAndRunPage, file: file, line: line)
+        XCTAssertTrue(controller.showingSendShellCommandsPage, file: file, line: line)
+        XCTAssertEqual(controller.sendShellCommandsStage, 0, file: file, line: line)
+        XCTAssertFalse(terminal.sentTexts.contains { $0.contains("curl") },
+                       "Sent \(terminal.sentTexts)", file: file, line: line)
+    }
+
+    func testContinueFromFirstPageGoesToInternetFreeInstall() {
+        controller.shellIntegrationInstallerContinue()
+        assertOnInternetFreeInstallWithoutCurl()
+    }
+
+    func testConfirmDownloadAndRunGoesToInternetFreeInstall() {
+        controller.shellIntegrationInstallerConfirmDownloadAndRun()
+        assertOnInternetFreeInstallWithoutCurl()
+    }
+
+    func testReallyDownloadAndRunNeverSendsCurl() {
         controller.shellIntegrationInstallerReallyDownloadAndRun()
         terminal.run()
-        XCTAssertEqual(terminal.sentTexts, [Self.curlCommand])
-    }
-
-    func testNushellRejectedByWebsiteScriptSwitchesToInternetFreeInstall() {
-        downloadAndRun(output: Self.oldScriptNuError)
-
-        XCTAssertFalse(controller.showingDownloadAndRunPage)
-        XCTAssertTrue(controller.showingSendShellCommandsPage)
-        XCTAssertEqual(controller.sendShellCommandsStage, 0)
-    }
-
-    func testOtherUnsupportedShellStaysOnDownloadPage() {
-        downloadAndRun(output: "Your shell, elvish, is not supported yet. Only bash, fish, nu, tcsh, xonsh and zsh are supported. Sorry!")
-
-        XCTAssertTrue(controller.showingDownloadAndRunPage)
-        XCTAssertFalse(controller.showingSendShellCommandsPage)
-    }
-
-    func testSuccessfulInstallAdvances() {
-        downloadAndRun(output: "Done.")
-
-        XCTAssertFalse(controller.showingDownloadAndRunPage)
-        XCTAssertFalse(controller.showingSendShellCommandsPage)
+        assertOnInternetFreeInstallWithoutCurl()
     }
 }
 

@@ -286,7 +286,8 @@ typedef NS_ENUM(NSUInteger, iTermShellIntegrationInstallationState) {
         case iTermShellIntegrationInstallationStateDownloadAndRunConfirm:
             return iTermShellIntegrationInstallationStateSecondPage;
         case iTermShellIntegrationInstallationStateSendShellCommandsConfirm:
-            return iTermShellIntegrationInstallationStateSecondPage;
+            // The second page (download or internet-free) is skipped.
+            return iTermShellIntegrationInstallationStateFirstPage;
         case iTermShellIntegrationInstallationStateConfirmation:
             assert(NO);
     }
@@ -1000,10 +1001,6 @@ typedef NS_ENUM(NSUInteger, iTermShellIntegrationInstallationState) {
     return [string stringByAppendingString:alias];
 }
 
-- (NSString *)curlPipeBashCommand {
-    return [self.downloadAndRunViewController.command stringByAppendingString:@"\n"];
-}
-
 - (NSString *)dotfileCommandWithBashDotfile:(NSString *)bashDotFile {
     NSString *shell_and = @"&&";
     NSString *shell_or = @"||";
@@ -1660,39 +1657,15 @@ typedef NS_ENUM(NSUInteger, iTermShellIntegrationInstallationState) {
 
 #pragma mark - iTermShellIntegrationInstallerDelegate
 
+// Download-and-run (curl | bash from iterm2.com) is not offered; anything that
+// still asks for it gets the internet-free install instead.
 - (void)shellIntegrationInstallerConfirmDownloadAndRun {
-    [self setState:iTermShellIntegrationInstallationStateDownloadAndRunConfirm];
-}
-
-// The install script served by iterm2.com is deployed separately from the app and may not yet
-// support every shell the app's bundled scripts do. nushell support was added to the app before
-// the website's installer, so when the website rejects nu, use the Internet-free installer.
-+ (BOOL)internetFreeInstallerSupportsShellRejectedByWebsite:(NSString *)shell {
-    return [shell isEqualToString:iTermShellIntegrationShellString(iTermShellIntegrationShellNu)];
+    [self shellIntegrationInstallerSendShellCommands:-1];
 }
 
 - (void)shellIntegrationInstallerReallyDownloadAndRun {
-    [self.delegate shellIntegrationWindowControllerSendText:[self curlPipeBashCommand]];
-    __weak __typeof(self) weakSelf = self;
-
-    [self expectRegularExpression:@"(^Done.$)|(^Your shell, (.*), is not supported yet)"
-                            after:nil
-                       willExpect:nil
-                       completion:^(NSArray<NSString *> * _Nonnull captureGroups) {
-        if ([captureGroups[0] hasPrefix:@"Your shell"]) {
-            NSString *unsupportedShell = captureGroups.count > 3 ? captureGroups[3] : @"";
-            DLog(@"Online installer says %@ is unsupported", unsupportedShell);
-            if ([iTermShellIntegrationWindowController internetFreeInstallerSupportsShellRejectedByWebsite:unsupportedShell]) {
-                // The Internet-free installer bundles the script, so it works regardless of
-                // what the website's installer supports.
-                [weakSelf shellIntegrationInstallerSendShellCommands:-1];
-                return;
-            }
-            [weakSelf.downloadAndRunViewController showShellUnsupportedError];
-        } else {
-            [weakSelf next:nil];
-        }
-    }];
+    // Never send `curl … | bash`; see shellIntegrationInstallerConfirmDownloadAndRun.
+    [self shellIntegrationInstallerSendShellCommands:-1];
 }
 
 - (void)shellIntegrationInstallerSendShellCommands:(int)stage {
@@ -1754,6 +1727,13 @@ typedef NS_ENUM(NSUInteger, iTermShellIntegrationInstallationState) {
 }
 
 - (void)shellIntegrationInstallerContinue {
+    if (self.state == iTermShellIntegrationInstallationStateFirstPage) {
+        // Always the internet-free install, from the scripts bundled with the
+        // app: this build never pipes a script downloaded from iterm2.com into
+        // a shell, so the page offering that choice is skipped.
+        [self shellIntegrationInstallerSendShellCommands:-1];
+        return;
+    }
     [self next:nil];
 }
 

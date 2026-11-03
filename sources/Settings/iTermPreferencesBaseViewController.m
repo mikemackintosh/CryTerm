@@ -62,6 +62,9 @@ NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues = @"iTermPrefe
     NSMutableSet *_keysWithSyntheticSetters;
 
     NSMutableArray<iTermPreferencesSearchDocument *> *_docs;
+    // The view each search document describes, so a removed part of the
+    // settings can take its documents with it.
+    NSMapTable<iTermPreferencesSearchDocument *, NSView *> *_docViews;
     NSRect _desiredFrame;
 
     NSPointerArray *_otherSearchableViews;
@@ -94,6 +97,7 @@ NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues = @"iTermPrefe
     _keysWithSyntheticGetters = [NSMutableSet set];
     _keysWithSyntheticSetters = [NSMutableSet set];
     _docs = [NSMutableArray array];
+    _docViews = [NSMapTable strongToWeakObjectsMapTable];
     _otherSearchableViews = [NSPointerArray weakObjectsPointerArray];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didToggleIndicateNonDefaultValues:)
@@ -529,6 +533,7 @@ NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues = @"iTermPrefe
                                                                                          profileTypes:[self profileTypesForView:view]];
         doc.ownerIdentifier = self.documentOwnerIdentifier;
         [_docs addObject:doc];
+        [_docViews setObject:view forKey:doc];
     } else {
         NSLog(@"Warning: no display name for %@", key);
     }
@@ -1210,10 +1215,15 @@ NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues = @"iTermPrefe
 
 - (void)preferencePanelWillClose:(NSNotification *)notification {
     if (_preferencePanel == notification.object) {
+        _preferencePanelKeptForReuse = [notification.userInfo[kPreferencePanelWillCloseKeptForReuseKey] boolValue];
         [self saveDeferredUpdates];
         // Give subclasses a chance to do something first.
         [self windowWillClose];
 
+        if (_preferencePanelKeptForReuse) {
+            // The same controls come back on the next open.
+            return;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self->_keyMap removeAllObjects];
         });
@@ -1312,6 +1322,17 @@ NSString *const iTermPreferencesDidToggleIndicateNonDefaultValues = @"iTermPrefe
 
 - (NSArray<iTermPreferencesSearchDocument *> *)searchableViewControllerDocuments {
     return _docs;
+}
+
+- (void)removeSearchDocumentsForViewsInView:(NSView *)container {
+    NSIndexSet *doomed = [_docs indexesOfObjectsPassingTest:^BOOL(iTermPreferencesSearchDocument *doc, NSUInteger idx, BOOL *stop) {
+        NSView *view = [_docViews objectForKey:doc];
+        return view != nil && [self view:container structurallyContainsDescendant:view];
+    }];
+    for (iTermPreferencesSearchDocument *doc in [_docs objectsAtIndexes:doomed]) {
+        [_docViews removeObjectForKey:doc];
+    }
+    [_docs removeObjectsAtIndexes:doomed];
 }
 
 - (BOOL)revealControl:(NSView *)control {

@@ -773,6 +773,7 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem title="Jump to Selection" keyEquivalent="j" identifier="Find.Jump to Selection" id="764">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <accessibility identifier="Jump to Selection"/>
                                 <connections>
                                     <action selector="jumpToSelection:" target="-1" id="770"/>
@@ -2386,6 +2387,12 @@ DQ
                                 <accessibility identifier="Cockpit"/>
                                 <connections>
                                     <action selector="revealCockpit:" target="201" id="Ql9-I0-729"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Session Overview" keyEquivalent="j" identifier="Session Overview" id="sOv-Ql-7Kd">
+                                <accessibility identifier="Session Overview"/>
+                                <connections>
+                                    <action selector="showSessionOverview:" target="201" id="sOv-Ac-8Pw"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="zl8-Q7-4RO">

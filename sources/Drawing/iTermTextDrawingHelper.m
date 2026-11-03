@@ -353,8 +353,7 @@ static CGFloat iTermTextDrawingHelperAlphaValueForDefaultBackgroundColor(BOOL ha
        virtualOffset:virtualOffset];
 
     if (_selectedCommandRegion.length > 0) {
-        [self drawOutlineAroundSelectedCommand:virtualOffset];
-        [self drawShadeOverNonSelectedCommands:virtualOffset];
+        [self drawBarBesideSelectedCommand:virtualOffset];
     }
 
     if (_showDropTargets) {
@@ -1027,8 +1026,6 @@ static CGFloat iTermTextDrawingHelperAlphaValueForDefaultBackgroundColor(BOOL ha
     ];
 }
 
-const CGFloat commandRegionOutlineThickness = 2.0;
-
 - (NSColor *)shadeColor {
     const CGFloat alpha = [iTermAdvancedSettingsModel alphaForDeselectedCommandShade];
     if ([[self defaultBackgroundColor] isDark]) {
@@ -1037,54 +1034,20 @@ const CGFloat commandRegionOutlineThickness = 2.0;
     return [NSColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:alpha];
 }
 
-- (void)drawShadeOverNonSelectedCommands:(CGFloat)virtualOffset {
-    const NSRange visibleRange = [self rangeOfVisibleRows];
-    const NSRange visibleSelectedRange = NSIntersectionRange(visibleRange, _selectedCommandRegion);
+// The selected command is marked by a thin bar in the left margin, the way an
+// editor marks a code block, rather than a box around it with everything else
+// shaded. Must match -[iTermMetalDriver populateRectangleRendererTransientStateWithFrameData:].
+static const CGFloat iTermSelectedCommandBarWidth = 3;
+static const CGFloat iTermSelectedCommandBarInset = 1;
 
-    NSColor *color = self.shadeColor;
-    [color set];
-
-    const CGFloat topHeight = visibleSelectedRange.location * _cellSize.height - commandRegionOutlineThickness - _scrollViewDocumentVisibleRect.origin.y;
-    CGFloat y = _scrollViewDocumentVisibleRect.origin.y;
-
-    NSRect rect = NSMakeRect(0,
-                             y,
-                             _scrollViewDocumentVisibleRect.size.width,
-                             MAX(0, topHeight));
-    y += topHeight;
-    iTermRectFillUsingOperation(rect, NSCompositingOperationSourceOver, virtualOffset);
-
-    const CGFloat selectedHeight = MAX(0, visibleSelectedRange.length * _cellSize.height + commandRegionOutlineThickness * 2);
-    y += selectedHeight;
-
-    CGFloat savedBottom = 0;
-    if (_forceRegularBottomMargin) {
-        savedBottom = self.excessRect.size.height;
-    }
-    rect = NSMakeRect(0,
-                      y,
-                      _scrollViewDocumentVisibleRect.size.width,
-                      _scrollViewDocumentVisibleRect.size.height - topHeight - selectedHeight - savedBottom);
-    iTermRectFillUsingOperation(rect, NSCompositingOperationSourceOver, virtualOffset);
-
-    DLog(@"rect.origin.y=%@ because document origin=%@ + topHeight=%@ + selectedHeight=%@. Cell height is %@",
-          @(rect.origin.y-virtualOffset), @(_scrollViewDocumentVisibleRect.origin.y-virtualOffset), @(topHeight), @(selectedHeight), @(self.cellSize.height));
-}
-
-- (void)drawOutlineAroundSelectedCommand:(CGFloat)virtualOffset {
+- (void)drawBarBesideSelectedCommand:(CGFloat)virtualOffset {
     const CGFloat y = _selectedCommandRegion.location * _cellSize.height;
-
-    NSRect rect = NSMakeRect(0,
-                             y - commandRegionOutlineThickness,
-                             _scrollViewDocumentVisibleRect.size.width,
-                             _selectedCommandRegion.length * _cellSize.height + commandRegionOutlineThickness * 2);
-
-    NSArray<NSColor *> *colors = self.selectedCommandOutlineColors;
-    for (NSColor * color in colors) {
-        [color set];
-        iTermFrameRect(rect, virtualOffset);
-        rect = NSInsetRect(rect, 1, 1);
-    }
+    const NSRect rect = NSMakeRect(iTermSelectedCommandBarInset,
+                                   y + iTermSelectedCommandBarInset,
+                                   iTermSelectedCommandBarWidth,
+                                   MAX(0, _selectedCommandRegion.length * _cellSize.height - iTermSelectedCommandBarInset * 2));
+    [self.selectedCommandOutlineColors.firstObject set];
+    iTermRectFillUsingOperation(rect, NSCompositingOperationSourceOver, virtualOffset);
 }
 
 - (void)drawStripesInRect:(NSRect)rect

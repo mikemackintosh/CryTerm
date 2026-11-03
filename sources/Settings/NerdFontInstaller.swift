@@ -4,41 +4,30 @@
 //
 //  Created by George Nachman on 3/15/23.
 //
+//  Installs the Nerd Font Bundle: the special-exceptions table bundled with
+//  the app (nerd.itse), which maps Nerd Font symbol ranges to their fonts.
+//  This build never downloads the fonts themselves; if any are missing, it
+//  names them so you can install them yourself, and changes nothing.
+//
 
 import Foundation
 import CoreText
 
 enum NerdFontInstallerError: LocalizedError {
-    case userDeniedPermission
-    case downloadFailed(reason: String)
-    case saveDownloadFailed(reason: String)
-    case unzipFailed(reason: String)
-    case missingRequiredFonts
-    case fontInstallationFailed(reason: String)
+    case missingFonts([String])
 
     var errorDescription: String? {
         switch self {
-        case .userDeniedPermission:
-            return String(localized: "NerdFontInstaller.UserDeniedPermission", defaultValue: "User denied permission", comment: "Error shown when the user declines to download the Nerd Font Bundle")
-        case .downloadFailed(let reason):
-            return String(localized: "NerdFontInstaller.DownloadFailed", defaultValue: "Download failed: \(reason)", comment: "Error shown when the font download fails; the placeholder is the failure reason")
-        case .saveDownloadFailed(let reason):
-            return String(localized: "NerdFontInstaller.SaveDownloadFailed", defaultValue: "Downloaded file could not be saved: \(reason)", comment: "Error shown when the downloaded font file cannot be saved; the placeholder is the failure reason")
-        case .unzipFailed(let reason):
-            return String(localized: "NerdFontInstaller.UnzipFailed", defaultValue: "Unzip failed: \(reason)", comment: "Error shown when unzipping the downloaded font bundle fails; the placeholder is the failure reason")
-        case .missingRequiredFonts:
-            return String(localized: "NerdFontInstaller.MissingRequiredFonts", defaultValue: "The downloaded bundle is missing some required fonts", comment: "Error shown when the downloaded font bundle is missing required fonts")
-        case .fontInstallationFailed(let reason):
-            return String(localized: "NerdFontInstaller.FontInstallationFailed", defaultValue: "Installation of downloaded fonts failed: \(reason)", comment: "Error shown when installing the downloaded fonts fails; the placeholder is the failure reason")
+        case .missingFonts(let names):
+            let list = names.joined(separator: ", ")
+            return String(localized: "NerdFontInstaller.MissingFontsNoDownload",
+                          defaultValue: "The Nerd Font Bundle needs these fonts, which aren’t installed: \(list). Install them yourself, then try again. iTerm2 doesn’t download fonts.",
+                          comment: "Error shown when fonts the Nerd Font Bundle needs are missing; the placeholder is a comma-separated list of font names")
         }
     }
 }
 
 class NerdFontInstaller {
-    private static var instance: NerdFontInstaller?
-    private weak var window: NSWindow?
-    private var completion: (NerdFontInstallerError?) -> ()
-
     static var configString: String {
         let path = Bundle(for: SpecialExceptionsWindowController.self).path(forResource: "nerd", ofType: "itse")!
         return try! String(contentsOf: URL.init(fileURLWithPath: path))
@@ -48,8 +37,8 @@ class NerdFontInstaller {
         FontTable.Config(string: configString)!
     }()
 
-    private var neededFontPostscriptNames: [String] {
-        let config = Self.config
+    // PostScript names of the bundle's fonts that aren't installed.
+    static var neededFontPostscriptNames: [String] {
         let needed = config.entries.compactMap { entry in
             let needFont = NSFont(name: entry.fontName, size: 10) == nil
             return needFont ? entry.fontName : nil
@@ -57,223 +46,15 @@ class NerdFontInstaller {
         return Array(Set(needed)).sorted()
     }
 
-    private enum State: CustomDebugStringConvertible {
-        case ground
-        case downloading
-        case unzipping(from: URL, to: URL)
-        case installing(folder: String)
-        case updatingProfile
-        case successful
-        case failed(NerdFontInstallerError)
-
-        var debugDescription: String {
-            switch self {
-            case .ground: return "ground"
-            case .downloading: return "downloading"
-            case .unzipping(from: let from, to: let todir): return "unzipping from \(from.absoluteString) to \(todir.absoluteString)"
-            case .updatingProfile: return "updating profile"
-            case .successful: return "successful"
-            case .failed(let nerdError): return "error \(nerdError.errorDescription ?? "unknown")"
-            case .installing(folder: let folder): return "installing to \(folder)"
-            }
-        }
-    }
-
-    private var state = State.ground {
-        didSet {
-            RLog("State became \(state.debugDescription)")
-            switch state {
-            case .ground:
-                break
-            case .downloading:
-                initiateDownload()
-            case .unzipping(from: let zip, to: let dir):
-                unzip(zip, to: dir)
-            case .installing(folder: let folder):
-                install(from: folder)
-            case .updatingProfile:
-                state = .successful
-                completion(nil)
-            case .successful:
-                break
-            case .failed(let error):
-                completion(error)
-            }
-        }
-    }
-
+    // Completes with nil when every font is installed, so the caller can
+    // import configString; otherwise with .missingFonts.
     static func start(window: NSWindow?, completion: @escaping (NerdFontInstallerError?) -> ()) {
-        Self.instance = NerdFontInstaller(window, completion: completion)
-    }
-
-    private init(_ window: NSWindow?, completion: @escaping (NerdFontInstallerError?) -> ()) {
-        self.window = window
-        self.completion = completion
-        state = .ground
-
-        defer {
-            if neededFontPostscriptNames.isEmpty {
-                state = .updatingProfile
-            } else {
-                state = .downloading
-            }
-        }
-    }
-
-    private func askUserForPermissionToDownload() -> Bool {
-        let selection = iTermWarning.show(
-            withTitle: String(localized: "NerdFontInstaller.PermissionPrompt", defaultValue: "To install the Nerd Font Bundle iTerm2 must first download and install these fonts: \(neededFontPostscriptNames.joined(separator: ", ")).", comment: "Prompt asking the user for permission to download fonts; the placeholder is a comma-separated list of font names"),
-            actions: [String(localized: "NerdFontInstaller.Download", defaultValue: "Download", comment: "Button that starts downloading the Nerd Font Bundle"), iTermLocalizedCancel()],
-            accessory: nil,
-            identifier: "SpecialExceptionsMissingFontsForNerdBundle",
-            silenceable: .kiTermWarningTypePersistent,
-            heading: String(localized: "NerdFontInstaller.DownloadNeeded", defaultValue: "Download Needed", comment: "Heading of the dialog asking permission to download fonts"),
-            window: window)
-        return selection == .kiTermWarningSelection0
-    }
-
-    private var task: URLSessionTask?
-
-    private func initiateDownload() {
-        if !askUserForPermissionToDownload() {
-            state = .failed(NerdFontInstallerError.userDeniedPermission)
-            return
-        }
-
-        NSLog("Start download task")
-        let url = URL(string: "https://iterm2.com/downloads/assets/nerd-fonts-v2.zip")!
-        task = URLSession.shared.downloadTask(with: url) { [weak self] (location, response, error) in
-            self?.downloadDidComplete(location: location, response: response, error: error)
-            self?.task = nil
-        }
-        task?.resume()
-    }
-
-    // Runs on a private queue
-    private func downloadDidComplete(location: URL?, response: URLResponse?, error: Error?) {
-        NSLog("Download completed. error=\(String(describing: error))")
-        if let error {
-            DispatchQueue.main.async {
-                self.state = .failed(NerdFontInstallerError.downloadFailed(
-                    reason: String(localized: "NerdFontInstaller.DownloadTaskFailed", defaultValue: "The Nerd Font Bundle download failed with an error: \(error.localizedDescription)", comment: "Error message when the Nerd Font Bundle download fails; the placeholder is the underlying error description")))
-            }
-            return
-        }
-        if let location {
-            let tempDir = URL(fileURLWithPath: FileManager.default.it_temporaryDirectory()!)
-            let zip = tempDir.appendingPathComponent("file.zip")
-            do {
-                RLog("Move \(location.path) to \(zip.path)")
-                try FileManager.default.moveItem(at: location, to: zip)
-                let destination = Self.contentsFolder(tempDir)
-                try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: false)
-                DispatchQueue.main.async {
-                    self.state = .unzipping(from: zip, to: destination)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    let nerdError = NerdFontInstallerError.saveDownloadFailed(reason: error.localizedDescription)
-                    self.state = .failed(nerdError)
-                }
-            }
-        }
-    }
-
-    private static func contentsFolder(_ location: URL) -> URL {
-        return location.appendingPathComponent("Contents")
-    }
-
-    private func unzip(_ location: URL, to destination: URL) {
-        iTermCommandRunner.unzipURL(location,
-                                    withArguments: ["-q"],
-                                    destination: destination.path,
-                                    callbackQueue: DispatchQueue.main,
-                                    completion: { [weak self] error in
-            if let error {
-                self?.state = .failed(.unzipFailed(reason: error.localizedDescription))
-                return
-            }
-            self?.state = .installing(folder: destination.path)
-        })
-    }
-
-    private var installedFontFamilyNames: Set<String> {
-        let fontCollection = CTFontManagerCopyAvailableFontFamilyNames()
-        return Set(Array(fontCollection))
-    }
-
-    private static var fontsDirectory: URL {
-        URL(fileURLWithPath: FileManager.default.fontsDirectory())
-    }
-
-    private func install(from tempDir: String) {
-        let fileManager = FileManager.default
-        let fontsDir = Self.fontsDirectory
-
-        // Copy fonts to permanent location and create descriptors from there
-        let fontDescriptors = fileManager.flatMapRegularFiles(in: tempDir) { itemURL in
-            let destURL = fontsDir.appendingPathComponent(itemURL.lastPathComponent)
-            do {
-                if fileManager.fileExists(atPath: destURL.path) {
-                    // Unregister any existing font at this URL before removing it
-                    CTFontManagerUnregisterFontsForURL(destURL as CFURL, .persistent, nil)
-                    try fileManager.removeItem(at: destURL)
-                }
-                try fileManager.copyItem(at: itemURL, to: destURL)
-            } catch {
-                RLog("Failed to copy font \(itemURL.lastPathComponent): \(error)")
-                return [CTFontDescriptor]()
-            }
-            if let descriptors = CTFontManagerCreateFontDescriptorsFromURL(destURL as CFURL) {
-                return Array<CTFontDescriptor>(descriptors)
-            }
-            return []
-        }
-        install(descriptors: fontDescriptors) { [weak self] error in
-            if let error {
-                self?.state = .failed(error)
-            } else if let self {
-                if !self.neededFontPostscriptNames.isEmpty {
-                    self.state = .failed(.missingRequiredFonts)
-                    return
-                }
-                self.state = .updatingProfile
-            }
-        }
-    }
-
-    private func install(descriptors: [CTFontDescriptor], completion: @escaping (NerdFontInstallerError?) -> ()) {
-        if descriptors.isEmpty {
+        let needed = neededFontPostscriptNames
+        if needed.isEmpty {
             completion(nil)
-            return
-        }
-        CTFontManagerRegisterFontDescriptors(descriptors.cfArray,
-                                             .persistent,
-                                             true) { errors, done in
-            let errorsArray = Array<CFError>(errors)
-            // Filter out "already registered" errors - these are benign
-            // since the fonts are already installed and working.
-            let fatalErrors = errorsArray.filter { error in
-                let code = CFErrorGetCode(error)
-                return code != CTFontManagerError.alreadyRegistered.rawValue
-            }
-            if fatalErrors.isEmpty {
-                if done {
-                    DispatchQueue.main.async {
-                        completion(nil)
-                    }
-                }
-                return true
-            }
-            var reason = fatalErrors.compactMap { CFErrorCopyDescription($0) as String? }.joined(separator: ", ")
-            if reason.isEmpty {
-                reason = String(localized: "NerdFontInstaller.UnknownErrors", defaultValue: "Unknown errors occurred", comment: "Fallback reason shown when font installation fails without a specific error message")
-            }
-            RLog("\(reason)")
-            DispatchQueue.main.async {
-                completion(NerdFontInstallerError.fontInstallationFailed(reason: reason))
-            }
-            return false
+        } else {
+            RLog("Nerd Font Bundle needs fonts that aren't installed: \(needed)")
+            completion(.missingFonts(needed))
         }
     }
 }
