@@ -17012,14 +17012,14 @@
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					1D6ED85219AEA20D005A7799 = {
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						ProvisioningStyle = Automatic;
 					};
 					1DD39AD3180B8117004E56D5 = {
 						ProvisioningStyle = Automatic;
 					};
 					1DFA7C661923E83500DF1410 = {
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 					};
 					2549E8A336D6EEDF5F73151F = {
 						CreatedOnToolsVersion = 16.1;
@@ -17027,7 +17027,7 @@
 					};
 					759637992593AE0700E278CC = {
 						CreatedOnToolsVersion = 12.3;
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						LastSwiftMigration = 1410;
 						ProvisioningStyle = Automatic;
 					};
@@ -17042,21 +17042,21 @@
 					};
 					A60593B1257DF9A500CACEE6 = {
 						CreatedOnToolsVersion = 12.2;
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						ProvisioningStyle = Automatic;
 					};
 					A663197722FF349700C502BD = {
 						CreatedOnToolsVersion = 10.2;
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						ProvisioningStyle = Automatic;
 					};
 					A66717851DCE36C3000CE608 = {
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						LastSwiftMigration = 1250;
 					};
 					A6866B6623CAA10A00ACD94C = {
 						CreatedOnToolsVersion = 11.3;
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						ProvisioningStyle = Automatic;
 					};
 					A69FEEB92E123B8700AFF7A8 = {
@@ -17070,12 +17070,12 @@
 						TestTargetID = 874206460564169600CFC3F1;
 					};
 					A6C7603F1B45C4CF00E3C992 = {
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						LastSwiftMigration = 2600;
 					};
 					A6C7641B1B45CB2800E3C992 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = H7V7XYVQ7D;
+						DevelopmentTeam = 994Z8EH423;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 874206460564169600CFC3F1;
 					};
@@ -21514,7 +21514,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/build/Development",
@@ -21547,7 +21547,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/build/Development",
@@ -21596,11 +21596,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: GEORGE NACHMAN (H7V7XYVQ7D)";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Danger Close Security Co. (994Z8EH423)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)";
@@ -21641,7 +21641,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = H7V7XYVQ7D;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -21700,9 +21700,9 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
 				PRODUCT_NAME = iTerm2;
-				PROVISIONING_PROFILE_SPECIFIER = "iTerm2 Dev ID Keychain";
+				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
@@ -21807,7 +21807,7 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.applescript;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.applescript;
 				PRODUCT_NAME = iTerm2ForApplescriptTesting;
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
@@ -21883,7 +21883,7 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.applescript;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.applescript;
 				PRODUCT_NAME = iTerm2ForApplescriptTesting;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -21957,7 +21957,7 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.applescript;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.applescript;
 				PRODUCT_NAME = iTerm2ForApplescriptTesting;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -22688,11 +22688,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: GEORGE NACHMAN (H7V7XYVQ7D)";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Danger Close Security Co. (994Z8EH423)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)";
@@ -22733,7 +22733,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = H7V7XYVQ7D;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -22788,9 +22788,9 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
 				PRODUCT_NAME = iTerm2;
-				PROVISIONING_PROFILE_SPECIFIER = "iTerm2 Dev ID Keychain";
+				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
@@ -22908,7 +22908,7 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.applescript;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.applescript;
 				PRODUCT_NAME = iTerm2ForApplescriptTesting;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -24332,7 +24332,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.iTerm2ImportStatus;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.iTerm2ImportStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -24407,7 +24407,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.iTerm2ImportStatus;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.iTerm2ImportStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -24482,7 +24482,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.iTerm2ImportStatus;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.iTerm2ImportStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -24557,7 +24557,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2.iTerm2ImportStatus;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm.iTerm2ImportStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -24607,7 +24607,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -24702,7 +24702,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -24789,7 +24789,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -24876,7 +24876,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -25150,7 +25150,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -25211,7 +25211,7 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
 				PRODUCT_NAME = iTerm2;
 				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
@@ -25251,7 +25251,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = H7V7XYVQ7D;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -25306,9 +25306,9 @@
 					"-force_load",
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.googlecode.iterm2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
 				PRODUCT_NAME = iTerm2;
-				PROVISIONING_PROFILE_SPECIFIER = "iTerm2 Dev ID Keychain";
+				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
@@ -25356,7 +25356,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -25413,11 +25413,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: GEORGE NACHMAN (H7V7XYVQ7D)";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Danger Close Security Co. (994Z8EH423)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Manual;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)";
@@ -25495,7 +25495,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/build/Development",
@@ -25528,7 +25528,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H7V7XYVQ7D;
+				DEVELOPMENT_TEAM = 994Z8EH423;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/build/Development",

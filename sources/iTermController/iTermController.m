@@ -31,6 +31,7 @@
 #import "FutureMethods.h"
 #import "ITAddressBookMgr.h"
 #import "NSArray+iTerm.h"
+#import "NSBundle+iTerm.h"
 #import "NSFileManager+iTerm.h"
 #import "NSStringITerm.h"
 #import "NSURL+iTerm.h"
@@ -1373,6 +1374,11 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
 }
 
 - (void)refreshSoftwareUpdateUserDefaults {
+    if (![NSBundle it_hasSoftwareUpdateFeed]) {
+        DLog(@"No software update feed in Info.plist; not configuring Sparkle");
+        [[iTermUserDefaults userDefaults] removeObjectForKey:@"SUFeedURL"];
+        return;
+    }
     BOOL checkForTestReleases = [iTermPreferences boolForKey:kPreferenceKeyCheckForTestReleases];
     NSString *appCast = checkForTestReleases ?
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SUFeedURLForTesting"] :

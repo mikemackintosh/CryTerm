@@ -264,11 +264,13 @@
         <key>CFBundleIconFile</key>
         <string>iTerm2.icns</string>
         <key>CFBundleIdentifier</key>
-        <string>com.googlecode.iterm2</string>
+        <string>co.dangerclose.cryterm</string>
         <key>CFBundleInfoDictionaryVersion</key>
         <string>6.0</string>
+        <key>CFBundleDisplayName</key>
+        <string>CryTerm</string>
         <key>CFBundleName</key>
-        <string>iTerm2</string>
+        <string>CryTerm</string>
         <key>CFBundlePackageType</key>
         <string>APPL</string>
         <key>CFBundleShortVersionString</key>
@@ -407,15 +409,9 @@
         <string>MainMenu</string>
         <key>NSPrincipalClass</key>
         <string>iTermApplication</string>
-        <key>SUPublicEDKey</key>
-        <string>xdqAa0KXBPhMbUrutVTe87i6U7yWf7WKaCeRG7AAZ0w=</string>
         <key>NSSupportsAutomaticGraphicsSwitching</key>
         <true/>
-        <key>SUFeedURLForTesting</key>
-        <string>https://iterm2.com/appcasts/testing_modern.xml</string>
-        <key>SUFeedURLForFinal</key>
-        <string>https://iterm2.com/appcasts/final_modern.xml</string>
-        <key>SUFeedURL</key>
-        <string>https://iterm2.com/appcasts/final_modern.xml</string>
+        <key>SUEnableAutomaticChecks</key>
+        <false/>
 </dict>
 </plist>

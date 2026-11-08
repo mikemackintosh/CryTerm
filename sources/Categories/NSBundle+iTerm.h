@@ -12,6 +12,9 @@
 
 + (BOOL)it_isNightlyBuild;
 + (BOOL)it_isEarlyAdopter;
+// NO for builds whose Info.plist has no SUFeedURLForFinal (e.g., forks that
+// don't publish a Sparkle appcast).
++ (BOOL)it_hasSoftwareUpdateFeed;
 + (NSDate *)it_buildDate;
 
 @end

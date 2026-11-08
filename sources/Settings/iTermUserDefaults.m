@@ -93,7 +93,10 @@ static NSUserDefaults *iTermPrivateUserDefaults(void) {
         if (gCustomSuiteName) {
             suiteName = [gCustomSuiteName stringByAppendingString:@".private"];
         } else {
-            suiteName = @"com.googlecode.iterm2.private";
+            // Derived from the bundle ID so forks with their own bundle ID
+            // don't share private state with iTerm2.
+            NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier] ?: @"com.googlecode.iterm2";
+            suiteName = [bundleID stringByAppendingString:@".private"];
         }
         privateUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
     });

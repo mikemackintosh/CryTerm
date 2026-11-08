@@ -445,6 +445,12 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     const SEL action = [menuItem action];
+    if (action == @selector(checkForUpdatesFromMenu:)) {
+        // Builds without an update feed (e.g., forks) can't check for updates.
+        const BOOL hasFeed = [NSBundle it_hasSoftwareUpdateFeed];
+        menuItem.hidden = !hasFeed;
+        return hasFeed;
+    }
     if (action == @selector(newSessionInTabAtIndex:) ||
         action == @selector(newSession:) ||
         action == @selector(newSessionWithSameProfile:)) {
@@ -2676,6 +2682,10 @@ static iTermKeyEventReplayer *gReplayer;
 }
 
 - (IBAction)checkForUpdatesFromMenu:(id)sender {
+    if (![NSBundle it_hasSoftwareUpdateFeed]) {
+        DLog(@"No software update feed in Info.plist; ignoring check for updates");
+        return;
+    }
     [suUpdater checkForUpdates:(sender)];
 }
 

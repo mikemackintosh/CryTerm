@@ -949,7 +949,8 @@ private struct UserDefaultsImporterExporter {
         if let custom = iTermUserDefaults.customSuiteName() as String?, !custom.isEmpty {
             privateSuite = "\(custom).private"
         } else {
-            privateSuite = "com.googlecode.iterm2.private"
+            // Must match iTermPrivateUserDefaults() in iTermUserDefaults.m.
+            privateSuite = "\(Bundle.main.bundleIdentifier ?? "com.googlecode.iterm2").private"
         }
         eraseSuite(privateSuite, action: action)
     }
