@@ -573,7 +573,7 @@ class iTermBrowserSettingsHandler: NSObject, iTermBrowserPageHandler {
             showStatusMessage(String(localized: "BrowserSettings.LinkPrefAsk", defaultValue: "Link opening preference set to always ask", comment: "Status shown when the browser will always ask how to open links"), type: "success", in: webView)
 
         case "builtin":
-            // Set permanent selection to "Open in iTerm2" (selection 1)
+            // Set permanent selection to "Open in CryTerm" (selection 1)
             iTermWarning.setIdentifier(identifier, permanentSelection: .kiTermWarningSelection1)
             showStatusMessage(String(localized: "BrowserSettings.LinkPrefBuiltin", defaultValue: "Links will always open in built-in browser", comment: "Status shown when links will open in the built-in browser"), type: "success", in: webView)
 

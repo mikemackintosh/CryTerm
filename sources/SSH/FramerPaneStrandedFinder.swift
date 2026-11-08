@@ -140,7 +140,7 @@ final class StrandedFramerPaneAnnouncer: StrandedFramerPanePresenter {
         }
         let title = String(localized: "FramerPane.Stranded.Title",
                            defaultValue: "\(pids.count) programs started as workgroup peers are still running on this host but have no session.",
-                           comment: "Announcement shown when programs that iTerm2 ran on a remote host for a workgroup are still running there after a restart, but their sessions were not restored. The count is the number of programs.")
+                           comment: "Announcement shown when programs that CryTerm ran on a remote host for a workgroup are still running there after a restart, but their sessions were not restored. The count is the number of programs.")
         let actions = [String(localized: "FramerPane.Stranded.Open",
                               defaultValue: "Open in Tabs",
                               comment: "Button that opens each program left running on the remote host in a new tab"),

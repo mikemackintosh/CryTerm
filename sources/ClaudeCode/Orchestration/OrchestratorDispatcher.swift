@@ -681,7 +681,7 @@ final class OrchestratorDispatcher {
                     watcher: watcher,
                     reason: .watcherDropped,
                     stateReached: "",
-                    detail: "Watch dropped after iTerm2 restart: the session for \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) could not be restored.")
+                    detail: "Watch dropped after CryTerm restart: the session for \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) could not be restored.")
             }
         }
         rearmRestoredWatchers(watchers.filter { ids.contains($0.watcherID) && !heldIDs.contains($0.watcherID) })
@@ -858,7 +858,7 @@ final class OrchestratorDispatcher {
         guard !detached.isEmpty else { return }
         pendingTmuxWatcherIDs.subtract(detached.map { $0.watcherID })
         dropWatchers(detached) { watcher in
-            "Watch dropped after iTerm2 restart: the tmux session showing \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) detached before its pane was restored."
+            "Watch dropped after CryTerm restart: the tmux session showing \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) detached before its pane was restored."
         }
         if pendingTmuxWatcherIDs.isEmpty {
             stopObservingTmuxReattach()
@@ -872,7 +872,7 @@ final class OrchestratorDispatcher {
         pendingTmuxWatcherIDs.removeAll()
         stopObservingTmuxReattach()
         dropWatchers(expired) { watcher in
-            "Watch dropped after iTerm2 restart: the tmux pane for \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) did not reattach."
+            "Watch dropped after CryTerm restart: the tmux pane for \(Self.watcherTargetLabel(role: watcher.roleName, workgroup: watcher.workgroupName, workgroupID: watcher.workgroupID)) did not reattach."
         }
     }
 
@@ -2805,7 +2805,7 @@ final class OrchestratorDispatcher {
             categoryName = "required"
         }
         if afterRestart {
-            return "Watch dropped after iTerm2 restart: the \u{201C}\(categoryName)\u{201D} permission is off, so it can no longer \(action). Re-register it if you enable \(categoryName) again."
+            return "Watch dropped after CryTerm restart: the \u{201C}\(categoryName)\u{201D} permission is off, so it can no longer \(action). Re-register it if you enable \(categoryName) again."
         }
         return "Watch dropped: the \u{201C}\(categoryName)\u{201D} permission was turned off, so it can no longer \(action)."
     }
@@ -3599,7 +3599,7 @@ final class OrchestratorDispatcher {
 
         guard let session = spawned else {
             throw OrchestratorError.unsupported(reason:
-                "iTerm2 could not open a new session. The launch failed before the window was shown.")
+                "CryTerm could not open a new session. The launch failed before the window was shown.")
         }
         // Synchronous post-launch sanity. launchBookmark's `ok=true`
         // means the fork/exec succeeded (a shell was started), not that

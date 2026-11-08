@@ -51,7 +51,7 @@ namespace iTerm2 {
         }
 
         NSString *description() const {
-            return [NSString stringWithFormat:@"<iTerm2::GlyphEntry: %p part=%@ key=%@ page=%p index=%@ emoji=%@>",
+            return [NSString stringWithFormat:@"<CryTerm::GlyphEntry: %p part=%@ key=%@ page=%p index=%@ emoji=%@>",
                     this, @(_part), _key.description(), _page, @(_index), @(_is_emoji)];
         }
         int _part;

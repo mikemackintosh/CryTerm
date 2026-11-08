@@ -427,7 +427,7 @@ CGFloat kiTermIndicatorStandardHeight = 20;
         kiTermIndicatorFilter: @"Filtering.",
         kiTermIndicatorCopyMode: @"In copy mode. See [documentation](https://iterm2.com/documentation-copymode.html) for details.",
         kiTermIndicatorDebugLogging: @"Debug logging is enabled.",
-        kiTermIndicatorSecureKeyboardEntry_User: @"Secure Keyboard Entry is enabled. Select iTerm2 > Secure Keyboard Entry to disable.\n[Disable this indicator.](iterm2:disable-secure-keyboard-entry-indicator)",
+        kiTermIndicatorSecureKeyboardEntry_User: @"Secure Keyboard Entry is enabled. Select CryTerm > Secure Keyboard Entry to disable.\n[Disable this indicator.](iterm2:disable-secure-keyboard-entry-indicator)",
         kiTermIndicatorSecureKeyboardEntry_Forced: @"Secure Keyboard Entry is enabled because another app has turned it on.\n[Disable this indicator.](iterm2:disable-secure-keyboard-entry-indicator)",
         kiTermIndicatorPinned: @"This Hotkey Window is pinned.",
         kiTermIndicatorAIChatLinked: [NSString stringWithFormat:@"AI Chats can view or control this session.\n * [Unlink from AI Chat](iterm2:unlink-session-chat?s=%@&t=%@)\n * [Reveal AI Chat](iterm2:reveal-chat-for-session?s=%@&t=%@)", sessionID, [[NSWorkspace sharedWorkspace] it_newToken], sessionID, [[NSWorkspace sharedWorkspace] it_newToken]],
@@ -435,7 +435,7 @@ CGFloat kiTermIndicatorStandardHeight = 20;
                                          sessionID, [[NSWorkspace sharedWorkspace] it_newToken]],
         kiTermIndicatorChannel: [NSString stringWithFormat:@"This command is running within another session.\n * [Return to Enclosing Session](iterm2:pop-channel?s=%@&t=%@)", sessionID, [[NSWorkspace sharedWorkspace] it_newToken]],
         kiTermIndicatorBufferingInput: @"Keyboard input is being buffered and will be sent when a trigger stops buffering.",
-        kiTermIndicatorShowRememberedAlerts: @"Showing alerts with remembered selections. Disable in iTerm2 > Suppressed Alerts.",
+        kiTermIndicatorShowRememberedAlerts: @"Showing alerts with remembered selections. Disable in CryTerm > Suppressed Alerts.",
         kiTermIndicatorScreenshotMode: @"In screenshot mode. Close the screenshot panel to return to normal."
     };
     return messages[name];

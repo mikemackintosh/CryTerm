@@ -111,7 +111,7 @@
 
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedStringWithDefaultValue(@"MigrationHelper.ManualUpdateNeeded", nil, [NSBundle mainBundle], @"Manual Update Needed", @"Title of the manual migration alert");
-        alert.informativeText = NSLocalizedStringWithDefaultValue(@"MigrationHelper.ManualUpdateBody", nil, [NSBundle mainBundle], @"iTerm2's Application Support directory has changed.\n\nPreviously, both these directories were supported:\n~/Library/Application Support/iTerm\n~/Library/Application Support/iTerm2.\n\nNow, only the iTerm2 version is supported. But you have files in both so please move everything from iTerm to iTerm2.", @"Explanation that the application support directory changed and the user must move files manually");
+        alert.informativeText = NSLocalizedStringWithDefaultValue(@"MigrationHelper.ManualUpdateBody", nil, [NSBundle mainBundle], @"CryTerm's Application Support directory has changed.\n\nPreviously, both these directories were supported:\n~/Library/Application Support/iTerm\n~/Library/Application Support/CryTerm.\n\nNow, only the CryTerm version is supported. But you have files in both so please move everything from iTerm to CryTerm.", @"Explanation that the application support directory changed and the user must move files manually");
 
         NSMutableArray<NSString *> *files = [NSMutableArray array];
         int over = 0;

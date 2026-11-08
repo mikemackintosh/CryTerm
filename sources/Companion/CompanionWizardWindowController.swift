@@ -322,10 +322,10 @@ final class CompanionWizardWindowController: NSWindowController, NSWindowDelegat
 
         let explanation = full
             ? String(localized: "Companion.InstallExplanation.Full",
-                     defaultValue: "This installs the AI and Companion plugins and turns on both features. Afterward, iTerm2 can send data off this Mac, but only with your explicit consent.",
+                     defaultValue: "This installs the AI and Companion plugins and turns on both features. Afterward, CryTerm can send data off this Mac, but only with your explicit consent.",
                      comment: "Explanatory paragraph on the full setup screen")
             : String(localized: "Companion.InstallExplanation.CompanionOnly",
-                     defaultValue: "This installs the Companion plugin and turns on companion device pairing. Afterward, iTerm2 can send data off this Mac, but only with your explicit consent.",
+                     defaultValue: "This installs the Companion plugin and turns on companion device pairing. Afterward, CryTerm can send data off this Mac, but only with your explicit consent.",
                      comment: "Explanatory paragraph on the companion-only setup screen")
         addBodyLabel(explanation, to: view, y: Self.contentHeight - 160, height: 80)
 
@@ -890,8 +890,8 @@ final class CompanionWizardWindowController: NSWindowController, NSWindowDelegat
             setStatus("", color: .secondaryLabelColor)
         } else {
             pairedInstructionsLabel?.stringValue = String(localized: "Companion.Paired.Reconnecting",
-                                                          defaultValue: "Your companion device is paired but iTerm2 isn’t listening for it yet. Reconnecting…",
-                                                          comment: "Status text when paired but iTerm2 is not yet listening")
+                                                          defaultValue: "Your companion device is paired but CryTerm isn’t listening for it yet. Reconnecting…",
+                                                          comment: "Status text when paired but CryTerm is not yet listening")
             checkmarkImageView?.contentTintColor = .systemYellow
             setStatus("", color: .systemYellow)
         }

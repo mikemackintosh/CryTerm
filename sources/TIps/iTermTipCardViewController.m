@@ -188,7 +188,7 @@ static const CGFloat kMarginBetweenTitleAndBody = 8;
                           withAttributes:bigTextAttributes];
     [attributedString iterm_appendString:@"\n"
                           withAttributes:bigTextAttributes];
-    [attributedString iterm_appendString:NSLocalizedStringWithDefaultValue(@"TipCard.Signature", nil, [NSBundle mainBundle], @"iTerm2 tip of the day", @"Signature line shown below a tip of the day")
+    [attributedString iterm_appendString:NSLocalizedStringWithDefaultValue(@"TipCard.Signature", nil, [NSBundle mainBundle], @"CryTerm tip of the day", @"Signature line shown below a tip of the day")
                           withAttributes:signatureAttributes];
 
     _body.attributedStringValue = attributedString;

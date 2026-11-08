@@ -173,7 +173,7 @@ final class ChatWindowController: NSWindowController, DictionaryCodable {
             _instance = ChatWindowController(model: model,
                                              client: client)
         } else if showErrors && _instance == nil {
-            iTermWarning.show(withTitle: String(localized: "ChatWindowController.OpenFailedMessage", defaultValue: "AI Chat could not open because of a problem loading the database. Verify there is only one instance of iTerm2 running.", comment: "Error message when the AI chat window cannot open due to a database problem"),
+            iTermWarning.show(withTitle: String(localized: "ChatWindowController.OpenFailedMessage", defaultValue: "AI Chat could not open because of a problem loading the database. Verify there is only one instance of CryTerm running.", comment: "Error message when the AI chat window cannot open due to a database problem"),
                               actions: [iTermLocalizedOK()],
                               accessory: nil,
                               identifier: nil,

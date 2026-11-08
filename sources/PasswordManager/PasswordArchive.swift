@@ -51,11 +51,11 @@ enum PasswordArchiveError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .notAPasswordArchive:
-            return String(localized: "PasswordArchive.NotAnArchive", defaultValue: "This is not an iTerm2 passwords file.", comment: "Error shown when importing a file that is not a password export")
+            return String(localized: "PasswordArchive.NotAnArchive", defaultValue: "This is not an CryTerm passwords file.", comment: "Error shown when importing a file that is not a password export")
         case .wrongPassphraseOrDamaged:
             return String(localized: "PasswordArchive.WrongPassphrase", defaultValue: "The passphrase is incorrect, or the file is damaged.", comment: "Error shown when an encrypted password export can't be decrypted")
         case .unsupportedVersion:
-            return String(localized: "PasswordArchive.UnsupportedVersion", defaultValue: "This passwords file was made by a newer version of iTerm2. Upgrade iTerm2 and try again.", comment: "Error shown when importing a password export from a newer version")
+            return String(localized: "PasswordArchive.UnsupportedVersion", defaultValue: "This passwords file was made by a newer version of CryTerm. Upgrade CryTerm and try again.", comment: "Error shown when importing a password export from a newer version")
         case .malformed:
             return String(localized: "PasswordArchive.Malformed", defaultValue: "The passwords file is damaged.", comment: "Error shown when a decrypted password export can't be parsed")
         case .readFailed(let reason):

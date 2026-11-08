@@ -959,7 +959,7 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
         DLog(@"applicationShouldTerminateAfterLastWindowClosed - user has not interacted with any session");
         if ([[NSDate date] timeIntervalSinceDate:launchTime_] < [iTermAdvancedSettingsModel minRunningTime]) {
             DLog(@"Returning NO");
-            NSLog(@"Not quitting iTerm2 because it ran very briefly and had no user interaction. Set the MinRunningTime float preference to 0 to turn this feature off.");
+            NSLog(@"Not quitting CryTerm because it ran very briefly and had no user interaction. Set the MinRunningTime float preference to 0 to turn this feature off.");
             return NO;
         }
     }
@@ -1075,13 +1075,13 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
         RLog(@"Showing quit alert");
         NSString *message;
         if ([[iTermController sharedInstance] shouldLeaveSessionsRunningOnQuit]) {
-            message = NSLocalizedStringWithDefaultValue(@"QuitAlert.SessionsRestored", nil, [NSBundle mainBundle], @"Sessions will be restored automatically when iTerm2 is relaunched.", @"Quit-confirmation message when sessions will be restored on relaunch");
+            message = NSLocalizedStringWithDefaultValue(@"QuitAlert.SessionsRestored", nil, [NSBundle mainBundle], @"Sessions will be restored automatically when CryTerm is relaunched.", @"Quit-confirmation message when sessions will be restored on relaunch");
         } else {
             message = NSLocalizedStringWithDefaultValue(@"QuitAlert.AllClosed", nil, [NSBundle mainBundle], @"All sessions will be closed.", @"Quit-confirmation message when all sessions will be closed");
         }
         [NSApp activateIgnoringOtherApps:YES];
         NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-        alert.messageText = NSLocalizedStringWithDefaultValue(@"QuitAlert.Title", nil, [NSBundle mainBundle], @"Quit iTerm2?", @"Title of the quit-confirmation alert");
+        alert.messageText = NSLocalizedStringWithDefaultValue(@"QuitAlert.Title", nil, [NSBundle mainBundle], @"Quit CryTerm?", @"Title of the quit-confirmation alert");
         alert.informativeText = message;
         [alert addButtonWithTitle:iTermLocalizedOK()];
         [alert addButtonWithTitle:iTermLocalizedCancel()];
@@ -1958,7 +1958,7 @@ static iTermKeyEventReplayer *gReplayer;
     mainMenuItem.submenu = [[NSApp mainMenu] it_deepCopy];
     [menu addItem:mainMenuItem];
     
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedStringWithDefaultValue(@"StatusMenu.QuitiTerm2", nil, [NSBundle mainBundle], @"Quit iTerm2", @"Status-icon menu item to quit iTerm2")
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedStringWithDefaultValue(@"StatusMenu.QuitiTerm2", nil, [NSBundle mainBundle], @"Quit CryTerm", @"Status-icon menu item to quit CryTerm")
                                        action:@selector(terminate:)
                                 keyEquivalent:@""] autorelease];
     [menu addItem:item];

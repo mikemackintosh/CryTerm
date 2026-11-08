@@ -69,7 +69,7 @@ static NSString *const iTermAPIScriptLauncherScriptDidFailUserNotificationCallba
                           configParser:(iTermSetupCfgParser *)configParser
                             completion:(void (^)(NSString *))completion {
     DLog(@"%@", fullPath);
-    NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptLauncher.UpgradeRuntimeMessage", nil, [NSBundle mainBundle], @"The Python API script “%@” needs a newer version of the runtime environment for security reasons. You must upgrade it before this version of iTerm2 can launch the script.", @"Prompt to upgrade a script's runtime; %@ is the script name"), fullPath.lastPathComponent];
+    NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptLauncher.UpgradeRuntimeMessage", nil, [NSBundle mainBundle], @"The Python API script “%@” needs a newer version of the runtime environment for security reasons. You must upgrade it before this version of CryTerm can launch the script.", @"Prompt to upgrade a script's runtime; %@ is the script name"), fullPath.lastPathComponent];
     const iTermWarningSelection selection =
     [iTermWarning showWarningWithTitle:message
                                actions:@[ NSLocalizedStringWithDefaultValue(@"ScriptLauncher.Upgrade", nil, [NSBundle mainBundle], @"Upgrade", @"Button to upgrade a script runtime"), iTermLocalizedCancel() ]
@@ -878,7 +878,7 @@ static NSString *const iTermAPIScriptLauncherScriptDidFailUserNotificationCallba
     // reads IT2_SUITE to find that path; without it a menu-launched script would
     // default to “iTerm2” and connect to the main instance’s socket instead. Mirror
     // what PTYSession does for terminal sessions.
-    NSString *suiteName = [iTermUserDefaults customSuiteName];
+    NSString *suiteName = [iTermUserDefaults apiSuiteName];
     if (suiteName) {
         environment[@"IT2_SUITE"] = suiteName;
     } else {

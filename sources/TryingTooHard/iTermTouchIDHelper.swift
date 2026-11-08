@@ -63,7 +63,7 @@ class iTermTouchIDHelper: NSObject {
     /// for their sudo password in that window.
     @objc static func runInstallInNewWindow() {
         guard let path = scriptPath else {
-            iTermWarning.show(withTitle: String(localized: "TouchID.ScriptMissing", defaultValue: "The Touch ID install script is missing from the iTerm2 application bundle.", comment: "Warning shown when the Touch ID install script is missing from the bundle"),
+            iTermWarning.show(withTitle: String(localized: "TouchID.ScriptMissing", defaultValue: "The Touch ID install script is missing from the CryTerm application bundle.", comment: "Warning shown when the Touch ID install script is missing from the bundle"),
                               actions: [iTermLocalizedOK()],
                               accessory: nil,
                               identifier: nil,

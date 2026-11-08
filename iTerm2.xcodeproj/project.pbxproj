@@ -21701,7 +21701,8 @@
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
-				PRODUCT_NAME = iTerm2;
+				PRODUCT_MODULE_NAME = iTerm2;
+				PRODUCT_NAME = CryTerm;
 				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -22789,7 +22790,8 @@
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
-				PRODUCT_NAME = iTerm2;
+				PRODUCT_MODULE_NAME = iTerm2;
+				PRODUCT_NAME = CryTerm;
 				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -25307,7 +25309,8 @@
 					"$(BUILT_PRODUCTS_DIR)/libit2core.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.dangerclose.cryterm;
-				PRODUCT_NAME = iTerm2;
+				PRODUCT_MODULE_NAME = iTerm2;
+				PRODUCT_NAME = CryTerm;
 				PROVISIONING_PROFILE_SPECIFIER = "CryTerm Dev ID";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

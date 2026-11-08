@@ -202,7 +202,7 @@ final class ClaudeIntegrationHealthMonitor: NSObject {
         alertInFlight = true
         let warning = iTermWarning()
         warning.heading = String(localized: "ClaudeHealthMonitor.ShellIntegrationTooOldHeading", defaultValue: "Update Shell Integration on \(host)?", comment: "Heading of the warning shown when shell integration on a remote host is too old for Claude Code to run it2; the value is the host")
-        warning.title = String(localized: "ClaudeHealthMonitor.ShellIntegrationTooOldTitle", defaultValue: "Claude Code on \(host) can\u{2019}t find the it2 command, which features such as Code Review ask it to run. The shell integration installed on \(host) is too old to make it available. To update it, exit Claude Code and choose iTerm2 > Install Shell Integration in that session.", comment: "Body of the warning shown when shell integration on a remote host is too old for Claude Code to run it2; the value is the host")
+        warning.title = String(localized: "ClaudeHealthMonitor.ShellIntegrationTooOldTitle", defaultValue: "Claude Code on \(host) can\u{2019}t find the it2 command, which features such as Code Review ask it to run. The shell integration installed on \(host) is too old to make it available. To update it, exit Claude Code and choose CryTerm > Install Shell Integration in that session.", comment: "Body of the warning shown when shell integration on a remote host is too old for Claude Code to run it2; the value is the host")
         warning.warningType = .kiTermWarningTypePermanentlySilenceable
         warning.identifier = Self.it2WarningIdentifier
         warning.actionLabels = [iTermLocalizedOK()]
@@ -314,11 +314,11 @@ final class ClaudeIntegrationHealthMonitor: NSObject {
         let actionLabel: String
         if installed {
             warning.heading = String(localized: "ClaudeHealthMonitor.RemoteBrokenHeading", defaultValue: "Claude Code Integration on \(host) Looks Broken", comment: "Heading of the warning shown when the Claude Code hook on a remote host is incomplete; the value is the host")
-            warning.title = String(localized: "ClaudeHealthMonitor.RemoteBrokenTitle", defaultValue: "iTerm2\u{2019}s hook is no longer complete in Claude Code\u{2019}s settings on \(host). This usually means Claude Code rewrote that file. Reinstall the hook so per-tab status indicators (\u{201C}Working\u{2026},\u{201D} \u{201C}Waiting\u{2026}\u{201D}) work again?", comment: "Body of the warning shown when the Claude Code hook on a remote host is incomplete; the value is the host")
+            warning.title = String(localized: "ClaudeHealthMonitor.RemoteBrokenTitle", defaultValue: "CryTerm\u{2019}s hook is no longer complete in Claude Code\u{2019}s settings on \(host). This usually means Claude Code rewrote that file. Reinstall the hook so per-tab status indicators (\u{201C}Working\u{2026},\u{201D} \u{201C}Waiting\u{2026}\u{201D}) work again?", comment: "Body of the warning shown when the Claude Code hook on a remote host is incomplete; the value is the host")
             actionLabel = String(localized: "ClaudeHealthMonitor.Reinstall", defaultValue: "Reinstall", comment: "Button to reinstall the Claude Code status hook")
         } else {
             warning.heading = String(localized: "ClaudeHealthMonitor.RemoteNotInstalledHeading", defaultValue: "Install Claude Code Integration on \(host)?", comment: "Heading of the prompt offering to install the Claude Code hook on a remote host where claude is running; the value is the host")
-            warning.title = String(localized: "ClaudeHealthMonitor.RemoteNotInstalledTitle", defaultValue: "Claude Code is running on \(host), but iTerm2\u{2019}s hook isn\u{2019}t installed there, so its status won\u{2019}t appear in the Session Status tool. Install it?", comment: "Body of the prompt offering to install the Claude Code hook on a remote host where claude is running; the value is the host")
+            warning.title = String(localized: "ClaudeHealthMonitor.RemoteNotInstalledTitle", defaultValue: "Claude Code is running on \(host), but CryTerm\u{2019}s hook isn\u{2019}t installed there, so its status won\u{2019}t appear in the Session Status tool. Install it?", comment: "Body of the prompt offering to install the Claude Code hook on a remote host where claude is running; the value is the host")
             actionLabel = String(localized: "ClaudeHealthMonitor.Install", defaultValue: "Install", comment: "Button to install the Claude Code status hook on a remote host")
         }
         warning.warningType = .kiTermWarningTypePermanentlySilenceable
@@ -399,7 +399,7 @@ final class ClaudeIntegrationHealthMonitor: NSObject {
         let path = ClaudeCodeOnboarding.claudeSettingsURL().path
         let warning = iTermWarning()
         warning.heading = String(localized: "ClaudeHealthMonitor.BrokenHeading", defaultValue: "Claude Code Integration Looks Broken", comment: "Heading of the warning shown when the Claude Code status hook is missing")
-        warning.title = String(localized: "ClaudeHealthMonitor.HookNotWorkingTitle", defaultValue: "iTerm2 couldn\u{2019}t find a working status hook for every Claude Code event in \(path). Reinstall the hook so per-tab status indicators (\u{201C}Working\u{2026},\u{201D} \u{201C}Waiting\u{2026}\u{201D}) work again?", comment: "Body of the warning shown when the Claude Code status hook is missing from settings.json or points at a file that can\u{2019}t run; the interpolated value is the absolute path to settings.json")
+        warning.title = String(localized: "ClaudeHealthMonitor.HookNotWorkingTitle", defaultValue: "CryTerm couldn\u{2019}t find a working status hook for every Claude Code event in \(path). Reinstall the hook so per-tab status indicators (\u{201C}Working\u{2026},\u{201D} \u{201C}Waiting\u{2026}\u{201D}) work again?", comment: "Body of the warning shown when the Claude Code status hook is missing from settings.json or points at a file that can\u{2019}t run; the interpolated value is the absolute path to settings.json")
         warning.warningType = .kiTermWarningTypePermanentlySilenceable
         warning.identifier = Self.warningIdentifier
         let reinstall = String(localized: "ClaudeHealthMonitor.Reinstall", defaultValue: "Reinstall", comment: "Button to reinstall the Claude Code status hook")

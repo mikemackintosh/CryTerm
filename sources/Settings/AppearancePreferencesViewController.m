@@ -260,11 +260,11 @@ NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidCha
         BOOL didChange = NO;
         if (isOn) {
             iTermWarningSelection selection =
-                [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockWarning", nil, [NSBundle mainBundle], @"When iTerm2 is excluded from the dock, you can "
+                [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockWarning", nil, [NSBundle mainBundle], @"When CryTerm is excluded from the dock, you can "
                                                    @"always get back to Preferences using the status "
-                                                   @"bar item. Look for an iTerm2 icon on the right "
-                                                   @"side of your menu bar.", @"Warning shown when the user excludes iTerm2 from the Dock and app switcher")
-                                           actions:@[ NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockAction", nil, [NSBundle mainBundle], @"Exclude From Dock and App Switcher", @"Button confirming exclusion of iTerm2 from the Dock and app switcher"), iTermLocalizedCancel() ]
+                                                   @"bar item. Look for an CryTerm icon on the right "
+                                                   @"side of your menu bar.", @"Warning shown when the user excludes CryTerm from the Dock and app switcher")
+                                           actions:@[ NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockAction", nil, [NSBundle mainBundle], @"Exclude From Dock and App Switcher", @"Button confirming exclusion of CryTerm from the Dock and app switcher"), iTermLocalizedCancel() ]
                                         identifier:nil
                                        silenceable:kiTermWarningTypePersistent
                                             window:weakSelf.view.window];

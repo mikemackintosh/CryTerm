@@ -190,7 +190,7 @@ extension SetStatusBuiltInFunction: iTermBuiltInFunctionProtocol {
 
         if let expiresOn = parameters[expiresOnArg] as? String, !expiresOn.isEmpty {
             guard expiresOn == progressEndReason else {
-                throw error(message: String(localized: "SetStatus.UnknownExpiresOn", defaultValue: "Unknown expires_on “\(expiresOn)”. The only supported value is progress-end.", comment: "Error when the expires_on argument names an event iTerm2 does not know. The placeholder is the value the caller passed."))
+                throw error(message: String(localized: "SetStatus.UnknownExpiresOn", defaultValue: "Unknown expires_on “\(expiresOn)”. The only supported value is progress-end.", comment: "Error when the expires_on argument names an event CryTerm does not know. The placeholder is the value the caller passed."))
             }
             // With no then_ arguments the status simply goes away when
             // it expires, which is what a caller who only wants to

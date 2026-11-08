@@ -2677,7 +2677,7 @@ extension Message.Content {
         case .unsupported:
             // A message a newer iTerm2 sent that this build can't decode.
             return AttributedStringForSystemMessageMarkdown(
-                String(localized: "ChatViewController.UnsupportedMessage", defaultValue: "This message requires a newer version of iTerm2 to view.", comment: "Shown for a message that a newer iTerm2 sent that this build cannot decode")) {}
+                String(localized: "ChatViewController.UnsupportedMessage", defaultValue: "This message requires a newer version of CryTerm to view.", comment: "Shown for a message that a newer CryTerm sent that this build cannot decode")) {}
         case .plainText(let string, context: _):
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineBreakMode = .byWordWrapping
@@ -2787,7 +2787,7 @@ extension Message.Content {
                 case .active:
                     AttributedStringForSystemMessageMarkdown(String(localized: "ChatViewController.StreamActive", defaultValue: "All terminal commands in the linked session will be sent to AI automatically.", comment: "System message shown when automatic sending of terminal commands starts")) {}
                 case .stoppedAutomatically:
-                    AttributedStringForSystemMessageMarkdown(String(localized: "ChatViewController.StreamStoppedAutomatically", defaultValue: "Terminal commands will no longer be sent to AI automatically. Automatic sending always terminates when iTerm2 restarts or the current chat changes.", comment: "System message shown when automatic sending of terminal commands stops on its own")) {}
+                    AttributedStringForSystemMessageMarkdown(String(localized: "ChatViewController.StreamStoppedAutomatically", defaultValue: "Terminal commands will no longer be sent to AI automatically. Automatic sending always terminates when CryTerm restarts or the current chat changes.", comment: "System message shown when automatic sending of terminal commands stops on its own")) {}
                 }
             case let .offerLink(terminal: terminal, guid: _, name: name):
                 let displayName = name ?? String(localized: "ChatViewController.UnnamedSession", defaultValue: "Unnamed session", comment: "Fallback name for a session with no name")
@@ -4183,7 +4183,7 @@ extension ChatViewController {
         let warning = iTermWarning()
         warning.heading = String(localized: "ChatViewController.EnableOrchestrationModeTitle", defaultValue: "Enable orchestration mode?", comment: "Title of the enable orchestration confirmation dialog")
         warning.title = String(localized: "ChatViewController.EnableOrchestrationModeBody", defaultValue: """
-            Orchestration mode lets the agent coordinate across any iTerm2 sessions. \
+            Orchestration mode lets the agent coordinate across any CryTerm sessions. \
             It can read screen contents from any session, but to type into a session requires \
             your permission. This is a more permissive model than when an agent is linked to \
             a single session, where there are very fine-grained permission settings.

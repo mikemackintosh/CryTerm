@@ -197,7 +197,7 @@ final class iTermBrowserScriptingPermissionsWindowController: NSWindowController
 
         let label = NSTextField(wrappingLabelWithString: String(
             localized: "BrowserScriptingPermissions.Explanation",
-            defaultValue: "Before a script loads URLs or runs JavaScript on a website in a browser session, iTerm2 asks you. Remembered answers are listed here and apply to all scripts.",
+            defaultValue: "Before a script loads URLs or runs JavaScript on a website in a browser session, CryTerm asks you. Remembered answers are listed here and apply to all scripts.",
             comment: "Explanation at the top of the panel listing websites that scripts may control in a browser session"))
         label.frame = NSRect(x: margin,
                              y: bounds.height - margin - labelHeight,

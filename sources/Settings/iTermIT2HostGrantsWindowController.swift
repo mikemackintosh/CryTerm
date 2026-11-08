@@ -64,8 +64,8 @@ final class IT2HostGrantsWindowController: NSWindowController, NSTableViewDataSo
                               backing: .buffered,
                               defer: true)
         window.title = String(localized: "IT2HostGrants.WindowTitle",
-                              defaultValue: "Remote Hosts Allowed to Control iTerm2",
-                              comment: "Title of the sheet listing remote hosts always allowed to use the iTerm2 API over SSH integration")
+                              defaultValue: "Remote Hosts Allowed to Control CryTerm",
+                              comment: "Title of the sheet listing remote hosts always allowed to use the CryTerm API over SSH integration")
         super.init(window: window)
         buildContent(in: window)
         reload()
@@ -83,8 +83,8 @@ final class IT2HostGrantsWindowController: NSWindowController, NSTableViewDataSo
 
         let explanation = NSTextField(wrappingLabelWithString: String(
             localized: "IT2HostGrants.Explanation",
-            defaultValue: "These hosts can use the iTerm2 API over SSH integration without asking first. Removing a host makes it ask again the next time it connects.",
-            comment: "Explanation at the top of the list of remote hosts always allowed to use the iTerm2 API"))
+            defaultValue: "These hosts can use the CryTerm API over SSH integration without asking first. Removing a host makes it ask again the next time it connects.",
+            comment: "Explanation at the top of the list of remote hosts always allowed to use the CryTerm API"))
         explanation.translatesAutoresizingMaskIntoConstraints = false
 
         tableView.dataSource = self
@@ -95,12 +95,12 @@ final class IT2HostGrantsWindowController: NSWindowController, NSTableViewDataSo
         let host = NSTableColumn(identifier: Self.hostColumn)
         host.title = String(localized: "IT2HostGrants.HostColumn",
                             defaultValue: "Host",
-                            comment: "Column header for the remote host in the list of hosts always allowed to use the iTerm2 API")
+                            comment: "Column header for the remote host in the list of hosts always allowed to use the CryTerm API")
         host.width = 300
         let granted = NSTableColumn(identifier: Self.grantedColumn)
         granted.title = String(localized: "IT2HostGrants.GrantedColumn",
                                defaultValue: "Allowed Since",
-                               comment: "Column header for when a remote host was first always allowed to use the iTerm2 API")
+                               comment: "Column header for when a remote host was first always allowed to use the CryTerm API")
         granted.width = 170
         tableView.addTableColumn(host)
         tableView.addTableColumn(granted)
@@ -113,15 +113,15 @@ final class IT2HostGrantsWindowController: NSWindowController, NSTableViewDataSo
 
         emptyLabel.stringValue = String(
             localized: "IT2HostGrants.Empty",
-            defaultValue: "No remote hosts are always allowed. Choose Always Allow This Host when a remote host asks to control iTerm2.",
-            comment: "Shown in place of the list when no remote hosts are always allowed to use the iTerm2 API")
+            defaultValue: "No remote hosts are always allowed. Choose Always Allow This Host when a remote host asks to control CryTerm.",
+            comment: "Shown in place of the list when no remote hosts are always allowed to use the CryTerm API")
         emptyLabel.alignment = .center
         emptyLabel.textColor = .secondaryLabelColor
         emptyLabel.translatesAutoresizingMaskIntoConstraints = false
 
         removeButton.title = String(localized: "IT2HostGrants.Remove",
                                     defaultValue: "Remove",
-                                    comment: "Button that stops always allowing the selected remote hosts to use the iTerm2 API")
+                                    comment: "Button that stops always allowing the selected remote hosts to use the CryTerm API")
         removeButton.bezelStyle = .rounded
         removeButton.target = self
         removeButton.action = #selector(removeSelected(_:))
@@ -129,7 +129,7 @@ final class IT2HostGrantsWindowController: NSWindowController, NSTableViewDataSo
 
         let done = NSButton(title: String(localized: "IT2HostGrants.Done",
                                           defaultValue: "Done",
-                                          comment: "Button that closes the list of remote hosts always allowed to use the iTerm2 API"),
+                                          comment: "Button that closes the list of remote hosts always allowed to use the CryTerm API"),
                             target: self,
                             action: #selector(done(_:)))
         done.bezelStyle = .rounded

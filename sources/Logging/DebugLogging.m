@@ -172,7 +172,7 @@ NSString *iTermDebugLogHeaderString(void) {
         [pinnedMessages appendString:gPinnedMessages[key]];
     }
     NSString *header = [NSString stringWithFormat:
-                        @"iTerm2 version: %@\n"
+                        @"CryTerm version: %@\n"
                         @"Date: %@ (%lld)\n"
                         @"Machine: %@\n"
                         @"Screens: %@\n"

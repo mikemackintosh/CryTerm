@@ -454,10 +454,10 @@ class PasswordManagerDataSourceProvider: NSObject {
             reason = String(localized: "PasswordManagerAuth.BiometryLockout", defaultValue: "there were too many failed Touch ID attempts.", comment: "Authentication failure reason: too many failed Touch ID attempts");
 
         case .appCancel:
-            reason = String(localized: "PasswordManagerAuth.AppCancel", defaultValue: "authentication was cancelled by iTerm2.", comment: "Authentication failure reason: cancelled by the app");
+            reason = String(localized: "PasswordManagerAuth.AppCancel", defaultValue: "authentication was cancelled by CryTerm.", comment: "Authentication failure reason: cancelled by the app");
 
         case .invalidContext:
-            reason = String(localized: "PasswordManagerAuth.InvalidContext", defaultValue: "the context is invalid. This is a bug in iTerm2. Please report it.", comment: "Authentication failure reason: invalid context");
+            reason = String(localized: "PasswordManagerAuth.InvalidContext", defaultValue: "the context is invalid. This is a bug in CryTerm. Please report it.", comment: "Authentication failure reason: invalid context");
 
         case .none:
             reason = error.localizedDescription

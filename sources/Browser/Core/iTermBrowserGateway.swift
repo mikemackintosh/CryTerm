@@ -150,7 +150,7 @@ class iTermBrowserGateway: NSObject {
         // would cause an infinite loop since the plugin would still not be installed.
         // Remembering "Cancel" is also not useful.
         let warning = iTermWarning()
-        warning.title = String(localized: "BrowserGateway.UpsellTitle", defaultValue: "iTerm2 can display web pages! But first you must download the Browser Plugin.", comment: "Message offering to download the browser plugin")
+        warning.title = String(localized: "BrowserGateway.UpsellTitle", defaultValue: "CryTerm can display web pages! But first you must download the Browser Plugin.", comment: "Message offering to download the browser plugin")
         let download = String(localized: "BrowserGateway.Download", defaultValue: "Download", comment: "Button to download the browser plugin")
         let cancel = iTermLocalizedCancel()
         let useSystemBrowser = String(localized: "BrowserGateway.UseSystemBrowser", defaultValue: "Use System Browser", comment: "Button to open the URL in the system default browser")

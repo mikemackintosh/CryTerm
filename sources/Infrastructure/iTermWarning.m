@@ -675,7 +675,7 @@ static BOOL iTermWarningViewHasSelectableText(NSView *view) {
     // If this warning is being shown due to the "always show alerts with remembered
     // selections" mode, prepend explanatory text.
     if (_shownDueToRememberedAlertsMode && _savedSelectionLabel) {
-        alert.informativeText = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Warning.RememberedSelectionExplanation", nil, [NSBundle mainBundle], @"%1$@\n\nThis alert had a saved selection of “%2$@”. It is being shown because “Always show alerts with remembered selections” is turned on in iTerm2 > Suppressed Alerts.", @"Explanation shown when a suppressed alert is displayed anyway; first %@ is the original message, second %@ is the saved selection label"), _title, _savedSelectionLabel];
+        alert.informativeText = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Warning.RememberedSelectionExplanation", nil, [NSBundle mainBundle], @"%1$@\n\nThis alert had a saved selection of “%2$@”. It is being shown because “Always show alerts with remembered selections” is turned on in CryTerm > Suppressed Alerts.", @"Explanation shown when a suppressed alert is displayed anyway; first %@ is the original message, second %@ is the saved selection label"), _title, _savedSelectionLabel];
     } else {
         alert.informativeText = _title;
     }

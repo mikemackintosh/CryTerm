@@ -224,7 +224,7 @@ class OllamaModelDiscovery: NSObject {
         guard iTermAdvancedSettingsModel.generativeAIAllowed() else {
             DispatchQueue.main.async {
                 completion([], String(localized: "Ollama.Discovery.NotInThisBuild",
-                                      defaultValue: "This build of iTerm2 doesn’t connect to AI services.",
+                                      defaultValue: "This build of CryTerm doesn’t connect to AI services.",
                                       comment: "Error shown by Fetch Models because this build never contacts AI services"))
             }
             return

@@ -73,9 +73,9 @@ class ClaudeCodeOnboarding: NSObject {
         var description: String {
             switch self {
             case .enablePythonAPI:
-                return String(localized: "ClaudeCodeOnboarding.EnablePythonAPIDescription", defaultValue: "The Claude Code integration relies on iTerm2\u{2019}s Python API to find sessions running Claude and track their status.\n\nThe Python API is currently disabled. Setup can\u{2019}t continue until it is enabled. Click Enable to turn it on.", comment: "Description of the enable-Python-API onboarding step")
+                return String(localized: "ClaudeCodeOnboarding.EnablePythonAPIDescription", defaultValue: "The Claude Code integration relies on CryTerm\u{2019}s Python API to find sessions running Claude and track their status.\n\nThe Python API is currently disabled. Setup can\u{2019}t continue until it is enabled. Click Enable to turn it on.", comment: "Description of the enable-Python-API onboarding step")
             case .installHook:
-                return String(localized: "ClaudeCodeOnboarding.InstallHookDescription", defaultValue: "Install a Claude Code hook that lets iTerm2 detect Claude\u{2019}s state (working, waiting, idle) and display it in the Session Status tool.\n\nThis adds a hook to your Claude Code settings that runs automatically as Claude works.", comment: "Description of the install-hook onboarding step")
+                return String(localized: "ClaudeCodeOnboarding.InstallHookDescription", defaultValue: "Install a Claude Code hook that lets CryTerm detect Claude\u{2019}s state (working, waiting, idle) and display it in the Session Status tool.\n\nThis adds a hook to your Claude Code settings that runs automatically as Claude works.", comment: "Description of the install-hook onboarding step")
             case .showToolbelt:
                 return String(localized: "ClaudeCodeOnboarding.ShowToolbeltDescription", defaultValue: "Show the toolbelt and enable the Session Status tool. The toolbelt appears on the right side of your terminal window.\n\nYou can toggle the toolbelt from View > Toolbelt > Show Toolbelt, or with the shortcut \u{2318}\u{21E7}B.", comment: "Description of the show-toolbelt onboarding step")
             case .installWorkgroup:
@@ -83,7 +83,7 @@ class ClaudeCodeOnboarding: NSObject {
             case .installRemoteHook:
                 return ""
             case .installTriggers:
-                return String(localized: "ClaudeCodeOnboarding.InstallTriggersDescription", defaultValue: "Pick the terminal profiles where you run claude. iTerm2 will add triggers so the Claude Code workgroup is entered automatically when claude starts and exited when it stops.\n\nWithout this, you can still enter the workgroup manually via Shell > Workgroups > Claude Code.", comment: "Description of the install-triggers onboarding step")
+                return String(localized: "ClaudeCodeOnboarding.InstallTriggersDescription", defaultValue: "Pick the terminal profiles where you run claude. CryTerm will add triggers so the Claude Code workgroup is entered automatically when claude starts and exited when it stops.\n\nWithout this, you can still enter the workgroup manually via Shell > Workgroups > Claude Code.", comment: "Description of the install-triggers onboarding step")
             }
         }
     }
@@ -719,7 +719,7 @@ class ClaudeCodeOnboarding: NSObject {
                 if let output {
                     environment = CCStatusHookCommand.parseEnvironment(output)
                 } else {
-                    DLog("Onboarding: couldn't read the shell environment; using iTerm2's")
+                    DLog("Onboarding: couldn't read the shell environment; using CryTerm's")
                     environment = ProcessInfo.processInfo.environment
                 }
                 queue.async {
@@ -1223,7 +1223,7 @@ class ClaudeCodeOnboarding: NSObject {
         introTitleLabel = titleLabel
 
         let lead = NSTextField(wrappingLabelWithString:
-            String(localized: "ClaudeCodeOnboarding.IntroLead", defaultValue: "Don’t panic! All of this can be undone later via iTerm2 > Uninstall Claude Code Integration.", comment: "Reassuring lead text on the intro sheet"))
+            String(localized: "ClaudeCodeOnboarding.IntroLead", defaultValue: "Don’t panic! All of this can be undone later via CryTerm > Uninstall Claude Code Integration.", comment: "Reassuring lead text on the intro sheet"))
         lead.font = NSFont.systemFont(ofSize: 13)
         lead.textColor = .labelColor
         lead.isSelectable = false
@@ -1252,7 +1252,7 @@ class ClaudeCodeOnboarding: NSObject {
         introDisclosureLabel = disclosureLabel
 
         let details = NSTextField(wrappingLabelWithString:
-            String(localized: "ClaudeCodeOnboarding.WhatGetsChangedDetails", defaultValue: "\u{2022} iTerm2\u{2019}s Python API is enabled\n\u{2022} An iTerm2 status hook is added to ~/.claude/settings.json\n\u{2022} The toolbelt is shown\n\u{2022} A Claude Code workgroup is added to iTerm2\u{2019}s settings\n\u{2022} Enter/Exit Workgroup triggers are added to the profiles you pick", comment: "Bulleted list detailing what the Claude Code integration changes"))
+            String(localized: "ClaudeCodeOnboarding.WhatGetsChangedDetails", defaultValue: "\u{2022} CryTerm\u{2019}s Python API is enabled\n\u{2022} An CryTerm status hook is added to ~/.claude/settings.json\n\u{2022} The toolbelt is shown\n\u{2022} A Claude Code workgroup is added to CryTerm\u{2019}s settings\n\u{2022} Enter/Exit Workgroup triggers are added to the profiles you pick", comment: "Bulleted list detailing what the Claude Code integration changes"))
         details.font = NSFont.systemFont(ofSize: 13)
         details.textColor = .secondaryLabelColor
         details.isSelectable = false
@@ -1665,8 +1665,8 @@ class ClaudeCodeOnboarding: NSObject {
         // The user is waiting on the spinner. Offer to retry rather than install
         // into a guessed location.
         let warning = iTermWarning()
-        warning.heading = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedTitle", defaultValue: "Couldn\u{2019}t Determine Settings Location", comment: "Title of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
-        warning.title = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedBody", defaultValue: "iTerm2 couldn\u{2019}t read CLAUDE_CONFIG_DIR from your shell, so it doesn\u{2019}t know where Claude Code keeps its settings. Try again?", comment: "Body of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
+        warning.heading = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedTitle", defaultValue: "Couldn\u{2019}t Determine Settings Location", comment: "Title of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
+        warning.title = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedBody", defaultValue: "CryTerm couldn\u{2019}t read CLAUDE_CONFIG_DIR from your shell, so it doesn\u{2019}t know where Claude Code keeps its settings. Try again?", comment: "Body of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
         warning.actionLabels = [String(localized: "ClaudeCodeOnboarding.Retry", defaultValue: "Retry", comment: "Button to retry resolving the Claude Code settings location"),
                                 iTermLocalizedCancel()]
         warning.cancelLabel = iTermLocalizedCancel()
@@ -1751,7 +1751,7 @@ class ClaudeCodeOnboarding: NSObject {
         let host = remoteHost
         var text = String(localized: "ClaudeCodeOnboarding.InstallRemoteHookDescription", defaultValue: "Install the Claude Code hook on \(host), so Claude Code running there shows its state (working, waiting, idle) in the Session Status tool too.\n\nThis adds a hook to Claude Code\u{2019}s settings on \(host). It runs the it2 command that SSH Integration keeps up to date on that host.", comment: "Description of the onboarding step that installs the Claude Code hook on a remote host; the value is the host, such as user@example.com")
         if remoteHostIsAlwaysAllowed {
-            text += "\n\n" + String(localized: "ClaudeCodeOnboarding.RemoteHostAlreadyAllowed", defaultValue: "\(host) is already always allowed to use the iTerm2 API. You can change that in Settings > General > Magic > API access over ssh.", comment: "Shown in the remote install step when the host already has an always-allow grant; the value is the host")
+            text += "\n\n" + String(localized: "ClaudeCodeOnboarding.RemoteHostAlreadyAllowed", defaultValue: "\(host) is already always allowed to use the CryTerm API. You can change that in Settings > General > Magic > API access over ssh.", comment: "Shown in the remote install step when the host already has an always-allow grant; the value is the host")
         }
         return text
     }
@@ -1793,9 +1793,9 @@ class ClaudeCodeOnboarding: NSObject {
     @MainActor
     private func remoteConfigResolutionFailed() {
         let warning = iTermWarning()
-        warning.heading = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedTitle", defaultValue: "Couldn\u{2019}t Determine Settings Location", comment: "Title of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
+        warning.heading = String(localized: "ClaudeCodeOnboarding.ConfigResolutionFailedTitle", defaultValue: "Couldn\u{2019}t Determine Settings Location", comment: "Title of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR from the user\u{2019}s shell")
         let host = remoteHost
-        warning.title = String(localized: "ClaudeCodeOnboarding.RemoteConfigResolutionFailedBody", defaultValue: "iTerm2 couldn\u{2019}t read CLAUDE_CONFIG_DIR from your login shell on \(host), so it doesn\u{2019}t know where Claude Code keeps its settings there. Try again?", comment: "Body of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR on a remote host; the value is the host")
+        warning.title = String(localized: "ClaudeCodeOnboarding.RemoteConfigResolutionFailedBody", defaultValue: "CryTerm couldn\u{2019}t read CLAUDE_CONFIG_DIR from your login shell on \(host), so it doesn\u{2019}t know where Claude Code keeps its settings there. Try again?", comment: "Body of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR on a remote host; the value is the host")
         warning.actionLabels = [String(localized: "ClaudeCodeOnboarding.Retry", defaultValue: "Retry", comment: "Button to retry resolving the Claude Code settings location"),
                                 iTermLocalizedCancel()]
         warning.cancelLabel = iTermLocalizedCancel()
@@ -1839,16 +1839,16 @@ class ClaudeCodeOnboarding: NSObject {
     private func askAboutAlwaysAllow() -> AlwaysAllowAnswer {
         let host = remoteHost
         let warning = iTermWarning()
-        warning.heading = String(localized: "ClaudeCodeOnboarding.AlwaysAllowHostTitle", defaultValue: "Always Allow \(host) to Use the iTerm2 API?", comment: "Title of the question asked before installing the Claude Code hook on a remote host; the value is the host")
-        warning.title = String(localized: "ClaudeCodeOnboarding.AlwaysAllowHostBody", defaultValue: "Claude Code on \(host) reports its status to iTerm2 through the iTerm2 API.\n\nIf you always allow \(host), any program running as you on that host can see and control your terminal sessions, reading their contents and typing into them, without asking, on this and every future connection.\n\nIf you choose Ask Each Connection, iTerm2 asks the first time Claude Code reports on each new connection.\n\nYou can stop always allowing a host in Settings > General > Magic > API access over ssh.", comment: "Body of the question asked before installing the Claude Code hook on a remote host; the value is the host")
-        let alwaysAllow = iTermWarningAction(label: String(localized: "ClaudeCodeOnboarding.AlwaysAllow", defaultValue: "Always Allow", comment: "Button that installs the remote Claude Code hook and always allows the host to use the iTerm2 API"),
+        warning.heading = String(localized: "ClaudeCodeOnboarding.AlwaysAllowHostTitle", defaultValue: "Always Allow \(host) to Use the CryTerm API?", comment: "Title of the question asked before installing the Claude Code hook on a remote host; the value is the host")
+        warning.title = String(localized: "ClaudeCodeOnboarding.AlwaysAllowHostBody", defaultValue: "Claude Code on \(host) reports its status to CryTerm through the CryTerm API.\n\nIf you always allow \(host), any program running as you on that host can see and control your terminal sessions, reading their contents and typing into them, without asking, on this and every future connection.\n\nIf you choose Ask Each Connection, CryTerm asks the first time Claude Code reports on each new connection.\n\nYou can stop always allowing a host in Settings > General > Magic > API access over ssh.", comment: "Body of the question asked before installing the Claude Code hook on a remote host; the value is the host")
+        let alwaysAllow = iTermWarningAction(label: String(localized: "ClaudeCodeOnboarding.AlwaysAllow", defaultValue: "Always Allow", comment: "Button that installs the remote Claude Code hook and always allows the host to use the CryTerm API"),
                                              block: nil)
         // No default: Return must not grant access, or install without the user reading this.
         alwaysAllow.keyEquivalent = ""
         let cancel = iTermWarningAction(label: iTermLocalizedCancel(), block: nil)
         cancel.isCancel = true
         warning.warningActions = [alwaysAllow,
-                                  iTermWarningAction(label: String(localized: "ClaudeCodeOnboarding.AskEachConnection", defaultValue: "Ask Each Connection", comment: "Button that installs the remote Claude Code hook without always allowing the host; iTerm2 asks on each connection"),
+                                  iTermWarningAction(label: String(localized: "ClaudeCodeOnboarding.AskEachConnection", defaultValue: "Ask Each Connection", comment: "Button that installs the remote Claude Code hook without always allowing the host; CryTerm asks on each connection"),
                                                      block: nil),
                                   cancel]
         warning.warningType = .kiTermWarningTypePersistent
@@ -1909,15 +1909,15 @@ class ClaudeCodeOnboarding: NSObject {
         case .thisMac:
             return String(localized: "ClaudeCodeOnboarding.RemoteIsThisMac", defaultValue: "\(host) is this Mac. Claude Code here is set up by the Install Hook step instead.", comment: "Shown when the remote install was attempted on an ssh connection back to this Mac; the value is the host")
         case .identityUnknown:
-            return String(localized: "ClaudeCodeOnboarding.RemoteIdentityUnknown", defaultValue: "iTerm2 couldn\u{2019}t tell whether \(host) is this Mac, so it didn\u{2019}t change Claude Code\u{2019}s settings there. Reconnect and try again.", comment: "Shown when the remote install could not determine whether the ssh host is this Mac, so it made no changes; the value is the host")
+            return String(localized: "ClaudeCodeOnboarding.RemoteIdentityUnknown", defaultValue: "CryTerm couldn\u{2019}t tell whether \(host) is this Mac, so it didn\u{2019}t change Claude Code\u{2019}s settings there. Reconnect and try again.", comment: "Shown when the remote install could not determine whether the ssh host is this Mac, so it made no changes; the value is the host")
         case .it2Missing:
             return String(localized: "ClaudeCodeOnboarding.RemoteIt2Missing", defaultValue: "SSH Integration couldn\u{2019}t set up the it2 command on \(host), so the hook would have nothing to run. This happens when the login shell there is not one SSH Integration supports: zsh, bash, fish, or xonsh.", comment: "Shown when the remote host lacks the uploaded it2 wrapper; the value is the host")
         case .unreadable:
-            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsUnreadable", defaultValue: "iTerm2 couldn\u{2019}t read \(path) on \(host).", comment: "Shown when Claude Code settings on a remote host could not be read; the values are a file path and the host")
+            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsUnreadable", defaultValue: "CryTerm couldn\u{2019}t read \(path) on \(host).", comment: "Shown when Claude Code settings on a remote host could not be read; the values are a file path and the host")
         case .malformed:
-            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsMalformed", defaultValue: "\(path) on \(host) isn\u{2019}t valid JSON. iTerm2 left it unchanged. Fix or remove it and try again.", comment: "Shown when Claude Code settings on a remote host could not be parsed; the values are a file path and the host")
+            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsMalformed", defaultValue: "\(path) on \(host) isn\u{2019}t valid JSON. CryTerm left it unchanged. Fix or remove it and try again.", comment: "Shown when Claude Code settings on a remote host could not be parsed; the values are a file path and the host")
         case .writeFailed:
-            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsWriteFailed", defaultValue: "iTerm2 couldn\u{2019}t write \(path) on \(host).", comment: "Shown when Claude Code settings on a remote host could not be written; the values are a file path and the host")
+            return String(localized: "ClaudeCodeOnboarding.RemoteSettingsWriteFailed", defaultValue: "CryTerm couldn\u{2019}t write \(path) on \(host).", comment: "Shown when Claude Code settings on a remote host could not be written; the values are a file path and the host")
         }
     }
 
@@ -2455,9 +2455,9 @@ class ClaudeCodeOnboarding: NSObject {
         case .success:
             return nil
         case .unreadable:
-            return String(localized: "ClaudeCodeOnboarding.SettingsUnreadable", defaultValue: "iTerm2 couldn\u{2019}t read \(settingsPath), so it left the file unchanged. Check the file\u{2019}s permissions and try again.", comment: "Body of the alert shown when installing the Claude Code hook fails because settings.json exists but could not be read; the interpolated value is the absolute path to settings.json")
+            return String(localized: "ClaudeCodeOnboarding.SettingsUnreadable", defaultValue: "CryTerm couldn\u{2019}t read \(settingsPath), so it left the file unchanged. Check the file\u{2019}s permissions and try again.", comment: "Body of the alert shown when installing the Claude Code hook fails because settings.json exists but could not be read; the interpolated value is the absolute path to settings.json")
         case .malformed:
-            return String(localized: "ClaudeCodeOnboarding.SettingsMalformed", defaultValue: "\(settingsPath) has a syntax error or isn\u{2019}t a JSON object, so iTerm2 left it unchanged to avoid losing your other Claude Code settings. Fix the file in a text editor, or remove it, and then try again.", comment: "Body of the alert shown when installing the Claude Code hook fails because settings.json is not valid JSON or is not a JSON object; the interpolated value is the absolute path to settings.json")
+            return String(localized: "ClaudeCodeOnboarding.SettingsMalformed", defaultValue: "\(settingsPath) has a syntax error or isn\u{2019}t a JSON object, so CryTerm left it unchanged to avoid losing your other Claude Code settings. Fix the file in a text editor, or remove it, and then try again.", comment: "Body of the alert shown when installing the Claude Code hook fails because settings.json is not valid JSON or is not a JSON object; the interpolated value is the absolute path to settings.json")
         case .writeFailed(let description):
             return String(localized: "ClaudeCodeOnboarding.FailedToWriteSettings", defaultValue: "Could not write to \(settingsPath): \(description)", comment: "Body of the alert shown when settings.json could not be written; first interpolation is a file path, second is an error description")
         }
@@ -3121,7 +3121,7 @@ class ClaudeCodeOnboarding: NSObject {
         let listed = profiles.map { "\u{2022} \($0.name)" }.joined(separator: "\n")
         let warning = iTermWarning()
         warning.heading = String(localized: "ClaudeCodeOnboarding.DynamicProfilesWarningHeading", defaultValue: "Dynamic Profiles Selected", comment: "Heading of the warning shown when selected profiles are dynamic")
-        warning.title = String(localized: "ClaudeCodeOnboarding.DynamicProfilesWarningBody", defaultValue: "These profiles are dynamic and not marked \u{201C}rewritable,\u{201D} so iTerm2 normally regenerates them from disk and any change here would be lost:\n\n\(listed)\n\niTerm2 can write the triggers back to dynamic profiles when they\u{2019}re marked rewritable. Rewriting can change the order of values in the underlying file.", comment: "Body of the warning shown when selected profiles are dynamic and not rewritable; the interpolation is a bulleted list of profile names")
+        warning.title = String(localized: "ClaudeCodeOnboarding.DynamicProfilesWarningBody", defaultValue: "These profiles are dynamic and not marked \u{201C}rewritable,\u{201D} so CryTerm normally regenerates them from disk and any change here would be lost:\n\n\(listed)\n\niTerm2 can write the triggers back to dynamic profiles when they\u{2019}re marked rewritable. Rewriting can change the order of values in the underlying file.", comment: "Body of the warning shown when selected profiles are dynamic and not rewritable; the interpolation is a bulleted list of profile names")
         warning.warningType = .kiTermWarningTypePersistent
         warning.actionLabels = [
             String(localized: "ClaudeCodeOnboarding.MarkRewritableAndInstall", defaultValue: "Mark Rewritable & Install", comment: "Button that marks dynamic profiles rewritable and installs triggers"),

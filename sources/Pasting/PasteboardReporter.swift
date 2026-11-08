@@ -102,7 +102,7 @@ class PasteboardReporter: NSObject {
     private static func doubleCheck() -> Bool {
         let warning = iTermWarning()
         warning.heading = String(localized: "PasteboardReporter.ConfirmEnableTitle", defaultValue: "Really Enable Clipboard Reporting?", comment: "Title of the confirmation dialog for enabling clipboard reporting")
-        warning.title = String(localized: "PasteboardReporter.ConfirmEnableBody", defaultValue: "Reporting the content of the clipboard to apps running inside iTerm2 may expose sensitive information such as passwords. Think carefully before enabling this.", comment: "Warning body shown before enabling clipboard reporting")
+        warning.title = String(localized: "PasteboardReporter.ConfirmEnableBody", defaultValue: "Reporting the content of the clipboard to apps running inside CryTerm may expose sensitive information such as passwords. Think carefully before enabling this.", comment: "Warning body shown before enabling clipboard reporting")
         warning.actionLabels = [iTermLocalizedOK(), iTermLocalizedCancel()]
         warning.cancelLabel = iTermLocalizedCancel()
         warning.warningType = .kiTermWarningTypePersistent

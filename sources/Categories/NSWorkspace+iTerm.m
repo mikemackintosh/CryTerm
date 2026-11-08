@@ -415,20 +415,20 @@ withApplicationAtURL:appURL
         case iTermOpenStyleWindow:
         case iTermOpenStyleTab:
             if (isFileURL) {
-                selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"OpenLink.FileTitle", nil, [NSBundle mainBundle], @"iTerm2 can display files like this in its built-in web browser! Would you like to open this link in iTerm2?", @"Prompt asking whether to open a file in iTerm2 instead of the default app")
-                                                      actions:@[ [iTermWarningAction localOnlyActionWithLabel:NSLocalizedStringWithDefaultValue(@"OpenLink.UseDefaultApp", nil, [NSBundle mainBundle], @"Use Default App", @"Button to open a file in the default application")], NSLocalizedStringWithDefaultValue(@"OpenLink.OpenIniTerm2", nil, [NSBundle mainBundle], @"Open in iTerm2", @"Button to open a link in iTerm2"), iTermLocalizedCancel()]
+                selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"OpenLink.FileTitle", nil, [NSBundle mainBundle], @"CryTerm can display files like this in its built-in web browser! Would you like to open this link in CryTerm?", @"Prompt asking whether to open a file in CryTerm instead of the default app")
+                                                      actions:@[ [iTermWarningAction localOnlyActionWithLabel:NSLocalizedStringWithDefaultValue(@"OpenLink.UseDefaultApp", nil, [NSBundle mainBundle], @"Use Default App", @"Button to open a file in the default application")], NSLocalizedStringWithDefaultValue(@"OpenLink.OpenIniTerm2", nil, [NSBundle mainBundle], @"Open in CryTerm", @"Button to open a link in CryTerm"), iTermLocalizedCancel()]
                                                     accessory:nil
                                                    identifier:identifier
                                                   silenceable:kiTermWarningTypePermanentlySilenceable
-                                                      heading:NSLocalizedStringWithDefaultValue(@"OpenLink.Heading", nil, [NSBundle mainBundle], @"Open in iTerm2?", @"Heading of the prompt asking whether to open a link in iTerm2")
+                                                      heading:NSLocalizedStringWithDefaultValue(@"OpenLink.Heading", nil, [NSBundle mainBundle], @"Open in CryTerm?", @"Heading of the prompt asking whether to open a link in CryTerm")
                                                        window:window];
             } else {
-                selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"OpenLink.WebTitle", nil, [NSBundle mainBundle], @"iTerm2 can display web pages! Would you like to open this link in iTerm2?", @"Prompt asking whether to open a web link in iTerm2 instead of the default browser")
-                                                      actions:@[ [iTermWarningAction localOnlyActionWithLabel:NSLocalizedStringWithDefaultValue(@"OpenLink.UseDefaultBrowser", nil, [NSBundle mainBundle], @"Use Default Browser", @"Button to open a link in the default web browser")], NSLocalizedStringWithDefaultValue(@"OpenLink.OpenIniTerm2", nil, [NSBundle mainBundle], @"Open in iTerm2", @"Button to open a link in iTerm2"), iTermLocalizedCancel()]
+                selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"OpenLink.WebTitle", nil, [NSBundle mainBundle], @"CryTerm can display web pages! Would you like to open this link in CryTerm?", @"Prompt asking whether to open a web link in CryTerm instead of the default browser")
+                                                      actions:@[ [iTermWarningAction localOnlyActionWithLabel:NSLocalizedStringWithDefaultValue(@"OpenLink.UseDefaultBrowser", nil, [NSBundle mainBundle], @"Use Default Browser", @"Button to open a link in the default web browser")], NSLocalizedStringWithDefaultValue(@"OpenLink.OpenIniTerm2", nil, [NSBundle mainBundle], @"Open in CryTerm", @"Button to open a link in CryTerm"), iTermLocalizedCancel()]
                                                     accessory:nil
                                                    identifier:identifier
                                                   silenceable:kiTermWarningTypePermanentlySilenceable
-                                                      heading:NSLocalizedStringWithDefaultValue(@"OpenLink.Heading", nil, [NSBundle mainBundle], @"Open in iTerm2?", @"Heading of the prompt asking whether to open a link in iTerm2")
+                                                      heading:NSLocalizedStringWithDefaultValue(@"OpenLink.Heading", nil, [NSBundle mainBundle], @"Open in CryTerm?", @"Heading of the prompt asking whether to open a link in CryTerm")
                                                        window:window];
             }
             break;

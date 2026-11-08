@@ -158,7 +158,7 @@ typedef NS_ENUM(NSUInteger, iTermWebSocketConnectionState) {
         NSDecimalNumber *version = [NSDecimalNumber decimalNumberWithString:parts[1]];
         NSComparisonResult result = [min compare:version];
         if (result == NSOrderedDescending) {
-            *reason = [NSString stringWithFormat:@"%@. %@ library version reported as %@. Minimum supported by this version of iTerm2 is %@",
+            *reason = [NSString stringWithFormat:@"%@. %@ library version reported as %@. Minimum supported by this version of CryTerm is %@",
                        iTermWebSocketConnectionLibraryVersionTooOldString, name, version, min];
             return nil;
         }

@@ -134,11 +134,11 @@ final class CompanionPairingController: NSObject {
         case .peerMustUpgrade:
             warning.heading = "Companion Device Needs an Update"
             warning.title = "The iTerm2 Buddy app on your phone is too old to connect to "
-                + "this version of iTerm2. Update the iPhone app to continue."
+                + "this version of CryTerm. Update the iPhone app to continue."
         case .selfMustUpgrade:
-            warning.heading = "iTerm2 Needs an Update"
-            warning.title = "This version of iTerm2 is too old to connect to the iTerm2 "
-                + "Buddy app on your phone. Update iTerm2 to continue."
+            warning.heading = "CryTerm Needs an Update"
+            warning.title = "This version of CryTerm is too old to connect to the iTerm2 "
+                + "Buddy app on your phone. Update CryTerm to continue."
         case .compatible:
             return
         }
@@ -203,7 +203,7 @@ final class CompanionPairingController: NSObject {
             warning.title =
                 "Your paired iPhone can’t connect because some pairing information "
                 + "stored on this Mac is missing (\(missing.joined(separator: ", "))). "
-                + "This can happen after reinstalling or rebuilding iTerm2, or after a "
+                + "This can happen after reinstalling or rebuilding CryTerm, or after a "
                 + "keychain reset. Re-pair to fix it."
             let repair = "Re-pair…"
             warning.actionLabels = [repair, "Later"]

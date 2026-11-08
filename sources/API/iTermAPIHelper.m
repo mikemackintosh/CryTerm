@@ -471,7 +471,7 @@ static BOOL iTermAPIHelperLastApplescriptAuthRequiredSetting;
 
     // "Reveal Preference" is a one-time navigation action and shouldn't be remembered.
     iTermWarning *warning = [[iTermWarning alloc] init];
-    warning.title = NSLocalizedStringWithDefaultValue(@"APIHelper.AppSupportMovedMessage", nil, [NSBundle mainBundle], @"The location of your Application Support directory appears to have moved or its contents have changed unexpectedly. As a precaution, the authentication mechanism for Python API scripts for iTerm2 has been reverted to always require Automation permission.", @"Warning shown when the Application Support directory has moved");
+    warning.title = NSLocalizedStringWithDefaultValue(@"APIHelper.AppSupportMovedMessage", nil, [NSBundle mainBundle], @"The location of your Application Support directory appears to have moved or its contents have changed unexpectedly. As a precaution, the authentication mechanism for Python API scripts for CryTerm has been reverted to always require Automation permission.", @"Warning shown when the Application Support directory has moved");
     NSString *revealPreference = NSLocalizedStringWithDefaultValue(@"APIHelper.RevealPreference", nil, [NSBundle mainBundle], @"Reveal Preference", @"Button to reveal a preference");
     warning.actionLabels = @[ iTermLocalizedOK(), revealPreference ];
     warning.identifier = @"NoSyncAppSupportMoved";
@@ -569,7 +569,7 @@ static BOOL iTermAPIHelperLastApplescriptAuthRequiredSetting;
     NSString *path = [self noauthPath];
     path = [path stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     path = [path stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\\\\\""];
-    NSString *sourceCode = [NSString stringWithFormat:@"do shell script \"umask 077; TF=$(mktemp); printf '%%s' '%@' > \\\"$TF\\\" && chmod a+r \\\"$TF\\\" && mv \\\"$TF\\\" \\\"%@\\\" || rm -f \\\"$TF\\\"\" with prompt \"iTerm2 needs to modify a secure setting.\" with administrator privileges",
+    NSString *sourceCode = [NSString stringWithFormat:@"do shell script \"umask 077; TF=$(mktemp); printf '%%s' '%@' > \\\"$TF\\\" && chmod a+r \\\"$TF\\\" && mv \\\"$TF\\\" \\\"%@\\\" || rm -f \\\"$TF\\\"\" with prompt \"CryTerm needs to modify a secure setting.\" with administrator privileges",
                             [self noauthMagic],
                             path];
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:sourceCode];
@@ -659,7 +659,7 @@ static BOOL iTermAPIHelperLastApplescriptAuthRequiredSetting;
     warning.actionLabels = @[ iTermLocalizedOK(), iTermLocalizedCancel() ];
     warning.identifier = iTermAPIHelperEnablePythonAPIWarningIdentifier;
     warning.warningType = forced ? kiTermWarningTypePersistent : kiTermWarningTypePermanentlySilenceable;
-    warning.title = NSLocalizedStringWithDefaultValue(@"APIHelper.EnablePythonAPIMessage", nil, [NSBundle mainBundle], @"The Python API allows scripts you run to control iTerm2 and access all its data.", @"Body text explaining what enabling the Python API allows");
+    warning.title = NSLocalizedStringWithDefaultValue(@"APIHelper.EnablePythonAPIMessage", nil, [NSBundle mainBundle], @"The Python API allows scripts you run to control CryTerm and access all its data.", @"Body text explaining what enabling the Python API allows");
     static BOOL showing;
     if (showing) {
         // This can happen because the call to -runModal below starts a runloop and a delayed perform can then call this.
@@ -1653,7 +1653,7 @@ static NSString *const iTermAPIFloatingPanesFirstAwarePythonVersion = @"2.26";
     }
 
     NSString *message =
-        NSLocalizedStringWithDefaultValue(@"APIHelper.AllowConnectionMessage", nil, [NSBundle mainBundle], @"Another process is trying to use the iTerm2 API. The API allows a script to control iTerm2 and view and modify its contents. Allow the connection?", @"Prompt asking whether to allow an unknown process to use the API");
+        NSLocalizedStringWithDefaultValue(@"APIHelper.AllowConnectionMessage", nil, [NSBundle mainBundle], @"Another process is trying to use the CryTerm API. The API allows a script to control CryTerm and view and modify its contents. Allow the connection?", @"Prompt asking whether to allow an unknown process to use the API");
 
     if ([iTermAdvancedSettingsModel setCookie]) {
         message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"APIHelper.NoCookieSuffix", nil, [NSBundle mainBundle], @"%@\n\nAlthough you have chosen to allow connections automatically, this script has not presented a valid cookie.", @"Suffix appended when a script did not present a valid cookie; %@ is the base message"), message];

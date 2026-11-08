@@ -382,7 +382,7 @@ static NSString *GetProfileName(NSString *guid) {
             actionString = NSLocalizedStringWithDefaultValue(@"KeyBindingAction.DoNotRemapModifiers", nil, [NSBundle mainBundle], @"Do Not Remap Modifiers", @"Key binding action name");
             break;
         case KEY_ACTION_REMAP_LOCALLY:
-            actionString = NSLocalizedStringWithDefaultValue(@"KeyBindingAction.RemapModifiersInITerm2Only", nil, [NSBundle mainBundle], @"Remap Modifiers in iTerm2 Only", @"Key binding action name");
+            actionString = NSLocalizedStringWithDefaultValue(@"KeyBindingAction.RemapModifiersInITerm2Only", nil, [NSBundle mainBundle], @"Remap Modifiers in CryTerm Only", @"Key binding action name");
             break;
         case KEY_ACTION_TOGGLE_FULLSCREEN:
             actionString = NSLocalizedStringWithDefaultValue(@"KeyBindingAction.ToggleFullscreen", nil, [NSBundle mainBundle], @"Toggle Fullscreen", @"Key binding action name");

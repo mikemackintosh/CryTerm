@@ -299,14 +299,21 @@ static NSColor *iTermAboutContainerFillColor(void) {
                                                      title:NSLocalizedStringWithDefaultValue(@"AboutWindow.WhatsNew", nil, [NSBundle mainBundle], @"What’s New in 3.7?\n", @"Link title in the about window that opens the whats-new page for version 3.7")];
         }
 
-        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://iterm2.com/"
-                                                                       title:NSLocalizedStringWithDefaultValue(@"AboutWindow.HomePage", nil, [NSBundle mainBundle], @"Home Page", @"Link title in the about window that opens the iTerm2 home page")];
+        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2"
+                                                                       title:NSLocalizedStringWithDefaultValue(@"AboutWindow.HomePage", nil, [NSBundle mainBundle], @"Home Page", @"Link title in the about window that opens the CryTerm home page")];
         NSAttributedString *bugsAString =
-                [self attributedStringWithLinkToURL:@"https://iterm2.com/bugs"
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2/issues"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.ReportBug", nil, [NSBundle mainBundle], @"Report a bug", @"Link title in the about window that opens the bug reporting page")];
         NSAttributedString *creditsAString =
                 [self attributedStringWithLinkToURL:@"https://iterm2.com/credits"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.Credits", nil, [NSBundle mainBundle], @"Credits", @"Link title in the about window that opens the credits page")];
+        // GPL attribution: CryTerm is a modified version of iTerm2.
+        NSAttributedString *upstreamAString =
+                [self attributedStringWithLinkToURL:@"https://iterm2.com/"
+                                              title:NSLocalizedStringWithDefaultValue(@"AboutWindow.BasedOnITerm2", nil, [NSBundle mainBundle], @"\n\nCryTerm is a modified version of iTerm2 by George Nachman and contributors.", @"Attribution line in the about window. Keep the product names CryTerm and iTerm2 and the person’s name untranslated.")];
+        NSAttributedString *licenseAString =
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2/blob/master/LICENSE"
+                                              title:NSLocalizedStringWithDefaultValue(@"AboutWindow.License", nil, [NSBundle mainBundle], @"\nLicensed under the GNU General Public License v2 or later.", @"Link title in the about window that opens the license")];
 
         // Force IBOutlets to be bound by creating window.
         [self window];
@@ -327,6 +334,8 @@ static NSColor *iTermAboutContainerFillColor(void) {
         [[_dynamicText textStorage] appendAttributedString:bugsAString];
         [[_dynamicText textStorage] appendAttributedString:bullet];
         [[_dynamicText textStorage] appendAttributedString:creditsAString];
+        [[_dynamicText textStorage] appendAttributedString:upstreamAString];
+        [[_dynamicText textStorage] appendAttributedString:licenseAString];
         [_dynamicText setAlignment:NSTextAlignmentCenter
                              range:NSMakeRange(0, [[_dynamicText textStorage] length])];
 

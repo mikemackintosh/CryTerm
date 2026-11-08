@@ -66,8 +66,8 @@ enum AIWithheldKeyAdvice {
             // a gateway gets nothing until the user picks the key it takes.
             // “API key” is the model editor's label for that popup.
             return String(localized: "AIConnectionTester.GatewayKeyWithheldHint",
-                          defaultValue: "iTerm2 did not send an API key with this request because “Automatic” sends a provider’s key only to that provider’s own servers. To send one to this endpoint, edit the model in “Manage AI Models” and choose the key it needs under “API key”, or add the header it expects under “Custom headers”.",
-                          comment: "Advice shown when a request to a third-party AI gateway fails because iTerm2 did not send an API key; “Manage AI Models” is the name of a settings window, and “API key” and “Custom headers” are labels in its model editor")
+                          defaultValue: "CryTerm did not send an API key with this request because “Automatic” sends a provider’s key only to that provider’s own servers. To send one to this endpoint, edit the model in “Manage AI Models” and choose the key it needs under “API key”, or add the header it expects under “Custom headers”.",
+                          comment: "Advice shown when a request to a third-party AI gateway fails because CryTerm did not send an API key; “Manage AI Models” is the name of a settings window, and “API key” and “Custom headers” are labels in its model editor")
         }
         // “Custom headers” below is the model editor's own label for the
         // section. The header name is quoted rather than dropped into a frame
@@ -80,7 +80,7 @@ enum AIWithheldKeyAdvice {
         // error, where brevity matters more.
         if let headerName = credentialHeaders.sorted().first {
             return String(localized: "AIConnectionTester.SelfHostedAuthHint",
-                          defaultValue: "iTerm2 did not send an API key with this request. If this endpoint requires authentication, add the header “\(headerName)” under “Custom headers”.",
+                          defaultValue: "CryTerm did not send an API key with this request. If this endpoint requires authentication, add the header “\(headerName)” under “Custom headers”.",
                           comment: "Advice shown when a request to a self-hosted AI server fails and no credential header is configured; the placeholder is an HTTP header name such as Authorization or x-api-key, and “Custom headers” is the label of a section of the model editor")
         }
         // This lane has no credential header of its own to name: Gemini carries
@@ -88,7 +88,7 @@ enum AIWithheldKeyAdvice {
         // applies, and for Ollama it is the likeliest fix there is, since a 401
         // from one means a reverse proxy in front of it wants a header.
         return String(localized: "AIConnectionTester.SelfHostedAuthHintGeneric",
-                      defaultValue: "iTerm2 did not send an API key with this request. If this endpoint requires authentication, add the header it expects under “Custom headers”.",
+                      defaultValue: "CryTerm did not send an API key with this request. If this endpoint requires authentication, add the header it expects under “Custom headers”.",
                       comment: "Advice shown when a request to a self-hosted AI server fails and the selected API has no credential header to name; “Custom headers” is the label of a section of the model editor")
     }
 

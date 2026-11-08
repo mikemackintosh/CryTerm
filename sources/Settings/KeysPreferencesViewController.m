@@ -424,7 +424,7 @@ static NSString *const kKeyCode0MitigationSuffixGlobal = @"Global";
     }
     iTermHotkeyPreferencesModel *model = [[iTermHotkeyPreferencesModel alloc] init];
     _hotkeyPanel = [[iTermHotkeyPreferencesWindowController alloc] init];
-    [_hotkeyPanel setExplanation:NSLocalizedStringWithDefaultValue(@"KeysPreferences.HotkeyPanelExplanation", nil, [NSBundle mainBundle], @"This panel helps you configure a new profile that will be bound to a keystroke you assign. Pressing the hotkey (even when iTerm2 is not active) will toggle a special window.", @"Explanation shown in the hotkey window configuration panel")];
+    [_hotkeyPanel setExplanation:NSLocalizedStringWithDefaultValue(@"KeysPreferences.HotkeyPanelExplanation", nil, [NSBundle mainBundle], @"This panel helps you configure a new profile that will be bound to a keystroke you assign. Pressing the hotkey (even when CryTerm is not active) will toggle a special window.", @"Explanation shown in the hotkey window configuration panel")];
     _hotkeyPanel.descriptorsInUseByOtherProfiles = [[iTermHotKeyController sharedInstance] descriptorsForProfileHotKeysExcept:nil];
     _hotkeyPanel.model = model;
 

@@ -29,6 +29,11 @@ extern NSString *const iTermUserDefaultsMigrationValuesAfterKey;
 // Returns the custom suite name if one was set via setCustomSuiteName:, otherwise nil.
 + (nullable NSString *)customSuiteName;
 
+// The name of this instance's Application Support folder, for the iterm2 Python module and it2
+// (which default to “iTerm2”): the custom suite if set, else the executable name if it is not
+// iTerm2 (a rebranded build), else nil.
++ (nullable NSString *)apiSuiteName;
+
 // Returns the custom suite if set, otherwise standardUserDefaults.
 + (NSUserDefaults *)userDefaults;
 

@@ -22,8 +22,8 @@ class AITermControllerObjC: NSObject, AITermControllerDelegate, iTermObject {
     // Keys stored for a single manual model (AIModelCredential.modelKey), by
     // configuration ID.
     private static var cachedModelKeys = [String: CachedKey]()
-    private static let keychainService = "iTerm2 API Keys"
-    private static let legacyKeychainAccount = "OpenAI API Key for iTerm2"
+    private static let keychainService = "CryTerm API Keys"
+    private static let legacyKeychainAccount = "OpenAI API Key for CryTerm"
 
     @objc static var haveCachedAPIKey: Bool {
         return apiKeyQueue.sync {
@@ -345,7 +345,7 @@ class AITermControllerObjC: NSObject, AITermControllerDelegate, iTermObject {
 
     private static func modelKeychainAccount(forConfigurationID id: String) -> String {
         // Localization unneeded: a keychain account name.
-        return "AI Model \(id) API Key for iTerm2"
+        return "AI Model \(id) API Key for CryTerm"
     }
 
     private static func cacheKey(for vendor: iTermAIVendor) -> UInt {
@@ -357,17 +357,17 @@ class AITermControllerObjC: NSObject, AITermControllerDelegate, iTermObject {
         case .openAI:
             return legacyKeychainAccount
         case .anthropic:
-            return "Anthropic API Key for iTerm2"
+            return "Anthropic API Key for CryTerm"
         case .gemini:
-            return "Gemini API Key for iTerm2"
+            return "Gemini API Key for CryTerm"
         case .deepSeek:
-            return "DeepSeek API Key for iTerm2"
+            return "DeepSeek API Key for CryTerm"
         case .llama:
-            return "Llama API Key for iTerm2"
+            return "Llama API Key for CryTerm"
         case .apple:
-            return "Apple Intelligence API Key for iTerm2"
+            return "Apple Intelligence API Key for CryTerm"
         @unknown default:
-            return "AI API Key for iTerm2"
+            return "AI API Key for CryTerm"
         }
     }
 

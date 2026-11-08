@@ -439,7 +439,7 @@ class SecureUserDefault<T: SecureUserDefaultStringTranscodable & Codable & Equat
         // notifications for keys that were never written.
         try runPrivilegedWrites(statements: statements,
                                 keys: writes.map { $0.key },
-                                prompt: String(localized: "SecureUserDefaults.ModifySettingsPrompt", defaultValue: "iTerm2 needs to modify secure settings.", comment: "Authorization prompt shown when iTerm2 needs privileges to modify secure settings"))
+                                prompt: String(localized: "SecureUserDefaults.ModifySettingsPrompt", defaultValue: "CryTerm needs to modify secure settings.", comment: "Authorization prompt shown when CryTerm needs privileges to modify secure settings"))
     }
 
     private static func fallbackBaseDirectory(create: Bool) throws -> String {
@@ -479,8 +479,8 @@ class SecureUserDefault<T: SecureUserDefaultStringTranscodable & Codable & Equat
         // prompt sentence is localizable, and it is escaped before being embedded
         // in the AppleScript string literal.
         let promptTemplate = String(localized: "SecureUserDefaults.CreateFolderPrompt",
-                                     defaultValue: "iTerm2 needs to create %@ to store secure settings because your home directory is on a network file system.",
-                                     comment: "Authorization prompt shown when iTerm2 needs privileges to create the fallback secure-settings folder; %@ is the folder path")
+                                     defaultValue: "CryTerm needs to create %@ to store secure settings because your home directory is on a network file system.",
+                                     comment: "Authorization prompt shown when CryTerm needs privileges to create the fallback secure-settings folder; %@ is the folder path")
         let prompt = String(format: promptTemplate, path)
         // Escape backslashes and double quotes so the prompt is a safe AppleScript
         // string literal and cannot break out of "with prompt".
@@ -659,7 +659,7 @@ class SecureUserDefault<T: SecureUserDefaultStringTranscodable & Codable & Equat
         let statement = try writeStatement(key: key, encodedValue: SecureUserDefaultValue<U>(value: value).encodedString)
         try runPrivilegedWrites(statements: [statement],
                                 keys: [key],
-                                prompt: String(localized: "SecureUserDefaults.ModifySingleSettingPrompt", defaultValue: "iTerm2 needs to modify a secure setting.", comment: "Authorization prompt shown when iTerm2 needs privileges to modify one secure setting"))
+                                prompt: String(localized: "SecureUserDefaults.ModifySingleSettingPrompt", defaultValue: "CryTerm needs to modify a secure setting.", comment: "Authorization prompt shown when CryTerm needs privileges to modify one secure setting"))
     }
 
     /// The double-backslash/double-quote escaping for a path embedded in the

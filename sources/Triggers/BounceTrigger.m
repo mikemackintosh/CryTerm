@@ -76,11 +76,11 @@ typedef NS_ENUM(int, BounceTriggerParamTag) {
 + (NSString *)stringForParameter:(BounceTriggerParamTag)parameter {
     switch (parameter) {
         case kBounceTriggerParamTagBounceUntilFocus:
-            return NSLocalizedStringWithDefaultValue(@"Trigger.Bounce.Param.UntilActivated", nil, [NSBundle mainBundle], @"Bounce Until Activated", @"Bounce Dock icon trigger option: keep bouncing until the user activates iTerm2");
+            return NSLocalizedStringWithDefaultValue(@"Trigger.Bounce.Param.UntilActivated", nil, [NSBundle mainBundle], @"Bounce Until Activated", @"Bounce Dock icon trigger option: keep bouncing until the user activates CryTerm");
         case kBounceTriggerParamTagBounceOnce:
             return NSLocalizedStringWithDefaultValue(@"Trigger.Bounce.Param.Once", nil, [NSBundle mainBundle], @"Bounce Once", @"Bounce Dock icon trigger option: bounce the Dock icon a single time");
     }
-    return NSLocalizedStringWithDefaultValue(@"Trigger.Bounce.Param.UntilActivated", nil, [NSBundle mainBundle], @"Bounce Until Activated", @"Bounce Dock icon trigger option: keep bouncing until the user activates iTerm2");
+    return NSLocalizedStringWithDefaultValue(@"Trigger.Bounce.Param.UntilActivated", nil, [NSBundle mainBundle], @"Bounce Until Activated", @"Bounce Dock icon trigger option: keep bouncing until the user activates CryTerm");
 }
 
 - (NSDictionary *)menuItemsForPoupupButton

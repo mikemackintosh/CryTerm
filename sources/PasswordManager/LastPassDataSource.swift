@@ -578,7 +578,7 @@ class LastPassUtils {
         let help = String(localized: "LastPass.Help", defaultValue: "Help", comment: "Help button")
         let warning = iTermWarning()
         warning.heading = String(localized: "LastPass.CannotFindCLITitle", defaultValue: "Can’t Find LastPass CLI", comment: "Alert title when the LastPass CLI cannot be found")
-        warning.title = String(localized: "LastPass.CannotFindCLIMessage", defaultValue: "In order to use the LastPass integration, iTerm2 needs to know where to find the CLI app named “lpass”. Select Locate to provide its location.", comment: "Alert body when the LastPass CLI cannot be found")
+        warning.title = String(localized: "LastPass.CannotFindCLIMessage", defaultValue: "In order to use the LastPass integration, CryTerm needs to know where to find the CLI app named “lpass”. Select Locate to provide its location.", comment: "Alert body when the LastPass CLI cannot be found")
         warning.actionLabels = [locate,
                                 iTermLocalizedCancel(),
                                 help]

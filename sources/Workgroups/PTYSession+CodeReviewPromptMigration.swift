@@ -69,7 +69,7 @@ extension PTYSession {
                                  defaultValue: "Update Your Code Review Prompt?",
                                  comment: "Heading of the offer to update a customized code review system prompt")
         let changes = String(localized: "CodeReviewPromptUpdate.Changes",
-                             defaultValue: "The default prompt has changed since then: it runs iTerm2\u{2019}s own it2 command, so reviews work on remote hosts without a current shell integration install, and it tells it2 which tmux pane the review runs in, so reviews work in tmux.",
+                             defaultValue: "The default prompt has changed since then: it runs CryTerm\u{2019}s own it2 command, so reviews work on remote hosts without a current shell integration install, and it tells it2 which tmux pane the review runs in, so reviews work in tmux.",
                              comment: "Explains the two changes to the default code review system prompt that an update brings")
         if proposal.resetsToDefault {
             warning.title = String(localized: "CodeReviewPromptUpdate.ResetBody",

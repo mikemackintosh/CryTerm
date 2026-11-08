@@ -480,7 +480,7 @@ class Conductor: NSObject, SSHIdentityProvider {
     // false on decode -- so on state restoration it2Listen is sent again after resynchronizing,
     // which re-establishes it. Gates
     // it2ProxyActive so the
-    // "Remote host can control iTerm2" menu reflects whether the remote can actually connect.
+    // "Remote host can control CryTerm" menu reflects whether the remote can actually connect.
     var it2ListenSucceeded: Bool {
         get { restorableState.it2Proxy.listenSucceeded }
         set { restorableState.it2Proxy.listenSucceeded = newValue }
@@ -2264,7 +2264,7 @@ extension Conductor {
         if let path = it2SocketPath {
             it2Listen(path: path)
         } else {
-            RLog("Framing without an it2 socket, so it2 on this host cannot reach iTerm2")
+            RLog("Framing without an it2 socket, so it2 on this host cannot reach CryTerm")
         }
         runRemoteCommand(iTermAdvancedSettingsModel.unameCommand()) { [weak self] data, status in
             if status == 0 {

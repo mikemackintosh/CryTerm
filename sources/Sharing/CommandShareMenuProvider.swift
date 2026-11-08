@@ -110,7 +110,7 @@ class CommandShareMenuProvider: NSObject {
     }
 
     private static func defaultCommand(_ maybeCommand: String?) -> String {
-        let fallback = String(localized: "CommandShare.DefaultCommandName", defaultValue: "iTerm2 Command", comment: "Default file name used when saving a command that has no name.")
+        let fallback = String(localized: "CommandShare.DefaultCommandName", defaultValue: "CryTerm Command", comment: "Default file name used when saving a command that has no name.")
         guard let justCommand = maybeCommand else {
             return fallback
         }

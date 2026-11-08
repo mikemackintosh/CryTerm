@@ -60,7 +60,7 @@ struct IT2ProxyState: Equatable {
     var persisted: Persisted
 
     // Whether framer's most recent it2Listen actually bound the socket. Gates it2ProxyActive
-    // (the "Remote host can control iTerm2" menu). A TRANSIENT runtime flag: it lives OUTSIDE
+    // (the "Remote host can control CryTerm" menu). A TRANSIENT runtime flag: it lives OUTSIDE
     // `persisted`, so it is carried by value across an in-process SSH recovery (adopt ->
     // ConductorRecovery -> init(recovery:)) but is never written to disk. On state restoration
     // the conductor sends it2Listen again once it resynchronizes (the framer answers that it
@@ -451,7 +451,7 @@ final class ConductorIT2Demux {
                 finish(connid, code: 0)
                 return
             }
-            sendLine(connid, IT2FrameType.stderr, String(localized: "IT2Proxy.NewerProtocol", defaultValue: "it2: this it2 is newer than the iTerm2 it is connected to. Upgrade iTerm2.", comment: "Error when a remote it2 client speaks a newer protocol than this iTerm2 understands"))
+            sendLine(connid, IT2FrameType.stderr, String(localized: "IT2Proxy.NewerProtocol", defaultValue: "it2: this it2 is newer than the CryTerm it is connected to. Upgrade CryTerm.", comment: "Error when a remote it2 client speaks a newer protocol than this CryTerm understands"))
             finish(connid, code: 2)
             return
         }
@@ -715,7 +715,7 @@ extension Conductor {
                                            apiEnabled: Conductor.it2APIEnabledForTesting ?? iTermAPIHelper.isEnabled(),
                                            decision: self.it2Authorized) {
                 case .reportAPIDisabled:
-                    emitStderr(String(localized: "IT2Proxy.APINotEnabled", defaultValue: "The iTerm2 Python API is not enabled (Settings > General > Magic).", comment: "Error when the iTerm2 Python API is disabled"))
+                    emitStderr(String(localized: "IT2Proxy.APINotEnabled", defaultValue: "The CryTerm Python API is not enabled (Settings > General > Magic).", comment: "Error when the CryTerm Python API is disabled"))
                     finish(2)
                     return cancel
                 case .succeedSilently:
@@ -750,7 +750,7 @@ extension Conductor {
                             finish(0)
                             return
                         }
-                        emitStderr(String(localized: "IT2Proxy.PermissionDenied", defaultValue: "Permission denied: iTerm2 API access was not granted for this session.", comment: "Error when the user has not granted it2-over-ssh API access"))
+                        emitStderr(String(localized: "IT2Proxy.PermissionDenied", defaultValue: "Permission denied: CryTerm API access was not granted for this session.", comment: "Error when the user has not granted it2-over-ssh API access"))
                         finish(1)
                         return
                     }
@@ -958,7 +958,7 @@ extension Conductor {
         resolveIT2Authorization(false, persist: false)
     }
 
-    // MARK: - Shell > SSH > "Remote host can control iTerm2" menu item
+    // MARK: - Shell > SSH > "Remote host can control CryTerm" menu item
 
     // Whether the it2-over-ssh proxy is actually live on this connection: the framer is
     // framing, activateIT2Proxy injected the socket/nonce, AND framer's it2Listen reported a

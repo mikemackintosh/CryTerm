@@ -72,6 +72,19 @@ static NSString *const iTermUserDefaultsKeyHaveShownMacOS13RequirementNotice = @
     return gCustomSuiteName;
 }
 
++ (NSString *)apiSuiteName {
+    NSString *const customSuiteName = [self customSuiteName];
+    if (customSuiteName) {
+        return customSuiteName;
+    }
+    // NSFileManager.applicationSupportDirectory names the folder after the executable.
+    NSString *const executableName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleExecutableKey];
+    if (executableName.length > 0 && ![executableName isEqualToString:@"iTerm2"]) {
+        return executableName;
+    }
+    return nil;
+}
+
 static NSArray *iTermUserDefaultsGetTypedArray(NSUserDefaults *userDefaults, Class objectClass, NSString *key) {
     return [[NSArray castFrom:[userDefaults objectForKey:key]] mapWithBlock:^id(id anObject) {
         return [objectClass castFrom:anObject];

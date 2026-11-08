@@ -199,7 +199,7 @@ final class CompanionPairingWindowController: NSWindowController, NSWindowDelega
             // No remedy to offer: this is an administrator decision.
             showBlockedTop("Companion device pairing has been disabled. Check with your system administrator.")
         case .companionPluginMissing:
-            showBlockedTop("Install the iTerm2 Companion plugin below, then allow companion device pairing.")
+            showBlockedTop("Install the CryTerm Companion plugin below, then allow companion device pairing.")
         case .companionConsentNeeded:
             showBlockedTop("Turn on “Allow companion device pairing” below to begin.")
         case .allowed:
@@ -299,11 +299,11 @@ final class CompanionPairingWindowController: NSWindowController, NSWindowDelega
         consentCheckbox.state = SecureUserDefaults.instance.enableCompanionPairing.value ? .on : .off
 
         if CompanionPlugin.instance().isSuccess {
-            pluginDetailLabel.stringValue = "iTerm2 Companion plugin installed and working ✅"
+            pluginDetailLabel.stringValue = "CryTerm Companion plugin installed and working ✅"
             pluginDetailLabel.textColor = .systemGreen
             setPluginAction(title: "Reveal in Finder") { [weak self] in self?.revealPluginInFinder() }
         } else {
-            pluginDetailLabel.stringValue = "iTerm2 Companion plugin not installed"
+            pluginDetailLabel.stringValue = "CryTerm Companion plugin not installed"
             pluginDetailLabel.textColor = .secondaryLabelColor
             setPluginAction(title: "Download Plugin…") {
                 if let url = URL(string: "https://iterm2.com/companion-plugin.html") {
@@ -476,7 +476,7 @@ final class CompanionPairingWindowController: NSWindowController, NSWindowDelega
     private func showReadyToPair() {
         controller.stopAdvertising()
         hideTopContent()
-        instructionsLabel.stringValue = "Pair a companion device to use iTerm2 from your iPhone." + aiAdvisorySuffix()
+        instructionsLabel.stringValue = "Pair a companion device to use CryTerm from your iPhone." + aiAdvisorySuffix()
         setStatus("", color: .secondaryLabelColor)
         gateAction = { [weak self] in self?.startFreshPairingFlow() }
         presentPrimaryButton(title: "Show QR Code")
@@ -643,7 +643,7 @@ final class CompanionPairingWindowController: NSWindowController, NSWindowDelega
         } else {
             // Not listening at all: the phone cannot reach this Mac. The poll in
             // refreshGateState nudges a resume, so word it as transient.
-            instructionsLabel.stringValue = "A companion device is paired but iTerm2 isn’t listening for it yet. Reconnecting…"
+            instructionsLabel.stringValue = "A companion device is paired but CryTerm isn’t listening for it yet. Reconnecting…"
             checkmarkImageView.contentTintColor = .systemYellow
         }
         updateRelayStatusLabel()

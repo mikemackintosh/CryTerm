@@ -1688,43 +1688,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         }
       }
@@ -1736,43 +1736,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         }
       }
@@ -2078,37 +2078,37 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "iTerm2 Help"
+            "value" : "CryTerm Help"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2ヘルプ"
+            "value" : "CryTermヘルプ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 도움말"
+            "value" : "CryTerm 도움말"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajuda do iTerm2"
+            "value" : "Ajuda do CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Справка по iTerm2"
+            "value" : "Справка по CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 帮助"
+            "value" : "CryTerm 帮助"
           }
         }
       }
@@ -2264,43 +2264,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 ausblenden"
+            "value" : "CryTerm ausblenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide iTerm2"
+            "value" : "Hide CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2を隠す"
+            "value" : "CryTermを隠す"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 가리기"
+            "value" : "CryTerm 가리기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ocultar o iTerm2"
+            "value" : "Ocultar o CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Скрыть iTerm2"
+            "value" : "Скрыть CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "隐藏 iTerm2"
+            "value" : "隐藏 CryTerm"
           }
         }
       }
@@ -2312,43 +2312,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 beenden"
+            "value" : "CryTerm beenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Quit iTerm2"
+            "value" : "Quit CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2を終了"
+            "value" : "CryTermを終了"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 종료"
+            "value" : "CryTerm 종료"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Encerrar o iTerm2"
+            "value" : "Encerrar o CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Завершить iTerm2"
+            "value" : "Завершить CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "退出 iTerm2"
+            "value" : "退出 CryTerm"
           }
         }
       }
@@ -2840,43 +2840,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Über iTerm2"
+            "value" : "Über CryTerm"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "About iTerm2"
+            "value" : "About CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2について"
+            "value" : "CryTermについて"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2에 관하여"
+            "value" : "CryTerm에 관하여"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sobre o iTerm2"
+            "value" : "Sobre o CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "О программе iTerm2"
+            "value" : "О программе CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "关于 iTerm2"
+            "value" : "关于 CryTerm"
           }
         }
       }
@@ -7496,43 +7496,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 als Standardterminal festlegen"
+            "value" : "CryTerm als Standardterminal festlegen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make iTerm2 Default Term"
+            "value" : "Make CryTerm Default Term"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2を既定のターミナルにする"
+            "value" : "CryTermを既定のターミナルにする"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2를 기본 터미널로 설정"
+            "value" : "CryTerm를 기본 터미널로 설정"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tornar o iTerm2 o terminal padrão"
+            "value" : "Tornar o CryTerm o terminal padrão"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сделать iTerm2 терминалом по умолчанию"
+            "value" : "Сделать CryTerm терминалом по умолчанию"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "将 iTerm2 设为默认终端"
+            "value" : "将 CryTerm 设为默认终端"
           }
         }
       }
@@ -11480,43 +11480,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remote-Host darf iTerm2 steuern"
+            "value" : "Remote-Host darf CryTerm steuern"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote host can control iTerm2"
+            "value" : "Remote host can control CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "リモートホストがiTerm2を制御できる"
+            "value" : "リモートホストがCryTermを制御できる"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "원격 호스트가 iTerm2를 제어할 수 있음"
+            "value" : "원격 호스트가 CryTerm를 제어할 수 있음"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O host remoto pode controlar o iTerm2"
+            "value" : "O host remoto pode controlar o CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Удалённый узел может управлять iTerm2"
+            "value" : "Удалённый узел может управлять CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "远程主机可以控制 iTerm2"
+            "value" : "远程主机可以控制 CryTerm"
           }
         }
       }

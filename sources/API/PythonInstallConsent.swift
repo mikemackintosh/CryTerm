@@ -43,7 +43,7 @@ final class PythonInstallConsent: NSObject {
         // Localization unneeded: a bulleted list of package names.
         let list = packages.map { "• \($0)" }.joined(separator: "\n")
         let body = String(localized: "PythonInstallConsent.Body",
-                          defaultValue: "iTerm2 is about to download Python \(pythonVersion) if it is not already installed, and install these packages from PyPI into it:\n\n\(list)\n\nNothing is installed unless you allow it.",
+                          defaultValue: "CryTerm is about to download Python \(pythonVersion) if it is not already installed, and install these packages from PyPI into it:\n\n\(list)\n\nNothing is installed unless you allow it.",
                           comment: "Body of the dialog asking before installing Python packages. First placeholder is a Python version such as 3.12; second is a bulleted list of package names, one per line")
         let selection = iTermWarning.show(
             withTitle: body,

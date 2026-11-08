@@ -58,13 +58,13 @@
 //    ```swift
 //    private func setupDefaultPages() {
 //        registerStaticPage(urlPath: "welcome", templateName: "welcome-page", substitutions: [
-//            "TITLE": "Welcome to iTerm2",
+//            "TITLE": "Welcome to CryTerm",
 //            "SUBTITLE": "The terminal emulator for macOS that does amazing things."
 //        ])
 //
 //        // Add your page here
 //        registerStaticPage(urlPath: "help", templateName: "help-page", substitutions: [
-//            "TITLE": "iTerm2 Help",
+//            "TITLE": "CryTerm Help",
 //            "SUBTITLE": "Find answers to common questions and learn about features."
 //        ])
 //    }

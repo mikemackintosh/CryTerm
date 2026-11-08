@@ -3092,43 +3092,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn Sie dies aktivieren, werden optionale Ligaturen dieser Schrift aktiviert. Dadurch wird iTerm2 gezwungen, einen langsameren Algorithmus zur Textdarstellung zu verwenden."
+            "value" : "Wenn Sie dies aktivieren, werden optionale Ligaturen dieser Schrift aktiviert. Dadurch wird CryTerm gezwungen, einen langsameren Algorithmus zur Textdarstellung zu verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you turn this on, optional ligatures in this font will be enabled. It forces iTerm2 to use a slower text rendering algorithm."
+            "value" : "If you turn this on, optional ligatures in this font will be enabled. It forces CryTerm to use a slower text rendering algorithm."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これをオンにすると、このフォントのオプションの合字が有効になります。これによりiTerm2は低速なテキスト描画アルゴリズムの使用を強制されます。"
+            "value" : "これをオンにすると、このフォントのオプションの合字が有効になります。これによりCryTermは低速なテキスト描画アルゴリズムの使用を強制されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 옵션을 켜면 이 서체의 선택적 합자가 활성화됩니다. 이 경우 iTerm2가 더 느린 텍스트 렌더링 알고리즘을 사용하게 됩니다."
+            "value" : "이 옵션을 켜면 이 서체의 선택적 합자가 활성화됩니다. 이 경우 CryTerm가 더 느린 텍스트 렌더링 알고리즘을 사용하게 됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se você ativar isto, as ligaduras opcionais desta fonte serão ativadas. Isto força o iTerm2 a usar um algoritmo de renderização de texto mais lento."
+            "value" : "Se você ativar isto, as ligaduras opcionais desta fonte serão ativadas. Isto força o CryTerm a usar um algoritmo de renderização de texto mais lento."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Если включить этот параметр, в этом шрифте будут включены необязательные лигатуры. Это заставляет iTerm2 использовать более медленный алгоритм отрисовки текста."
+            "value" : "Если включить этот параметр, в этом шрифте будут включены необязательные лигатуры. Это заставляет CryTerm использовать более медленный алгоритм отрисовки текста."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开启后，将启用此字体的可选连字。它会强制 iTerm2 使用较慢的文本渲染算法。"
+            "value" : "开启后，将启用此字体的可选连字。它会强制 CryTerm 使用较慢的文本渲染算法。"
           }
         }
       }
@@ -3524,43 +3524,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies zwingt iTerm2, das angegebene Tastatur-Gebietsschema\nanstelle der Systemtastatur zu verwenden."
+            "value" : "Dies zwingt CryTerm, das angegebene Tastatur-Gebietsschema\nanstelle der Systemtastatur zu verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This will force iTerm2 to use the specified keyboard locale\ninstead of the system keyboard."
+            "value" : "This will force CryTerm to use the specified keyboard locale\ninstead of the system keyboard."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これにより、iTerm2はシステムのキーボードの代わりに\n指定したキーボードロケールを使用するようになります。"
+            "value" : "これにより、CryTermはシステムのキーボードの代わりに\n指定したキーボードロケールを使用するようになります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 옵션을 켜면 iTerm2가 시스템 키보드 대신\n지정한 키보드 로케일을 사용합니다."
+            "value" : "이 옵션을 켜면 CryTerm가 시스템 키보드 대신\n지정한 키보드 로케일을 사용합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Isto forçará o iTerm2 a usar o local de teclado especificado\nem vez do teclado do sistema."
+            "value" : "Isto forçará o CryTerm a usar o local de teclado especificado\nem vez do teclado do sistema."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Это заставит iTerm2 использовать указанную раскладку клавиатуры\nвместо системной клавиатуры."
+            "value" : "Это заставит CryTerm использовать указанную раскладку клавиатуры\nвместо системной клавиатуры."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这将强制 iTerm2 使用指定的键盘语言环境\n而非系统键盘。"
+            "value" : "这将强制 CryTerm 使用指定的键盘语言环境\n而非系统键盘。"
           }
         }
       }
@@ -4052,43 +4052,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "„iTerm2 beenden (⌘)“ auch bestätigen, wenn keine Fenster geöffnet sind"
+            "value" : "„CryTerm beenden (⌘)“ auch bestätigen, wenn keine Fenster geöffnet sind"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Confirm \"Quit iTerm2 (⌘)\" even if there are no windows"
+            "value" : "Confirm \"Quit CryTerm (⌘)\" even if there are no windows"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「iTerm2を終了 (⌘)」はウィンドウがない場合でも確認する"
+            "value" : "「CryTermを終了 (⌘)」はウィンドウがない場合でも確認する"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "윈도우가 없어도 \"iTerm2 종료(⌘)\" 확인"
+            "value" : "윈도우가 없어도 \"CryTerm 종료(⌘)\" 확인"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmar “Encerrar iTerm2 (⌘)” mesmo que não haja janelas"
+            "value" : "Confirmar “Encerrar CryTerm (⌘)” mesmo que não haja janelas"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Подтверждать «Завершить iTerm2 (⌘)», даже если нет открытых окон"
+            "value" : "Подтверждать «Завершить CryTerm (⌘)», даже если нет открытых окон"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "即使没有窗口也确认“退出 iTerm2 (⌘)”"
+            "value" : "即使没有窗口也确认“退出 CryTerm (⌘)”"
           }
         }
       }
@@ -12974,43 +12974,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "„iTerm2 beenden (⌘Q)“ bestätigen"
+            "value" : "„CryTerm beenden (⌘Q)“ bestätigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Confirm \"Quit iTerm2 (⌘Q)\""
+            "value" : "Confirm \"Quit CryTerm (⌘Q)\""
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「iTerm2を終了 (⌘Q)」を確認する"
+            "value" : "「CryTermを終了 (⌘Q)」を確認する"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"iTerm2 종료(⌘Q)\" 확인"
+            "value" : "\"CryTerm 종료(⌘Q)\" 확인"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmar “Encerrar o iTerm2 (⌘Q)”"
+            "value" : "Confirmar “Encerrar o CryTerm (⌘Q)”"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Подтверждать «Выйти из iTerm2 (⌘Q)»"
+            "value" : "Подтверждать «Выйти из CryTerm (⌘Q)»"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "确认“退出 iTerm2 (⌘Q)”"
+            "value" : "确认“退出 CryTerm (⌘Q)”"
           }
         }
       }
@@ -32420,43 +32420,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um die Privatsphäre zu gewährleisten, erfordern die KI-Funktionen in iTerm2 die Installation eines Plugins."
+            "value" : "Um die Privatsphäre zu gewährleisten, erfordern die KI-Funktionen in CryTerm die Installation eines Plugins."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "To ensure privacy, the AI features in iTerm2 require the installation of a plugin."
+            "value" : "To ensure privacy, the AI features in CryTerm require the installation of a plugin."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "プライバシーを確保するため、iTerm2のAI機能を使用するにはプラグインのインストールが必要です。"
+            "value" : "プライバシーを確保するため、CryTermのAI機能を使用するにはプラグインのインストールが必要です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "개인 정보 보호를 위해 iTerm2의 AI 기능을 사용하려면 플러그인을 설치해야 합니다."
+            "value" : "개인 정보 보호를 위해 CryTerm의 AI 기능을 사용하려면 플러그인을 설치해야 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para garantir a privacidade, os recursos de IA no iTerm2 exigem a instalação de um plugin."
+            "value" : "Para garantir a privacidade, os recursos de IA no CryTerm exigem a instalação de um plugin."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Для обеспечения конфиденциальности функции ИИ в iTerm2 требуют установки плагина."
+            "value" : "Для обеспечения конфиденциальности функции ИИ в CryTerm требуют установки плагина."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "为确保隐私，iTerm2 的 AI 功能需要安装插件。"
+            "value" : "为确保隐私，CryTerm 的 AI 功能需要安装插件。"
           }
         }
       }
@@ -34004,43 +34004,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verfügbar für bash, fish, nu, tcsh, xonsh und zsh. Dies ist eine Alternative zur Installation der Shell-Integration über andere Methoden (wie den Menüpunkt iTerm2 > Shell-Integration installieren)."
+            "value" : "Verfügbar für bash, fish, nu, tcsh, xonsh und zsh. Dies ist eine Alternative zur Installation der Shell-Integration über andere Methoden (wie den Menüpunkt CryTerm > Shell-Integration installieren)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Available for bash, fish, nu, tcsh, xonsh and zsh. This is an alternative to installing shell integration via other methods (such as the iTerm2 > Install Shell Integration menu item)."
+            "value" : "Available for bash, fish, nu, tcsh, xonsh and zsh. This is an alternative to installing shell integration via other methods (such as the CryTerm > Install Shell Integration menu item)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bash、fish、nu、tcsh、xonsh、zshで利用できます。これは、シェル統合を他の方法(iTerm2 > Install Shell Integrationメニュー項目など)でインストールする場合の代替手段です。"
+            "value" : "bash、fish、nu、tcsh、xonsh、zshで利用できます。これは、シェル統合を他の方法(CryTerm > Install Shell Integrationメニュー項目など)でインストールする場合の代替手段です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bash, fish, nu, tcsh, xonsh 및 zsh에서 사용할 수 있습니다. 다른 방법(예: iTerm2 > 셸 통합 설치 메뉴 항목)으로 셸 통합을 설치하는 대신 사용할 수 있는 방법입니다."
+            "value" : "bash, fish, nu, tcsh, xonsh 및 zsh에서 사용할 수 있습니다. 다른 방법(예: CryTerm > 셸 통합 설치 메뉴 항목)으로 셸 통합을 설치하는 대신 사용할 수 있는 방법입니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disponível para bash, fish, nu, tcsh, xonsh e zsh. Esta é uma alternativa à instalação da Shell Integration por outros métodos (como o item de menu iTerm2 > Instalar Shell Integration)."
+            "value" : "Disponível para bash, fish, nu, tcsh, xonsh e zsh. Esta é uma alternativa à instalação da Shell Integration por outros métodos (como o item de menu CryTerm > Instalar Shell Integration)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Доступно для bash, fish, nu, tcsh, xonsh и zsh. Это альтернатива установке интеграции с оболочкой другими способами (например, через пункт меню «iTerm2» > «Установить интеграцию с оболочкой»)."
+            "value" : "Доступно для bash, fish, nu, tcsh, xonsh и zsh. Это альтернатива установке интеграции с оболочкой другими способами (например, через пункт меню «CryTerm» > «Установить интеграцию с оболочкой»)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "适用于 bash、fish、nu、tcsh、xonsh 和 zsh。这是通过其他方式（如“iTerm2 > 安装 Shell 集成”菜单项）安装 Shell 集成的替代方法。"
+            "value" : "适用于 bash、fish、nu、tcsh、xonsh 和 zsh。这是通过其他方式（如“CryTerm > 安装 Shell 集成”菜单项）安装 Shell 集成的替代方法。"
           }
         }
       }
@@ -38852,43 +38852,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn Sie dies aktivieren, werden optionale Ligaturen in dieser Schrift aktiviert. Dadurch wird iTerm2 gezwungen, einen langsameren Algorithmus zur Textdarstellung zu verwenden."
+            "value" : "Wenn Sie dies aktivieren, werden optionale Ligaturen in dieser Schrift aktiviert. Dadurch wird CryTerm gezwungen, einen langsameren Algorithmus zur Textdarstellung zu verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you turn this on, optional ligatures in this font will be enabled. It forces iTerm2 to use a slower text rendering algorithm."
+            "value" : "If you turn this on, optional ligatures in this font will be enabled. It forces CryTerm to use a slower text rendering algorithm."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これをオンにすると、このフォントのオプションの合字が有効になります。iTerm2はより低速なテキストレンダリングアルゴリズムを使用せざるを得なくなります。"
+            "value" : "これをオンにすると、このフォントのオプションの合字が有効になります。CryTermはより低速なテキストレンダリングアルゴリズムを使用せざるを得なくなります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 옵션을 켜면 이 서체의 선택적 합자가 활성화됩니다. 이 경우 iTerm2가 더 느린 텍스트 렌더링 알고리즘을 사용하게 됩니다."
+            "value" : "이 옵션을 켜면 이 서체의 선택적 합자가 활성화됩니다. 이 경우 CryTerm가 더 느린 텍스트 렌더링 알고리즘을 사용하게 됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se você ativar isto, as ligaduras opcionais desta fonte serão ativadas. Isto força o iTerm2 a usar um algoritmo de renderização de texto mais lento."
+            "value" : "Se você ativar isto, as ligaduras opcionais desta fonte serão ativadas. Isto força o CryTerm a usar um algoritmo de renderização de texto mais lento."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Если включить эту опцию, в этом шрифте будут задействованы необязательные лигатуры. Это вынуждает iTerm2 использовать более медленный алгоритм отрисовки текста."
+            "value" : "Если включить эту опцию, в этом шрифте будут задействованы необязательные лигатуры. Это вынуждает CryTerm использовать более медленный алгоритм отрисовки текста."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开启后，将启用此字体的可选连字。它会强制 iTerm2 使用较慢的文本渲染算法。"
+            "value" : "开启后，将启用此字体的可选连字。它会强制 CryTerm 使用较慢的文本渲染算法。"
           }
         }
       }
@@ -39716,43 +39716,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn „Tastatur erzwingen“ aktiviert ist, erzwingt iTerm2 fortlaufend das ausgewählte Layout, solange es aktiv ist, sodass Sie innerhalb einer Sitzung nicht zu einem anderen Layout wechseln können. Aktivieren Sie dies, um das Layout nur einmal zu erzwingen, beim ersten Mal, wenn ein neu erstelltes Terminal den Tastaturfokus erhält. Danach können Sie es frei ändern."
+            "value" : "Wenn „Tastatur erzwingen“ aktiviert ist, erzwingt CryTerm fortlaufend das ausgewählte Layout, solange es aktiv ist, sodass Sie innerhalb einer Sitzung nicht zu einem anderen Layout wechseln können. Aktivieren Sie dies, um das Layout nur einmal zu erzwingen, beim ersten Mal, wenn ein neu erstelltes Terminal den Tastaturfokus erhält. Danach können Sie es frei ändern."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "When “Force keyboard” is on, iTerm2 continuously forces the selected layout while it is active, so you cannot switch to another layout within a session. Turn this on to force the layout only once, the first time a newly created terminal receives keyboard focus, leaving you free to change it afterward."
+            "value" : "When “Force keyboard” is on, CryTerm continuously forces the selected layout while it is active, so you cannot switch to another layout within a session. Turn this on to force the layout only once, the first time a newly created terminal receives keyboard focus, leaving you free to change it afterward."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「キーボードを強制」がオンの場合、iTerm2は有効な間、選択したレイアウトを常に強制するため、セッション内で別のレイアウトに切り替えることができません。これをオンにすると、新しく作成されたターミナルが最初にキーボードフォーカスを受け取ったときに一度だけレイアウトを強制し、その後は自由に変更できるようになります。"
+            "value" : "「キーボードを強制」がオンの場合、CryTermは有効な間、選択したレイアウトを常に強制するため、セッション内で別のレイアウトに切り替えることができません。これをオンにすると、新しく作成されたターミナルが最初にキーボードフォーカスを受け取ったときに一度だけレイアウトを強制し、その後は自由に変更できるようになります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“키보드 강제”가 켜져 있으면 iTerm2가 활성 상태인 동안 선택한 레이아웃을 계속 강제하므로 세션 안에서 다른 레이아웃으로 전환할 수 없습니다. 이 옵션을 켜면 새로 만든 터미널이 처음 키보드 포커스를 받을 때 한 번만 레이아웃을 강제하므로, 이후에는 자유롭게 변경할 수 있습니다."
+            "value" : "“키보드 강제”가 켜져 있으면 CryTerm가 활성 상태인 동안 선택한 레이아웃을 계속 강제하므로 세션 안에서 다른 레이아웃으로 전환할 수 없습니다. 이 옵션을 켜면 새로 만든 터미널이 처음 키보드 포커스를 받을 때 한 번만 레이아웃을 강제하므로, 이후에는 자유롭게 변경할 수 있습니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quando “Forçar teclado” está ativado, o iTerm2 força continuamente o layout selecionado enquanto está ativo, de modo que você não pode alternar para outro layout dentro de uma sessão. Ative isto para forçar o layout apenas uma vez, na primeira vez que um terminal recém-criado receber o foco do teclado, deixando você livre para alterá-lo depois."
+            "value" : "Quando “Forçar teclado” está ativado, o CryTerm força continuamente o layout selecionado enquanto está ativo, de modo que você não pode alternar para outro layout dentro de uma sessão. Ative isto para forçar o layout apenas uma vez, na primeira vez que um terminal recém-criado receber o foco do teclado, deixando você livre para alterá-lo depois."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Когда включена функция «Принудительная клавиатура», iTerm2 постоянно применяет выбранную раскладку, пока она активна, поэтому вы не можете переключиться на другую раскладку в рамках сессии. Включите это, чтобы принудительное применение раскладки происходило только один раз, при первом получении фокуса клавиатуры новым терминалом, после чего вы сможете изменить её."
+            "value" : "Когда включена функция «Принудительная клавиатура», CryTerm постоянно применяет выбранную раскладку, пока она активна, поэтому вы не можете переключиться на другую раскладку в рамках сессии. Включите это, чтобы принудительное применение раскладки происходило только один раз, при первом получении фокуса клавиатуры новым терминалом, после чего вы сможете изменить её."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开启“强制键盘”后，iTerm2 在其活动期间持续强制所选布局，因此你无法在会话内切换到其他布局。开启此项可仅在新建终端首次获得键盘焦点时强制一次布局，之后你可以自由更改。"
+            "value" : "开启“强制键盘”后，CryTerm 在其活动期间持续强制所选布局，因此你无法在会话内切换到其他布局。开启此项可仅在新建终端首次获得键盘焦点时强制一次布局，之后你可以自由更改。"
           }
         }
       }
@@ -40772,43 +40772,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn Sie „Systemrichtlinie zur Fensterwiederherstellung verwenden“ ausgewählt haben, öffnet iTerm2 beim Start kein neues Fenster, wenn automatische Startskripte vorhanden sind, ein Hotkey-Fenster definiert ist oder es vergrabene Sitzungen gibt. Aktivieren Sie dies, um trotzdem ein neues Fenster zu erzwingen."
+            "value" : "Wenn Sie „Systemrichtlinie zur Fensterwiederherstellung verwenden“ ausgewählt haben, öffnet CryTerm beim Start kein neues Fenster, wenn automatische Startskripte vorhanden sind, ein Hotkey-Fenster definiert ist oder es vergrabene Sitzungen gibt. Aktivieren Sie dies, um trotzdem ein neues Fenster zu erzwingen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "When you have selected “Use System Window Restoration Policy”, iTerm2 will not open a new window on launch if there are auto-launch scripts, a hotkey window is defined, or there are any buried sessions. Enable this to force a new window to be opened regardless."
+            "value" : "When you have selected “Use System Window Restoration Policy”, CryTerm will not open a new window on launch if there are auto-launch scripts, a hotkey window is defined, or there are any buried sessions. Enable this to force a new window to be opened regardless."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「システムのウィンドウ復元ポリシーを使用」を選択している場合、自動起動スクリプトがある、ホットキーウィンドウが定義されている、または埋もれたセッションがある場合、iTerm2は起動時に新しいウィンドウを開きません。これを有効にすると、常に新しいウィンドウを強制的に開きます。"
+            "value" : "「システムのウィンドウ復元ポリシーを使用」を選択している場合、自動起動スクリプトがある、ホットキーウィンドウが定義されている、または埋もれたセッションがある場合、CryTermは起動時に新しいウィンドウを開きません。これを有効にすると、常に新しいウィンドウを強制的に開きます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“시스템 윈도우 복원 정책 사용”을 선택한 경우, 자동 실행 스크립트가 있거나 단축키 윈도우가 정의되어 있거나 숨겨둔 세션이 있으면 iTerm2는 실행 시 새로운 윈도우를 열지 않습니다. 이 옵션을 켜면 이와 관계없이 새로운 윈도우를 강제로 엽니다."
+            "value" : "“시스템 윈도우 복원 정책 사용”을 선택한 경우, 자동 실행 스크립트가 있거나 단축키 윈도우가 정의되어 있거나 숨겨둔 세션이 있으면 CryTerm는 실행 시 새로운 윈도우를 열지 않습니다. 이 옵션을 켜면 이와 관계없이 새로운 윈도우를 강제로 엽니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quando você tiver selecionado “Usar a política de restauração de janelas do sistema”, o iTerm2 não abrirá uma nova janela ao iniciar se houver scripts de início automático, uma janela de hotkey definida ou sessões ocultas. Ative isto para forçar a abertura de uma nova janela mesmo assim."
+            "value" : "Quando você tiver selecionado “Usar a política de restauração de janelas do sistema”, o CryTerm não abrirá uma nova janela ao iniciar se houver scripts de início automático, uma janela de hotkey definida ou sessões ocultas. Ative isto para forçar a abertura de uma nova janela mesmo assim."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Если выбрано «Использовать системную политику восстановления окон», iTerm2 не будет открывать новое окно при запуске, если есть скрипты автозапуска, определено окно горячих клавиш или есть скрытые сессии. Включите это, чтобы принудительно открывать новое окно в любом случае."
+            "value" : "Если выбрано «Использовать системную политику восстановления окон», CryTerm не будет открывать новое окно при запуске, если есть скрипты автозапуска, определено окно горячих клавиш или есть скрытые сессии. Включите это, чтобы принудительно открывать новое окно в любом случае."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择“使用系统窗口恢复策略”后，如果存在自动启动脚本、定义了热键窗口或存在隐藏的会话，iTerm2 将不会在启动时打开新窗口。启用此项可强制无论如何都打开新窗口。"
+            "value" : "选择“使用系统窗口恢复策略”后，如果存在自动启动脚本、定义了热键窗口或存在隐藏的会话，CryTerm 将不会在启动时打开新窗口。启用此项可强制无论如何都打开新窗口。"
           }
         }
       }
@@ -49748,43 +49748,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies ist nützlich, wenn Sie iTerm2 nur mit einem Hotkey-Fenster verwenden. Die Einstellung ist deaktiviert, wenn kein dediziertes Hotkey-Fenster definiert ist, da es sonst unmöglich wäre, zu iTerm2 zu gelangen, wenn es keine Fenster und keinen Hotkey gibt."
+            "value" : "Dies ist nützlich, wenn Sie CryTerm nur mit einem Hotkey-Fenster verwenden. Die Einstellung ist deaktiviert, wenn kein dediziertes Hotkey-Fenster definiert ist, da es sonst unmöglich wäre, zu CryTerm zu gelangen, wenn es keine Fenster und keinen Hotkey gibt."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is useful if you only use iTerm2 with a hotkey window. The preference is disabled if no dedicated hotkey window is defined since it would be impossible to get to iTerm2 when it has no windows and no hotkey is defined."
+            "value" : "This is useful if you only use CryTerm with a hotkey window. The preference is disabled if no dedicated hotkey window is defined since it would be impossible to get to CryTerm when it has no windows and no hotkey is defined."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これは、iTerm2をホットキーウィンドウでのみ使用する場合に便利です。専用のホットキーウィンドウが定義されていない場合、この設定は無効になります。ウィンドウがなくホットキーも定義されていない状態ではiTerm2にアクセスできなくなるためです。"
+            "value" : "これは、CryTermをホットキーウィンドウでのみ使用する場合に便利です。専用のホットキーウィンドウが定義されていない場合、この設定は無効になります。ウィンドウがなくホットキーも定義されていない状態ではCryTermにアクセスできなくなるためです。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "단축키 윈도우로만 iTerm2를 사용하는 경우에 유용합니다. 전용 단축키 윈도우가 정의되어 있지 않으면 이 설정은 꺼집니다. 윈도우도 없고 단축키도 정의되어 있지 않으면 iTerm2로 돌아갈 방법이 없기 때문입니다."
+            "value" : "단축키 윈도우로만 CryTerm를 사용하는 경우에 유용합니다. 전용 단축키 윈도우가 정의되어 있지 않으면 이 설정은 꺼집니다. 윈도우도 없고 단축키도 정의되어 있지 않으면 CryTerm로 돌아갈 방법이 없기 때문입니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Isto é útil se você usa o iTerm2 apenas com uma janela de hotkey. A preferência fica desativada se nenhuma janela de hotkey dedicada estiver definida, já que seria impossível acessar o iTerm2 quando ele não tem janelas e nenhum hotkey está definido."
+            "value" : "Isto é útil se você usa o CryTerm apenas com uma janela de hotkey. A preferência fica desativada se nenhuma janela de hotkey dedicada estiver definida, já que seria impossível acessar o CryTerm quando ele não tem janelas e nenhum hotkey está definido."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Это полезно, если вы используете iTerm2 только с окном, вызываемым горячей клавишей. Этот параметр отключён, если не задано отдельное окно для горячей клавиши, поскольку в этом случае было бы невозможно получить доступ к iTerm2, когда у него нет окон и не задана горячая клавиша."
+            "value" : "Это полезно, если вы используете CryTerm только с окном, вызываемым горячей клавишей. Этот параметр отключён, если не задано отдельное окно для горячей клавиши, поскольку в этом случае было бы невозможно получить доступ к CryTerm, когда у него нет окон и не задана горячая клавиша."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果你只通过热键窗口使用 iTerm2，这会很有用。如果未定义专用的热键窗口，此设置将被停用，因为当 iTerm2 没有窗口且未定义热键时无法访问它。"
+            "value" : "如果你只通过热键窗口使用 CryTerm，这会很有用。如果未定义专用的热键窗口，此设置将被停用，因为当 CryTerm 没有窗口且未定义热键时无法访问它。"
           }
         }
       }
@@ -52292,43 +52292,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies ist nützlich, wenn Sie iTerm2 nur mit einem Hotkey-Fenster verwenden. Die Einstellung ist deaktiviert, wenn kein dediziertes Hotkey-Fenster definiert ist, da es sonst unmöglich wäre, zu iTerm2 zu gelangen, wenn es keine Fenster und keinen Hotkey gibt."
+            "value" : "Dies ist nützlich, wenn Sie CryTerm nur mit einem Hotkey-Fenster verwenden. Die Einstellung ist deaktiviert, wenn kein dediziertes Hotkey-Fenster definiert ist, da es sonst unmöglich wäre, zu CryTerm zu gelangen, wenn es keine Fenster und keinen Hotkey gibt."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is useful if you only use iTerm2 with a hotkey window. The preference is disabled if no dedicated hotkey window is defined since it would be impossible to get to iTerm2 when it has no windows and no hotkey is defined."
+            "value" : "This is useful if you only use CryTerm with a hotkey window. The preference is disabled if no dedicated hotkey window is defined since it would be impossible to get to CryTerm when it has no windows and no hotkey is defined."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これは、iTerm2をホットキーウィンドウでのみ使用する場合に便利です。専用のホットキーウィンドウが定義されていない場合、この設定は無効になります。ウィンドウがなくホットキーも定義されていない状態ではiTerm2にアクセスできなくなるためです。"
+            "value" : "これは、CryTermをホットキーウィンドウでのみ使用する場合に便利です。専用のホットキーウィンドウが定義されていない場合、この設定は無効になります。ウィンドウがなくホットキーも定義されていない状態ではCryTermにアクセスできなくなるためです。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "단축키 윈도우로만 iTerm2를 사용하는 경우에 유용합니다. 전용 단축키 윈도우가 정의되어 있지 않으면 이 설정은 꺼집니다. 윈도우도 없고 단축키도 정의되어 있지 않으면 iTerm2로 돌아갈 방법이 없기 때문입니다."
+            "value" : "단축키 윈도우로만 CryTerm를 사용하는 경우에 유용합니다. 전용 단축키 윈도우가 정의되어 있지 않으면 이 설정은 꺼집니다. 윈도우도 없고 단축키도 정의되어 있지 않으면 CryTerm로 돌아갈 방법이 없기 때문입니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Isto é útil se você usa o iTerm2 apenas com uma janela de hotkey. A preferência fica desativada se nenhuma janela de hotkey dedicada estiver definida, já que seria impossível acessar o iTerm2 quando ele não tem janelas e nenhum hotkey está definido."
+            "value" : "Isto é útil se você usa o CryTerm apenas com uma janela de hotkey. A preferência fica desativada se nenhuma janela de hotkey dedicada estiver definida, já que seria impossível acessar o CryTerm quando ele não tem janelas e nenhum hotkey está definido."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Это полезно, если вы используете iTerm2 только с окном, вызываемым горячей клавишей. Этот параметр отключён, если не задано отдельное окно для горячей клавиши, поскольку в этом случае было бы невозможно получить доступ к iTerm2, когда у него нет окон и не задана горячая клавиша."
+            "value" : "Это полезно, если вы используете CryTerm только с окном, вызываемым горячей клавишей. Этот параметр отключён, если не задано отдельное окно для горячей клавиши, поскольку в этом случае было бы невозможно получить доступ к CryTerm, когда у него нет окон и не задана горячая клавиша."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果你只通过热键窗口使用 iTerm2，这会很有用。如果未定义专用的热键窗口，此设置将被停用，因为当 iTerm2 没有窗口且未定义热键时无法访问它。"
+            "value" : "如果你只通过热键窗口使用 CryTerm，这会很有用。如果未定义专用的热键窗口，此设置将被停用，因为当 CryTerm 没有窗口且未定义热键时无法访问它。"
           }
         }
       }

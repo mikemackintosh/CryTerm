@@ -28,7 +28,7 @@ static NSString *const iTermOnboardingWindowControllerHasBeenShown = @"NoSyncOnb
 static void iTermOpenWhatsNewURL(NSString *path, NSWindow *window) {
     if ([path isEqualToString:@"companion"]) {
         if (![iTermAdvancedSettingsModel generativeAIAllowed]) {
-            [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"Onboarding.AINotInThisBuild", nil, [NSBundle mainBundle], @"This build of iTerm2 doesn’t connect to AI services, so AI features are turned off.", @"Message shown when the user tries an AI feature in a build that never contacts AI services")
+            [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"Onboarding.AINotInThisBuild", nil, [NSBundle mainBundle], @"This build of CryTerm doesn’t connect to AI services, so AI features are turned off.", @"Message shown when the user tries an AI feature in a build that never contacts AI services")
                                        actions:@[ iTermLocalizedOK() ]
                                      accessory:nil
                                     identifier:nil

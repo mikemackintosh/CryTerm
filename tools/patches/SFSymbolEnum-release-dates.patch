@@ -1,0 +1,13 @@
+diff --git a/generateSFSymbolEnum.swift b/generateSFSymbolEnum.swift
+index 4960325..4a917ee 100644
+--- a/generateSFSymbolEnum.swift
++++ b/generateSFSymbolEnum.swift
+@@ -291,7 +291,7 @@ func readSymbolsAndYears(from fileURL:URL) -> ( [SymbolTuple],Releases)
+     let releaseDatesFromSymbols     = Set<ReleaseDate>(symbols.values)
+     let releaseDatesFromReleases    = Set<ReleaseDate>(releases.keys)
+ 
+-    assert(releaseDatesFromReleases.isSubset(of:releaseDatesFromSymbols),"There are symbols with relasedates that have no release versions \(releaseDatesFromReleases) < \(releaseDatesFromSymbols)")
++    assert(releaseDatesFromSymbols.isSubset(of:releaseDatesFromReleases),"There are symbols with release dates that have no release versions: \(releaseDatesFromSymbols.subtracting(releaseDatesFromReleases))")
+ 
+     let sortedSymbolTuple = symbols
+                             .sorted{ $0.value == $1.value ? $0.key < $1.key : $0.value < $1.value}

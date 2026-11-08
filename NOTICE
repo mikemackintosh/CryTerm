@@ -1,0 +1,46 @@
+CryTerm
+=======
+
+CryTerm is a modified version of iTerm2.
+
+  iTerm2
+  Copyright (c) George Nachman and contributors
+  https://iterm2.com
+  https://github.com/gnachman/iTerm2
+
+iTerm2 is free software licensed under the GNU General Public License,
+version 2 or (at your option) any later version. CryTerm is distributed under
+the same terms. See LICENSE for the full text of the GNU GPL v2 and
+README.license for notes on how bundled dependencies affect the license.
+
+Modifications for CryTerm
+  Copyright (c) 2026 Danger Close Security Co.
+
+CryTerm differs from iTerm2 in these ways:
+  - Renamed to CryTerm, with its own bundle identifier
+    (co.dangerclose.cryterm), so it installs and runs alongside iTerm2 with
+    separate settings, saved passwords, and Application Support folder.
+  - Signed and notarized by Danger Close Security Co.
+  - Automatic update checks against iterm2.com are disabled.
+  - Bug-report links point to the CryTerm repository.
+  - Build fixes for newer Xcode and Rust toolchains.
+
+Every change, with its author and date, is recorded in the git history of the
+source repository. The complete corresponding source code for each CryTerm
+release is available at:
+
+  https://github.com/mikemackintosh/iTerm2
+
+under the git tag that matches the release version (for example, v3.7.0).
+tools/patches/SFSymbolEnum-release-dates.patch must be applied to the
+submodules/SFSymbolEnum submodule before building.
+
+CryTerm is not affiliated with or endorsed by George Nachman or the iTerm2
+project. Please report CryTerm problems at
+https://github.com/mikemackintosh/iTerm2/issues, not to iTerm2.
+
+THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE
+LAW. See sections 11 and 12 of the GNU General Public License.
+
+Third-party components bundled in CryTerm carry their own licenses; see
+ThirdParty/Licenses.txt and the LICENSE files under ThirdParty/.

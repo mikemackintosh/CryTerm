@@ -179,7 +179,7 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
         return;
     }
     if (requireSignature) {
-        completion(nil, NSLocalizedStringWithDefaultValue(@"ScriptImporter.NotValidArchive", nil, [NSBundle mainBundle], @"This is not a valid iTerm2 script archive.", @"Error shown when a file offered for import is not an iTerm2 script archive"), NO, NO, NO);
+        completion(nil, NSLocalizedStringWithDefaultValue(@"ScriptImporter.NotValidArchive", nil, [NSBundle mainBundle], @"This is not a valid CryTerm script archive.", @"Error shown when a file offered for import is not an CryTerm script archive"), NO, NO, NO);
         return;
     }
     completion(url, nil, NO, NO, NO);
@@ -322,10 +322,10 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
         RLog(@"Failed to extract archive from container");
         if (deprecated) {
             DLog(@"deprecated");
-            completion(NSLocalizedStringWithDefaultValue(@"ScriptImporter.LegacyArchiveUnsupported", nil, [NSBundle mainBundle], @"This archive was created by an older version of iTerm2. This kind of archive is no longer supported and cannot be installed.", @"Error shown when trying to install a deprecated script archive from an older iTerm2 version"), NO, nil);
+            completion(NSLocalizedStringWithDefaultValue(@"ScriptImporter.LegacyArchiveUnsupported", nil, [NSBundle mainBundle], @"This archive was created by an older version of CryTerm. This kind of archive is no longer supported and cannot be installed.", @"Error shown when trying to install a deprecated script archive from an older CryTerm version"), NO, nil);
         } else {
             DLog(@"invalid");
-            completion(NSLocalizedStringWithDefaultValue(@"ScriptImporter.NoValidScript", nil, [NSBundle mainBundle], @"Archive does not contain a valid iTerm2 script", @"Error shown when an imported archive does not contain a valid iTerm2 script"), NO, nil);
+            completion(NSLocalizedStringWithDefaultValue(@"ScriptImporter.NoValidScript", nil, [NSBundle mainBundle], @"Archive does not contain a valid CryTerm script", @"Error shown when an imported archive does not contain a valid CryTerm script"), NO, nil);
         }
         return;
     }

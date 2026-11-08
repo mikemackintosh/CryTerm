@@ -202,7 +202,7 @@ class iTermSuppressedAlertsWindowController: NSWindowController {
         checkFrame.origin.y = margin + buttonHeight + checkboxGap
         checkbox.frame = checkFrame
         checkbox.autoresizingMask = [.maxXMargin, .maxYMargin]
-        checkbox.toolTip = String(localized: "SuppressedAlerts.ShowRememberedTooltip", defaultValue: "When you check “Remember my choice” or “Suppress this message permanently” in an alert, iTerm2 stops showing it and reuses your saved response. Turn this on to show those alerts again so you can see them or choose differently. It stays on until you turn it off.", comment: "Tooltip explaining the always-show-remembered-alerts checkbox")
+        checkbox.toolTip = String(localized: "SuppressedAlerts.ShowRememberedTooltip", defaultValue: "When you check “Remember my choice” or “Suppress this message permanently” in an alert, CryTerm stops showing it and reuses your saved response. Turn this on to show those alerts again so you can see them or choose differently. It stays on until you turn it off.", comment: "Tooltip explaining the always-show-remembered-alerts checkbox")
         content.addSubview(checkbox)
         showRememberedCheckbox = checkbox
     }

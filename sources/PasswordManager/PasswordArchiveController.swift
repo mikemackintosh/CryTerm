@@ -26,7 +26,7 @@ class PasswordArchiveController: NSObject {
         guard scope.keychainIsActive else {
             return
         }
-        authenticate(reason: String(localized: "PasswordArchive.ExportAuthReason", defaultValue: "export saved passwords", comment: "Completes the system prompt “iTerm2 is trying to …” shown before exporting passwords")) { ok in
+        authenticate(reason: String(localized: "PasswordArchive.ExportAuthReason", defaultValue: "export saved passwords", comment: "Completes the system prompt “CryTerm is trying to …” shown before exporting passwords")) { ok in
             guard ok else {
                 return
             }
@@ -51,7 +51,7 @@ class PasswordArchiveController: NSObject {
 
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = [contentType].compactMap { $0 }
-        savePanel.nameFieldStringValue = String(localized: "PasswordArchive.DefaultFileName", defaultValue: "iTerm2 Passwords.iterm2passwords", comment: "Default file name when exporting passwords. Keep the .iterm2passwords extension.")
+        savePanel.nameFieldStringValue = String(localized: "PasswordArchive.DefaultFileName", defaultValue: "CryTerm Passwords.iterm2passwords", comment: "Default file name when exporting passwords. Keep the .iterm2passwords extension.")
         savePanel.title = String(localized: "PasswordArchive.ExportPanelTitle", defaultValue: "Export Passwords", comment: "Title of the save panel for exporting passwords")
         guard savePanel.runModal() == .OK, let url = savePanel.url else {
             return
@@ -93,7 +93,7 @@ class PasswordArchiveController: NSObject {
                         window: window)
             return
         }
-        authenticate(reason: String(localized: "PasswordArchive.ImportAuthReason", defaultValue: "import saved passwords", comment: "Completes the system prompt “iTerm2 is trying to …” shown before importing passwords")) { ok in
+        authenticate(reason: String(localized: "PasswordArchive.ImportAuthReason", defaultValue: "import saved passwords", comment: "Completes the system prompt “CryTerm is trying to …” shown before importing passwords")) { ok in
             guard ok else {
                 return
             }
@@ -126,7 +126,7 @@ class PasswordArchiveController: NSObject {
     // receives nil if the user cancelled or something failed (and was reported).
     static func preparePasswordsForSettingsExport(window: NSWindow?,
                                                   completion: @escaping ((entries: [PasswordArchiveEntry], passphrase: String)?) -> ()) {
-        authenticate(reason: String(localized: "PasswordArchive.ExportAuthReason", defaultValue: "export saved passwords", comment: "Completes the system prompt “iTerm2 is trying to …” shown before exporting passwords")) { ok in
+        authenticate(reason: String(localized: "PasswordArchive.ExportAuthReason", defaultValue: "export saved passwords", comment: "Completes the system prompt “CryTerm is trying to …” shown before exporting passwords")) { ok in
             guard ok else {
                 completion(nil)
                 return
@@ -154,7 +154,7 @@ class PasswordArchiveController: NSObject {
         guard check(url, window: nil) else {
             return
         }
-        guard authenticateSynchronously(reason: String(localized: "PasswordArchive.ImportAuthReason", defaultValue: "import saved passwords", comment: "Completes the system prompt “iTerm2 is trying to …” shown before importing passwords")) else {
+        guard authenticateSynchronously(reason: String(localized: "PasswordArchive.ImportAuthReason", defaultValue: "import saved passwords", comment: "Completes the system prompt “CryTerm is trying to …” shown before importing passwords")) else {
             return
         }
         let detail = String(localized: "PasswordArchive.SettingsImportDetail", defaultValue: "This export includes saved passwords. Enter the passphrase that was used to export them, or cancel to import everything else without them.", comment: "Shown when importing settings that contain an encrypted password export")
@@ -195,7 +195,7 @@ class PasswordArchiveController: NSObject {
                 return
             }
             let reason = error?.localizedDescription ?? ""
-            showMessage(String(localized: "PasswordArchive.AuthUnavailable", defaultValue: "iTerm2 can’t export or import passwords because macOS couldn’t confirm your identity. \(reason)", comment: "Shown when macOS can't authenticate the user before a password import or export. The placeholder is the system's reason."),
+            showMessage(String(localized: "PasswordArchive.AuthUnavailable", defaultValue: "CryTerm can’t export or import passwords because macOS couldn’t confirm your identity. \(reason)", comment: "Shown when macOS can't authenticate the user before a password import or export. The placeholder is the system's reason."),
                         heading: String(localized: "PasswordArchive.AuthFailedHeading", defaultValue: "Authentication Failed", comment: "Heading of the alert shown when the user can't be authenticated before a password import or export"),
                         window: nil)
             completion(false)

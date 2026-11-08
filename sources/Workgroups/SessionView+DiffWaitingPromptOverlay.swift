@@ -20,7 +20,7 @@ extension SessionView {
             DiffWaitingPromptView(
                 frame: scrollview.frame,
                 title: String(localized: "DiffWaitingPrompt.InitialTitle", defaultValue: "Diff session is waiting for changes.", comment: "Title of the overlay shown when a diff-mode session is waiting for git changes before it starts"),
-                body: String(localized: "DiffWaitingPrompt.InitialBody", defaultValue: "This session is set to Diff mode and only starts its command when git reports staged or unstaged changes. The working tree is currently clean, or iTerm2 hasn’t finished its first check yet. Edit a file (or stage one) and the command will start on its own. To run it now anyway, click below.", comment: "Body text explaining that a diff-mode session is waiting for git changes before it starts"),
+                body: String(localized: "DiffWaitingPrompt.InitialBody", defaultValue: "This session is set to Diff mode and only starts its command when git reports staged or unstaged changes. The working tree is currently clean, or CryTerm hasn’t finished its first check yet. Edit a file (or stage one) and the command will start on its own. To run it now anyway, click below.", comment: "Body text explaining that a diff-mode session is waiting for git changes before it starts"),
                 showCancel: false),
             onRunAnyway: onRunAnyway,
             onCancel: nil)

@@ -2709,7 +2709,7 @@ static NSDictionary *iTermTmuxControllerDefaultFontOverridesFromProfile(Profile 
 - (void)optionValidationFailedForOption:(NSString *)option
 {
     NSString *message = [NSString stringWithFormat:
-                            NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionMessage", nil, [NSBundle mainBundle], @"The “%@” option is turned on in tmux. It is not compatible with the iTerm2-tmux integration. Please disable it and try again.", @"Error explaining that a tmux option is incompatible with iTerm2; %@ is the option name"),
+                            NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionMessage", nil, [NSBundle mainBundle], @"The “%@” option is turned on in tmux. It is not compatible with the iTerm2-tmux integration. Please disable it and try again.", @"Error explaining that a tmux option is incompatible with CryTerm; %@ is the option name"),
                              option];
     [gateway_ abortWithErrorMessage:message
                               title:NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionTitle", nil, [NSBundle mainBundle], @"Unsupported tmux option", @"Title of the error shown when tmux has an unsupported option enabled")];
@@ -4203,7 +4203,7 @@ static NSString *iTermTmuxRelativeFlags(int columns, int rows, NSString *right, 
     }
     if (haveRed) {
         const iTermWarningSelection selection =
-        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"TmuxController.ResetRedTabsTitle", nil, [NSBundle mainBundle], @"While attaching to tmux, some tabs were found whose color is pure red. This may be due to a bug in early versions of iTerm2 3.6.x. Would you like to reset those tabs’ colors?", @"Warning message asking whether to reset tmux tab colors that are pure red due to an old iTerm2 bug")
+        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"TmuxController.ResetRedTabsTitle", nil, [NSBundle mainBundle], @"While attaching to tmux, some tabs were found whose color is pure red. This may be due to a bug in early versions of CryTerm 3.6.x. Would you like to reset those tabs’ colors?", @"Warning message asking whether to reset tmux tab colors that are pure red due to an old CryTerm bug")
                                    actions:@[ NSLocalizedStringWithDefaultValue(@"TmuxController.ResetRedTabsReset", nil, [NSBundle mainBundle], @"Reset", @"Button to reset the corrupted tmux tab colors"), NSLocalizedStringWithDefaultValue(@"TmuxController.ResetRedTabsKeepRed", nil, [NSBundle mainBundle], @"Keep Red", @"Button to keep the pure-red tmux tab colors unchanged") ]
                                  accessory:nil
                                 identifier:@"NoSyncResetRedTmuxTabs"

@@ -218,7 +218,7 @@ enum OrchestrationMentionRenderer {
                                    tint: NSColor,
                                    action: ((NSPoint) -> ())?) -> NSAttributedString? {
         guard let symbol = NSImage(systemSymbolName: symbolName,
-                                   accessibilityDescription: String(localized: "OrchestrationMentionRenderer.SessionIconLabel", defaultValue: "iTerm2 session", comment: "Accessibility label for the terminal glyph shown next to a session mention")) else {
+                                   accessibilityDescription: String(localized: "OrchestrationMentionRenderer.SessionIconLabel", defaultValue: "CryTerm session", comment: "Accessibility label for the terminal glyph shown next to a session mention")) else {
             return nil
         }
         let dynamicImage = DynamicImage(image: symbol,
