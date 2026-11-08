@@ -23,6 +23,13 @@ CryTerm differs from iTerm2 in these ways:
   - Signed and notarized by Danger Close Security Co.
   - Automatic update checks against iterm2.com are disabled.
   - Bug-report links point to the CryTerm repository.
+  - iTerm2's donation prompts, sponsor logos, and patron list are removed,
+    since they fund the upstream project rather than CryTerm. Please support
+    iTerm2 directly at https://iterm2.com/donate.html.
+  - A new app icon.
+  - On first launch, offers to copy scripts, dynamic profiles, fonts, and
+    ssh_config from iTerm2's Application Support folder.
+  - Built for Apple silicon (arm64) only.
   - Build fixes for newer Xcode and Rust toolchains.
 
 Every change, with its author and date, is recorded in the git history of the

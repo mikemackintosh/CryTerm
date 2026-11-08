@@ -13,7 +13,7 @@ void iTermShowCorruptApplicationAlert(NSString * _Nullable settingKey) {
     NSString *message;
     if (!team) {
         message = NSLocalizedStringWithDefaultValue(@"CorruptApplication.SignatureUnverifiable", nil, [NSBundle mainBundle], @"A required file appears to be missing or corrupted and CryTerm’s code signature could not be verified. You should download a fresh copy of the app and reinstall it.", @"Alert shown when a required resource is missing and the code signature could not be verified");
-    } else if (![team isEqualToString:@"H7V7XYVQ7D"]) {
+    } else if (![team isEqualToString:@"994Z8EH423"]) {
         message = NSLocalizedStringWithDefaultValue(@"CorruptApplication.SignatureMismatch", nil, [NSBundle mainBundle], @"A required file appears to be missing or corrupted and CryTerm’s code signature did not match that of the official distribution. You should download a fresh copy of the app and reinstall it.", @"Alert shown when a required resource is missing and the code signature does not match the official distribution");
     } else {
         message = NSLocalizedStringWithDefaultValue(@"CorruptApplication.SignatureValidUnexpected", nil, [NSBundle mainBundle], @"A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/iTerm2/issues", @"Alert shown when a required resource is missing but the code signature is unexpectedly valid");

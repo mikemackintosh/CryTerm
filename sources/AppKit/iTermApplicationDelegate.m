@@ -1617,6 +1617,11 @@ void TurnOnDebugLoggingAutomatically(void) {
 #endif
 
     [iTermLaunchExperienceController applicationDidFinishLaunching];
+    // A renamed build (CryTerm) has its own Application Support folder; offer once to copy
+    // the user's scripts and dynamic profiles from iTerm2's. Async so windows restore first.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [iTermAppSupportMigration offerIfNeeded];
+    });
     // Seed the dynamic Ollama model cache from disk so a chat pinned to a
     // discovered tag resolves synchronously at launch instead of falling through
     // to the global default provider while /api/tags is fetched.

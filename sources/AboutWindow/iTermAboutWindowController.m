@@ -137,7 +137,8 @@ static NSColor *iTermAboutContainerFillColor(void) {
                                                                                               font:_sponsorsHeading.font
                                                                                     paragraphStyle:paragraphStyle]];
 
-    _sponsors = [self buildUnifiedSponsorRow];
+    // CryTerm does not show iTerm2's sponsors: they support upstream, not this build.
+    _sponsors = @[];
 
     _creditsWell = [[iTermAboutCreditsWellView alloc] initWithFrame:_bottomAlignedScrollView.frame];
     _creditsWell.autoresizingMask = _bottomAlignedScrollView.autoresizingMask;
@@ -339,22 +340,42 @@ static NSColor *iTermAboutContainerFillColor(void) {
         [_dynamicText setAlignment:NSTextAlignmentCenter
                              range:NSMakeRange(0, [[_dynamicText textStorage] length])];
 
-        [self setPatronsString:[self defaultPatronsString] animate:NO];
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSURL *url = [NSURL URLWithString:@"https://iterm2.com/patrons.txt"];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSArray<NSString *> *patronNames = string.length > 0 ? [string componentsSeparatedByString:@"\n"] : nil;
-            patronNames = [patronNames filteredArrayUsingBlock:^BOOL(NSString *name) {
-                return name.length > 0;
-            }];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setPatrons:patronNames];
-            });
-        });
+        [self removeUpstreamSupportCredits];
     }
     return self;
+}
+
+// iTerm2's backers heading, sponsor row, and patron list (and the credits well behind
+// it) sit at or below the separator under the header, whose top edge AboutWindow.xib
+// puts at y=254. CryTerm removes them and shrinks the window to end below the header.
+- (void)removeUpstreamSupportCredits {
+    NSView *const contentView = self.window.contentView;
+    const CGFloat separatorTop = 254;
+    const CGFloat bottomMargin = 12;
+    const CGFloat shift = separatorTop - bottomMargin;
+    NSMutableArray<NSView *> *keep = [NSMutableArray array];
+    for (NSView *view in contentView.subviews) {
+        if (NSMaxY(view.frame) > separatorTop) {
+            [keep addObject:view];
+        }
+    }
+    // Remove rather than hide: on macOS 26 applyAppearanceTreatment unhides the credits well.
+    for (NSView *view in [contentView.subviews copy]) {
+        if (![keep containsObject:view]) {
+            [view removeFromSuperview];
+        }
+    }
+    const BOOL autoresizes = contentView.autoresizesSubviews;
+    contentView.autoresizesSubviews = NO;
+    NSSize size = contentView.frame.size;
+    size.height -= shift;
+    [self.window setContentSize:size];
+    for (NSView *view in keep) {
+        NSRect frame = view.frame;
+        frame.origin.y -= shift;
+        view.frame = frame;
+    }
+    contentView.autoresizesSubviews = autoresizes;
 }
 
 - (NSDictionary *)linkTextViewAttributes {
