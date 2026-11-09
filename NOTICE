@@ -30,6 +30,10 @@ CryTerm differs from iTerm2 in these ways:
   - On first launch, offers to copy scripts, dynamic profiles, fonts, and
     ssh_config from iTerm2's Application Support folder.
   - Built for Apple silicon (arm64) only.
+  - Defaults: unlimited scrollback, the Minimal theme, and the bundled
+    MesloLGL Nerd Font Mono 13 (Meslo LG by André Berg, Apache 2.0; Nerd Fonts
+    by Ryan L McIntyre, SIL OFL 1.1 and MIT; see ThirdParty/Licenses.txt).
+  - Automatic updates come from this repository's notarized releases.
   - Build fixes for newer Xcode and Rust toolchains.
 
 Every change, with its author and date, is recorded in the git history of the

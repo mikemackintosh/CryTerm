@@ -710,6 +710,7 @@
 		24DA71F2054CDB831F9EF0B1 /* SessionOverviewWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090CB0089BA13D09C7778BE /* SessionOverviewWindowController.swift */; };
 		25044DC37B70724418C734C0 /* iTermShellArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66769B8654316E249B74A /* iTermShellArguments.m */; };
 		2541BDB636E0664DEE1BAB46 /* IT2Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E9770112162992653D558 /* IT2Context.swift */; };
+		2559B3E072DAD58E69E65E14 /* MesloLGLNerdFontMono-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74A7D671DD63D58A44417B83 /* MesloLGLNerdFontMono-BoldItalic.ttf */; };
 		25B86CAD41791E32F84A8582 /* CompanionPluginHTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC7E35842CFC775D14EB91 /* CompanionPluginHTTPError.swift */; };
 		2621488B01FD8224242400F6 /* CompanionTouchMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7FA7091BC6651354944E64 /* CompanionTouchMapper.swift */; };
 		265B5BEC383FF5AB85971F30 /* iTermAutoresizingFloorAuditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549AB34D98B0F7595015C26B /* iTermAutoresizingFloorAuditor.swift */; };
@@ -738,6 +739,7 @@
 		32729FE01D7AC39C1BC0B1FF /* SafetyTranscriptProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232A06BD577404F71FFBC0AF /* SafetyTranscriptProjection.swift */; };
 		329255FAF6BE419BCB700B39 /* CodeReviewPromptStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F0C4D86ED1181AF4DA5A4F /* CodeReviewPromptStore.swift */; };
 		335117784F92355E402EBE7C /* SSHHookArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A7493F12FE6D368D9966F /* SSHHookArguments.swift */; };
+		33C4F7B2C4E01715DDEA4DC9 /* MesloLGLNerdFontMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3D2FD62B3CF75776A7A57D9 /* MesloLGLNerdFontMono-Regular.ttf */; };
 		350855B79BCFF20D8A66A936 /* iTermShellArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE66769B8654316E249B74A /* iTermShellArguments.m */; };
 		352F6F2331E441629B912B47 /* AgentHookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA9AFEC3BECD6B78B76385 /* AgentHookDetail.swift */; };
 		355C6FC60EEF61A2C69E8D0E /* ArchiveClippingsBuiltInFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B084D285B6C1CDDE2932596 /* ArchiveClippingsBuiltInFunction.swift */; };
@@ -1029,6 +1031,7 @@
 		56CD4FD8AAB1F61A45B6597D /* iTermStandardButtons.h in Sources */ = {isa = PBXBuildFile; fileRef = BCB6504EA9415C3BAC796EA5 /* iTermStandardButtons.h */; };
 		57BF5411C9DE281A57F2B50C /* AITabTitleCorpus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2592CCDF993CD33E0DE3E6A3 /* AITabTitleCorpus.swift */; };
 		57F37DCBE10E9775FA590138 /* ClaudeIntegrationHealthMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FA5EA310888B7DB4DFBE61 /* ClaudeIntegrationHealthMonitor.swift */; };
+		596CE1F14265E8A94F4CD4A9 /* MesloLGLNerdFontMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA5FA08D8ACA9FD459D20039 /* MesloLGLNerdFontMono-Bold.ttf */; };
 		59D52CC2148887A0EA44502B /* MessagesSinceResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5FA15853801D38481C3199 /* MessagesSinceResponder.swift */; };
 		5A68344851B7CEE773FF8607 /* AICassette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B1126B05955C92900D7A85 /* AICassette.swift */; };
 		5A70B4826716B6F27711CADF /* WorkgroupToolbarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C79A0745E993B91C40235 /* WorkgroupToolbarBuilder.swift */; };
@@ -4668,6 +4671,7 @@
 		B62EABE8326E6BBA6BCB1BCB /* iTermBellSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96672AB6772261AAC628CBA6 /* iTermBellSound.swift */; };
 		B661B16FF0C20DC268588314 /* iTermMacOS13RequirementNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1A9F00EB0A2E18AD334E88 /* iTermMacOS13RequirementNotice.swift */; };
 		B6F107C3AFA77C36642979FC /* CompanionPushRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A955B14FF6B89D29018C2AEA /* CompanionPushRegistry.swift */; };
+		B6FBBA0BA17B4A9FDBFBC142 /* MesloLGLNerdFontMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F2D6EA6CB13BDF5B551DE54 /* MesloLGLNerdFontMono-Italic.ttf */; };
 		B7CCF9DB53324385520BEA88 /* iTermValueAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C62271A692704C38AB76426 /* iTermValueAnimation.swift */; };
 		B7D24BCC35360983559E530C /* iTermSuppressedAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB0124F2AA65D7F51AD4A32 /* iTermSuppressedAlerts.swift */; };
 		B80BB2D6C74CAD9750556804 /* AILiveLlamaToolCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E84D570B65467F50B49267 /* AILiveLlamaToolCallTests.swift */; };
@@ -6014,6 +6018,7 @@
 		6E8BB76193334BC38C90EC4C /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/InstantReplay.xcstrings; sourceTree = "<group>"; };
 		6E9FF32118246D33BBE5EF45 /* ConductorUpload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConductorUpload.swift; sourceTree = "<group>"; };
 		6EFD41B9F2C6F53723CDF88B /* iTermArrangementKeys.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = iTermArrangementKeys.h; sourceTree = "<group>"; };
+		6F2D6EA6CB13BDF5B551DE54 /* MesloLGLNerdFontMono-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "MesloLGLNerdFontMono-Italic.ttf"; sourceTree = "<group>"; };
 		6F6AD8136D2E4D2EB86E9ABC /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/AITerm.xcstrings; sourceTree = "<group>"; };
 		6F87CB3CBFBF0D0E8781513C /* VT100StringConversionConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = VT100StringConversionConfig.h; sourceTree = "<group>"; };
 		6FCB0ADBF645EEE6B0A5F457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iTermBadgeConfigurationWindowController.xib; sourceTree = "<group>"; };
@@ -6032,6 +6037,7 @@
 		7451DA961B32EFEFC3EBB408 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/iTermSnippetsEditingViewController.xcstrings; sourceTree = "<group>"; };
 		747097BB93FD0DED35E72C39 /* iTermWorkgroupController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iTermWorkgroupController.swift; sourceTree = "<group>"; };
 		7470EB5997704A4C869F9AF6 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Autocomplete.xcstrings; sourceTree = "<group>"; };
+		74A7D671DD63D58A44417B83 /* MesloLGLNerdFontMono-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "MesloLGLNerdFontMono-BoldItalic.ttf"; sourceTree = "<group>"; };
 		751FAD7033C9A3DC31ABE2F3 /* CompanionPriorityOutbox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompanionPriorityOutbox.swift; sourceTree = "<group>"; };
 		753287DA1D6ED8E34A191526 /* iTermUndoCloseArchives.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iTermUndoCloseArchives.swift; sourceTree = "<group>"; };
 		756C32AB2597AC2E0047B3A9 /* iTermImage+Sixel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iTermImage+Sixel.h"; sourceTree = "<group>"; };
@@ -8831,6 +8837,7 @@
 		A955B14FF6B89D29018C2AEA /* CompanionPushRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompanionPushRegistry.swift; sourceTree = "<group>"; };
 		A99A211B9CCCCDFA3692A5C4 /* CompanionSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompanionSession.swift; sourceTree = "<group>"; };
 		AA38ACCF02277FC72C991593 /* FramerRecoveryRefusals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FramerRecoveryRefusals.swift; sourceTree = "<group>"; };
+		AA5FA08D8ACA9FD459D20039 /* MesloLGLNerdFontMono-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "MesloLGLNerdFontMono-Bold.ttf"; sourceTree = "<group>"; };
 		AA8606A478BC8E0AE0DE9E10 /* iTermUvMigration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iTermUvMigration.swift; sourceTree = "<group>"; };
 		AC740B139D1CC20555A4AF60 /* FramerPaneJobManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FramerPaneJobManager.swift; sourceTree = "<group>"; };
 		AD71DB091B2D8353FCFAE0DD /* JSONArraySplice.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSONArraySplice.swift; sourceTree = "<group>"; };
@@ -9000,6 +9007,7 @@
 		E300468361106B82C9C9DF62 /* FlowControlMonitorWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlowControlMonitorWindowController.swift; sourceTree = "<group>"; };
 		E314DB340B9B495F8F6D1578 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/PasteView.xcstrings; sourceTree = "<group>"; };
 		E3C1692FB633AACA44AD2625 /* WorkgroupUsageToolbarItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WorkgroupUsageToolbarItem.swift; sourceTree = "<group>"; };
+		E3D2FD62B3CF75776A7A57D9 /* MesloLGLNerdFontMono-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "MesloLGLNerdFontMono-Regular.ttf"; sourceTree = "<group>"; };
 		E4FCBB8A80DB478BBE9D21E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MinimalFindView.xib; sourceTree = "<group>"; };
 		E5255A7A21B4425481DC8012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TmuxDashboard.xib; sourceTree = "<group>"; };
 		E6270F746A06950D2A3CE637 /* iTermUndoCloseMigrationWarning.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iTermUndoCloseMigrationWarning.swift; sourceTree = "<group>"; };
@@ -14222,6 +14230,10 @@
 				1D2F3B3C1516BA460044C337 /* iTermFontPanel.m */,
 				1D70BA331680158700824B72 /* PTYFontInfo.h */,
 				1D70BA341680158700824B72 /* PTYFontInfo.m */,
+				E3D2FD62B3CF75776A7A57D9 /* MesloLGLNerdFontMono-Regular.ttf */,
+				AA5FA08D8ACA9FD459D20039 /* MesloLGLNerdFontMono-Bold.ttf */,
+				6F2D6EA6CB13BDF5B551DE54 /* MesloLGLNerdFontMono-Italic.ttf */,
+				74A7D671DD63D58A44417B83 /* MesloLGLNerdFontMono-BoldItalic.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -18429,6 +18441,10 @@
 				1CFBC8DDC0F47C682E8BA689 /* it2.py in Resources */,
 				72386C923E6555FC1BEE219E /* it2_git_state.py in Resources */,
 				9EC3C7C85EB065688CB08F0C /* it2-remote in Resources */,
+				33C4F7B2C4E01715DDEA4DC9 /* MesloLGLNerdFontMono-Regular.ttf in Resources */,
+				596CE1F14265E8A94F4CD4A9 /* MesloLGLNerdFontMono-Bold.ttf in Resources */,
+				B6FBBA0BA17B4A9FDBFBC142 /* MesloLGLNerdFontMono-Italic.ttf in Resources */,
+				2559B3E072DAD58E69E65E14 /* MesloLGLNerdFontMono-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

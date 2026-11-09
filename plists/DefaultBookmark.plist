@@ -1073,9 +1073,9 @@
 	<key>Ambiguous Double Width</key>
 	<false/>
 	<key>Non Ascii Font</key>
-	<string>Monaco 12</string>
+	<string>MesloLGLNFM-Regular 13</string>
 	<key>Normal Font</key>
-	<string>Monaco 12</string>
+	<string>MesloLGLNFM-Regular 13</string>
 	<key>Rows</key>
 	<integer>25</integer>
 	<key>Scrollback Lines</key>
