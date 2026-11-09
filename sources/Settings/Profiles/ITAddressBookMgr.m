@@ -355,6 +355,8 @@ iTermPercentage iTermPercentageFromProfile(Profile *profile, iTermWindowType win
             [iTermPreferences setBool:YES forKey:kPreferenceKeyMigratedDynamicProfileTagToFlag];
         }
 
+        [ITAddressBookMgr upgradeStockProfileDefaultsIfNeeded];
+
         BOOL bookmarkWithDefaultGuidExisted =
             ([[ProfileModel sharedInstance] bookmarkWithGuid:originalDefaultGuid] != nil);
         [_dynamicProfileManager reloadDynamicProfiles];
@@ -372,6 +374,47 @@ iTermPercentage iTermPercentageFromProfile(Profile *profile, iTermWindowType win
     }
 
     return self;
+}
+
+// CryTerm 3.7.1 changed the default font from Monaco 12 to the bundled MesloLGL Nerd Font
+// Mono 13, and the default scrollback from 1000 lines to unlimited. Profiles created
+// earlier still hold the old stock values. Once, move any profile whose values are
+// exactly the old defaults to the new ones; a value the user chose is left alone.
++ (void)upgradeStockProfileDefaultsIfNeeded {
+    NSString *const doneKey = @"NoSyncUpgradedStockProfileDefaultsForCryTerm371";
+    NSUserDefaults *const userDefaults = [iTermUserDefaults userDefaults];
+    if ([userDefaults boolForKey:doneKey]) {
+        return;
+    }
+    NSString *const oldFont = @"Monaco 12";
+    NSString *const newFont = @"MesloLGLNFM-Regular 13";
+    ProfileModel *const model = [ProfileModel sharedInstance];
+    BOOL changed = NO;
+    for (Profile *profile in [[model bookmarks] copy]) {
+        if (profile.profileIsDynamic) {
+            continue;
+        }
+        NSString *const guid = profile[KEY_GUID];
+        for (NSString *key in @[ KEY_NORMAL_FONT, KEY_NON_ASCII_FONT ]) {
+            Profile *const current = [model bookmarkWithGuid:guid];
+            if ([current[key] isEqual:oldFont]) {
+                DLog(@"Upgrading %@ of profile %@ from %@ to %@", key, current[KEY_NAME], oldFont, newFont);
+                [model setObject:newFont forKey:key inBookmark:current];
+                changed = YES;
+            }
+        }
+        Profile *const current = [model bookmarkWithGuid:guid];
+        if ([current[KEY_UNLIMITED_SCROLLBACK] isEqual:@NO] &&
+            [current[KEY_SCROLLBACK_LINES] isEqual:@1000]) {
+            DLog(@"Upgrading profile %@ to unlimited scrollback", current[KEY_NAME]);
+            [model setObject:@YES forKey:KEY_UNLIMITED_SCROLLBACK inBookmark:current];
+            changed = YES;
+        }
+    }
+    if (changed) {
+        [model flush];
+    }
+    [userDefaults setBool:YES forKey:doneKey];
 }
 
 - (void)dealloc {
