@@ -6001,6 +6001,16 @@ hidingToolbeltShouldResizeWindow:(BOOL)hidingToolbeltShouldResizeWindow
 }
 
 - (BOOL)tabBarAlwaysVisible {
+    // CryTerm: a left or right tab bar is the window's only tab control, so it never hides,
+    // even with one tab. "Hide tab bar when there is only one tab" applies to top and bottom.
+    switch ([iTermPreferences intForKey:kPreferenceKeyTabPosition]) {
+        case PSMTab_LeftTab:
+        case PSMTab_RightTab:
+            return YES;
+        case PSMTab_TopTab:
+        case PSMTab_BottomTab:
+            break;
+    }
     return ![iTermPreferences boolForKey:kPreferenceKeyHideTabBar];
 }
 

@@ -115,6 +115,14 @@ iTermWindowType iTermUnthemedWindowType(iTermWindowType windowType) {
     }
 }
 
+// CryTerm: the Compact and Minimal themes use compact (title-bar-less) windows only when the
+// tab bar is on top, where the window title is drawn in place of the tab bar while it is
+// hidden. With the tab bar on a side or at the bottom a compact window has no title bar and
+// its window buttons appear only on hover, so those windows keep a normal title bar.
+static BOOL iTermThemeUsesCompactWindows(void) {
+    return [iTermPreferences intForKey:kPreferenceKeyTabPosition] == TAB_POSITION_TOP;
+}
+
 // NOTE: If you change this also update iTermUnthemedWindowType
 iTermWindowType iTermThemedWindowType(iTermWindowType windowType) {
     switch (windowType) {
@@ -123,7 +131,7 @@ iTermWindowType iTermThemedWindowType(iTermWindowType windowType) {
             switch ((iTermPreferencesTabStyle)[iTermPreferences intForKey:kPreferenceKeyTabStyle]) {
                 case TAB_STYLE_COMPACT:
                 case TAB_STYLE_MINIMAL:
-                    return WINDOW_TYPE_COMPACT;
+                    return iTermThemeUsesCompactWindows() ? WINDOW_TYPE_COMPACT : WINDOW_TYPE_NORMAL;
 
                 case TAB_STYLE_AUTOMATIC:
                 case TAB_STYLE_LIGHT:
@@ -140,7 +148,7 @@ iTermWindowType iTermThemedWindowType(iTermWindowType windowType) {
             switch ((iTermPreferencesTabStyle)[iTermPreferences intForKey:kPreferenceKeyTabStyle]) {
                 case TAB_STYLE_COMPACT:
                 case TAB_STYLE_MINIMAL:
-                    return WINDOW_TYPE_COMPACT_MAXIMIZED;
+                    return iTermThemeUsesCompactWindows() ? WINDOW_TYPE_COMPACT_MAXIMIZED : WINDOW_TYPE_MAXIMIZED;
 
                 case TAB_STYLE_AUTOMATIC:
                 case TAB_STYLE_LIGHT:
@@ -157,7 +165,7 @@ iTermWindowType iTermThemedWindowType(iTermWindowType windowType) {
             switch ((iTermPreferencesTabStyle)[iTermPreferences intForKey:kPreferenceKeyTabStyle]) {
                 case TAB_STYLE_COMPACT:
                 case TAB_STYLE_MINIMAL:
-                    return WINDOW_TYPE_COMPACT_CENTERED;
+                    return iTermThemeUsesCompactWindows() ? WINDOW_TYPE_COMPACT_CENTERED : WINDOW_TYPE_CENTERED;
 
                 case TAB_STYLE_AUTOMATIC:
                 case TAB_STYLE_LIGHT:
