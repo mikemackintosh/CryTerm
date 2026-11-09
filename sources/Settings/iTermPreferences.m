@@ -1219,8 +1219,8 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
     if (value) {
         return value;
     }
-    // New value is not set yet. This migrates all users to automatic.
-    return @(TAB_STYLE_AUTOMATIC);
+    // New value is not set yet. CryTerm defaults to the Minimal theme.
+    return @(TAB_STYLE_MINIMAL);
 }
 
 + (NSNumber *)computedUseMetal {
