@@ -947,7 +947,7 @@ static NSArray<NSString *> *iTermConvertThreePartVersionNumbersToTwoPart(NSArray
                 if (!pythonVersionToUse) {
                     RLog(@"Could not determine Python version");
                     completion([iTermPythonRuntimeDownloader errorWithCode:iTermInstallPythonStatusGeneralFailure
-                                                                    reason:@"Dependency installation failed: could not determine Python version. Please file a bug report at https://github.com/mikemackintosh/iTerm2/issues"]);
+                                                                    reason:@"Dependency installation failed: could not determine Python version. Please file a bug report at https://github.com/mikemackintosh/CryTerm/issues"]);
                     return;
                 }
                 if (createSetupCfg) {

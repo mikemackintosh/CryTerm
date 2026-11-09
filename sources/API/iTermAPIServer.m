@@ -1073,7 +1073,7 @@ NSString *const iTermAPIServerConnectionClosed = @"iTermAPIServerConnectionClose
 
 - (void)handleUnhandleableRequest:(ITMClientOriginatedMessage *)request connection:(id<iTermAPIServerConnection>)webSocketConnection {
     ITMServerOriginatedMessage *response = [self newResponseForRequest:request];
-    response.error = @"Not ready. This is a bug! Please report it at https://github.com/mikemackintosh/iTerm2/issues";
+    response.error = @"Not ready. This is a bug! Please report it at https://github.com/mikemackintosh/CryTerm/issues";
     [self finishHandlingRequestWithResponse:response onConnection:webSocketConnection];
 }
 

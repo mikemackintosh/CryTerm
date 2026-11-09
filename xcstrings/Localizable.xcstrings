@@ -38905,43 +38905,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine erforderliche Datei scheint zu fehlen oder beschädigt zu sein, dennoch ist die Code-Signatur von CryTerm entgegen aller Erwartung gültig. Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Eine erforderliche Datei scheint zu fehlen oder beschädigt zu sein, dennoch ist die Code-Signatur von CryTerm entgegen aller Erwartung gültig. Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/iTerm2/issues にバグを報告してください。"
+            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues にバグを報告してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "필요한 파일이 없거나 손상된 것으로 보이지만, 의외로 CryTerm의 코드 서명은 유효합니다. https://github.com/mikemackintosh/iTerm2/issues 에서 버그를 보고하십시오."
+            "value" : "필요한 파일이 없거나 손상된 것으로 보이지만, 의외로 CryTerm의 코드 서명은 유효합니다. https://github.com/mikemackintosh/CryTerm/issues 에서 버그를 보고하십시오."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um arquivo necessário parece estar ausente ou corrompido, mas contra todas as probabilidades a assinatura de código do CryTerm é válida. Registre um bug em https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Um arquivo necessário parece estar ausente ou corrompido, mas contra todas as probabilidades a assinatura de código do CryTerm é válida. Registre um bug em https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Похоже, отсутствует или повреждён необходимый файл, но, вопреки всему, подпись кода CryTerm действительна. Пожалуйста, сообщите об ошибке на https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Похоже, отсутствует или повреждён необходимый файл, но, вопреки всему, подпись кода CryTerm действительна. Пожалуйста, сообщите об ошибке на https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "某个必需文件似乎缺失或已损坏，但万幸 CryTerm 的代码签名仍然有效。请在 https://github.com/mikemackintosh/iTerm2/issues 报告问题"
+            "value" : "某个必需文件似乎缺失或已损坏，但万幸 CryTerm 的代码签名仍然有效。请在 https://github.com/mikemackintosh/CryTerm/issues 报告问题"
           }
         }
       }
@@ -83792,43 +83792,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine erforderliche Datei scheint zu fehlen oder beschädigt zu sein, doch wider Erwarten ist die Codesignatur von CryTerm gültig. Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Eine erforderliche Datei scheint zu fehlen oder beschädigt zu sein, doch wider Erwarten ist die Codesignatur von CryTerm gültig. Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/iTerm2/issues でバグを報告してください"
+            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues でバグを報告してください"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "필요한 파일이 없거나 손상된 것으로 보이지만, 의외로 CryTerm의 코드 서명은 유효합니다. https://github.com/mikemackintosh/iTerm2/issues 에서 버그를 보고하십시오."
+            "value" : "필요한 파일이 없거나 손상된 것으로 보이지만, 의외로 CryTerm의 코드 서명은 유효합니다. https://github.com/mikemackintosh/CryTerm/issues 에서 버그를 보고하십시오."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um arquivo necessário parece estar ausente ou corrompido, mas contra todas as probabilidades a assinatura de código do CryTerm é válida. Registre um bug em https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Um arquivo necessário parece estar ausente ou corrompido, mas contra todas as probabilidades a assinatura de código do CryTerm é válida. Registre um bug em https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Похоже, что необходимый файл отсутствует или повреждён, однако вопреки всему цифровая подпись кода CryTerm действительна. Пожалуйста, сообщите об ошибке на странице https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Похоже, что необходимый файл отсутствует или повреждён, однако вопреки всему цифровая подпись кода CryTerm действительна. Пожалуйста, сообщите об ошибке на странице https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "似乎缺少或损坏了必需的文件，但出乎意料的是 CryTerm 的代码签名是有效的。请向 https://github.com/mikemackintosh/iTerm2/issues 提交错误报告。"
+            "value" : "似乎缺少或损坏了必需的文件，但出乎意料的是 CryTerm 的代码签名是有效的。请向 https://github.com/mikemackintosh/CryTerm/issues 提交错误报告。"
           }
         }
       }
@@ -86000,43 +86000,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/iTerm2/issues. Beim Aktualisieren einer Abhängigkeit ist folgender Fehler aufgetreten: %@"
+            "value" : "Bitte melden Sie einen Fehler unter https://github.com/mikemackintosh/CryTerm/issues. Beim Aktualisieren einer Abhängigkeit ist folgender Fehler aufgetreten: %@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please file a bug report at https://github.com/mikemackintosh/iTerm2/issues. The following error occurred while upgrading a dependency: %@"
+            "value" : "Please file a bug report at https://github.com/mikemackintosh/CryTerm/issues. The following error occurred while upgrading a dependency: %@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://github.com/mikemackintosh/iTerm2/issues でバグを報告してください。依存関係のアップグレード中に次のエラーが発生しました: %@"
+            "value" : "https://github.com/mikemackintosh/CryTerm/issues でバグを報告してください。依存関係のアップグレード中に次のエラーが発生しました: %@"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://github.com/mikemackintosh/iTerm2/issues 에 버그 보고서를 제출하십시오. 의존성을 업그레이드하는 동안 다음 오류가 발생했습니다: %@"
+            "value" : "https://github.com/mikemackintosh/CryTerm/issues 에 버그 보고서를 제출하십시오. 의존성을 업그레이드하는 동안 다음 오류가 발생했습니다: %@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Envie um relatório de erro em https://github.com/mikemackintosh/iTerm2/issues. O seguinte erro ocorreu ao atualizar uma dependência: %@"
+            "value" : "Envie um relatório de erro em https://github.com/mikemackintosh/CryTerm/issues. O seguinte erro ocorreu ao atualizar uma dependência: %@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пожалуйста, сообщите об ошибке на странице https://github.com/mikemackintosh/iTerm2/issues. При обновлении зависимости произошла следующая ошибка: %@"
+            "value" : "Пожалуйста, сообщите об ошибке на странице https://github.com/mikemackintosh/CryTerm/issues. При обновлении зависимости произошла следующая ошибка: %@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请访问 https://github.com/mikemackintosh/iTerm2/issues 提交错误报告。升级依赖项时发生了以下错误：%@"
+            "value" : "请访问 https://github.com/mikemackintosh/CryTerm/issues 提交错误报告。升级依赖项时发生了以下错误：%@"
           }
         }
       }
@@ -107055,43 +107055,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein Fehler ist aufgetreten: %@. Bitte melden Sie dies unter https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Ein Fehler ist aufgetreten: %@. Bitte melden Sie dies unter https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "A bug was encountered: %@. Please report this at https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "A bug was encountered: %@. Please report this at https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バグが発生しました: %@。https://github.com/mikemackintosh/iTerm2/issues から報告してください"
+            "value" : "バグが発生しました: %@。https://github.com/mikemackintosh/CryTerm/issues から報告してください"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "버그가 발생했습니다: %@. https://github.com/mikemackintosh/iTerm2/issues 에서 보고하십시오."
+            "value" : "버그가 발생했습니다: %@. https://github.com/mikemackintosh/CryTerm/issues 에서 보고하십시오."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um bug foi encontrado: %@. Reporte isto em https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Um bug foi encontrado: %@. Reporte isto em https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обнаружена ошибка: %@. Пожалуйста, сообщите об этом на https://github.com/mikemackintosh/iTerm2/issues"
+            "value" : "Обнаружена ошибка: %@. Пожалуйста, сообщите об этом на https://github.com/mikemackintosh/CryTerm/issues"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "遇到一个错误：%@. 请于 https://github.com/mikemackintosh/iTerm2/issues 报告此问题。"
+            "value" : "遇到一个错误：%@. 请于 https://github.com/mikemackintosh/CryTerm/issues 报告此问题。"
           }
         }
       }

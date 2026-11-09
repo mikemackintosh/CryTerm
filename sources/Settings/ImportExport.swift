@@ -73,7 +73,7 @@ class ImportExport: NSObject {
             case ImportExportError.failedToSaveFile(let reason):
                 return .failure(String(localized: "ImportExport.FailedToSaveFile", defaultValue: "Failed to save file: \(reason)", comment: "Export error; the placeholder is the failure reason"))
             case ImportExportError.bug(let reason):
-                return .failure(String(localized: "ImportExport.BugEncountered", defaultValue: "A bug was encountered: \(reason). Please report this at https://github.com/mikemackintosh/iTerm2/issues", comment: "Export error shown when an internal bug occurs; the placeholder is the failure reason"))
+                return .failure(String(localized: "ImportExport.BugEncountered", defaultValue: "A bug was encountered: \(reason). Please report this at https://github.com/mikemackintosh/CryTerm/issues", comment: "Export error shown when an internal bug occurs; the placeholder is the failure reason"))
             case ImportExportError.failedToCreateArchive(let reason):
                 return .failure(String(localized: "ImportExport.FailedToCreateArchive", defaultValue: "Failed to create archive: \(reason)", comment: "Export error; the placeholder is the failure reason"))
             case ImportExportError.failedToLoadFile(let reason):

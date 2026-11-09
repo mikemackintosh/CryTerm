@@ -36,7 +36,7 @@ Every change, with its author and date, is recorded in the git history of the
 source repository. The complete corresponding source code for each CryTerm
 release is available at:
 
-  https://github.com/mikemackintosh/iTerm2
+  https://github.com/mikemackintosh/CryTerm
 
 under the git tag that matches the release version (for example, v3.7.0).
 tools/patches/SFSymbolEnum-release-dates.patch must be applied to the
@@ -44,7 +44,7 @@ submodules/SFSymbolEnum submodule before building.
 
 CryTerm is not affiliated with or endorsed by George Nachman or the iTerm2
 project. Please report CryTerm problems at
-https://github.com/mikemackintosh/iTerm2/issues, not to iTerm2.
+https://github.com/mikemackintosh/CryTerm/issues, not to iTerm2.
 
 THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE
 LAW. See sections 11 and 12 of the GNU General Public License.

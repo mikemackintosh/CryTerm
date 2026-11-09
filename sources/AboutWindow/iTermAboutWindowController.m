@@ -300,10 +300,10 @@ static NSColor *iTermAboutContainerFillColor(void) {
                                                      title:NSLocalizedStringWithDefaultValue(@"AboutWindow.WhatsNew", nil, [NSBundle mainBundle], @"What’s New in 3.7?\n", @"Link title in the about window that opens the whats-new page for version 3.7")];
         }
 
-        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2"
+        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm"
                                                                        title:NSLocalizedStringWithDefaultValue(@"AboutWindow.HomePage", nil, [NSBundle mainBundle], @"Home Page", @"Link title in the about window that opens the CryTerm home page")];
         NSAttributedString *bugsAString =
-                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2/issues"
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm/issues"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.ReportBug", nil, [NSBundle mainBundle], @"Report a bug", @"Link title in the about window that opens the bug reporting page")];
         NSAttributedString *creditsAString =
                 [self attributedStringWithLinkToURL:@"https://iterm2.com/credits"
@@ -313,7 +313,7 @@ static NSColor *iTermAboutContainerFillColor(void) {
                 [self attributedStringWithLinkToURL:@"https://iterm2.com/"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.BasedOnITerm2", nil, [NSBundle mainBundle], @"\n\nCryTerm is a modified version of iTerm2 by George Nachman and contributors.", @"Attribution line in the about window. Keep the product names CryTerm and iTerm2 and the person’s name untranslated.")];
         NSAttributedString *licenseAString =
-                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/iTerm2/blob/master/LICENSE"
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm/blob/master/LICENSE"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.License", nil, [NSBundle mainBundle], @"\nLicensed under the GNU General Public License v2 or later.", @"Link title in the about window that opens the license")];
 
         // Force IBOutlets to be bound by creating window.
