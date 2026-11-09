@@ -891,7 +891,7 @@ class ChatAgent {
         }
         guard !forms.isEmpty else { return nil }
         let formsText = forms.joined(separator: ", or ")
-        return "You can watch this terminal session for a future state instead of polling: call register_watch with \(formsText). It returns immediately and does not block your turn; when the watch fires, iTerm2 delivers a <status_update> message as a separate turn for you to act on. Use list_watches and unregister_watch to manage active watches, and do not repeatedly read the screen yourself while a watch is pending."
+        return "You can watch this terminal session for a future state instead of polling: call register_watch with \(formsText). It returns immediately and does not block your turn; when the watch fires, CryTerm delivers a <status_update> message as a separate turn for you to act on. Use list_watches and unregister_watch to manage active watches, and do not repeatedly read the screen yourself while a watch is pending."
     }
 
     private func updateSystemMessage(_ permissions: Set<RemoteCommand.Content.PermissionCategory>) {
@@ -980,10 +980,10 @@ class ChatAgent {
 
     private static let orchestrationDisplayPolicy = """
     Terminal output display policy:
-    - iTerm2 displays raw terminal command output to the user as its own code block.
+    - CryTerm displays raw terminal command output to the user as its own code block.
     - Do not repeat raw command output in prose, do not convert it into Markdown tables, and do not reformat listings such as ls, ps, df, netstat, or grep output.
     - After running a command, summarize only non-obvious findings or ask what to do next.
-    - Speak at the user’s level: never expose internal identifiers or fields (session ids, workgroup ids, status_source, role_id) in prose. To point the user at a session, write its FULL @-prefixed id (iTerm2 renders it as the session’s clickable name) or name it by role (“the Code Review”, “your Chat”); a partial or bare id is dead text, not a link, so never abbreviate one.
+    - Speak at the user’s level: never expose internal identifiers or fields (session ids, workgroup ids, status_source, role_id) in prose. To point the user at a session, write its FULL @-prefixed id (CryTerm renders it as the session’s clickable name) or name it by role (“the Code Review”, “your Chat”); a partial or bare id is dead text, not a link, so never abbreviate one.
     - “Workgroup” is an internal grouping, not something the user named. Do not use the word “workgroup” or a wg-/workgroup_id with the user; refer to a session by its role, using the workgroup’s human name only if you truly must disambiguate.
 
     Talking to the user:
@@ -1137,7 +1137,7 @@ class ChatAgent {
             // resolved consent while this was queued.
             guard iTermUserDefaults.autoProvideConsent == .unknown else { return }
             let selection = iTermWarning.show(
-                withTitle: String(localized: "ChatAgent.AutoProvideBody", defaultValue: "iTerm2 can include this session’s visible screen and terminal state with every message you send in AI chats where you’ve allowed it, so the assistant sees what you see. You can turn this off any time from a chat’s permission settings.", comment: "Body text of the dialog asking whether to automatically share terminal contents with AI chats"),
+                withTitle: String(localized: "ChatAgent.AutoProvideBody", defaultValue: "CryTerm can include this session’s visible screen and terminal state with every message you send in AI chats where you’ve allowed it, so the assistant sees what you see. You can turn this off any time from a chat’s permission settings.", comment: "Body text of the dialog asking whether to automatically share terminal contents with AI chats"),
                 actions: [String(localized: "ChatAgent.TurnOn", defaultValue: "Turn On", comment: "Button to enable automatic sharing of terminal contents with AI chats"), String(localized: "ChatAgent.NotNow", defaultValue: "Not Now", comment: "Button to decline automatic sharing of terminal contents with AI chats")],
                 accessory: nil,
                 identifier: nil,

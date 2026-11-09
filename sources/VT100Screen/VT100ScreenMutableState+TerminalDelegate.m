@@ -4172,7 +4172,7 @@ static BOOL iTermStringIsASCIIDecimal(NSString *string) {
         return;
     } else if (v.integerValue > 3) {
         _sshIntegrationFlags = nil;
-        [self appendBannerMessage:@"Future version of it2ssh detected. Please upgrade iTerm2."];
+        [self appendBannerMessage:@"Future version of it2ssh detected. Please upgrade CryTerm."];
         return;
     }
 

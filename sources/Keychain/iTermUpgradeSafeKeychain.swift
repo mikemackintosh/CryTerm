@@ -294,7 +294,8 @@ enum iTermUpgradeSafeKeychain {
         // (e.g. a shared group for an XPC helper) or the OS reorders them, pinning
         // groups.first could silently target the wrong group and make stored secrets read
         // as errSecItemNotFound. Fall back to the first entry only if none matches.
-        return groups.first(where: { $0.hasSuffix(".com.googlecode.iterm2") }) ?? groups.first
+        let suffix = "." + (Bundle.main.bundleIdentifier ?? "com.googlecode.iterm2")
+        return groups.first(where: { $0.hasSuffix(suffix) }) ?? groups.first
     }()
 
     private static func dataProtectionQuery(service: String, account: String) -> [String: Any] {

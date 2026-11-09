@@ -220,7 +220,7 @@ class ChatSessionMentionAttachment: NSTextAttachment {
                                    symbolName: String,
                                    metrics: VerticalMetrics) -> NSAttributedString? {
         guard let symbol = NSImage(systemSymbolName: symbolName,
-                                   accessibilityDescription: String(localized: "ChatSessionMentionAttachment.SessionAccessibility", defaultValue: "iTerm2 session", comment: "Accessibility description for the session icon in a mention")) else {
+                                   accessibilityDescription: String(localized: "ChatSessionMentionAttachment.SessionAccessibility", defaultValue: "CryTerm session", comment: "Accessibility description for the session icon in a mention")) else {
             return nil
         }
         let height = metrics.iconAscent - metrics.iconDescent

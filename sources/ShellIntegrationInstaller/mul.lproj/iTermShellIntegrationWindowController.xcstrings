@@ -734,37 +734,37 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Also install iTerm2 Utilities"
+            "value" : "Also install CryTerm Utilities"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2ユーティリティもインストールする"
+            "value" : "CryTermユーティリティもインストールする"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 유틸리티도 설치"
+            "value" : "CryTerm 유틸리티도 설치"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Também instalar os utilitários do iTerm2"
+            "value" : "Também instalar os utilitários do CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Также установить утилиты iTerm2"
+            "value" : "Также установить утилиты CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "同时安装 iTerm2 工具"
+            "value" : "同时安装 CryTerm 工具"
           }
         }
       }
@@ -1304,43 +1304,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Shell-Integration besteht aus Skripten, die Ihrer Shell helfen, mit iTerm2 zu kommunizieren, damit die ausgeführten Befehle, Ihr aktuelles Verzeichnis und weitere Zustände nachverfolgt werden können. "
+            "value" : "Die Shell-Integration besteht aus Skripten, die Ihrer Shell helfen, mit CryTerm zu kommunizieren, damit die ausgeführten Befehle, Ihr aktuelles Verzeichnis und weitere Zustände nachverfolgt werden können. "
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Shell Integration consists of scripts that help your shell communicate with iTerm2 so it can track the commands you’re running, your current directory, and other state. "
+            "value" : "Shell Integration consists of scripts that help your shell communicate with CryTerm so it can track the commands you’re running, your current directory, and other state. "
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "シェル統合は、シェルがiTerm2と通信できるようにするスクリプト群で構成されており、実行中のコマンドや現在のディレクトリなどの状態を追跡できるようにします。 "
+            "value" : "シェル統合は、シェルがCryTermと通信できるようにするスクリプト群で構成されており、実行中のコマンドや現在のディレクトリなどの状態を追跡できるようにします。 "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "셸 통합은 셸이 iTerm2와 통신하도록 돕는 스크립트로 구성되어 있어, 실행 중인 명령, 현재 디렉토리 및 기타 상태를 추적할 수 있습니다. "
+            "value" : "셸 통합은 셸이 CryTerm와 통신하도록 돕는 스크립트로 구성되어 있어, 실행 중인 명령, 현재 디렉토리 및 기타 상태를 추적할 수 있습니다. "
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A Shell Integration consiste em scripts que ajudam o seu shell a se comunicar com o iTerm2 para que ele possa rastrear os comandos que você está executando, o seu diretório atual e outros estados. "
+            "value" : "A Shell Integration consiste em scripts que ajudam o seu shell a se comunicar com o CryTerm para que ele possa rastrear os comandos que você está executando, o seu diretório atual e outros estados. "
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shell-интеграция состоит из скриптов, которые помогают вашему shell взаимодействовать с iTerm2, чтобы отслеживать выполняемые вами команды, текущий каталог и другое состояние. "
+            "value" : "Shell-интеграция состоит из скриптов, которые помогают вашему shell взаимодействовать с CryTerm, чтобы отслеживать выполняемые вами команды, текущий каталог и другое состояние. "
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shell 集成包含帮助你的 Shell 与 iTerm2 通信的脚本，使其能够跟踪你正在运行的命令、当前目录以及其他状态。"
+            "value" : "Shell 集成包含帮助你的 Shell 与 CryTerm 通信的脚本，使其能够跟踪你正在运行的命令、当前目录以及其他状态。"
           }
         }
       }

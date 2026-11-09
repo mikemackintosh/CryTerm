@@ -118,7 +118,7 @@ static NSString *NaggingNever(void) { return NSLocalizedStringWithDefaultValue(@
 
 - (void)offerToFixSessionWithBrokenArrangementProfileIn:(NSString *)arrangementName
                                                    guid:(NSString *)guid {
-    NSString *notice = NSLocalizedStringWithDefaultValue(@"NaggingController.ArrangementProfileCorrupted", nil, [NSBundle mainBundle], @"This arrangement’s profile is missing. This could be due to a bug in iTerm2 version 3.5.7, which caused profiles to be corrupted in saved arrangements.", @"Announcement that a saved arrangement’s profile is missing due to a known bug");
+    NSString *notice = NSLocalizedStringWithDefaultValue(@"NaggingController.ArrangementProfileCorrupted", nil, [NSBundle mainBundle], @"This arrangement’s profile is missing. This could be due to a bug in CryTerm version 3.5.7, which caused profiles to be corrupted in saved arrangements.", @"Announcement that a saved arrangement’s profile is missing due to a known bug");
     [self.delegate naggingControllerShowMessage:notice
                                      isQuestion:NO
                                       important:YES
@@ -908,7 +908,7 @@ static NSString *NaggingNever(void) { return NSLocalizedStringWithDefaultValue(@
 }
 
 - (void)showJSONPromotion {
-    [_delegate naggingControllerShowMessage:NSLocalizedStringWithDefaultValue(@"NaggingController.JSONPromotion", nil, [NSBundle mainBundle], @"That's a gnarly JSON blob you've got there! iTerm2 can replace this hard-to-read selection with a pretty-printed value.", @"Announcement offering to pretty-print a JSON selection")
+    [_delegate naggingControllerShowMessage:NSLocalizedStringWithDefaultValue(@"NaggingController.JSONPromotion", nil, [NSBundle mainBundle], @"That's a gnarly JSON blob you've got there! CryTerm can replace this hard-to-read selection with a pretty-printed value.", @"Announcement offering to pretty-print a JSON selection")
                                  isQuestion:NO
                                   important:NO
                                  identifier:@"JSONPromotion"
@@ -1119,7 +1119,7 @@ static NSString *const iTermNaggingControllerTouchIDForSudoUserDefaultsKey = @"N
     if (![self.delegate naggingControllerCanShowMessageWithIdentifier:iTermNaggingControllerClaudeCodeStatusToolIdentifier]) {
         return;
     }
-    NSString *message = NSLocalizedStringWithDefaultValue(@"NaggingController.ClaudeCodeUpsell", nil, [NSBundle mainBundle], @"Want to try iTerm2’s Claude Code integration?", @"Announcement offering to try the Claude Code integration");
+    NSString *message = NSLocalizedStringWithDefaultValue(@"NaggingController.ClaudeCodeUpsell", nil, [NSBundle mainBundle], @"Want to try CryTerm’s Claude Code integration?", @"Announcement offering to try the Claude Code integration");
     [self.delegate naggingControllerShowMessage:message
                                      isQuestion:YES
                                       important:NO

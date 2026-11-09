@@ -1186,7 +1186,7 @@ static NSString *const iTermBindingOwnerPalette = @"palette";
                   KEY_NONASCII_ANTI_ALIASED: @NO,
                   KEY_POWERLINE: @NO,
                   KEY_SCROLLBACK_LINES: @1000,
-                  KEY_UNLIMITED_SCROLLBACK: @NO,
+                  KEY_UNLIMITED_SCROLLBACK: @YES,
                   KEY_SCROLLBACK_WITH_STATUS_BAR: @YES,
                   KEY_SCROLLBACK_IN_ALTERNATE_SCREEN: @YES,
                   KEY_DRAG_TO_SCROLL_IN_ALTERNATE_SCREEN_MODE_DISABLED: @NO,

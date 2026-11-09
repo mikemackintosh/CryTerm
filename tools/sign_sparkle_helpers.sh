@@ -18,7 +18,7 @@
 set -euo pipefail
 
 FRAMEWORK="${1:?usage: sign_sparkle_helpers.sh <path-to-Sparkle.framework>}"
-IDENTITY="${CODESIGN_IDENTITY:-Developer ID Application: GEORGE NACHMAN (H7V7XYVQ7D)}"
+IDENTITY="${CODESIGN_IDENTITY:-Developer ID Application: Danger Close Security Co. (994Z8EH423)}"
 
 if [ ! -d "$FRAMEWORK" ]; then
   echo "ERROR: no such framework: $FRAMEWORK" >&2

@@ -51,7 +51,7 @@ class InstanceLock: NSObject {
     static func compareRenderingConflictMessage(pid: pid_t) -> String {
         // Not localized: this is command-line tool output.
         let suite = iTermUserDefaults.customSuiteName().map { " with suite \($0)" } ?? ""
-        return "RESULT: ERROR: another copy of iTerm2 (pid \(pid)) is running\(suite), so -compare-rendering cannot run. Use a different -suite.\n"
+        return "RESULT: ERROR: another copy of CryTerm (pid \(pid)) is running\(suite), so -compare-rendering cannot run. Use a different -suite.\n"
     }
 
     // Call once NSApp exists. If another instance holds the lock, ask the user what to do. Quitting
@@ -69,29 +69,29 @@ class InstanceLock: NSObject {
         let message: String
         if let suiteName = iTermUserDefaults.customSuiteName() {
             message = String(format: String(localized: "InstanceLock.SuiteMessage",
-                                            defaultValue: "Another copy of iTerm2 (process ID %1$d) is already running with the settings suite “%2$@”. If two copies use the same settings at once, they can overwrite each other’s preferences and saved windows.",
+                                            defaultValue: "Another copy of CryTerm (process ID %1$d) is already running with the settings suite “%2$@”. If two copies use the same settings at once, they can overwrite each other’s preferences and saved windows.",
                                             comment: "Shown at launch when another instance uses the same -suite. %1$d is a process ID; %2$@ is the suite name."),
                              Int32(pid), suiteName)
         } else {
             message = String(format: String(localized: "InstanceLock.Message",
-                                            defaultValue: "Another copy of iTerm2 (process ID %d) is already running. If two copies use the same settings at once, they can overwrite each other’s preferences and saved windows.",
-                                            comment: "Shown at launch when another instance of iTerm2 is already running. %d is a process ID."),
+                                            defaultValue: "Another copy of CryTerm (process ID %d) is already running. If two copies use the same settings at once, they can overwrite each other’s preferences and saved windows.",
+                                            comment: "Shown at launch when another instance of CryTerm is already running. %d is a process ID."),
                              Int32(pid))
         }
         let quit = String(localized: "InstanceLock.Quit",
                           defaultValue: "Quit",
-                          comment: "Button that quits this copy of iTerm2 and switches to the one already running")
+                          comment: "Button that quits this copy of CryTerm and switches to the one already running")
         let launchAnyway = String(localized: "InstanceLock.LaunchAnyway",
                                   defaultValue: "Launch Anyway",
-                                  comment: "Button that keeps launching a second copy of iTerm2 despite the risk")
+                                  comment: "Button that keeps launching a second copy of CryTerm despite the risk")
         let selection = iTermWarning.show(withTitle: message,
                                           actions: [quit, launchAnyway],
                                           accessory: nil,
                                           identifier: nil,
                                           silenceable: .kiTermWarningTypePersistent,
                                           heading: String(localized: "InstanceLock.Heading",
-                                                          defaultValue: "iTerm2 Is Already Running",
-                                                          comment: "Heading of the warning shown when launching a second copy of iTerm2"),
+                                                          defaultValue: "CryTerm Is Already Running",
+                                                          comment: "Heading of the warning shown when launching a second copy of CryTerm"),
                                           window: nil)
         if selection == .kiTermWarningSelection1 {
             RLog("User chose to launch anyway despite pid \(pid) holding the instance lock")

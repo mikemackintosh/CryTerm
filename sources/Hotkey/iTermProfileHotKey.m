@@ -717,7 +717,7 @@ static NSString *const kArrangement = @"Arrangement";
     // Must run before ordering the window front, or macOS will switch spaces first (issue 12968).
     [self prepareJoinsAllSpacesWindowForRollInOnActiveSpace];
     if (self.hotkeyWindowType != iTermHotkeyWindowTypeFloatingPanel) {
-        DLog(@"Activate iTerm2 prior to animating hotkey window in");
+        DLog(@"Activate CryTerm prior to animating hotkey window in");
         _activationPending = YES;
         [self.windowController.window makeKeyAndOrderFront:nil];
         [[iTermApplication sharedApplication] activateAppWithCompletion:^{
@@ -1117,7 +1117,7 @@ static NSString *const kArrangement = @"Arrangement";
 // be activated), in which case keeping iTerm2 frontmost is the right outcome
 // anyway.
 - (void)deferOrderOutUntilResignActive {
-    DLog(@"Defer order-out until iTerm2 resigns active");
+    DLog(@"Defer order-out until CryTerm resigns active");
     // Avoid a duplicate registration if a previous defer is still pending (e.g.,
     // a rapid hide/show/hide). removeObserver:name:object: is idempotent.
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -1137,7 +1137,7 @@ static NSString *const kArrangement = @"Arrangement";
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {
-    DLog(@"iTerm2 resigned active");
+    DLog(@"CryTerm resigned active");
     [self finishDeferredOrderOut];
 }
 

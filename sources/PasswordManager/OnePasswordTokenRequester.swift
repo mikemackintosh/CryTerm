@@ -124,7 +124,7 @@ class OnePasswordUtils {
     static func showUnavailableMessage(_ path: String? = nil) {
         let message: String
         if let path = path {
-            message = String(localized: "OnePassword.TooOldMessage", defaultValue: "The 1Password CLI at \(path) is too old. The iTerm2 integration requires version \(minimumSupportedVersionString) or later.", comment: "Explanation shown when the 1Password CLI is too old; first placeholder is the CLI path, second is the minimum required version")
+            message = String(localized: "OnePassword.TooOldMessage", defaultValue: "The 1Password CLI at \(path) is too old. The CryTerm integration requires version \(minimumSupportedVersionString) or later.", comment: "Explanation shown when the 1Password CLI is too old; first placeholder is the CLI path, second is the minimum required version")
         } else {
             message = String(localized: "OnePassword.NotFoundMessage", defaultValue: "The 1Password CLI could not be found, or is older than the required version \(minimumSupportedVersionString). Check that a current op is installed.", comment: "Explanation shown when the 1Password CLI is missing or too old; placeholder is the minimum required version")
         }
@@ -142,7 +142,7 @@ class OnePasswordUtils {
         let locate = String(localized: "OnePassword.Locate", defaultValue: "Locate", comment: "Button that lets the user locate the 1Password CLI")
         let warning = iTermWarning()
         warning.heading = String(localized: "OnePassword.CannotFindTitle", defaultValue: "Can’t Find 1Password CLI", comment: "Title of an alert shown when the 1Password CLI cannot be found")
-        warning.title = String(localized: "OnePassword.CannotFindMessage", defaultValue: "In order to use the 1Password integration, iTerm2 needs to know where to find the CLI app named “op”. It’s normally in /usr/local/bin. If you have installed it elsewhere, please select Locate to provide its location.", comment: "Explanation shown when the 1Password CLI cannot be found automatically")
+        warning.title = String(localized: "OnePassword.CannotFindMessage", defaultValue: "In order to use the 1Password integration, CryTerm needs to know where to find the CLI app named “op”. It’s normally in /usr/local/bin. If you have installed it elsewhere, please select Locate to provide its location.", comment: "Explanation shown when the 1Password CLI cannot be found automatically")
         warning.actionLabels = [locate,
                                 iTermLocalizedCancel()]
         // Locate opens a file panel on this Mac, which the companion app cannot operate.

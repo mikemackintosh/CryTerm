@@ -84,11 +84,11 @@ class AppSignatureValidator: NSObject {
     // ID (nil if the signature could not be verified).
     static func corruptionMessage(teamID team: String?) -> String {
         return if team == nil {
-            String(localized: "AppSignature.CorruptUnverified", defaultValue: "A required file appears to be missing or corrupted and iTerm2’s code signature could not be verified.\n\nYou should download a fresh copy of the app and reinstall it.", comment: "Shown when the app's code signature could not be verified")
-        } else if team != "H7V7XYVQ7D" {
-            String(localized: "AppSignature.CorruptWrongTeam", defaultValue: "A required file appears to be missing or corrupted and iTerm2’s code signature did not match that of the official distribution.\n\nYou should download a fresh copy of the app and reinstall it.", comment: "Shown when the app's code signature does not match the official distribution")
+            String(localized: "AppSignature.CorruptUnverified", defaultValue: "A required file appears to be missing or corrupted and CryTerm’s code signature could not be verified.\n\nYou should download a fresh copy of the app and reinstall it.", comment: "Shown when the app's code signature could not be verified")
+        } else if team != "994Z8EH423" {
+            String(localized: "AppSignature.CorruptWrongTeam", defaultValue: "A required file appears to be missing or corrupted and CryTerm’s code signature did not match that of the official distribution.\n\nYou should download a fresh copy of the app and reinstall it.", comment: "Shown when the app's code signature does not match the official distribution")
         } else {
-            String(localized: "AppSignature.CorruptButValidSignature", defaultValue: "A required file appears to be missing or corrupted, yet against all odds the code signature for iTerm2 is valid. Please file a bug at https://iterm2.com/bugs", comment: "Shown when a required file is corrupt but the signature is valid")
+            String(localized: "AppSignature.CorruptButValidSignature", defaultValue: "A required file appears to be missing or corrupted, yet against all odds the code signature for CryTerm is valid. Please file a bug at https://github.com/mikemackintosh/CryTerm/issues", comment: "Shown when a required file is corrupt but the signature is valid")
         }
     }
 }

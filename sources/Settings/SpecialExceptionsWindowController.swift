@@ -483,11 +483,11 @@ final class SpecialExceptionsWindowController: NSWindowController {
 
     private func importString(_ content: String) {
         guard let newConfig = FontTable.Config(string: content) else {
-            showError(String(localized: "SpecialExceptions.ImportMalformed", defaultValue: "This file is not well formed. Is it from a newer version of iTerm2?", comment: "Error shown when an imported special exceptions file is not well formed"))
+            showError(String(localized: "SpecialExceptions.ImportMalformed", defaultValue: "This file is not well formed. Is it from a newer version of CryTerm?", comment: "Error shown when an imported special exceptions file is not well formed"))
             return
         }
         guard newConfig.version <= FontTable.Config.latestKnownVersion else {
-            showError(String(localized: "SpecialExceptions.ImportNewerVersion", defaultValue: "This file is from a newer version of iTerm2 and cannot be loaded.", comment: "Error shown when an imported special exceptions file is from a newer iTerm2 version"))
+            showError(String(localized: "SpecialExceptions.ImportNewerVersion", defaultValue: "This file is from a newer version of CryTerm and cannot be loaded.", comment: "Error shown when an imported special exceptions file is from a newer CryTerm version"))
             return
         }
         let missing = missingFonts(newConfig)

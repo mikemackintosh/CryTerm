@@ -1073,9 +1073,9 @@
 	<key>Ambiguous Double Width</key>
 	<false/>
 	<key>Non Ascii Font</key>
-	<string>Monaco 12</string>
+	<string>MesloLGLNFM-Regular 13</string>
 	<key>Normal Font</key>
-	<string>Monaco 12</string>
+	<string>MesloLGLNFM-Regular 13</string>
 	<key>Rows</key>
 	<integer>25</integer>
 	<key>Scrollback Lines</key>
@@ -1093,7 +1093,7 @@
 	<key>Transparency</key>
 	<real>0.0</real>
 	<key>Unlimited Scrollback</key>
-	<false/>
+	<true/>
 	<key>Vertical Spacing</key>
 	<real>1</real>
 	<key>Visual Bell</key>

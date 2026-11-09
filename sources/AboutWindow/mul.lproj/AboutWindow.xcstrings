@@ -8,43 +8,43 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "en": {
           "stringUnit": {
             "state": "new",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "iTerm2"
+            "value": "CryTerm"
           }
         }
       }

@@ -38,7 +38,7 @@ enum AIChatToolCallRepair {
     static let interruptedToolCallOutput =
         "[This tool call did not complete. Usually this means the user "
         + "moved on without answering the request for permission to run it. "
-        + "It may also have been interrupted, for example by iTerm2 "
+        + "It may also have been interrupted, for example by CryTerm "
         + "restarting. Its effects are unknown. Do not run it again unless "
         + "the user asks.]"
 

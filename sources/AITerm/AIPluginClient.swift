@@ -197,7 +197,7 @@ struct Plugin {
     private static func checkSignature(message: Data, signature: Data) throws {
         let publicKey = try Curve25519.Signing.PublicKey(rawRepresentation: Data(base64Encoded: publicKeyB64)!)
         guard publicKey.isValidSignature(signature, for: message) else {
-            throw PluginError(reason: String(localized: "AIPluginClient.SignatureInvalid", defaultValue: "The plugin’s signature is invalid. Reinstall the plugin or upgrade iTerm2.", comment: "Error message when the AI plugin signature fails validation"))
+            throw PluginError(reason: String(localized: "AIPluginClient.SignatureInvalid", defaultValue: "The plugin’s signature is invalid. Reinstall the plugin or upgrade CryTerm.", comment: "Error message when the AI plugin signature fails validation"))
         }
         DLog("Signature is good")
     }
@@ -256,7 +256,7 @@ class iTermAIClient {
     private let requiredVersion = "1.1"
 
     private static var notAllowedError: PluginError {
-        PluginError(reason: String(localized: "AIPluginClient.NotInThisBuild", defaultValue: "This build of iTerm2 doesn’t connect to AI services.", comment: "Error when an AI request is refused because this build never contacts AI services"))
+        PluginError(reason: String(localized: "AIPluginClient.NotInThisBuild", defaultValue: "This build of CryTerm doesn’t connect to AI services.", comment: "Error when an AI request is refused because this build never contacts AI services"))
     }
 
     // Test seam: stands in for Plugin.instance() in validate(), so a test can
@@ -276,11 +276,11 @@ class iTermAIClient {
         switch Self.validationPluginResultForTesting ?? Plugin.instance() {
         case .success(let plugin):
             guard let pluginVersion = try? plugin.version() else {
-                throw PluginError(reason: String(localized: "AIPluginClient.VersionUnknown", defaultValue: "Unable to determine version of AI plugin. Reinstall it and upgrade iTerm2 if possible.", comment: "Error message when iTerm2 cannot determine the AI plugin version"))
+                throw PluginError(reason: String(localized: "AIPluginClient.VersionUnknown", defaultValue: "Unable to determine version of AI plugin. Reinstall it and upgrade CryTerm if possible.", comment: "Error message when CryTerm cannot determine the AI plugin version"))
             }
 
             guard pluginVersion == Decimal(string: requiredVersion) else {
-                throw PluginError(reason: String(localized: "AIPluginClient.VersionMismatch", defaultValue: "Plugin has version \(String(describing: pluginVersion)) but iTerm2 expects \(String(describing: requiredVersion)). Upgrade one or both.", comment: "Error message when the AI plugin version does not match the version iTerm2 expects"))
+                throw PluginError(reason: String(localized: "AIPluginClient.VersionMismatch", defaultValue: "Plugin has version \(String(describing: pluginVersion)) but CryTerm expects \(String(describing: requiredVersion)). Upgrade one or both.", comment: "Error message when the AI plugin version does not match the version CryTerm expects"))
             }
             return
         case .failure(let error):

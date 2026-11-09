@@ -78,7 +78,7 @@ class iTermKeyMappingRepair: NSObject {
         // The whole intro varies by count (binding/bindings, was/were, displays/display, it/they), so
         // it is a single String Catalog plural on the count; the binding list is appended outside it
         // so the plural entry stays a simple single-argument plural (translators can add few/many).
-        let intro = String(localized: "KeyMappingRepair.RepairIntro", defaultValue: "This will repair \(count) key bindings that were corrupted by a bug in an earlier version of iTerm2. The affected bindings currently display incorrectly but function properly. After repair, they will display correctly.\n\nAffected key bindings:", comment: "Repair explanation; %lld is the number of corrupted key bindings")
+        let intro = String(localized: "KeyMappingRepair.RepairIntro", defaultValue: "This will repair \(count) key bindings that were corrupted by a bug in an earlier version of CryTerm. The affected bindings currently display incorrectly but function properly. After repair, they will display correctly.\n\nAffected key bindings:", comment: "Repair explanation; %lld is the number of corrupted key bindings")
         let message = intro + "\n" + bindingsList
 
         let selection = iTermWarning.show(

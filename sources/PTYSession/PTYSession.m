@@ -2630,7 +2630,7 @@ ITERM_WEAKLY_REFERENCEABLE
                 if (savedStableID) {
                     aSession.stableID = savedStableID;
                 }
-                DLog(@"iTerm2 is starting up or has contents. Assign guid %@ to session %@ (session is loaded from saved arrangement. No content registered.)", guid, aSession);
+                DLog(@"CryTerm is starting up or has contents. Assign guid %@ to session %@ (session is loaded from saved arrangement. No content registered.)", guid, aSession);
             }
         }
 
@@ -3366,7 +3366,8 @@ ITERM_WEAKLY_REFERENCEABLE
 }
 
 - (NSSet<NSString *> *)jobsToIgnore {
-    NSArray<NSString *> *builtInJobsToIgnore = @[ @"login", @"iTerm2", @"ShellLauncher" ];
+    NSString *const executableName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleExecutableKey] ?: @"iTerm2";
+    NSArray<NSString *> *builtInJobsToIgnore = @[ @"login", @"iTerm2", executableName, @"ShellLauncher" ];
     return [NSSet setWithArray:[[_profile objectForKey:KEY_JOBS] ?: @[] arrayByAddingObjectsFromArray:builtInJobsToIgnore]];
 }
 
@@ -3529,7 +3530,7 @@ ITERM_WEAKLY_REFERENCEABLE
         env[@"ITERM2_COOKIE"] = self.cookie;
     }
 
-    NSString *suiteName = [iTermUserDefaults customSuiteName];
+    NSString *suiteName = [iTermUserDefaults apiSuiteName];
     if (suiteName) {
         env[@"IT2_SUITE"] = suiteName;
     }
@@ -3829,7 +3830,7 @@ webViewConfiguration:(WKWebViewConfiguration *)webViewConfiguration
                 if (count > 0) {
                     return;
                 }
-                const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.BrowserPluginMissingMessage", nil, [NSBundle mainBundle], @"A browser session failed to start because the iTerm2 Browser Plugin couldn’t be found.", @"Warning that a browser session could not start because the browser plugin is missing")
+                const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.BrowserPluginMissingMessage", nil, [NSBundle mainBundle], @"A browser session failed to start because the CryTerm Browser Plugin couldn’t be found.", @"Warning that a browser session could not start because the browser plugin is missing")
                                            actions:@[ [iTermWarningAction localOnlyActionWithLabel:NSLocalizedStringWithDefaultValue(@"PTYSession.Download", nil, [NSBundle mainBundle], @"Download", @"Button that downloads a plugin")], iTermLocalizedCancel() ]
                                          accessory:nil
                                         identifier:nil
@@ -11490,7 +11491,7 @@ typedef NS_ENUM(NSUInteger, PTYSessionTmuxReport) {
     // The local it2 finds its socket by suite, so a second instance running under -suite can be
     // told apart from the main one, and it asks THIS bundle for a cookie rather than whatever
     // IT2_APP_PATH the tmux server froze into every pane when some other build started it.
-    return @{ @"suite": [iTermUserDefaults customSuiteName] ?: @"iTerm2",
+    return @{ @"suite": [iTermUserDefaults apiSuiteName] ?: @"iTerm2",
               @"app": [[NSBundle mainBundle] bundlePath] };
 }
 
@@ -12032,12 +12033,12 @@ typedef NS_ENUM(NSUInteger, PTYSessionTmuxReport) {
         actions = @[ iTermLocalizedOK() ];
     }
     const iTermWarningSelection selection =
-    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.AlreadyAttachedTmux", nil, [NSBundle mainBundle], @"This instance of iTerm2 is already attached to this session", @"Warning that this iTerm2 instance is already attached to a tmux session")
+    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.AlreadyAttachedTmux", nil, [NSBundle mainBundle], @"This instance of CryTerm is already attached to this session", @"Warning that this CryTerm instance is already attached to a tmux session")
                                actions:actions
                              accessory:nil
                             identifier:@"AlreadyAttachedToTmuxSession"
                            silenceable:kiTermWarningTypePersistent
-                               heading:NSLocalizedStringWithDefaultValue(@"PTYSession.CannotAttach", nil, [NSBundle mainBundle], @"Cannot Attach", @"Heading for a warning that iTerm2 cannot attach to a tmux session")
+                               heading:NSLocalizedStringWithDefaultValue(@"PTYSession.CannotAttach", nil, [NSBundle mainBundle], @"Cannot Attach", @"Heading for a warning that CryTerm cannot attach to a tmux session")
                                 window:self.view.window];
     switch (selection) {
         case kiTermWarningSelection0:
@@ -16743,7 +16744,7 @@ typedef NS_ENUM(NSUInteger, PTYSessionTmuxReport) {
     NSString *const identifier = @"NoSyncOSC7DisabledBreaksShellIntegration";
     const BOOL wasSilenced = [iTermWarning identifierIsSilenced:identifier];
     const iTermWarningSelection selection =
-        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.OSC7DisabledMessage", nil, [NSBundle mainBundle], @"iTerm2’s shell integration now reports your username, hostname, and current directory using OSC 7, but the “Accept OSC 7” advanced setting is turned off. Shell integration will not work correctly until it is turned back on.", @"Warning that shell integration is broken because the Accept OSC 7 advanced setting is disabled")
+        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.OSC7DisabledMessage", nil, [NSBundle mainBundle], @"CryTerm’s shell integration now reports your username, hostname, and current directory using OSC 7, but the “Accept OSC 7” advanced setting is turned off. Shell integration will not work correctly until it is turned back on.", @"Warning that shell integration is broken because the Accept OSC 7 advanced setting is disabled")
                                    actions:@[ NSLocalizedStringWithDefaultValue(@"PTYSession.OSC7DisabledTurnOn", nil, [NSBundle mainBundle], @"Turn On OSC 7", @"Button that re-enables the Accept OSC 7 advanced setting"),
                                               iTermLocalizedCancel() ]
                                  accessory:nil
@@ -18317,7 +18318,7 @@ typedef NS_ENUM(NSUInteger, PTYSessionTmuxReport) {
         NSString *identifier = @"UploadInUnsupportedFormatRequested";
         if (![self announcementWithIdentifier:identifier]) {
             iTermAnnouncementViewController *announcement =
-            [iTermAnnouncementViewController announcementWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.UnsupportedUploadFormat", nil, [NSBundle mainBundle], @"An upload with an unsupported archive format was requested. You may need a newer version of iTerm2.", @"Warning that an upload used an unsupported archive format")
+            [iTermAnnouncementViewController announcementWithTitle:NSLocalizedStringWithDefaultValue(@"PTYSession.UnsupportedUploadFormat", nil, [NSBundle mainBundle], @"An upload with an unsupported archive format was requested. You may need a newer version of CryTerm.", @"Warning that an upload used an unsupported archive format")
                                                              style:kiTermAnnouncementViewStyleWarning
                                                        withActions:@[]
                                                         completion:^(int selection) {}];
@@ -21436,7 +21437,7 @@ static const NSTimeInterval PTYSessionFocusReportBellSquelchTimeIntervalThreshol
         [_pendingJumps removeAllObjects];
     }
     [_conductor quitWithoutStarting];
-    [self endConductorWithBanner:NSLocalizedStringWithDefaultValue(@"PTYSession.SSHArgumentsUnreadable", nil, [NSBundle mainBundle], @"SSH integration couldn’t start because iTerm2 couldn’t read the arguments given to it2ssh. Use ssh to connect without SSH integration.", @"Banner shown when it2ssh's arguments cannot be decoded and the SSH connection is ended")];
+    [self endConductorWithBanner:NSLocalizedStringWithDefaultValue(@"PTYSession.SSHArgumentsUnreadable", nil, [NSBundle mainBundle], @"SSH integration couldn’t start because CryTerm couldn’t read the arguments given to it2ssh. Use ssh to connect without SSH integration.", @"Banner shown when it2ssh's arguments cannot be decoded and the SSH connection is ended")];
 }
 
 // Returns NO if the hook was refused, in which case no conductor was created.
@@ -27378,12 +27379,12 @@ static NSString *IT2AuthorizationAnnouncementIdentifier(NSString *guid) {
     NSString *who = displayName.length ? displayName : NSLocalizedStringWithDefaultValue(@"PTYSession.ARemoteSession", nil, [NSBundle mainBundle], @"A remote session", @"Generic name for an unnamed remote session");
     NSString *title =
         [NSString stringWithFormat:
-         NSLocalizedStringWithDefaultValue(@"PTYSession.IT2AuthorizationPrompt", nil, [NSBundle mainBundle], @"%@ wants to control iTerm2 using the API over SSH integration. The API can view and modify iTerm2’s contents. Allow it for this session?", @"Prompt asking whether to allow a remote session to control iTerm2 via the API; placeholder is the session name"), who];
+         NSLocalizedStringWithDefaultValue(@"PTYSession.IT2AuthorizationPrompt", nil, [NSBundle mainBundle], @"%@ wants to control CryTerm using the API over SSH integration. The API can view and modify CryTerm’s contents. Allow it for this session?", @"Prompt asking whether to allow a remote session to control CryTerm via the API; placeholder is the session name"), who];
     iTermAnnouncementViewController *announcement =
         [iTermAnnouncementViewController announcementWithTitle:title
                                                          style:kiTermAnnouncementViewStyleWarning
                                                    withActions:@[ NSLocalizedStringWithDefaultValue(@"PTYSession.Allow", nil, [NSBundle mainBundle], @"Allow", @"Button that allows an action"),
-                                                                  NSLocalizedStringWithDefaultValue(@"PTYSession.AlwaysAllowThisHost", nil, [NSBundle mainBundle], @"Always Allow This Host", @"Button that allows a remote host to control iTerm2 on this and every future connection, not just this one"),
+                                                                  NSLocalizedStringWithDefaultValue(@"PTYSession.AlwaysAllowThisHost", nil, [NSBundle mainBundle], @"Always Allow This Host", @"Button that allows a remote host to control CryTerm on this and every future connection, not just this one"),
                                                                   NSLocalizedStringWithDefaultValue(@"PTYSession.Deny", nil, [NSBundle mainBundle], @"Deny", @"Button that denies an action") ]
                                                     completion:^(int selection) {
             // The button order above must match iTermIT2AuthorizationOutcome's indices, which

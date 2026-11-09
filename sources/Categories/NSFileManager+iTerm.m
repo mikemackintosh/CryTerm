@@ -142,7 +142,7 @@ NSString * const DirectoryLocationDomain = @"DirectoryLocationDomain";
     if (result == nil) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            [iTermWarning showWarningWithTitle:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"NSFileManager.AppSupportError", nil, [NSBundle mainBundle], @"There was a problem finding or creating your application support directory. iTerm2 won't work very well until this problem is fixed.\n\nIt should be at ~/Library/Application Support/iTerm2.\n\nThe error was:\n%@", @"Error shown when the application support directory could not be created; placeholder is the underlying error message"), error.localizedDescription]
+            [iTermWarning showWarningWithTitle:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"NSFileManager.AppSupportError", nil, [NSBundle mainBundle], @"There was a problem finding or creating your application support directory. CryTerm won't work very well until this problem is fixed.\n\nIt should be at ~/Library/Application Support/CryTerm.\n\nThe error was:\n%@", @"Error shown when the application support directory could not be created; placeholder is the underlying error message"), error.localizedDescription]
                                        actions:@[ iTermLocalizedOK() ]
                                      accessory:nil
                                     identifier:@"NoSyncAppSupportFail"

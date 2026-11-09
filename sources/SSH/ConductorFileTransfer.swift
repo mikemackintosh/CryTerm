@@ -50,7 +50,7 @@ class ConductorFileTransfer: TransferrableFile {
                                                 defaultValue: "(unknown)",
                                                 comment: "Shown in place of the user name in an SSH Integration file transfer description when the user name is not known")
         return String(localized: "ConductorFileTransfer.DisplayName", defaultValue: """
-        iTerm2 SSH Integration Protocol
+        CryTerm SSH Integration Protocol
         User name: \(username)
         Host: \(path.hostname!)
         File: \(path.path!)

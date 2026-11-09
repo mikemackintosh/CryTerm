@@ -664,20 +664,6 @@ static iTermPreferencesSearchEngine *gSearchEngine;
                                              selector:@selector(scrimMouseUp:)
                                                  name:iTermPrefsScrimMouseUpNotification
                                                object:nil];
-    BOOL addVC = YES;
-#if DEBUG
-    if (@available(macOS 26.1, *)) {} else if (@available(macOS 26, *)) {
-        addVC = NO;
-    }
-#endif
-    if (addVC) {
-        // The window already has the size and title it opens with.
-        const CGFloat maxTextWidth = [iTermDonateViewController maxTextWidthForWindowWidth:NSWidth(self.window.frame)
-                                                                                     title:self.window.title];
-        iTermDonateViewController *vc = [[iTermDonateViewController alloc] initWithMaxTextWidth:maxTextWidth];
-        [self.window addTitlebarAccessoryViewController:vc];
-    }
-
     if (!_editCurrentSessionMode && iTermUserDefaultsUnsavedController.allowed) {
         iTermUserDefaultsUnsavedController *unsaved = [[iTermUserDefaultsUnsavedController alloc] init];
         [self.window addTitlebarAccessoryViewController:unsaved];

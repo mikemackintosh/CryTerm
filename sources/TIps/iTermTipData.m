@@ -17,16 +17,16 @@
   return @{
     // Big new features
             @"000": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.000.Title", nil, [NSBundle mainBundle], @"Tip of the Day", @"Tip of the day title, id 000"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.000.Body", nil, [NSBundle mainBundle], @"This window shows the iTerm2 tip of the day. It’ll appear every 24 hours to let you know about new features and hidden secrets. Hit “More Options” to view more tips or to stop getting them altogether.", @"Tip of the day body, id 000") },
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.000.Body", nil, [NSBundle mainBundle], @"This window shows the CryTerm tip of the day. It’ll appear every 24 hours to let you know about new features and hidden secrets. Hit “More Options” to view more tips or to stop getting them altogether.", @"Tip of the day body, id 000") },
             @"0000": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0000.Title", nil, [NSBundle mainBundle], @"Shell Integration", @"Tip of the day title, id 0000"),
-                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0000.Body", nil, [NSBundle mainBundle], @"The big new feature of iTerm2 version 3 is Shell Integration. Click “Learn More” for all the details.", @"Tip of the day body, id 0000"),
+                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0000.Body", nil, [NSBundle mainBundle], @"The big new feature of CryTerm version 3 is Shell Integration. Click “Learn More” for all the details.", @"Tip of the day body, id 0000"),
                           kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0001": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0001.Title", nil, [NSBundle mainBundle], @"Timestamps", @"Tip of the day title, id 0001"),
                          kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0001.Body", nil, [NSBundle mainBundle], @"“View > Show Timestamps” shows the time (and date, if appropriate) when each line was last modified.", @"Tip of the day body, id 0001") },
 
             @"0002": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0002.Title", nil, [NSBundle mainBundle], @"Password Manager", @"Tip of the day title, id 0002"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0002.Body", nil, [NSBundle mainBundle], @"Did you know iTerm2 has a password manager? Open it with “Window > Password Manager.” You can define a Trigger to open it for you at a password prompt in “Settings > Profiles > Advanced > Triggers.”", @"Tip of the day body, id 0002") },
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0002.Body", nil, [NSBundle mainBundle], @"Did you know CryTerm has a password manager? Open it with “Window > Password Manager.” You can define a Trigger to open it for you at a password prompt in “Settings > Profiles > Advanced > Triggers.”", @"Tip of the day body, id 0002") },
             @"0003": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0003.Title", nil, [NSBundle mainBundle], @"Open Quickly", @"Tip of the day title, id 0003"),
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0003.Body", nil, [NSBundle mainBundle], @"You can quickly search through your sessions with “View > Open Quickly” (⌘K). You can type a query and sessions whose name, badge, current hostname, current user name, recent commands, and recent working directories match will be surfaced. It works best with Shell Integration so the user name, hostname, command, and directories can be known even while sshed.", @"Tip of the day body, id 0003"),
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
@@ -40,7 +40,7 @@
             @"0006": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0006.Title", nil, [NSBundle mainBundle], @"Copy with Styles", @"Tip of the day title, id 0006"),
                          kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0006.Body", nil, [NSBundle mainBundle], @"Copy a selection with ⌥⌘C to include styles such as colors and fonts. You can make this the default action for Copy in “Settings > Advanced.”", @"Tip of the day body, id 0006") },
             @"0007": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0007.Title", nil, [NSBundle mainBundle], @"Inline Images", @"Tip of the day title, id 0007"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0007.Body", nil, [NSBundle mainBundle], @"iTerm2 can display images (even animated GIFs) inline.", @"Tip of the day body, id 0007"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0007.Body", nil, [NSBundle mainBundle], @"CryTerm can display images (even animated GIFs) inline.", @"Tip of the day body, id 0007"),
                         kTipUrlKey: @"https://iterm2.com/images.html" },
 
             @"0008": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0008.Title", nil, [NSBundle mainBundle], @"Automatic Profile Switching", @"Tip of the day title, id 0008"),
@@ -48,7 +48,7 @@
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0009": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0009.Title", nil, [NSBundle mainBundle], @"Captured Output", @"Tip of the day title, id 0009"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0009.Body", nil, [NSBundle mainBundle], @"iTerm2 can act like an IDE using the Captured Output feature. When it sees text matching a regular expression you define, like compiler errors, it shows the matching lines in the Toolbelt. You can click to jump to the line in your terminal and double-click to perform an action like opening an editor to the line with the error.", @"Tip of the day body, id 0009"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0009.Body", nil, [NSBundle mainBundle], @"CryTerm can act like an IDE using the Captured Output feature. When it sees text matching a regular expression you define, like compiler errors, it shows the matching lines in the Toolbelt. You can click to jump to the line in your terminal and double-click to perform an action like opening an editor to the line with the error.", @"Tip of the day body, id 0009"),
                         kTipUrlKey: @"https://iterm2.com/captured_output.html" },
 
             @"0010": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0010.Title", nil, [NSBundle mainBundle], @"Badges", @"Tip of the day title, id 0010"),
@@ -70,11 +70,11 @@
                          kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0014.Body", nil, [NSBundle mainBundle], @"The “Semantic History” feature allows you to ⌘-click on a file or URL to open it.", @"Tip of the day body, id 0014"), },
 
             @"0015": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0015.Title", nil, [NSBundle mainBundle], @"Tmux Integration", @"Tip of the day title, id 0015"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0015.Body", nil, [NSBundle mainBundle], @"If you use tmux, try running “tmux -CC” to get iTerm2’s tmux integration mode. The tmux windows show up as native iTerm2 windows, and you can use iTerm2’s keyboard shortcuts. It even works over ssh!", @"Tip of the day body, id 0015"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0015.Body", nil, [NSBundle mainBundle], @"If you use tmux, try running “tmux -CC” to get CryTerm’s tmux integration mode. The tmux windows show up as native CryTerm windows, and you can use CryTerm’s keyboard shortcuts. It even works over ssh!", @"Tip of the day body, id 0015"),
                         kTipUrlKey: @"https://gitlab.com/gnachman/iterm2/wikis/TmuxIntegration" },
 
             @"0016": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0016.Title", nil, [NSBundle mainBundle], @"Triggers", @"Tip of the day title, id 0016"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0016.Body", nil, [NSBundle mainBundle], @"iTerm2 can automatically perform actions you define when text matching a regular expression is received. For example, you can highlight text or show an alert box. Set it up in “Settings > Profiles > Advanced > Triggers.”", @"Tip of the day body, id 0016"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0016.Body", nil, [NSBundle mainBundle], @"CryTerm can automatically perform actions you define when text matching a regular expression is received. For example, you can highlight text or show an alert box. Set it up in “Settings > Profiles > Advanced > Triggers.”", @"Tip of the day body, id 0016"),
                         kTipUrlKey: @"https://www.iterm2.com/documentation-triggers.html" },
 
             @"0017": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0017.Title", nil, [NSBundle mainBundle], @"Smart Selection", @"Tip of the day title, id 0017"),
@@ -144,7 +144,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0035.Body", nil, [NSBundle mainBundle], @"If you put a slash in a profile’s tag, that implicitly defines a hierarchy. You can see it in the Profiles menu as nested submenus.", @"Tip of the day body, id 0035") },
 
             @"0036": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0036.Title", nil, [NSBundle mainBundle], @"Downloads", @"Tip of the day title, id 0036"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0036.Body", nil, [NSBundle mainBundle], @"iTerm2 can download files by base-64 encoding them. Click “Learn More” to download a shell script that makes it easy.", @"Tip of the day body, id 0036"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0036.Body", nil, [NSBundle mainBundle], @"CryTerm can download files by base-64 encoding them. Click “Learn More” to download a shell script that makes it easy.", @"Tip of the day body, id 0036"),
                         kTipUrlKey: @"https://iterm2.com/download.sh" },
 
             @"0037": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0037.Title", nil, [NSBundle mainBundle], @"Command Completion", @"Tip of the day title, id 0037"),
@@ -152,7 +152,7 @@
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0038": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0038.Title", nil, [NSBundle mainBundle], @"Recent Directories", @"Tip of the day title, id 0038"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0038.Body", nil, [NSBundle mainBundle], @"iTerm2 remembers which directories you use the most on each host that has Shell Integration installed. There’s a Toolbelt tool to browse them, and ⌥⌘/ gives you a popup sorted by frequency and recency of use.", @"Tip of the day body, id 0038"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0038.Body", nil, [NSBundle mainBundle], @"CryTerm remembers which directories you use the most on each host that has Shell Integration installed. There’s a Toolbelt tool to browse them, and ⌥⌘/ gives you a popup sorted by frequency and recency of use.", @"Tip of the day body, id 0038"),
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0039": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0039.Title", nil, [NSBundle mainBundle], @"Favorite Directories", @"Tip of the day title, id 0039"),
@@ -160,7 +160,7 @@
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0040": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0040.Title", nil, [NSBundle mainBundle], @"Shell Integration History", @"Tip of the day title, id 0040"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0040.Body", nil, [NSBundle mainBundle], @"Install Shell Integration and turn on “Settings > General > Save copy/paste and command history to disk” to remember command history per host across restarts of iTerm2.", @"Tip of the day body, id 0040"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0040.Body", nil, [NSBundle mainBundle], @"Install Shell Integration and turn on “Settings > General > Save copy/paste and command history to disk” to remember command history per host across restarts of CryTerm.", @"Tip of the day body, id 0040"),
                         kTipUrlKey: @"https://iterm2.com/shell_integration.html" },
 
             @"0041": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0041.Title", nil, [NSBundle mainBundle], @"Paste File as Base64", @"Tip of the day title, id 0041"),
@@ -224,7 +224,7 @@
                          kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0060.Body", nil, [NSBundle mainBundle], @"If you paste text containing tabs, you’ll be asked if you want to convert them to spaces. It’s handy at the shell prompt to avoid triggering filename completion.", @"Tip of the day body, id 0060") },
 
             @"0061" : @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0061.Title", nil, [NSBundle mainBundle], @"Bell Silencing", @"Tip of the day title, id 0061"),
-                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0061.Body", nil, [NSBundle mainBundle], @"Did you know? If the bell rings too often, you’ll be asked if you’d like to silence it temporarily. iTerm2 cares about your comfort.", @"Tip of the day body, id 0061") },
+                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0061.Body", nil, [NSBundle mainBundle], @"Did you know? If the bell rings too often, you’ll be asked if you’d like to silence it temporarily. CryTerm cares about your comfort.", @"Tip of the day body, id 0061") },
 
             @"0062" : @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0062.Title", nil, [NSBundle mainBundle], @"Profile Search", @"Tip of the day title, id 0062"),
                          kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0062.Body", nil, [NSBundle mainBundle], @"Every list of profiles has a search field (e.g., in ”Settings > Profiles.”) You can use various operators to restrict your search query. Click “Learn More” for all the details.", @"Tip of the day body, id 0062"),
@@ -238,7 +238,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0064.Body", nil, [NSBundle mainBundle], @"You can have a separate font for ASCII versus non-ASCII text. Enable it in “Settings > Profiles > Text.”", @"Tip of the day body, id 0064") },
 
             @"0065": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0065.Title", nil, [NSBundle mainBundle], @"Coprocesses", @"Tip of the day title, id 0065"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0065.Body", nil, [NSBundle mainBundle], @"A coprocess is a job, such as a shell script, that has a special relationship with a particular iTerm2 session. All output in a terminal window (that is, what you see on the screen) is also input to the coprocess. All output from the coprocess acts like text that the user is typing at the keyboard.", @"Tip of the day body, id 0065"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0065.Body", nil, [NSBundle mainBundle], @"A coprocess is a job, such as a shell script, that has a special relationship with a particular CryTerm session. All output in a terminal window (that is, what you see on the screen) is also input to the coprocess. All output from the coprocess acts like text that the user is typing at the keyboard.", @"Tip of the day body, id 0065"),
                         kTipUrlKey: @"https://iterm2.com/coprocesses.html" },
 
             @"0066": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0066.Title", nil, [NSBundle mainBundle], @"Touch Bar Customization", @"Tip of the day title, id 0066"),
@@ -260,7 +260,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0071.Body", nil, [NSBundle mainBundle], @"You can “bury” a session with “Session > Bury Session.” It remains hidden until you restore it by selecting it from “Session > Buried Sessions > Your session.”", @"Tip of the day body, id 0071") },
 
             @"0072": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0072.Title", nil, [NSBundle mainBundle], @"Python API", @"Tip of the day title, id 0072"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0072.Body", nil, [NSBundle mainBundle], @"You can add custom behavior to iTerm2 using the Python API.", @"Tip of the day body, id 0072"),
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0072.Body", nil, [NSBundle mainBundle], @"You can add custom behavior to CryTerm using the Python API.", @"Tip of the day body, id 0072"),
                         kTipUrlKey: @"https://iterm2.com/python-api" },
 
             @"0073": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0073.Title", nil, [NSBundle mainBundle], @"Status Bar", @"Tip of the day title, id 0073"),
@@ -320,7 +320,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0091.Body", nil, [NSBundle mainBundle], @"Execute a series of actions in order with a single shortcut using “sequence” key bindings.", @"Tip of the day body, id 0091") },
 
             @"0092": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0092.Title", nil, [NSBundle mainBundle], @"Export/Import Settings", @"Tip of the day title, id 0092"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0092.Body", nil, [NSBundle mainBundle], @"Easily backup or transfer your iTerm2 settings using the Export/Import feature in “Settings > General > Settings”.", @"Tip of the day body, id 0092") },
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0092.Body", nil, [NSBundle mainBundle], @"Easily backup or transfer your CryTerm settings using the Export/Import feature in “Settings > General > Settings”.", @"Tip of the day body, id 0092") },
 
             @"0093": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0093.Title", nil, [NSBundle mainBundle], @"Multi-Session Bindings", @"Tip of the day title, id 0093"),
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0093.Body", nil, [NSBundle mainBundle], @"Apply key bindings uniformly across multiple sessions for consistent control in different tabs or windows.", @"Tip of the day body, id 0093") },
@@ -395,7 +395,7 @@
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0116.Body", nil, [NSBundle mainBundle], @"Reposition the Tip of the Day window conveniently on your screen, as it is now draggable.", @"Tip of the day body, id 0116") },
 
             @"0117": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0117.Title", nil, [NSBundle mainBundle], @"AI Chat", @"Tip of the day title, id 0117"),
-                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0117.Body", nil, [NSBundle mainBundle], @"iTerm2 now has an AI Chat feature! Use “Window > AI Chats” or “Edit > Explain Output with AI”. The assistant can interact with your terminal (with your permission) and explain command output, adding annotations right in the terminal.", @"Tip of the day body, id 0117") },
+                        kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0117.Body", nil, [NSBundle mainBundle], @"CryTerm now has an AI Chat feature! Use “Window > AI Chats” or “Edit > Explain Output with AI”. The assistant can interact with your terminal (with your permission) and explain command output, adding annotations right in the terminal.", @"Tip of the day body, id 0117") },
 
             @"0118": @{ kTipTitleKey: NSLocalizedStringWithDefaultValue(@"Tip.0118.Title", nil, [NSBundle mainBundle], @"Web Browser Profiles", @"Tip of the day title, id 0118"),
                         kTipBodyKey: NSLocalizedStringWithDefaultValue(@"Tip.0118.Body", nil, [NSBundle mainBundle], @"You can configure a profile to be a web browser! In “Settings > Profiles > General”, set “Profile Type” to “Web Browser”. Key bindings, smart selection, and the password manager all work in browser sessions.", @"Tip of the day body, id 0118"),

@@ -72,6 +72,19 @@ static NSString *const iTermUserDefaultsKeyHaveShownMacOS13RequirementNotice = @
     return gCustomSuiteName;
 }
 
++ (NSString *)apiSuiteName {
+    NSString *const customSuiteName = [self customSuiteName];
+    if (customSuiteName) {
+        return customSuiteName;
+    }
+    // NSFileManager.applicationSupportDirectory names the folder after the executable.
+    NSString *const executableName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleExecutableKey];
+    if (executableName.length > 0 && ![executableName isEqualToString:@"iTerm2"]) {
+        return executableName;
+    }
+    return nil;
+}
+
 static NSArray *iTermUserDefaultsGetTypedArray(NSUserDefaults *userDefaults, Class objectClass, NSString *key) {
     return [[NSArray castFrom:[userDefaults objectForKey:key]] mapWithBlock:^id(id anObject) {
         return [objectClass castFrom:anObject];
@@ -93,7 +106,10 @@ static NSUserDefaults *iTermPrivateUserDefaults(void) {
         if (gCustomSuiteName) {
             suiteName = [gCustomSuiteName stringByAppendingString:@".private"];
         } else {
-            suiteName = @"com.googlecode.iterm2.private";
+            // Derived from the bundle ID so forks with their own bundle ID
+            // don't share private state with iTerm2.
+            NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier] ?: @"com.googlecode.iterm2";
+            suiteName = [bundleID stringByAppendingString:@".private"];
         }
         privateUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
     });

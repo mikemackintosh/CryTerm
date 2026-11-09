@@ -63,7 +63,7 @@ class AdapterPasswordDataSource: CommandLinePasswordDataSource {
             case .handshakeFailed:
                 return String(localized: "AdapterPassword.HandshakeFailed", defaultValue: "Handshake failed.", comment: "Error shown when the initial handshake with the adapter fails")
             case .incompatibleProtocol:
-                return String(localized: "AdapterPassword.IncompatibleProtocol", defaultValue: "Incompatible protocol. Please update iTerm2.", comment: "Error shown when the adapter speaks an incompatible protocol version")
+                return String(localized: "AdapterPassword.IncompatibleProtocol", defaultValue: "Incompatible protocol. Please update CryTerm.", comment: "Error shown when the adapter speaks an incompatible protocol version")
             case .adapterNotFound:
                 return String(localized: "AdapterPassword.AdapterNotFound", defaultValue: "Adapter not found.", comment: "Error shown when the password manager adapter cannot be found")
             case .invalidToken:
@@ -770,7 +770,7 @@ class AdapterPasswordDataSource: CommandLinePasswordDataSource {
             return error
         case .stop:
             let explanation = String(localized: "AdapterPassword.FreshSessionRejected",
-                                     defaultValue: "\(identifier) rejected the session it created when you logged in, so iTerm2 stopped trying to log in again.",
+                                     defaultValue: "\(identifier) rejected the session it created when you logged in, so CryTerm stopped trying to log in again.",
                                      comment: "Shown after a password manager rejects a login session it just issued; the placeholder is the password manager’s name, such as Bitwarden")
             if let message, !message.isEmpty {
                 return .runtime(message + "\n\n" + explanation)

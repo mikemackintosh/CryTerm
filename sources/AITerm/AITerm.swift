@@ -798,7 +798,7 @@ class AITermController {
     // Localization unneeded
     static let reviewPlaceholderAPIKey = "placeholder"
     static let reviewPlaceholderResponse =
-        String(localized: "AITerm.ReviewPlaceholderResponse", defaultValue: "This is a demonstration response from the iTerm2 AI assistant. iTerm2 is configured with a placeholder key for App Review, so no external AI service is contacted and no data leaves your Mac. To get real answers, set your AI provider’s API key in iTerm2 Settings > AI.", comment: "Canned AI response shown during App Store review when a placeholder API key is configured")
+        String(localized: "AITerm.ReviewPlaceholderResponse", defaultValue: "This is a demonstration response from the CryTerm AI assistant. CryTerm is configured with a placeholder key for App Review, so no external AI service is contacted and no data leaves your Mac. To get real answers, set your AI provider’s API key in CryTerm Settings > AI.", comment: "Canned AI response shown during App Store review when a placeholder API key is configured")
 
     static var provider: LLMProvider? {
         if let model = LLMMetadata.model() {
@@ -1196,7 +1196,7 @@ class AITermController {
         DLog("------- parse new stream response of length \(data.count) -------------")
         let string = String(data: parserState.buffer + data, encoding: .utf8) ?? ""
         guard let parser = llmProvider.streamingResponseParser(stream: true) else {
-            handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in iTerm2. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
+            handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in CryTerm. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
             return nil
         }
         var (first, rest) = parser.splitFirstJSONEvent(from: string)
@@ -1243,7 +1243,7 @@ class AITermController {
                     }
                     do {
                         guard var parser = llmProvider.streamingResponseParser(stream: true) else {
-                            handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in iTerm2. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
+                            handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in CryTerm. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
                             return nil
                         }
                         let response = try parser.parse(data: firstData)
@@ -1311,7 +1311,7 @@ class AITermController {
                     }
                 }
                 guard let parser = llmProvider.streamingResponseParser(stream: true) else {
-                    handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in iTerm2. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
+                    handle(event: .error(AIError(String(localized: "AITerm.StreamingUnsupported", defaultValue: "Streaming is not supported by this language model in CryTerm. You can disable streaming in Settings > General > AI.", comment: "Error shown when the selected AI model does not support streaming"))))
                     return nil
                 }
 

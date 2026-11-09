@@ -105,7 +105,7 @@ final class AITabTitleCorpus {
     // daily-driver corpus without anyone copying files around.
     static func canonicalCorpusFileURL() -> URL {
         return URL(fileURLWithPath: NSHomeDirectory())
-            .appendingPathComponent("Library/Application Support/iTerm2/AITabTitleCorpus/corpus.jsonl")
+            .appendingPathComponent("Library/Application Support/CryTerm/AITabTitleCorpus/corpus.jsonl")
     }
 
     // Outcome of a single atomic-append attempt. See atomicAppend(totalBytes:writeOnce:).

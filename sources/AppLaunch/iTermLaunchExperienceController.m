@@ -222,7 +222,7 @@ typedef NS_ENUM(NSUInteger, iTermLaunchExperienceChoice) {
             command = @"pip3 install --user --upgrade iterm2";
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"LaunchExperience.SystemPythonOutdatedMessage", nil, [NSBundle mainBundle], @"The system Python's iterm2 module is out of date and won't work with this version of iTerm2. Run `%@` to fix it.", @"Message that the system Python iterm2 module is out of date; placeholder is the shell command to run"), command];
+            NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"LaunchExperience.SystemPythonOutdatedMessage", nil, [NSBundle mainBundle], @"The system Python's iterm2 module is out of date and won't work with this version of CryTerm. Run `%@` to fix it.", @"Message that the system Python iterm2 module is out of date; placeholder is the shell command to run"), command];
             const iTermWarningSelection selection =
             [iTermWarning showWarningWithTitle:message
                                        actions:@[ NSLocalizedStringWithDefaultValue(@"LaunchExperience.CopyCommand", nil, [NSBundle mainBundle], @"Copy Command", @"Button to copy the shell command to the clipboard"), NSLocalizedStringWithDefaultValue(@"LaunchExperience.Ignore", nil, [NSBundle mainBundle], @"Ignore", @"Button to ignore the outdated module warning"), NSLocalizedStringWithDefaultValue(@"LaunchExperience.RemindMeLater", nil, [NSBundle mainBundle], @"Remind me Later", @"Button to be reminded later about the outdated module")]
@@ -276,7 +276,7 @@ typedef NS_ENUM(NSUInteger, iTermLaunchExperienceChoice) {
 }
 
 - (void)warnAboutChangeToDefaultPasteBehavior {
-    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"LaunchExperience.PasteBehaviorChangeMessage", nil, [NSBundle mainBundle], @"iTerm2 no longer warns before a multi-line paste, unless you are at the shell prompt.", @"Message explaining that iTerm2 no longer warns before multi-line pastes")
+    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"LaunchExperience.PasteBehaviorChangeMessage", nil, [NSBundle mainBundle], @"CryTerm no longer warns before a multi-line paste, unless you are at the shell prompt.", @"Message explaining that CryTerm no longer warns before multi-line pastes")
                                actions:@[ iTermLocalizedOK() ]
                              accessory:nil
                             identifier:nil

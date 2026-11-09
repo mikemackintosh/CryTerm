@@ -328,11 +328,11 @@ extension iTermWorkgroupInstance {
         }
         RLog("iTermWorkgroupInstance: \(instanceUniqueIdentifier) is still waiting on another client's lock; telling the user")
         let title = String(localized: "TmuxWorkgroup.LockWait.Title",
-                           defaultValue: "Another iTerm2 attached to this tmux session is setting up a workgroup. This one is waiting for it to finish.",
-                           comment: "Announcement shown while creating a workgroup's sessions in tmux waits for another iTerm2 attached to the same tmux session")
+                           defaultValue: "Another CryTerm attached to this tmux session is setting up a workgroup. This one is waiting for it to finish.",
+                           comment: "Announcement shown while creating a workgroup's sessions in tmux waits for another CryTerm attached to the same tmux session")
         let actions = [String(localized: "TmuxWorkgroup.LockWait.TakeOver",
                               defaultValue: "Take Over",
-                              comment: "Button that stops waiting for the other iTerm2 and proceeds anyway"),
+                              comment: "Button that stops waiting for the other CryTerm and proceeds anyway"),
                        String(localized: "TmuxWorkgroup.LockWait.Cancel",
                               defaultValue: "Stop Waiting",
                               comment: "Button that stops waiting; the workgroup's sessions are created later, when needed")]

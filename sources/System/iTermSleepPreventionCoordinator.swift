@@ -55,7 +55,7 @@ class SleepPreventionCoordinator: NSObject {
             scheduleOnNextTurn: { block in DispatchQueue.main.async(execute: block) },
             beginAssertion: {
                 ProcessInfo.processInfo.beginActivity(options: .idleSystemSleepDisabled,
-                                                      reason: "iTerm2: profile prevents sleep")
+                                                      reason: "CryTerm: profile prevents sleep")
             },
             endAssertion: { ProcessInfo.processInfo.endActivity($0) }),
                   notificationCenter: .default)

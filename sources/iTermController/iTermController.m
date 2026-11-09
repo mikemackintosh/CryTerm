@@ -31,6 +31,7 @@
 #import "FutureMethods.h"
 #import "ITAddressBookMgr.h"
 #import "NSArray+iTerm.h"
+#import "NSBundle+iTerm.h"
 #import "NSFileManager+iTerm.h"
 #import "NSStringITerm.h"
 #import "NSURL+iTerm.h"
@@ -140,11 +141,14 @@ static iTermController *gSharedInstance;
     if (self) {
         // A test host would offer to report any recent iTerm2 crash in a modal window, which
         // blocks button and menu actions in the tests that follow.
-        if (![NSApp isRunningUnitTests]) {
+        // Crash reports are sent to iterm2.com, so only upstream iTerm2 builds offer to send
+        // them; a rebranded fork (CryTerm) must not report its crashes to iTerm2's developer.
+        const BOOL upstreamBuild = [[[NSBundle mainBundle] bundleIdentifier] hasPrefix:@"com.googlecode.iterm2"];
+        if (![NSApp isRunningUnitTests] && upstreamBuild) {
             UKCrashReporterCheckForCrash();
         }
 
-        // create the "~/Library/Application Support/iTerm2" directory if it does not exist
+        // create the "~/Library/Application Support/CryTerm" directory if it does not exist
         [[NSFileManager defaultManager] applicationSupportDirectory];
 
         _setCurrentTerminalHelper = [[iTermSetCurrentTerminalHelper alloc] init];
@@ -1240,7 +1244,7 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
     // Localization unneeded
     [[iTermNotificationController sharedInstance] postNotificationWithTitle:@"Creating a tab"
                                                                      // Localization unneeded
-                                                                     detail:@"The system preference to open a tab instead of a window is now respected in iTerm2."
+                                                                     detail:@"The system preference to open a tab instead of a window is now respected in CryTerm."
                                                                         URL:[NSURL URLWithString:@"https://gitlab.com/gnachman/iterm2/wikis/Prefer-Tabs-When-Opening-Documents"]];
     iTermUserDefaults.haveBeenWarnedAboutTabDockSetting = YES;
 #endif
@@ -1373,6 +1377,11 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
 }
 
 - (void)refreshSoftwareUpdateUserDefaults {
+    if (![NSBundle it_hasSoftwareUpdateFeed]) {
+        DLog(@"No software update feed in Info.plist; not configuring Sparkle");
+        [[iTermUserDefaults userDefaults] removeObjectForKey:@"SUFeedURL"];
+        return;
+    }
     BOOL checkForTestReleases = [iTermPreferences boolForKey:kPreferenceKeyCheckForTestReleases];
     NSString *appCast = checkForTestReleases ?
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SUFeedURLForTesting"] :

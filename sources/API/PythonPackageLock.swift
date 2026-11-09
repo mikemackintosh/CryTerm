@@ -135,7 +135,7 @@ enum PythonPackageLock {
                        code: 1,
                        userInfo: [NSLocalizedDescriptionKey: String(
                         localized: "PythonPackageLock.Missing",
-                        defaultValue: "iTerm2’s list of verified Python packages is missing, so it won’t install any. Reinstalling iTerm2 restores it.",
+                        defaultValue: "CryTerm’s list of verified Python packages is missing, so it won’t install any. Reinstalling CryTerm restores it.",
                         comment: "Error when the bundled hash-pinned Python package lock file cannot be found")])
     }
 }

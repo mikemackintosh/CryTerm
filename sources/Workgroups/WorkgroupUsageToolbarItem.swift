@@ -345,7 +345,7 @@ class WorkgroupUsageToolbarItem: SessionToolbarGenericView {
             apply(report: WorkgroupUsageReport(
                 bars: [],
                 error: String(localized: "WorkgroupUsage.ScriptMissing",
-                              defaultValue: "The AI usage helper is missing from iTerm2. This is a bug.",
+                              defaultValue: "The AI usage helper is missing from CryTerm. This is a bug.",
                               comment: "AI usage toolbar item message when the bundled helper script is absent from the app bundle"),
                 diagnostic: "bundled script \(provider.bundledScriptResourceName).sh not found in app bundle",
                 reportable: true))
@@ -698,7 +698,7 @@ class WorkgroupUsageToolbarItem: SessionToolbarGenericView {
         let warning = iTermWarning()
         warning.heading = summary
         warning.title = String(localized: "WorkgroupUsage.ReportGuidanceIntro",
-                               defaultValue: "iTerm2 couldn’t read the AI usage report. Updating iTerm2 to the latest version may fix this. If you’re already up to date, click “Report a Bug” to open a pre-filled report. The full details below are also copied to your clipboard.",
+                               defaultValue: "CryTerm couldn’t read the AI usage report. Updating CryTerm to the latest version may fix this. If you’re already up to date, click “Report a Bug” to open a pre-filled report. The full details below are also copied to your clipboard.",
                                comment: "Guidance shown when the AI usage format couldn’t be parsed") + "\n\n" + Self.displayedReport(report)
         let reportBug = String(localized: "WorkgroupUsage.ReportBug",
                                defaultValue: "Report a Bug",
@@ -742,7 +742,7 @@ class WorkgroupUsageToolbarItem: SessionToolbarGenericView {
                      "",
                      "## Environment",
                      "",
-                     "- iTerm2 version: \(version)",
+                     "- CryTerm version: \(version)",
                      "- Provider: \(provider.displayName)",
                      "- Custom command: \(custom)"]
         if let diagnostic = lastDiagnostic, !diagnostic.isEmpty {

@@ -106,7 +106,7 @@ static NSString *iTermAIKeyHintSelfHosted(void) {
     // Ollama or LM Studio on localhost needs no credential at all, and a bare
     // imperative would send those users to the Custom headers table for
     // nothing.
-    return NSLocalizedStringWithDefaultValue(@"AIKeyHint.SelfHosted", nil, [NSBundle mainBundle], @"No API key is sent to a local endpoint. If it requires authentication, use a custom header.", @"Hint shown when the model URL is on the local network, where iTerm2 withholds the API key");
+    return NSLocalizedStringWithDefaultValue(@"AIKeyHint.SelfHosted", nil, [NSBundle mainBundle], @"No API key is sent to a local endpoint. If it requires authentication, use a custom header.", @"Hint shown when the model URL is on the local network, where CryTerm withholds the API key");
 }
 
 static NSString *const kAIManualModelsDefaultColumn = @"default";
@@ -2112,7 +2112,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     IBOutlet NSPopUpButton *_apiPermission;
     IBOutlet NSButton *_browserScriptingPermissions;
     iTermBrowserScriptingPermissionsWindowController *_browserScriptingPermissionsWindowController;
-    // "Remote Hosts Allowed to Control iTerm2…": opens the list of hosts granted Always Allow
+    // "Remote Hosts Allowed to Control CryTerm…": opens the list of hosts granted Always Allow
     // for it2 over ssh integration. Enabled only while the Python API is on, since that is the
     // only thing a grant lets a host use.
     IBOutlet NSButton *_remoteHostGrantsButton;
@@ -2520,7 +2520,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [[NSNotificationCenter defaultCenter] postNotificationName:iTermMetalSettingsDidChangeNotification object:nil];
     };
     info.onChange = ^{
-        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.RestartRequired", nil, [NSBundle mainBundle], @"You must restart iTerm2 for this change to take effect.", @"Warning that a setting change requires restarting iTerm2")
+        [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.RestartRequired", nil, [NSBundle mainBundle], @"You must restart CryTerm for this change to take effect.", @"Warning that a setting change requires restarting CryTerm")
                                    actions:@[ iTermLocalizedOK() ]
                                 identifier:nil
                                silenceable:kiTermWarningTypePersistent
@@ -2531,7 +2531,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [self updateRemoteHostGrantsButtonEnabled];
     if (_remoteHostGrantsButton) {
         [self addViewToSearchIndex:_remoteHostGrantsButton
-                       displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.RemoteHostGrants", nil, [NSBundle mainBundle], @"API access over ssh", @"Search index name for the button that lists remote hosts always allowed to use the iTerm2 API over SSH integration; matches that button’s title")
+                       displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.RemoteHostGrants", nil, [NSBundle mainBundle], @"API access over ssh", @"Search index name for the button that lists remote hosts always allowed to use the CryTerm API over SSH integration; matches that button’s title")
                            phrases:@[ @"ssh", @"it2", @"remote", @"always allow", @"api" ]
                                key:nil];
     }
@@ -3476,7 +3476,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSString *title;
     switch (outcome) {
         case AIModelCatalogUpdateOutcomeUpdated:
-            title = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.ModelUpdateDownloaded", nil, [NSBundle mainBundle], @"A newer AI model list was downloaded. It will take effect the next time you launch iTerm2.", @"Alert shown after a newer AI model list was downloaded");
+            title = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.ModelUpdateDownloaded", nil, [NSBundle mainBundle], @"A newer AI model list was downloaded. It will take effect the next time you launch CryTerm.", @"Alert shown after a newer AI model list was downloaded");
             break;
         case AIModelCatalogUpdateOutcomeUpToDate:
             title = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.ModelUpdateUpToDate", nil, [NSBundle mainBundle], @"Your AI model list is already up to date.", @"Alert shown when the AI model list is already current");
@@ -4684,11 +4684,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSString *action;
     NSString *path;
     if (@available(macOS 13, *)) {
-        message = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.WindowRestorationDisabledMessage13", nil, [NSBundle mainBundle], @"System window restoration has been disabled, which prevents iTerm2 from respecting this setting. Disable ”System Settings > Desktop & Dock > Close windows when quitting an application“ to enable window restoration.", @"Warning shown when macOS window restoration is disabled (macOS 13+)");
+        message = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.WindowRestorationDisabledMessage13", nil, [NSBundle mainBundle], @"System window restoration has been disabled, which prevents CryTerm from respecting this setting. Disable ”System Settings > Desktop & Dock > Close windows when quitting an application“ to enable window restoration.", @"Warning shown when macOS window restoration is disabled (macOS 13+)");
         action = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.OpenSystemSettings", nil, [NSBundle mainBundle], @"Open System Settings", @"Button that opens System Settings");
         path = @"/System/Library/PreferencePanes/Dock.prefPane";
     } else {
-        message = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.WindowRestorationDisabledMessageLegacy", nil, [NSBundle mainBundle], @"System window restoration has been disabled, which prevents iTerm2 from respecting this setting. Disable System Settings > General > Close windows when quitting an app to enable window restoration.", @"Warning shown when macOS window restoration is disabled (older macOS)");
+        message = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.WindowRestorationDisabledMessageLegacy", nil, [NSBundle mainBundle], @"System window restoration has been disabled, which prevents CryTerm from respecting this setting. Disable System Settings > General > Close windows when quitting an app to enable window restoration.", @"Warning shown when macOS window restoration is disabled (older macOS)");
         action = NSLocalizedStringWithDefaultValue(@"GeneralPrefs.OpenSystemPreferences", nil, [NSBundle mainBundle], @"Open System Preferences", @"Button that opens System Preferences");
         path = @"/System/Library/PreferencePanes/Appearance.prefPane";
     }

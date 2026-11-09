@@ -137,7 +137,8 @@ static NSColor *iTermAboutContainerFillColor(void) {
                                                                                               font:_sponsorsHeading.font
                                                                                     paragraphStyle:paragraphStyle]];
 
-    _sponsors = [self buildUnifiedSponsorRow];
+    // CryTerm does not show iTerm2's sponsors: they support upstream, not this build.
+    _sponsors = @[];
 
     _creditsWell = [[iTermAboutCreditsWellView alloc] initWithFrame:_bottomAlignedScrollView.frame];
     _creditsWell.autoresizingMask = _bottomAlignedScrollView.autoresizingMask;
@@ -299,14 +300,21 @@ static NSColor *iTermAboutContainerFillColor(void) {
                                                      title:NSLocalizedStringWithDefaultValue(@"AboutWindow.WhatsNew", nil, [NSBundle mainBundle], @"What’s New in 3.7?\n", @"Link title in the about window that opens the whats-new page for version 3.7")];
         }
 
-        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://iterm2.com/"
-                                                                       title:NSLocalizedStringWithDefaultValue(@"AboutWindow.HomePage", nil, [NSBundle mainBundle], @"Home Page", @"Link title in the about window that opens the iTerm2 home page")];
+        NSAttributedString *webAString = [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm"
+                                                                       title:NSLocalizedStringWithDefaultValue(@"AboutWindow.HomePage", nil, [NSBundle mainBundle], @"Home Page", @"Link title in the about window that opens the CryTerm home page")];
         NSAttributedString *bugsAString =
-                [self attributedStringWithLinkToURL:@"https://iterm2.com/bugs"
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm/issues"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.ReportBug", nil, [NSBundle mainBundle], @"Report a bug", @"Link title in the about window that opens the bug reporting page")];
         NSAttributedString *creditsAString =
                 [self attributedStringWithLinkToURL:@"https://iterm2.com/credits"
                                               title:NSLocalizedStringWithDefaultValue(@"AboutWindow.Credits", nil, [NSBundle mainBundle], @"Credits", @"Link title in the about window that opens the credits page")];
+        // GPL attribution: CryTerm is a modified version of iTerm2.
+        NSAttributedString *upstreamAString =
+                [self attributedStringWithLinkToURL:@"https://iterm2.com/"
+                                              title:NSLocalizedStringWithDefaultValue(@"AboutWindow.BasedOnITerm2", nil, [NSBundle mainBundle], @"\n\nCryTerm is a modified version of iTerm2 by George Nachman and contributors.", @"Attribution line in the about window. Keep the product names CryTerm and iTerm2 and the person’s name untranslated.")];
+        NSAttributedString *licenseAString =
+                [self attributedStringWithLinkToURL:@"https://github.com/mikemackintosh/CryTerm/blob/master/LICENSE"
+                                              title:NSLocalizedStringWithDefaultValue(@"AboutWindow.License", nil, [NSBundle mainBundle], @"\nLicensed under the GNU General Public License v2 or later.", @"Link title in the about window that opens the license")];
 
         // Force IBOutlets to be bound by creating window.
         [self window];
@@ -327,25 +335,47 @@ static NSColor *iTermAboutContainerFillColor(void) {
         [[_dynamicText textStorage] appendAttributedString:bugsAString];
         [[_dynamicText textStorage] appendAttributedString:bullet];
         [[_dynamicText textStorage] appendAttributedString:creditsAString];
+        [[_dynamicText textStorage] appendAttributedString:upstreamAString];
+        [[_dynamicText textStorage] appendAttributedString:licenseAString];
         [_dynamicText setAlignment:NSTextAlignmentCenter
                              range:NSMakeRange(0, [[_dynamicText textStorage] length])];
 
-        [self setPatronsString:[self defaultPatronsString] animate:NO];
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSURL *url = [NSURL URLWithString:@"https://iterm2.com/patrons.txt"];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSArray<NSString *> *patronNames = string.length > 0 ? [string componentsSeparatedByString:@"\n"] : nil;
-            patronNames = [patronNames filteredArrayUsingBlock:^BOOL(NSString *name) {
-                return name.length > 0;
-            }];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setPatrons:patronNames];
-            });
-        });
+        [self removeUpstreamSupportCredits];
     }
     return self;
+}
+
+// iTerm2's backers heading, sponsor row, and patron list (and the credits well behind
+// it) sit at or below the separator under the header, whose top edge AboutWindow.xib
+// puts at y=254. CryTerm removes them and shrinks the window to end below the header.
+- (void)removeUpstreamSupportCredits {
+    NSView *const contentView = self.window.contentView;
+    const CGFloat separatorTop = 254;
+    const CGFloat bottomMargin = 12;
+    const CGFloat shift = separatorTop - bottomMargin;
+    NSMutableArray<NSView *> *keep = [NSMutableArray array];
+    for (NSView *view in contentView.subviews) {
+        if (NSMaxY(view.frame) > separatorTop) {
+            [keep addObject:view];
+        }
+    }
+    // Remove rather than hide: on macOS 26 applyAppearanceTreatment unhides the credits well.
+    for (NSView *view in [contentView.subviews copy]) {
+        if (![keep containsObject:view]) {
+            [view removeFromSuperview];
+        }
+    }
+    const BOOL autoresizes = contentView.autoresizesSubviews;
+    contentView.autoresizesSubviews = NO;
+    NSSize size = contentView.frame.size;
+    size.height -= shift;
+    [self.window setContentSize:size];
+    for (NSView *view in keep) {
+        NSRect frame = view.frame;
+        frame.origin.y -= shift;
+        view.frame = frame;
+    }
+    contentView.autoresizesSubviews = autoresizes;
 }
 
 - (NSDictionary *)linkTextViewAttributes {

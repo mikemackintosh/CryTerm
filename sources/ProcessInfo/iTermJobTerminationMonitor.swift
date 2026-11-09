@@ -149,7 +149,7 @@ class iTermJobTerminationMonitor: NSObject {
     private func showCannotMonitorAlert(pid: pid_t, name: String?) {
         let displayName = (name?.isEmpty == false) ? name! : String(localized: "JobTerminationMonitor.Unknown", defaultValue: "(unknown)", comment: "Placeholder shown for a job whose name is unknown")
         NSApp.activate(ignoringOtherApps: true)
-        iTermWarning.show(withTitle: String(localized: "JobTerminationMonitor.CannotWatchJob", defaultValue: "iTerm2 cannot watch the job \(displayName) with process ID \(String(describing: pid)) because it has already terminated.", comment: "Alert body when a process cannot be watched because it already exited"),
+        iTermWarning.show(withTitle: String(localized: "JobTerminationMonitor.CannotWatchJob", defaultValue: "CryTerm cannot watch the job \(displayName) with process ID \(String(describing: pid)) because it has already terminated.", comment: "Alert body when a process cannot be watched because it already exited"),
                           actions: [iTermLocalizedOK()],
                           accessory: nil,
                           identifier: nil,

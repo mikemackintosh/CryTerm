@@ -641,7 +641,7 @@ static NSArray<NSString *> *gTerminalCachedCombinedAccountNames;
 }
 
 - (IBAction)resetIntegrationConfiguration:(id)sender {
-    const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PasswordManager.ResetConfigurationWarning", nil, [NSBundle mainBundle], @"This will erase iTerm2’s configuration settings for this password manager. The actual passwords will remain unaffected. You’ll have to go through some setup steps to use it again. This action cannot be undone.", @"Body of the warning shown before resetting a password manager integration configuration")
+    const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PasswordManager.ResetConfigurationWarning", nil, [NSBundle mainBundle], @"This will erase CryTerm’s configuration settings for this password manager. The actual passwords will remain unaffected. You’ll have to go through some setup steps to use it again. This action cannot be undone.", @"Body of the warning shown before resetting a password manager integration configuration")
                                                                        actions:@[ iTermLocalizedOK(), iTermLocalizedCancel() ]
                                                                      accessory:nil
                                                                     identifier:nil

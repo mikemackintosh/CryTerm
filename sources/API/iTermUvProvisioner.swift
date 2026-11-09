@@ -1440,7 +1440,7 @@ final class iTermUvWindowControllerFetcher: iTermUvTarballFetcher {
         let declaredSize = min(max(byteCount, 0), iTermUvProvisioner.maxTarballBytes)
         // Ask before downloading, like the legacy runtime download did.
         let megabytes = max(1, (declaredSize + 512 * 1024) / (1024 * 1024))
-        let selection = iTermWarning.show(withTitle: String(localized: "UvProvisioner.DownloadBody", defaultValue: "To run Python scripts, iTerm2 needs to download uv (about \(megabytes) MB) and a Python interpreter. Additional Python versions are downloaded automatically later if a script needs them. OK to download it now?", comment: "Body of the dialog asking permission to download the Python runtime"),
+        let selection = iTermWarning.show(withTitle: String(localized: "UvProvisioner.DownloadBody", defaultValue: "To run Python scripts, CryTerm needs to download uv (about \(megabytes) MB) and a Python interpreter. Additional Python versions are downloaded automatically later if a script needs them. OK to download it now?", comment: "Body of the dialog asking permission to download the Python runtime"),
                                           actions: [iTermLocalizedOK(), iTermLocalizedCancel()],
                                           actionMapping: nil,
                                           accessory: nil,

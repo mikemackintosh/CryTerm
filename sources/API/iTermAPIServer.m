@@ -221,7 +221,7 @@ NSString *const iTermAPIServerConnectionClosed = @"iTermAPIServerConnectionClose
         return NO;
     }
     if (flock(fd, LOCK_EX | LOCK_NB) != 0) {
-        XLog(@"Failed to acquire API socket lock at %@ (%s). Another iTerm2 "
+        XLog(@"Failed to acquire API socket lock at %@ (%s). Another CryTerm "
              @"instance appears to be using this application-support directory; "
              @"refusing to start the API server to avoid clobbering its socket.",
              lockPath, strerror(errno));
@@ -1067,13 +1067,13 @@ NSString *const iTermAPIServerConnectionClosed = @"iTermAPIServerConnectionClose
 
 - (void)handleMalformedRequest:(ITMClientOriginatedMessage *)request connection:(id<iTermAPIServerConnection>)webSocketConnection {
     ITMServerOriginatedMessage *response = [self newResponseForRequest:request];
-    response.error = @"Invalid request. Upgrade iTerm2 to a newer version.";
+    response.error = @"Invalid request. Upgrade CryTerm to a newer version.";
     [self finishHandlingRequestWithResponse:response onConnection:webSocketConnection];
 }
 
 - (void)handleUnhandleableRequest:(ITMClientOriginatedMessage *)request connection:(id<iTermAPIServerConnection>)webSocketConnection {
     ITMServerOriginatedMessage *response = [self newResponseForRequest:request];
-    response.error = @"Not ready. This is a bug! Please report it at https://iterm2.com/bugs";
+    response.error = @"Not ready. This is a bug! Please report it at https://github.com/mikemackintosh/CryTerm/issues";
     [self finishHandlingRequestWithResponse:response onConnection:webSocketConnection];
 }
 

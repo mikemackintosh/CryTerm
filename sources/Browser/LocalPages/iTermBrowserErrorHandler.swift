@@ -104,13 +104,13 @@ class iTermBrowserErrorHandler: NSObject, iTermBrowserPageHandler {
                 return (String(localized: "BrowserErrorHandler.NoInternetTitle", defaultValue: "No Internet Connection", comment: "Error title: no internet connection"), String(localized: "BrowserErrorHandler.NoInternetOfflineMessage", defaultValue: "Your computer appears to be offline. Check your internet connection and try again.", comment: "Error message: computer appears offline"), nil)
 
             case NSURLErrorCannotFindHost:
-                return (String(localized: "BrowserErrorHandler.ServerNotFoundTitle", defaultValue: "Server Not Found", comment: "Error title: server not found"), String(localized: "BrowserErrorHandler.CannotFindHostMessage", defaultValue: "iTerm2 can’t find the server. Check that the web address is correct and try again.", comment: "Error message: cannot find host"), nil)
+                return (String(localized: "BrowserErrorHandler.ServerNotFoundTitle", defaultValue: "Server Not Found", comment: "Error title: server not found"), String(localized: "BrowserErrorHandler.CannotFindHostMessage", defaultValue: "CryTerm can’t find the server. Check that the web address is correct and try again.", comment: "Error message: cannot find host"), nil)
 
             case NSURLErrorTimedOut:
                 return (String(localized: "BrowserErrorHandler.TimedOutTitle", defaultValue: "The Connection Timed Out", comment: "Error title: connection timed out"), String(localized: "BrowserErrorHandler.TimedOutMessage", defaultValue: "The server didn’t respond in time. The site may be temporarily unavailable or overloaded.", comment: "Error message: connection timed out"), nil)
 
             case NSURLErrorCannotConnectToHost:
-                return (String(localized: "BrowserErrorHandler.CannotConnectTitle", defaultValue: "Can’t Connect to Server", comment: "Error title: cannot connect to server"), String(localized: "BrowserErrorHandler.CannotConnectMessage", defaultValue: "iTerm2 can’t establish a secure connection to the server. The server may be down or unreachable.", comment: "Error message: cannot connect to host"), nil)
+                return (String(localized: "BrowserErrorHandler.CannotConnectTitle", defaultValue: "Can’t Connect to Server", comment: "Error title: cannot connect to server"), String(localized: "BrowserErrorHandler.CannotConnectMessage", defaultValue: "CryTerm can’t establish a secure connection to the server. The server may be down or unreachable.", comment: "Error message: cannot connect to host"), nil)
 
             case NSURLErrorNetworkConnectionLost:
                 return (String(localized: "BrowserErrorHandler.NetworkLostTitle", defaultValue: "Network Connection Lost", comment: "Error title: network connection lost"), String(localized: "BrowserErrorHandler.NetworkLostMessage", defaultValue: "The network connection was lost. Check your internet connection and try again.", comment: "Error message: network connection lost"), nil)
@@ -119,7 +119,7 @@ class iTermBrowserErrorHandler: NSObject, iTermBrowserPageHandler {
                 return (String(localized: "BrowserErrorHandler.ServerNotFoundTitle", defaultValue: "Server Not Found", comment: "Error title: server not found"), String(localized: "BrowserErrorHandler.DNSFailedMessage", defaultValue: "The server’s DNS address could not be found. Check that the web address is correct.", comment: "Error message: DNS lookup failed"), nil)
 
             case NSURLErrorHTTPTooManyRedirects:
-                return (String(localized: "BrowserErrorHandler.TooManyRedirectsTitle", defaultValue: "Too Many Redirects", comment: "Error title: too many redirects"), String(localized: "BrowserErrorHandler.TooManyRedirectsMessage", defaultValue: "iTerm2 can’t open the page because the server redirected too many times.", comment: "Error message: too many redirects"), nil)
+                return (String(localized: "BrowserErrorHandler.TooManyRedirectsTitle", defaultValue: "Too Many Redirects", comment: "Error title: too many redirects"), String(localized: "BrowserErrorHandler.TooManyRedirectsMessage", defaultValue: "CryTerm can’t open the page because the server redirected too many times.", comment: "Error message: too many redirects"), nil)
 
             case NSURLErrorResourceUnavailable:
                 return (String(localized: "BrowserErrorHandler.PageUnavailableTitle", defaultValue: "Page Unavailable", comment: "Error title: page unavailable"), String(localized: "BrowserErrorHandler.PageUnavailableMessage", defaultValue: "The requested page is currently unavailable. Try again later.", comment: "Error message: page unavailable"), nil)
@@ -128,7 +128,7 @@ class iTermBrowserErrorHandler: NSObject, iTermBrowserPageHandler {
                 return (String(localized: "BrowserErrorHandler.NoInternetTitle", defaultValue: "No Internet Connection", comment: "Error title: no internet connection"), String(localized: "BrowserErrorHandler.NoInternetNotConnectedMessage", defaultValue: "Your computer is not connected to the internet. Check your connection and try again.", comment: "Error message: computer not connected to internet"), nil)
 
             case NSURLErrorServerCertificateUntrusted, NSURLErrorSecureConnectionFailed:
-                return (String(localized: "BrowserErrorHandler.SecureConnectionFailedTitle", defaultValue: "Secure Connection Failed", comment: "Error title: secure connection failed"), String(localized: "BrowserErrorHandler.SecureConnectionFailedMessage", defaultValue: "iTerm2 can’t verify the identity of the website. The connection may not be secure.", comment: "Error message: secure connection failed"), sslErrorDetails(from: error))
+                return (String(localized: "BrowserErrorHandler.SecureConnectionFailedTitle", defaultValue: "Secure Connection Failed", comment: "Error title: secure connection failed"), String(localized: "BrowserErrorHandler.SecureConnectionFailedMessage", defaultValue: "CryTerm can’t verify the identity of the website. The connection may not be secure.", comment: "Error message: secure connection failed"), sslErrorDetails(from: error))
 
             case NSURLErrorFileDoesNotExist:
                 return (String(localized: "BrowserErrorHandler.FileNotFoundTitle", defaultValue: "File Not Found", comment: "Error title: file not found"), String(localized: "BrowserErrorHandler.FileNotFoundMessage", defaultValue: "The requested file does not exist.", comment: "Error message: file does not exist"), nil)

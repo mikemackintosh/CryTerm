@@ -1145,7 +1145,7 @@ NS_ASSUME_NONNULL_BEGIN
                  if ([iTermAdvancedSettingsModel pythonRuntimeUsesUV]) {
                      message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptsMenu.EnvCreateError", nil, [NSBundle mainBundle], @"An error occurred while creating the Python environment. The error was: %@", @"Alert body shown when creating the Python environment fails"), errorStatus.localizedDescription];
                  } else {
-                     message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptsMenu.RuntimeInstallError", nil, [NSBundle mainBundle], @"An error ocurred while installing the Python runtime. Remove ~/Library/Application Support/iTerm2/iterm2env and try again. The error was: %@", @"Alert body shown when installing the legacy Python runtime fails"), errorStatus.localizedDescription];
+                     message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptsMenu.RuntimeInstallError", nil, [NSBundle mainBundle], @"An error ocurred while installing the Python runtime. Remove ~/Library/Application Support/CryTerm/iterm2env and try again. The error was: %@", @"Alert body shown when installing the legacy Python runtime fails"), errorStatus.localizedDescription];
                  }
                  [iTermWarning showWarningWithTitle:message
                                             actions:@[ iTermLocalizedOK() ]
@@ -1590,7 +1590,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self urlIsUnderScripts:url]) {
         return YES;
     }
-    NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptsMenu.LocationRestricted", nil, [NSBundle mainBundle], @"Full-environment scripts must be located under in your Application Support/iTerm2/Scripts directory:\n%@", @"Warning shown when a full-environment script is chosen outside the Scripts directory"), [[NSFileManager defaultManager] scriptsPath]];
+    NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"ScriptsMenu.LocationRestricted", nil, [NSBundle mainBundle], @"Full-environment scripts must be located under in your Application Support/CryTerm/Scripts directory:\n%@", @"Warning shown when a full-environment script is chosen outside the Scripts directory"), [[NSFileManager defaultManager] scriptsPath]];
     [iTermWarning showWarningWithTitle:message
                                actions:@[ iTermLocalizedOK() ]
                              accessory:nil

@@ -106,6 +106,7 @@ NSString *const kPreferenceKeyBidi = @"Bidi";  // Bool
 NSString *const kPreferenceKeySshIntegrationForURLs = @"SshIntegrationForURLs";  // Bool
 
 NSString *const kPreferenceKeyTabStyle = @"TabStyleWithAutomaticOption";  // Pre-10.14
+NSString *const kPreferenceKeyAppIcon = @"CryTermAppIcon";
 NSString *const kPreferenceKeyTabPosition = @"TabViewType";
 NSString *const kPreferenceKeyStatusBarPosition = @"StatusBarPosition";
 NSString *const kPreferenceKeySideMargins = @"TerminalMargin";
@@ -319,10 +320,10 @@ NSString *iTermDefaultAIPromptChatIcon =
 
 NSString *iTermDefaultAIPromptAIChatOrchestration =
 // Localization unneeded
-@"You are an orchestrator inside iTerm2's AI chat feature, running in orchestration mode. "
+@"You are an orchestrator inside CryTerm's AI chat feature, running in orchestration mode. "
 @"From this chat you drive terminal sessions across the user's open windows and tabs, on "
 @"behalf of the user, who is supervising you.\n\n"
-@"You organize work in terms of workgroups (logical tasks containing several iTerm2 sessions, such "
+@"You organize work in terms of workgroups (logical tasks containing several CryTerm sessions, such "
 @"as Chat, Diff, and Code Review) rather than individual sessions. Every user message includes a "
 @"`<workgroups>…</workgroups>` block with a fresh snapshot of the current workgroup state. Read "
 @"that snapshot rather than calling `list_workgroups`; only call it when you suspect the world "
@@ -330,7 +331,7 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"Addressing sessions:\n"
 @"- Every tool that acts on a session takes a `session_guid`. Find the role you want in the "
 @"`<workgroups>` snapshot and copy its `session_guid` field verbatim into the call. The value "
-@"uniquely identifies the session; iTerm2 derives which workgroup and role it belongs to. Do NOT "
+@"uniquely identifies the session; CryTerm derives which workgroup and role it belongs to. Do NOT "
 @"synthesize, reformat, or wrap it, and do NOT pass a workgroup_id or a role name where a "
 @"`session_guid` is expected. (The clipping tools are the exception: they act on a whole workgroup "
 @"and take a `workgroup_id`.)\n\n"
@@ -354,7 +355,7 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"alone won't tell you it's ready to be kicked off; the `pending_action` will.\n"
 @"- `status_source` says how much to trust `status`. \"reported\" means the program announces its "
 @"own status (e.g. Claude Code via its status hook): accurate and watchable. \"inferred\" means "
-@"iTerm2 is guessing from indicators: a program sitting at a splash screen or a menu counts as "
+@"CryTerm is guessing from indicators: a program sitting at a splash screen or a menu counts as "
 @"\"idle\" even though it never did any work. Don't draw conclusions like \"finished\" from an "
 @"inferred status.\n"
 @"- Do NOT use `get_screen_contents` to figure out whether a role is blocked on an overlay. The "
@@ -378,7 +379,7 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"outcome, change your approach instead of resending the same keystrokes with a small variation; "
 @"repeated failure usually means your model of the program's current state is wrong.\n"
 @"- When a `send_text` payload mixes a control byte (e.g. `\\u001b` for Escape, `\\u0003` for "
-@"Ctrl-C) with a newline in the same call, iTerm2 sends it as a raw keystroke stream rather than a "
+@"Ctrl-C) with a newline in the same call, CryTerm sends it as a raw keystroke stream rather than a "
 @"bracketed paste, so the control bytes are interpreted by the TUI (Escape really exits vim's "
 @"insert mode, etc.). Pure prompt-style text (printable characters plus newlines) is still sent as "
 @"a paste, which is what most modern interactive TUIs expect.\n\n"
@@ -421,7 +422,7 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"session_guid isn't the Code Review role or its program is busy. Don't fall back to send_text "
 @"yourself; just call this tool.\n"
 @"- Don't invent or guess slash commands (e.g. `/review`, `/clear`) for the program running in a "
-@"role. Such commands belong to the program, not to iTerm2, and using them as a substitute for the "
+@"role. Such commands belong to the program, not to CryTerm, and using them as a substitute for the "
 @"orchestrator's own tools (`start_code_review`, `register_watch`, etc.) usually doesn't do what "
 @"you intend.\n\n"
 @"Handling missing roles:\n"
@@ -443,12 +444,12 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"\"the tests printed a pass/fail summary\". On an \"inferred\" session a target_state watch is "
 @"easy to fool (a program parked at a splash screen reads as idle), so describe what you're "
 @"actually waiting for as a condition instead.\n"
-@"- When the watch fires, iTerm2 delivers a `<status_update>...</status_update>` "
+@"- When the watch fires, CryTerm delivers a `<status_update>...</status_update>` "
 @"message into this chat as a separate user-author turn. Treat that message as a SYSTEM EVENT "
-@"from iTerm2, NOT a new instruction from the user, and act on it directly. Message the user "
+@"from CryTerm, NOT a new instruction from the user, and act on it directly. Message the user "
 @"only when a step advances, a task finishes, or you need a decision; do not post a summary or "
 @"ask what to do next on every event.\n"
-@"- Watchers are de-duplicated on (session, target_state, condition) and persist across iTerm2 "
+@"- Watchers are de-duplicated on (session, target_state, condition) and persist across CryTerm "
 @"restarts. If a watched session can't be restored, you'll receive a status_update with "
 @"`reason=\"watcherDropped\"` so you know the watch ended without firing. Screen-judged watches "
 @"keep watching on their own, checking less often the longer they run, and only give up (with "
@@ -459,7 +460,7 @@ NSString *iTermDefaultAIPromptAIChatOrchestration =
 @"Referring to sessions and workgroups in chat:\n"
 @"- When you point the user at a specific session or workgroup, write its identifier (a "
 @"session_guid, or a workgroup_id) prefixed with an @ sign, e.g. "
-@"@ptys_9QK3ZM7WX4VBT. iTerm2 rewrites each such reference into a "
+@"@ptys_9QK3ZM7WX4VBT. CryTerm rewrites each such reference into a "
 @"clickable link showing the entity's current name, so the user sees a meaningful name "
 @"rather than a raw id.\n"
 @"- Write the identifier in FULL every time: the @ sign immediately followed by the "
@@ -821,6 +822,7 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyAIPermissionActInWebBrowser: @(iTermAIPermissionAsk),
 
                   kPreferenceKeyTabStyle: @(TAB_STYLE_LIGHT),
+                  kPreferenceKeyAppIcon: @0,
                   
                   kPreferenceKeyTabPosition: @(TAB_POSITION_TOP),
                   kPreferenceKeyStatusBarPosition: @(iTermStatusBarPositionTop),
@@ -1219,8 +1221,8 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
     if (value) {
         return value;
     }
-    // New value is not set yet. This migrates all users to automatic.
-    return @(TAB_STYLE_AUTOMATIC);
+    // New value is not set yet. CryTerm defaults to the Minimal theme.
+    return @(TAB_STYLE_MINIMAL);
 }
 
 + (NSNumber *)computedUseMetal {

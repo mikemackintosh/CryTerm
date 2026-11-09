@@ -445,6 +445,12 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     const SEL action = [menuItem action];
+    if (action == @selector(checkForUpdatesFromMenu:)) {
+        // Builds without an update feed (e.g., forks) can't check for updates.
+        const BOOL hasFeed = [NSBundle it_hasSoftwareUpdateFeed];
+        menuItem.hidden = !hasFeed;
+        return hasFeed;
+    }
     if (action == @selector(newSessionInTabAtIndex:) ||
         action == @selector(newSession:) ||
         action == @selector(newSessionWithSameProfile:)) {
@@ -953,7 +959,7 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
         DLog(@"applicationShouldTerminateAfterLastWindowClosed - user has not interacted with any session");
         if ([[NSDate date] timeIntervalSinceDate:launchTime_] < [iTermAdvancedSettingsModel minRunningTime]) {
             DLog(@"Returning NO");
-            NSLog(@"Not quitting iTerm2 because it ran very briefly and had no user interaction. Set the MinRunningTime float preference to 0 to turn this feature off.");
+            NSLog(@"Not quitting CryTerm because it ran very briefly and had no user interaction. Set the MinRunningTime float preference to 0 to turn this feature off.");
             return NO;
         }
     }
@@ -1069,13 +1075,13 @@ static NSModalResponse iTermCompareRenderingRunModal(id self, SEL _cmd) {
         RLog(@"Showing quit alert");
         NSString *message;
         if ([[iTermController sharedInstance] shouldLeaveSessionsRunningOnQuit]) {
-            message = NSLocalizedStringWithDefaultValue(@"QuitAlert.SessionsRestored", nil, [NSBundle mainBundle], @"Sessions will be restored automatically when iTerm2 is relaunched.", @"Quit-confirmation message when sessions will be restored on relaunch");
+            message = NSLocalizedStringWithDefaultValue(@"QuitAlert.SessionsRestored", nil, [NSBundle mainBundle], @"Sessions will be restored automatically when CryTerm is relaunched.", @"Quit-confirmation message when sessions will be restored on relaunch");
         } else {
             message = NSLocalizedStringWithDefaultValue(@"QuitAlert.AllClosed", nil, [NSBundle mainBundle], @"All sessions will be closed.", @"Quit-confirmation message when all sessions will be closed");
         }
         [NSApp activateIgnoringOtherApps:YES];
         NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-        alert.messageText = NSLocalizedStringWithDefaultValue(@"QuitAlert.Title", nil, [NSBundle mainBundle], @"Quit iTerm2?", @"Title of the quit-confirmation alert");
+        alert.messageText = NSLocalizedStringWithDefaultValue(@"QuitAlert.Title", nil, [NSBundle mainBundle], @"Quit CryTerm?", @"Title of the quit-confirmation alert");
         alert.informativeText = message;
         [alert addButtonWithTitle:iTermLocalizedOK()];
         [alert addButtonWithTitle:iTermLocalizedCancel()];
@@ -1589,6 +1595,8 @@ void TurnOnDebugLoggingAutomatically(void) {
 
     // When running an isolated instance via -suite, overlay the suite name on
     // the dock icon so it's obvious which instance this dock icon belongs to.
+    // Before the suite overlay, which draws whatever icon is current.
+    [iTermAppIconController applyAtLaunch];
     [iTermSuiteDockTileView configureDockTileIfNeeded];
     [[iTermFlowControlMonitor instance] start];
 
@@ -1611,6 +1619,11 @@ void TurnOnDebugLoggingAutomatically(void) {
 #endif
 
     [iTermLaunchExperienceController applicationDidFinishLaunching];
+    // A renamed build (CryTerm) has its own Application Support folder; offer once to copy
+    // the user's scripts and dynamic profiles from iTerm2's. Async so windows restore first.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [iTermAppSupportMigration offerIfNeeded];
+    });
     // Seed the dynamic Ollama model cache from disk so a chat pinned to a
     // discovered tag resolves synchronously at launch instead of falling through
     // to the global default provider while /api/tags is fetched.
@@ -1952,7 +1965,7 @@ static iTermKeyEventReplayer *gReplayer;
     mainMenuItem.submenu = [[NSApp mainMenu] it_deepCopy];
     [menu addItem:mainMenuItem];
     
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedStringWithDefaultValue(@"StatusMenu.QuitiTerm2", nil, [NSBundle mainBundle], @"Quit iTerm2", @"Status-icon menu item to quit iTerm2")
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedStringWithDefaultValue(@"StatusMenu.QuitiTerm2", nil, [NSBundle mainBundle], @"Quit CryTerm", @"Status-icon menu item to quit CryTerm")
                                        action:@selector(terminate:)
                                 keyEquivalent:@""] autorelease];
     [menu addItem:item];
@@ -2676,6 +2689,10 @@ static iTermKeyEventReplayer *gReplayer;
 }
 
 - (IBAction)checkForUpdatesFromMenu:(id)sender {
+    if (![NSBundle it_hasSoftwareUpdateFeed]) {
+        DLog(@"No software update feed in Info.plist; ignoring check for updates");
+        return;
+    }
     [suUpdater checkForUpdates:(sender)];
 }
 

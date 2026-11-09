@@ -27,8 +27,8 @@ class ImportExport: NSObject {
         DLog("Begin")
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = ["itermexport"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = String(localized: "ImportExport.DefaultExportFileName", defaultValue: "iTerm2 State.itermexport", comment: "Default file name suggested when exporting settings and data")
-        savePanel.title = String(localized: "ImportExport.ExportPanelTitle", defaultValue: "Export iTerm2 Settings and Data", comment: "Title of the save panel for exporting settings and data")
+        savePanel.nameFieldStringValue = String(localized: "ImportExport.DefaultExportFileName", defaultValue: "CryTerm State.itermexport", comment: "Default file name suggested when exporting settings and data")
+        savePanel.title = String(localized: "ImportExport.ExportPanelTitle", defaultValue: "Export CryTerm Settings and Data", comment: "Title of the save panel for exporting settings and data")
         let passwordsCheckbox = offerPasswords ? PasswordArchiveController.makeIncludePasswordsCheckbox() : nil
         if let passwordsCheckbox {
             passwordsCheckbox.sizeToFit()
@@ -73,7 +73,7 @@ class ImportExport: NSObject {
             case ImportExportError.failedToSaveFile(let reason):
                 return .failure(String(localized: "ImportExport.FailedToSaveFile", defaultValue: "Failed to save file: \(reason)", comment: "Export error; the placeholder is the failure reason"))
             case ImportExportError.bug(let reason):
-                return .failure(String(localized: "ImportExport.BugEncountered", defaultValue: "A bug was encountered: \(reason). Please report this at https://iterm2.com/bugs", comment: "Export error shown when an internal bug occurs; the placeholder is the failure reason"))
+                return .failure(String(localized: "ImportExport.BugEncountered", defaultValue: "A bug was encountered: \(reason). Please report this at https://github.com/mikemackintosh/CryTerm/issues", comment: "Export error shown when an internal bug occurs; the placeholder is the failure reason"))
             case ImportExportError.failedToCreateArchive(let reason):
                 return .failure(String(localized: "ImportExport.FailedToCreateArchive", defaultValue: "Failed to create archive: \(reason)", comment: "Export error; the placeholder is the failure reason"))
             case ImportExportError.failedToLoadFile(let reason):
@@ -134,7 +134,7 @@ class ImportExport: NSObject {
 
         do {
             let selection = iTermWarning.show(
-                withTitle: String(localized: "ImportExport.ImportConfirmBody", defaultValue: "Any needed Python runtimes will be installed and secure settings will be updated, which may require you to enter your password. Then iTerm2 will restart and finish importing. This can take several minutes.", comment: "Body warning shown before importing settings and data"),
+                withTitle: String(localized: "ImportExport.ImportConfirmBody", defaultValue: "Any needed Python runtimes will be installed and secure settings will be updated, which may require you to enter your password. Then CryTerm will restart and finish importing. This can take several minutes.", comment: "Body warning shown before importing settings and data"),
                 actions: [iTermLocalizedOK(), iTermLocalizedCancel()],
                 accessory: nil,
                 identifier: nil,
@@ -217,19 +217,19 @@ class ImportExport: NSObject {
         let actionLabel: String
         if dryRun {
             confirmTitle = String(localized: "ImportExport.DryRunConfirmTitle", defaultValue: """
-            Dry-run mode is enabled. iTerm2 will log to Console.app what it would erase and stay running. Nothing will actually be deleted.
+            Dry-run mode is enabled. CryTerm will log to Console.app what it would erase and stay running. Nothing will actually be deleted.
             """, comment: "Confirmation body shown before a dry-run erase")
             confirmHeading = String(localized: "ImportExport.DryRunConfirmHeading", defaultValue: "Dry-Run Erase?", comment: "Confirmation heading shown before a dry-run erase")
             actionLabel = String(localized: "ImportExport.DryRunActionLabel", defaultValue: "Run Dry Run", comment: "Button label to start a dry-run erase")
         } else {
             confirmTitle = String(localized: "ImportExport.EraseConfirmTitle", defaultValue: """
-            The following will be erased and iTerm2 will quit immediately:
+            The following will be erased and CryTerm will quit immediately:
 
             \u{2022} Preferences (profiles, key bindings, arrangements, advanced settings)
             \u{2022} Saved windows and sessions
             \u{2022} Python API scripts and runtimes
             \u{2022} Secure settings
-            \u{2022} The contents of ~/.iterm2 and ~/Library/Application Support/iTerm2
+            \u{2022} The contents of ~/.iterm2 and ~/Library/Application Support/CryTerm
 
             Items stored in the macOS Keychain (such as the AI API key and Password Manager entries) are not erased and must be removed manually from Keychain Access if you want them gone too. On systems with networked home directories, secure settings stored under /usr/local are written by an administrator and may also need to be removed manually.
 
@@ -257,7 +257,7 @@ class ImportExport: NSObject {
             _exit(0)
         }
         _ = iTermWarning.show(
-            withTitle: String(localized: "ImportExport.DryRunCompleteBody", defaultValue: "iTerm2 logged what it would have erased to Console.app. Nothing was actually deleted because the “Dry-run Erase All Settings and Data” advanced setting is enabled.", comment: "Body of the alert shown after a dry-run erase completes"),
+            withTitle: String(localized: "ImportExport.DryRunCompleteBody", defaultValue: "CryTerm logged what it would have erased to Console.app. Nothing was actually deleted because the “Dry-run Erase All Settings and Data” advanced setting is enabled.", comment: "Body of the alert shown after a dry-run erase completes"),
             actions: [iTermLocalizedOK()],
             accessory: nil,
             identifier: nil,
@@ -949,7 +949,8 @@ private struct UserDefaultsImporterExporter {
         if let custom = iTermUserDefaults.customSuiteName() as String?, !custom.isEmpty {
             privateSuite = "\(custom).private"
         } else {
-            privateSuite = "com.googlecode.iterm2.private"
+            // Must match iTermPrivateUserDefaults() in iTermUserDefaults.m.
+            privateSuite = "\(Bundle.main.bundleIdentifier ?? "com.googlecode.iterm2").private"
         }
         eraseSuite(privateSuite, action: action)
     }

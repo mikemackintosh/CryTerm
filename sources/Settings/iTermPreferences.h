@@ -276,6 +276,9 @@ extern NSString *const kPreferenceKeyAIPermissionActInWebBrowser;
 
 // Appearance
 extern NSString *const kPreferenceKeyTabStyle;
+// CryTerm: which app icon to show in the Dock. 0 orange (the bundled icon), 1 teal, 2 purple,
+// 3 rotate (the next color at each launch).
+extern NSString *const kPreferenceKeyAppIcon;
 extern NSString *const kPreferenceKeyTabPosition;
 extern NSString *const kPreferenceKeyStatusBarPosition;
 extern NSString *const kPreferenceKeyHideTabBar;

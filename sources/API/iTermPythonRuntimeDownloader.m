@@ -307,9 +307,9 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
             DLog(@"Request confirmation from user with alert box");
             NSString *message;
             if (requiredToContinue) {
-                message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.DownloadRequiredMessage", nil, [NSBundle mainBundle], @"The Python Runtime is used by Python scripts that work with iTerm2. It must be downloaded to complete the requested action. The download is about %@. OK to download it now?", @"Prompt to download the required runtime; %@ is the download size"), [NSString it_formatBytes:info.size]];
+                message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.DownloadRequiredMessage", nil, [NSBundle mainBundle], @"The Python Runtime is used by Python scripts that work with CryTerm. It must be downloaded to complete the requested action. The download is about %@. OK to download it now?", @"Prompt to download the required runtime; %@ is the download size"), [NSString it_formatBytes:info.size]];
             } else {
-                message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.DownloadOptionalMessage", nil, [NSBundle mainBundle], @"The Python Runtime is used by Python scripts that work with iTerm2. The download is about %@. OK to download it now?", @"Prompt to download the runtime; %@ is the download size"), [NSString it_formatBytes:info.size]];
+                message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.DownloadOptionalMessage", nil, [NSBundle mainBundle], @"The Python Runtime is used by Python scripts that work with CryTerm. The download is about %@. OK to download it now?", @"Prompt to download the runtime; %@ is the download size"), [NSString it_formatBytes:info.size]];
             }
             const iTermWarningSelection selection = [iTermWarning showWarningWithTitle:message
                                                                                actions:@[ silent ? NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.Download", nil, [NSBundle mainBundle], @"Download", @"Button to download the runtime") : iTermLocalizedOK(),
@@ -419,10 +419,10 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
 
     NSString *message;
     if (pythonVersion) {
-        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededVersionMessage", nil, [NSBundle mainBundle], @"An iTerm2 Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@", @"Message that a runtime of a specific version must be downloaded; first %@ is the version, second %@ is an optional reason"),
+        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededVersionMessage", nil, [NSBundle mainBundle], @"A CryTerm Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@", @"Message that a runtime of a specific version must be downloaded; first %@ is the version, second %@ is an optional reason"),
                    pythonVersion, reason];
     } else {
-        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededMessage", nil, [NSBundle mainBundle], @"An iTerm2 Python Runtime must be downloaded to proceed.%@", @"Message that a runtime must be downloaded; %@ is an optional reason"),
+        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededMessage", nil, [NSBundle mainBundle], @"A CryTerm Python Runtime must be downloaded to proceed.%@", @"Message that a runtime must be downloaded; %@ is an optional reason"),
                    reason];
     }
     [iTermWarning showWarningWithTitle:message
@@ -947,7 +947,7 @@ static NSArray<NSString *> *iTermConvertThreePartVersionNumbersToTwoPart(NSArray
                 if (!pythonVersionToUse) {
                     RLog(@"Could not determine Python version");
                     completion([iTermPythonRuntimeDownloader errorWithCode:iTermInstallPythonStatusGeneralFailure
-                                                                    reason:@"Dependency installation failed: could not determine Python version. Please file a bug report at https://iterm2.com/bugs"]);
+                                                                    reason:@"Dependency installation failed: could not determine Python version. Please file a bug report at https://github.com/mikemackintosh/CryTerm/issues"]);
                     return;
                 }
                 if (createSetupCfg) {

@@ -182,7 +182,7 @@ final class AIChatWireLogger: NSObject {
         }
         fileHandle = handle
         logPath = path
-        let header = "# iTerm2 AI chat wire log, started "
+        let header = "# CryTerm AI chat wire log, started "
             + Self.iso8601.string(from: Date())
             + " pid \(ProcessInfo.processInfo.processIdentifier)\n\n"
         if let data = header.data(using: .utf8) {

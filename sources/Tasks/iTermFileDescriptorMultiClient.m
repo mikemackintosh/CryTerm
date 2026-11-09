@@ -793,7 +793,7 @@ static NSString *iTermMultiServerStringForMessageFromClient(iTermMultiServerClie
                                      accessory:nil
                                     identifier:nil
                                    silenceable:kiTermWarningTypePersistent
-                                       heading:NSLocalizedStringWithDefaultValue(@"MultiClient.DaemonStartFailed", nil, [NSBundle mainBundle], @"Problem Starting iTerm2 Daemon", @"Alert title shown when the iTerm2 daemon fails to start")
+                                       heading:NSLocalizedStringWithDefaultValue(@"MultiClient.DaemonStartFailed", nil, [NSBundle mainBundle], @"Problem Starting CryTerm Daemon", @"Alert title shown when the CryTerm daemon fails to start")
                                         window:nil];
         }];
     });
@@ -839,7 +839,7 @@ static NSString *iTermMultiServerStringForMessageFromClient(iTermMultiServerClie
     NSString *desiredPath = [self serverPath];
     if (!desiredPath) {
         [self showError:nil
-                message:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"MultiClient.NoWritableDirectory", nil, [NSBundle mainBundle], @"Neither ~/Library/Application Support/iTerm2 nor ~/.iterm2 are writable directories. This prevents the session restoration server from running. Please correct the problem and restart iTerm2.", @"Error shown when neither support directory is writable")]
+                message:[NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"MultiClient.NoWritableDirectory", nil, [NSBundle mainBundle], @"Neither ~/Library/Application Support/CryTerm nor ~/.iterm2 are writable directories. This prevents the session restoration server from running. Please correct the problem and restart CryTerm.", @"Error shown when neither support directory is writable")]
                  badURL:nil];
         return nil;
     }
@@ -857,9 +857,9 @@ static NSString *iTermMultiServerStringForMessageFromClient(iTermMultiServerClie
             dispatch_sync(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedStringWithDefaultValue(@"MultiClient.RequiredFileMissingTitle", nil, [NSBundle mainBundle], @"Required File Missing", @"Title of alert shown when iTermServer is missing from the bundle");
-                alert.informativeText = NSLocalizedStringWithDefaultValue(@"MultiClient.RequiredFileMissingBody", nil, [NSBundle mainBundle], @"The iTermServer executable is missing from the application bundle. This indicates iTerm2 is corrupted or incomplete. Please reinstall iTerm2 from the official website.", @"Body of alert shown when iTermServer is missing from the bundle");
+                alert.informativeText = NSLocalizedStringWithDefaultValue(@"MultiClient.RequiredFileMissingBody", nil, [NSBundle mainBundle], @"The iTermServer executable is missing from the application bundle. This indicates CryTerm is corrupted or incomplete. Please reinstall CryTerm from the official website.", @"Body of alert shown when iTermServer is missing from the bundle");
                 alert.alertStyle = NSAlertStyleCritical;
-                [alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"MultiClient.Quit", nil, [NSBundle mainBundle], @"Quit", @"Button to quit iTerm2 when a required file is missing")];
+                [alert addButtonWithTitle:NSLocalizedStringWithDefaultValue(@"MultiClient.Quit", nil, [NSBundle mainBundle], @"Quit", @"Button to quit CryTerm when a required file is missing")];
                 [alert runModal];
 
                 // Terminate the application

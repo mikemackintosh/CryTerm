@@ -21,43 +21,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2"
+            "value" : "CryTerm"
           }
         }
       }
@@ -69,43 +69,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte AppleScript verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte AppleScript verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use AppleScript."
+            "value" : "An application in CryTerm wants to use AppleScript."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがAppleScriptを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがAppleScriptを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 AppleScript를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 AppleScript를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar o AppleScript."
+            "value" : "Um aplicativo no CryTerm quer usar o AppleScript."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать AppleScript."
+            "value" : "Приложение в CryTerm хочет использовать AppleScript."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问 AppleScript。"
+            "value" : "CryTerm 想要访问 AppleScript。"
           }
         }
       }
@@ -117,43 +117,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte Bluetooth verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte Bluetooth verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use Bluetooth."
+            "value" : "An application in CryTerm wants to use Bluetooth."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがBluetoothを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがBluetoothを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 Bluetooth를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 Bluetooth를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar o Bluetooth."
+            "value" : "Um aplicativo no CryTerm quer usar o Bluetooth."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать Bluetooth."
+            "value" : "Приложение в CryTerm хочет использовать Bluetooth."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问蓝牙。"
+            "value" : "CryTerm 想要访问蓝牙。"
           }
         }
       }
@@ -165,43 +165,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte auf Kalenderdaten zugreifen."
+            "value" : "Eine Anwendung in CryTerm möchte auf Kalenderdaten zugreifen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use Calendar data."
+            "value" : "An application in CryTerm wants to use Calendar data."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがカレンダーのデータを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがカレンダーのデータを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 캘린더 데이터를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 캘린더 데이터를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar os dados do Calendário."
+            "value" : "Um aplicativo no CryTerm quer usar os dados do Calendário."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать данные календаря."
+            "value" : "Приложение в CryTerm хочет использовать данные календаря."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问日历数据。"
+            "value" : "CryTerm 想要访问日历数据。"
           }
         }
       }
@@ -213,43 +213,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte die Kamera verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte die Kamera verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use the camera."
+            "value" : "An application in CryTerm wants to use the camera."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがカメラを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがカメラを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 카메라를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 카메라를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar a câmera."
+            "value" : "Um aplicativo no CryTerm quer usar a câmera."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать камеру."
+            "value" : "Приложение в CryTerm хочет использовать камеру."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问相机。"
+            "value" : "CryTerm 想要访问相机。"
           }
         }
       }
@@ -261,43 +261,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte auf Ihre Kontakte zugreifen."
+            "value" : "Eine Anwendung in CryTerm möchte auf Ihre Kontakte zugreifen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your contacts."
+            "value" : "An application in CryTerm wants to use your contacts."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが連絡先を使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが連絡先を使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 사용자의 연락처를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 사용자의 연락처를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar seus contatos."
+            "value" : "Um aplicativo no CryTerm quer usar seus contatos."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать ваши контакты."
+            "value" : "Приложение в CryTerm хочет использовать ваши контакты."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问通讯录。"
+            "value" : "CryTerm 想要访问通讯录。"
           }
         }
       }
@@ -357,43 +357,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte auf das lokale Netzwerk zugreifen."
+            "value" : "Eine Anwendung in CryTerm möchte auf das lokale Netzwerk zugreifen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to access the local network."
+            "value" : "An application in CryTerm wants to access the local network."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがローカルネットワークにアクセスしようとしています。"
+            "value" : "CryTerm内のアプリケーションがローカルネットワークにアクセスしようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 로컬 네트워크에 접근하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 로컬 네트워크에 접근하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer acessar a rede local."
+            "value" : "Um aplicativo no CryTerm quer acessar a rede local."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет получить доступ к локальной сети."
+            "value" : "Приложение в CryTerm хочет получить доступ к локальной сети."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问本地网络。"
+            "value" : "CryTerm 想要访问本地网络。"
           }
         }
       }
@@ -405,43 +405,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte Ihre Standortinformationen verwenden, auch im Hintergrund."
+            "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden, auch im Hintergrund."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your location information, even in the background."
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが、バックグラウンドでも位置情報を使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが、バックグラウンドでも位置情報を使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 백그라운드에서도 사용자의 위치 정보를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 백그라운드에서도 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar suas informações de localização, mesmo em segundo plano."
+            "value" : "Um aplicativo no CryTerm quer usar suas informações de localização, mesmo em segundo plano."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать данные о вашем местоположении, даже в фоновом режиме."
+            "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении, даже в фоновом режиме."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问你的位置信息，即使在后台。"
+            "value" : "CryTerm 想要访问你的位置信息，即使在后台。"
           }
         }
       }
@@ -453,43 +453,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte Ihre Standortinformationen verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your location information."
+            "value" : "An application in CryTerm wants to use your location information."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが位置情報を使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが位置情報を使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 사용자의 위치 정보를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar suas informações de localização."
+            "value" : "Um aplicativo no CryTerm quer usar suas informações de localização."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать данные о вашем местоположении."
+            "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问你的位置信息。"
+            "value" : "CryTerm 想要访问你的位置信息。"
           }
         }
       }
@@ -501,43 +501,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte Ihre Standortinformationen verwenden, während sie aktiv ist."
+            "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden, während sie aktiv ist."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your location information while active."
+            "value" : "An application in CryTerm wants to use your location information while active."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが、アクティブなときに位置情報を使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが、アクティブなときに位置情報を使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 활성 상태일 때 사용자의 위치 정보를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 활성 상태일 때 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar suas informações de localização enquanto estiver ativo."
+            "value" : "Um aplicativo no CryTerm quer usar suas informações de localização enquanto estiver ativo."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать данные о вашем местоположении, пока оно активно."
+            "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении, пока оно активно."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要在活动时访问你的位置信息。"
+            "value" : "CryTerm 想要在活动时访问你的位置信息。"
           }
         }
       }
@@ -549,43 +549,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte Ihr Mikrofon verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte Ihr Mikrofon verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your microphone."
+            "value" : "An application in CryTerm wants to use your microphone."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがマイクを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがマイクを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 마이크를 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 마이크를 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar seu microfone."
+            "value" : "Um aplicativo no CryTerm quer usar seu microfone."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать ваш микрофон."
+            "value" : "Приложение в CryTerm хочет использовать ваш микрофон."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问麦克风。"
+            "value" : "CryTerm 想要访问麦克风。"
           }
         }
       }
@@ -597,43 +597,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte auf die Fotomediathek zugreifen."
+            "value" : "Eine Anwendung in CryTerm möchte auf die Fotomediathek zugreifen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use the photo library."
+            "value" : "An application in CryTerm wants to use the photo library."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが写真ライブラリを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが写真ライブラリを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 사진 보관함을 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 사진 보관함을 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar a fototeca."
+            "value" : "Um aplicativo no CryTerm quer usar a fototeca."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать фотобиблиотеку."
+            "value" : "Приложение в CryTerm хочет использовать фотобиблиотеку."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问照片图库。"
+            "value" : "CryTerm 想要访问照片图库。"
           }
         }
       }
@@ -645,43 +645,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte auf Ihre Erinnerungen zugreifen."
+            "value" : "Eine Anwendung in CryTerm möchte auf Ihre Erinnerungen zugreifen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use your reminders."
+            "value" : "An application in CryTerm wants to use your reminders."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションがリマインダーを使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションがリマインダーを使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 사용자의 미리 알림을 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 사용자의 미리 알림을 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar seus lembretes."
+            "value" : "Um aplicativo no CryTerm quer usar seus lembretes."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать ваши напоминания."
+            "value" : "Приложение в CryTerm хочет использовать ваши напоминания."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问提醒事项。"
+            "value" : "CryTerm 想要访问提醒事项。"
           }
         }
       }
@@ -693,43 +693,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Anwendung in iTerm2 möchte die Spracherkennung verwenden."
+            "value" : "Eine Anwendung in CryTerm möchte die Spracherkennung verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An application in iTerm2 wants to use speech recognition."
+            "value" : "An application in CryTerm wants to use speech recognition."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のアプリケーションが音声認識を使用しようとしています。"
+            "value" : "CryTerm内のアプリケーションが音声認識を使用しようとしています。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 응용 프로그램이 음성 인식을 사용하려고 합니다."
+            "value" : "CryTerm 안의 응용 프로그램이 음성 인식을 사용하려고 합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um aplicativo no iTerm2 quer usar o reconhecimento de fala."
+            "value" : "Um aplicativo no CryTerm quer usar o reconhecimento de fala."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приложение в iTerm2 хочет использовать распознавание речи."
+            "value" : "Приложение в CryTerm хочет использовать распознавание речи."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 想要访问语音识别。"
+            "value" : "CryTerm 想要访问语音识别。"
           }
         }
       }
@@ -741,43 +741,43 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der von einem Programm in iTerm2 ausgeführte Vorgang erfordert erweiterte Berechtigungen."
+            "value" : "Der von einem Programm in CryTerm ausgeführte Vorgang erfordert erweiterte Berechtigungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The operation being performed by a program in iTerm2 requires elevated permission."
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2内のプログラムが実行している操作には、管理者権限が必要です。"
+            "value" : "CryTerm内のプログラムが実行している操作には、管理者権限が必要です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 안의 프로그램이 수행하는 작업에 더 높은 권한이 필요합니다."
+            "value" : "CryTerm 안의 프로그램이 수행하는 작업에 더 높은 권한이 필요합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A operação sendo executada por um programa no iTerm2 requer permissão elevada."
+            "value" : "A operação sendo executada por um programa no CryTerm requer permissão elevada."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Операция, выполняемая программой в iTerm2, требует повышенных прав."
+            "value" : "Операция, выполняемая программой в CryTerm, требует повышенных прав."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2 中的程序正在执行的操作需要更高权限。"
+            "value" : "CryTerm 中的程序正在执行的操作需要更高权限。"
           }
         }
       }

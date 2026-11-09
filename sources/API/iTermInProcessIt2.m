@@ -123,7 +123,7 @@
         } else {
             *error = [NSError errorWithDomain:IT2ChannelDisconnect.domain
                                          code:IT2ChannelDisconnect.abortCode
-                                     userInfo:@{ NSLocalizedDescriptionKey: @"the iTerm2 API connection was closed" }];
+                                     userInfo:@{ NSLocalizedDescriptionKey: @"the CryTerm API connection was closed" }];
         }
     }
     return message;
@@ -182,7 +182,7 @@
             // and registration. Fail fast rather than run a command whose first receive
             // would block forever (the connection was never registered).
             DLog(@"iTermInProcessIt2: channel not registered (API disabled); aborting");
-            stderrBlock(@"The iTerm2 Python API is not enabled (Settings > General > Magic).");
+            stderrBlock(@"The CryTerm Python API is not enabled (Settings > General > Magic).");
             [channel disconnect];
             completion(2);
             return;

@@ -27,7 +27,7 @@ class iTermMacOS13RequirementNotice: NSObject {
             return
         }
         iTermWarning.show(
-            withTitle: String(localized: "MacOS13Notice.Message", defaultValue: "Future versions of iTerm2 will require macOS 13 (Ventura) or later. This is the last version that supports macOS 12. Sorry for the inconvenience!", comment: "Body of the notice warning macOS 12 users that a future version will require macOS 13"),
+            withTitle: String(localized: "MacOS13Notice.Message", defaultValue: "Future versions of CryTerm will require macOS 13 (Ventura) or later. This is the last version that supports macOS 12. Sorry for the inconvenience!", comment: "Body of the notice warning macOS 12 users that a future version will require macOS 13"),
             actions: [iTermLocalizedOK()],
             accessory: nil,
             // No identifier: this is a persistent (non-silenceable) warning, so

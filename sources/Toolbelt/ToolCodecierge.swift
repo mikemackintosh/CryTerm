@@ -691,7 +691,7 @@ class CodeciergeOnboardingView: NSView {
 
     private func updateEnabled() {
         if !iTermAdvancedSettingsModel.generativeAIAllowed() {
-            label.stringValue = String(localized: "Codecierge.AINotInThisBuild", defaultValue: "This build of iTerm2 doesn’t connect to AI services.", comment: "Message shown in Codecierge because this build never contacts AI services")
+            label.stringValue = String(localized: "Codecierge.AINotInThisBuild", defaultValue: "This build of CryTerm doesn’t connect to AI services.", comment: "Message shown in Codecierge because this build never contacts AI services")
             startButton.isEnabled = false
             startButton.isHidden = false
             revealButton.isHidden = true

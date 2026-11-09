@@ -431,7 +431,7 @@ respectingTimeoutSetting:(BOOL)respectingTimeoutSetting
     DLog(@"saveLocalUserDefaultsToRemotePrefs interactive=%@\n%@", @(interactive), [NSThread callStackSymbols]);
     if ([self remotePrefsHaveChanged]) {
         NSString *theTitle =
-            [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"RemotePreferences.RemoteChangedOverwritePrompt", nil, [NSBundle mainBundle], @"Settings at %@ changed since iTerm2 started. "
+            [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"RemotePreferences.RemoteChangedOverwritePrompt", nil, [NSBundle mainBundle], @"Settings at %@ changed since CryTerm started. "
                                        @"Overwrite it?", @"Prompt asking whether to overwrite remote settings that changed since launch; %@ is the folder or URL"),
                                        [self customFolderOrURL]];
         if ([iTermWarning showWarningWithTitle:theTitle actions:@[ NSLocalizedStringWithDefaultValue(@"RemotePreferences.Overwrite", nil, [NSBundle mainBundle], @"Overwrite", @"Button that overwrites the remote settings"),
@@ -457,7 +457,7 @@ respectingTimeoutSetting:(BOOL)respectingTimeoutSetting
     NSString *folder = [self expandedCustomFolderOrURL];
     if ([folder stringIsUrlLike]) {
         NSString *informativeText =
-            NSLocalizedStringWithDefaultValue(@"RemotePreferences.CannotCopyToURLDetail", nil, [NSBundle mainBundle], @"To make it available, first quit iTerm2 and then manually "
+            NSLocalizedStringWithDefaultValue(@"RemotePreferences.CannotCopyToURLDetail", nil, [NSBundle mainBundle], @"To make it available, first quit CryTerm and then manually "
             @"copy ~/Library/Preferences/com.googlecode.iterm2.plist to "
             @"your hosting provider.", @"Alert detail explaining that settings must be copied manually when the destination is a URL");
         [iTermWarning showWarningWithTitle:informativeText
@@ -896,7 +896,7 @@ static NSDictionary *iTermRemotePreferencesSave(NSDictionary *myDict, NSString *
         return NO;
     }
     NSString *title =
-        [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"RemotePreferences.SyncDataFilesPrompt", nil, [NSBundle mainBundle], @"iTerm2 can also keep your snippets, global notes, and session "
+        [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"RemotePreferences.SyncDataFilesPrompt", nil, [NSBundle mainBundle], @"CryTerm can also keep your snippets, global notes, and session "
                                    @"icon customizations in the settings folder “%@” so they sync "
                                    @"across machines. Notes and snippets can contain sensitive text "
                                    @"such as passwords or tokens. Sync them too?", @"Prompt asking whether to also sync data files to the settings folder; %@ is the folder path"),

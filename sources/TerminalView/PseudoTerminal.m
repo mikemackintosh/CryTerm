@@ -6001,6 +6001,16 @@ hidingToolbeltShouldResizeWindow:(BOOL)hidingToolbeltShouldResizeWindow
 }
 
 - (BOOL)tabBarAlwaysVisible {
+    // CryTerm: a left or right tab bar is the window's only tab control, so it never hides,
+    // even with one tab. "Hide tab bar when there is only one tab" applies to top and bottom.
+    switch ([iTermPreferences intForKey:kPreferenceKeyTabPosition]) {
+        case PSMTab_LeftTab:
+        case PSMTab_RightTab:
+            return YES;
+        case PSMTab_TopTab:
+        case PSMTab_BottomTab:
+            break;
+    }
     return ![iTermPreferences boolForKey:kPreferenceKeyHideTabBar];
 }
 
@@ -11013,8 +11023,8 @@ static CGFloat iTermDimmingAmount(PSMTabBarControl *tabView) {
 
 - (void)turnOnMetalCaptureInInfoPlist {
     const iTermWarningSelection selection =
-    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PseudoTerminal.RestartToEnableFeature", nil, [NSBundle mainBundle], @"You must restart iTerm2 to turn on this feature.", @"Warning shown when a feature requires restarting iTerm2")
-                               actions:@[ NSLocalizedStringWithDefaultValue(@"PseudoTerminal.RestartNow", nil, [NSBundle mainBundle], @"Restart Now", @"Button that restarts iTerm2 immediately"), iTermLocalizedCancel()]
+    [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"PseudoTerminal.RestartToEnableFeature", nil, [NSBundle mainBundle], @"You must restart CryTerm to turn on this feature.", @"Warning shown when a feature requires restarting CryTerm")
+                               actions:@[ NSLocalizedStringWithDefaultValue(@"PseudoTerminal.RestartNow", nil, [NSBundle mainBundle], @"Restart Now", @"Button that restarts CryTerm immediately"), iTermLocalizedCancel()]
                             identifier:@"RestartAfterMetalCaptureEnabled"
                            silenceable:kiTermWarningTypePersistent
                                 window:self.window];
@@ -14757,7 +14767,7 @@ typedef NS_ENUM(NSUInteger, iTermBroadcastCommand) {
                                                                 locale:[NSLocale currentLocale]];
 
     NSDate *now = [NSDate date];
-    NSString *suggestedFilename = [NSString stringWithFormat:@"iTerm2 Session %@ at %@.txt",
+    NSString *suggestedFilename = [NSString stringWithFormat:@"CryTerm Session %@ at %@.txt",
                                    [dateFormatter stringFromDate:now],
                                    [timeFormatter stringFromDate:now]];
     // The localized time format uses colons as separators (e.g. “1:49:43 PM”)

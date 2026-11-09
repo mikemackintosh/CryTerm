@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 
-<dictionary title="iTerm2 Terminology">
+<dictionary title="CryTerm Terminology">
   <suite name="Standard Suite" code="????" description="Common classes and commands for all applications."> 
     <enumeration name="save options" code="savo"> 
             <enumerator name="yes" code="yes " description="Save the file."/> 
@@ -204,7 +204,7 @@
     </class> 
   </suite> 
 
-  <suite name="iTerm2 Suite" code="Itrm" description="Classes just for the iTerm2 application.">
+  <suite name="CryTerm Suite" code="Itrm" description="Classes just for the CryTerm application.">
     <command name="close" code="coreclos" description="Close a document.">
       <cocoa class="NSCloseCommand"/>
       <direct-parameter type="specifier"

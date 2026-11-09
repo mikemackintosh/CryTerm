@@ -122,7 +122,7 @@ static NSString *const kPermissionToShowTip = @"NoSyncPermissionToShowTip";
 - (void)askForPermission {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = NSLocalizedStringWithDefaultValue(@"TipController.PermissionMessage", nil, [NSBundle mainBundle], @"See Tips of the Day?", @"Alert title asking permission to show Tip of the Day messages.");
-    alert.informativeText = NSLocalizedStringWithDefaultValue(@"TipController.PermissionInformative", nil, [NSBundle mainBundle], @"iTerm2 can show you a Tip of the Day message to help you learn about its many features. Are you interested?", @"Explanatory text for the alert asking permission to show Tip of the Day messages.");
+    alert.informativeText = NSLocalizedStringWithDefaultValue(@"TipController.PermissionInformative", nil, [NSBundle mainBundle], @"CryTerm can show you a Tip of the Day message to help you learn about its many features. Are you interested?", @"Explanatory text for the alert asking permission to show Tip of the Day messages.");
     [alert addButtonWithTitle:iTermLocalizedYes()];
     [alert addButtonWithTitle:iTermLocalizedNo()];
     BOOL havePermission = ([alert runModal] == NSAlertFirstButtonReturn);

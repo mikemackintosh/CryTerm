@@ -25,6 +25,11 @@
     return [testingFeed containsString:@"testing3.xml"];
 }
 
++ (BOOL)it_hasSoftwareUpdateFeed {
+    NSString *finalFeed = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SUFeedURLForFinal"];
+    return [finalFeed isKindOfClass:[NSString class]] && finalFeed.length > 0;
+}
+
 + (NSDate *)it_buildDate {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];

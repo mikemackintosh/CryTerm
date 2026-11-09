@@ -21,7 +21,7 @@ enum NerdFontInstallerError: LocalizedError {
         case .missingFonts(let names):
             let list = names.joined(separator: ", ")
             return String(localized: "NerdFontInstaller.MissingFontsNoDownload",
-                          defaultValue: "The Nerd Font Bundle needs these fonts, which aren’t installed: \(list). Install them yourself, then try again. iTerm2 doesn’t download fonts.",
+                          defaultValue: "The Nerd Font Bundle needs these fonts, which aren’t installed: \(list). Install them yourself, then try again. CryTerm doesn’t download fonts.",
                           comment: "Error shown when fonts the Nerd Font Bundle needs are missing; the placeholder is a comma-separated list of font names")
         }
     }

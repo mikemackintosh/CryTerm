@@ -95,7 +95,7 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
     private func confirmAndUninstall(settingsPath: String, hosts: [String]) {
         let confirm = iTermWarning()
         confirm.heading = String(localized: "ClaudeCode.UninstallTitle", defaultValue: "Uninstall Claude Code Integration?", comment: "Title of the uninstall confirmation dialog")
-        var lines = [String(localized: "ClaudeCode.UninstallBody", defaultValue: "This removes iTerm2\u{2019}s status hook from \(settingsPath), the Claude Code workgroup from your settings, and the Enter/Exit Workgroup triggers from every profile. You can set up the integration again any time from the iTerm2 menu.", comment: "Explanation of what uninstalling the Claude Code integration does; the interpolated value is the absolute path to settings.json")]
+        var lines = [String(localized: "ClaudeCode.UninstallBody", defaultValue: "This removes CryTerm\u{2019}s status hook from \(settingsPath), the Claude Code workgroup from your settings, and the Enter/Exit Workgroup triggers from every profile. You can set up the integration again any time from the CryTerm menu.", comment: "Explanation of what uninstalling the Claude Code integration does; the interpolated value is the absolute path to settings.json")]
         for host in hosts {
             lines.append(String(localized: "ClaudeCode.UninstallConnectedHost", defaultValue: "It also removes the hook from Claude Code\u{2019}s settings on \(host), if it\u{2019}s there.", comment: "Line of the uninstall confirmation for a host connected through SSH Integration, whose settings will be checked and cleaned up; the value is the host"))
         }
@@ -155,7 +155,7 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
     @MainActor
     private func askWhetherToStopAllowing(_ host: String) -> Bool {
         let warning = iTermWarning()
-        warning.heading = String(localized: "ClaudeCode.StopAllowingHostTitle", defaultValue: "Also Stop Always Allowing \(host) to Use the iTerm2 API?", comment: "Title of the question asked when uninstalling the Claude Code integration from a host that is always allowed to use the API; the value is the host")
+        warning.heading = String(localized: "ClaudeCode.StopAllowingHostTitle", defaultValue: "Also Stop Always Allowing \(host) to Use the CryTerm API?", comment: "Title of the question asked when uninstalling the Claude Code integration from a host that is always allowed to use the API; the value is the host")
         warning.title = String(localized: "ClaudeCode.StopAllowingHostBody", defaultValue: "Other uses of it2 on \(host) may rely on it. You can also change this later in Settings > General > Magic > API access over ssh.", comment: "Body of the question asked when uninstalling the Claude Code integration from an always-allowed host; the value is the host")
         warning.actionLabels = [String(localized: "ClaudeCode.StopAllowing", defaultValue: "Stop Allowing", comment: "Button that revokes a remote host\u{2019}s always-allow grant during uninstall"),
                                 String(localized: "ClaudeCode.KeepAllowing", defaultValue: "Keep Allowing", comment: "Button that keeps a remote host\u{2019}s always-allow grant during uninstall")]
@@ -196,9 +196,9 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
         case .writeFailed:
             return String(localized: "ClaudeCode.RemoteHookWriteFailed", defaultValue: "Couldn\u{2019}t write Claude Code\u{2019}s settings on \(host).", comment: "Detail shown when the Claude Code settings on a remote host could not be written during uninstall; the value is the host")
         case .hostIdentityUnknown:
-            return String(localized: "ClaudeCode.RemoteHookIdentityUnknown", defaultValue: "iTerm2 couldn\u{2019}t tell whether \(host) is this Mac, so it left Claude Code\u{2019}s settings there unchanged.", comment: "Detail shown during uninstall when iTerm2 could not determine whether a remote host is this Mac, so it made no changes there; the value is the host")
+            return String(localized: "ClaudeCode.RemoteHookIdentityUnknown", defaultValue: "CryTerm couldn\u{2019}t tell whether \(host) is this Mac, so it left Claude Code\u{2019}s settings there unchanged.", comment: "Detail shown during uninstall when CryTerm could not determine whether a remote host is this Mac, so it made no changes there; the value is the host")
         case .hostNotResponding:
-            return String(localized: "ClaudeCode.RemoteHookNotResponding", defaultValue: "\(host) didn\u{2019}t respond, so iTerm2 left Claude Code\u{2019}s settings there unchanged.", comment: "Detail shown during uninstall when a remote host reached through SSH Integration did not answer in time, so no changes were made there; the value is the host")
+            return String(localized: "ClaudeCode.RemoteHookNotResponding", defaultValue: "\(host) didn\u{2019}t respond, so CryTerm left Claude Code\u{2019}s settings there unchanged.", comment: "Detail shown during uninstall when a remote host reached through SSH Integration did not answer in time, so no changes were made there; the value is the host")
         case .unreadable, .success:
             return String(localized: "ClaudeCode.RemoteHookUnreadable", defaultValue: "Couldn\u{2019}t read Claude Code\u{2019}s settings on \(host).", comment: "Detail shown when the Claude Code settings on a remote host could not be read, or the host disconnected, during uninstall; the value is the host")
         @unknown default:
@@ -237,7 +237,7 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
             let failure = iTermWarning()
             failure.heading = String(localized: "ClaudeCode.HookRemovalFailedTitle", defaultValue: "Couldn\u{2019}t Remove Hooks", comment: "Title shown when Claude Code hook removal failed")
             let joinedDetails = details.joined(separator: "\n")
-            failure.title = String(localized: "ClaudeCode.HookRemovalFailedBody", defaultValue: "\(joinedDetails) Continue removing the workgroup and triggers anyway? iTerm2\u{2019}s status hook will keep running until you fix the underlying issue and try again.", comment: "Body shown when hook removal failed, asking whether to continue uninstalling")
+            failure.title = String(localized: "ClaudeCode.HookRemovalFailedBody", defaultValue: "\(joinedDetails) Continue removing the workgroup and triggers anyway? CryTerm\u{2019}s status hook will keep running until you fix the underlying issue and try again.", comment: "Body shown when hook removal failed, asking whether to continue uninstalling")
             failure.actionLabels = [String(localized: "General.Continue", defaultValue: "Continue", comment: "Continue button"),
                                     iTermLocalizedCancel()]
             failure.cancelLabel = iTermLocalizedCancel()
@@ -263,7 +263,7 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
         if iTermAPIHelper.isEnabled() {
             let apiAlert = iTermWarning()
             apiAlert.heading = String(localized: "ClaudeCode.DisableAPITitle", defaultValue: "Disable the Python API?", comment: "Title asking whether to disable the Python API during uninstall")
-            apiAlert.title = String(localized: "ClaudeCode.DisableAPIBody", defaultValue: "The installer enabled iTerm2\u{2019}s Python API. Other scripts or integrations may be using it now. Leave it enabled, or turn it off?", comment: "Explanation shown when asking whether to disable the Python API during uninstall")
+            apiAlert.title = String(localized: "ClaudeCode.DisableAPIBody", defaultValue: "The installer enabled CryTerm\u{2019}s Python API. Other scripts or integrations may be using it now. Leave it enabled, or turn it off?", comment: "Explanation shown when asking whether to disable the Python API during uninstall")
             apiAlert.actionLabels = [String(localized: "ClaudeCode.LeaveEnabled", defaultValue: "Leave Enabled", comment: "Button to leave the Python API enabled"),
                                      String(localized: "ClaudeCode.Disable", defaultValue: "Disable", comment: "Button to disable the Python API")]
             apiAlert.warningType = .kiTermWarningTypePersistent
@@ -289,7 +289,7 @@ final class ClaudeCodeIntegrationMenuController: NSObject {
         let commands = kept.joined(separator: "\n")
         let warning = iTermWarning()
         warning.heading = String(localized: "ClaudeCode.HookCommandsKeptTitle", defaultValue: "Some Hooks Were Left in Place", comment: "Title shown after uninstalling when some Claude Code hook commands were not removed")
-        warning.title = String(localized: "ClaudeCode.HookCommandsKeptBody", defaultValue: "Some hook commands in \(settingsPath) refer to iTerm2\u{2019}s status hook but also run other programs, so Uninstall didn\u{2019}t remove them. If you don\u{2019}t want them anymore, edit the file by hand:\n\n\(commands)", comment: "Body shown after uninstalling when some Claude Code hook commands were not removed. The first interpolated value is the absolute path to settings.json; the second is the list of hook commands, one per line, shown verbatim")
+        warning.title = String(localized: "ClaudeCode.HookCommandsKeptBody", defaultValue: "Some hook commands in \(settingsPath) refer to CryTerm\u{2019}s status hook but also run other programs, so Uninstall didn\u{2019}t remove them. If you don\u{2019}t want them anymore, edit the file by hand:\n\n\(commands)", comment: "Body shown after uninstalling when some Claude Code hook commands were not removed. The first interpolated value is the absolute path to settings.json; the second is the list of hook commands, one per line, shown verbatim")
         warning.actionLabels = [iTermLocalizedOK()]
         warning.warningType = .kiTermWarningTypePersistent
         warning.runModal()

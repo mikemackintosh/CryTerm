@@ -179,7 +179,7 @@ const CGFloat sideMarginWidth = 40;
             case KEY_ACTION_REMAP_LOCALLY:
                 _shortcutFieldDisableKeyRemapping = YES;
                 _parameterValue = @"";
-                _helpString = NSLocalizedStringWithDefaultValue(@"EditKeyAction.HelpRemapLocally", nil, [NSBundle mainBundle], @"This action applies modifier remapping but prevents other programs from seeing the keystroke. For example, if you've swapped ⌘ and ^ and want physical ^-tab to switch tabs in iTerm2 instead of triggering the app switcher: bind ^-tab to this action. The system won't see the remapped ⌘-tab (so no app switcher), but iTerm2 receives it and can switch tabs.", @"Help text for the Remap Modifiers in iTerm2 Only action");
+                _helpString = NSLocalizedStringWithDefaultValue(@"EditKeyAction.HelpRemapLocally", nil, [NSBundle mainBundle], @"This action applies modifier remapping but prevents other programs from seeing the keystroke. For example, if you've swapped ⌘ and ^ and want physical ^-tab to switch tabs in CryTerm instead of triggering the app switcher: bind ^-tab to this action. The system won't see the remapped ⌘-tab (so no app switcher), but CryTerm receives it and can switch tabs.", @"Help text for the Remap Modifiers in CryTerm Only action");
                 _parameterValue = @"";
                 break;
 
@@ -188,7 +188,7 @@ const CGFloat sideMarginWidth = 40;
                 break;
 
             case KEY_ACTION_IGNORE:
-                _helpString = NSLocalizedStringWithDefaultValue(@"EditKeyAction.HelpIgnore", nil, [NSBundle mainBundle], @"Prevents the keystroke from having any effect within iTerm2. Modifier remapping remains unaffected.", @"Help text for the Ignore action");
+                _helpString = NSLocalizedStringWithDefaultValue(@"EditKeyAction.HelpIgnore", nil, [NSBundle mainBundle], @"Prevents the keystroke from having any effect within CryTerm. Modifier remapping remains unaffected.", @"Help text for the Ignore action");
                 break;
 
             case KEY_ACTION_NEXT_MRU_TAB:
@@ -369,7 +369,7 @@ const CGFloat sideMarginWidth = 40;
         groups = [groups arrayByAddingObjectsFromArray:[@[
             primary ? [[iTermSearchableComboViewGroup alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.GroupModifierRemapping", nil, [NSBundle mainBundle], @"Modifier Remapping", @"Action group: Modifier Remapping") items:@[
                 [[iTermSearchableComboViewItem alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.ActionDoNotRemapModifiers", nil, [NSBundle mainBundle], @"Do Not Remap Modifiers", @"Action name: Do Not Remap Modifiers") tag:KEY_ACTION_DO_NOT_REMAP_MODIFIERS],
-                [[iTermSearchableComboViewItem alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.ActionRemapLocally", nil, [NSBundle mainBundle], @"Remap Modifiers in iTerm2 Only", @"Action name: Remap Modifiers in iTerm2 Only") tag:KEY_ACTION_REMAP_LOCALLY],
+                [[iTermSearchableComboViewItem alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.ActionRemapLocally", nil, [NSBundle mainBundle], @"Remap Modifiers in CryTerm Only", @"Action name: Remap Modifiers in CryTerm Only") tag:KEY_ACTION_REMAP_LOCALLY],
             ]] : [NSNull null],
             [[iTermSearchableComboViewGroup alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.GroupRecentTabs", nil, [NSBundle mainBundle], @"Recent Tabs", @"Action group: Recent Tabs") items:@[
                 [[iTermSearchableComboViewItem alloc] initWithLabel:NSLocalizedStringWithDefaultValue(@"EditKeyAction.ActionCycleTabsForward", nil, [NSBundle mainBundle], @"Cycle Tabs Forward", @"Action name: Cycle Tabs Forward") tag:KEY_ACTION_NEXT_MRU_TAB],
