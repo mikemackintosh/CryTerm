@@ -267,7 +267,7 @@ NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidCha
                    relatedView:nil
                           type:kPreferenceInfoTypeCheckbox];
     info.customSettingChangedHandler = ^(id sender) {
-        BOOL isOn = [sender state] == NSControlStateValueOn;
+        BOOL isOn = [(NSButton *)sender state] == NSControlStateValueOn;
         BOOL didChange = NO;
         if (isOn) {
             iTermWarningSelection selection =
