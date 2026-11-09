@@ -106,6 +106,7 @@ NSString *const kPreferenceKeyBidi = @"Bidi";  // Bool
 NSString *const kPreferenceKeySshIntegrationForURLs = @"SshIntegrationForURLs";  // Bool
 
 NSString *const kPreferenceKeyTabStyle = @"TabStyleWithAutomaticOption";  // Pre-10.14
+NSString *const kPreferenceKeyAppIcon = @"CryTermAppIcon";
 NSString *const kPreferenceKeyTabPosition = @"TabViewType";
 NSString *const kPreferenceKeyStatusBarPosition = @"StatusBarPosition";
 NSString *const kPreferenceKeySideMargins = @"TerminalMargin";
@@ -821,6 +822,7 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyAIPermissionActInWebBrowser: @(iTermAIPermissionAsk),
 
                   kPreferenceKeyTabStyle: @(TAB_STYLE_LIGHT),
+                  kPreferenceKeyAppIcon: @0,
                   
                   kPreferenceKeyTabPosition: @(TAB_POSITION_TOP),
                   kPreferenceKeyStatusBarPosition: @(iTermStatusBarPositionTop),

@@ -1595,6 +1595,8 @@ void TurnOnDebugLoggingAutomatically(void) {
 
     // When running an isolated instance via -suite, overlay the suite name on
     // the dock icon so it's obvious which instance this dock icon belongs to.
+    // Before the suite overlay, which draws whatever icon is current.
+    [iTermAppIconController applyAtLaunch];
     [iTermSuiteDockTileView configureDockTileIfNeeded];
     [[iTermFlowControlMonitor instance] start];
 

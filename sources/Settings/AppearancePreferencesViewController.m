@@ -14,6 +14,7 @@
 #import "iTermFunctionCallTextFieldDelegate.h"
 #import "iTermVariableHistory.h"
 #import "iTermWarning.h"
+#import "iTerm2SharedARC-Swift.h"
 #import "PreferencePanel.h"
 
 NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidChangeNotification";
@@ -25,6 +26,10 @@ NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidCha
     // This is actually the tab style. See TAB_STYLE_XXX defines.
     IBOutlet NSPopUpButton *_tabStyle;
     IBOutlet NSTextField *_tabStyleLabel;
+
+    // CryTerm: Dock icon color.
+    IBOutlet NSPopUpButton *_appIcon;
+    IBOutlet NSTextField *_appIconLabel;
 
     // Tab position within window. See TAB_POSITION_XXX defines.
     IBOutlet NSPopUpButton *_tabPosition;
@@ -156,6 +161,12 @@ NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidCha
         return [weakSelf unsignedIntegerForKey:kPreferenceKeyTabStyle] == TAB_STYLE_AUTOMATIC;
     };
     [self updateNonDefaultIndicatorVisibleForInfo:info];
+
+    info = [self defineControl:_appIcon
+                           key:kPreferenceKeyAppIcon
+                   relatedView:_appIconLabel
+                          type:kPreferenceInfoTypePopup];
+    info.onChange = ^{ [iTermAppIconController settingDidChange]; };
 
     info = [self defineControl:_sideMargins
                            key:kPreferenceKeySideMargins
