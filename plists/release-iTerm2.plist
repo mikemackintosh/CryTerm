@@ -412,6 +412,16 @@
         <key>NSSupportsAutomaticGraphicsSwitching</key>
         <true/>
         <key>SUEnableAutomaticChecks</key>
-        <false/>
+        <true/>
+        <key>SUScheduledCheckInterval</key>
+        <integer>86400</integer>
+        <key>SUPublicEDKey</key>
+        <string>GW/djed2RMP2WdKupDR39eUAK4PkIijBOkLyR58WOb4=</string>
+        <key>SUFeedURLForFinal</key>
+        <string>https://github.com/mikemackintosh/CryTerm/releases/download/appcast/appcast.xml</string>
+        <key>SUFeedURLForTesting</key>
+        <string>https://github.com/mikemackintosh/CryTerm/releases/download/appcast/appcast.xml</string>
+        <key>SUFeedURL</key>
+        <string>https://github.com/mikemackintosh/CryTerm/releases/download/appcast/appcast.xml</string>
 </dict>
 </plist>

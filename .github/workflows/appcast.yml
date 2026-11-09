@@ -1,0 +1,73 @@
+# Publishes CryTerm's Sparkle update feed when a release is published.
+#
+# The feed lives at a fixed URL, the appcast.xml asset of the "appcast" release:
+#   https://github.com/mikemackintosh/CryTerm/releases/download/appcast/appcast.xml
+# It changes only after the new release's DMG passes every check in
+# tools/release/verify_notarized_dmg.sh (signed by our team, notarized and
+# stapled, accepted by Gatekeeper, right bundle ID and version). If any check
+# fails, this job fails and the previous feed stays in place, so nobody is
+# offered the release. Drafts and pre-releases never update the feed.
+name: Publish update feed
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: appcast
+  cancel-in-progress: false
+
+jobs:
+  appcast:
+    if: github.event.release.tag_name != 'appcast' && !github.event.release.prerelease && !github.event.release.draft
+    runs-on: macos-15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.event.release.tag_name }}
+      NOTES_URL: ${{ github.event.release.html_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools/release
+            tools/sparkle
+
+      - name: Turn on Gatekeeper assessments
+        run: |
+          sudo spctl --global-enable
+          spctl --status
+
+      - name: Download the release DMG
+        run: |
+          VERSION="${TAG#v}"
+          DMG="CryTerm-$VERSION.dmg"
+          mkdir dist
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$DMG" --dir dist
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "DMG=$DMG" >> "$GITHUB_ENV"
+
+      - name: Verify the DMG is notarized and is the right app
+        working-directory: dist
+        run: VERIFY_OUTPUT="$GITHUB_ENV" ../tools/release/verify_notarized_dmg.sh "$DMG" "$VERSION"
+
+      - name: Sign the DMG and write the appcast
+        env:
+          SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+        run: |
+          tools/release/make_appcast.sh "dist/$DMG" \
+            "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/$DMG" \
+            "$NOTES_URL" dist/appcast.xml
+          cat dist/appcast.xml
+
+      - name: Publish the appcast
+        run: |
+          if ! gh release view appcast --repo "$GITHUB_REPOSITORY" > /dev/null; then
+            gh release create appcast --repo "$GITHUB_REPOSITORY" --prerelease \
+              --title "Update feed" \
+              --notes "CryTerm’s automatic-update feed. Updated by the Publish update feed workflow; do not edit by hand." \
+              --target "$GITHUB_SHA"
+          fi
+          gh release upload appcast dist/appcast.xml --repo "$GITHUB_REPOSITORY" --clobber
