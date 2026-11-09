@@ -179,7 +179,7 @@ static NSString *const iTermInstallStagingPrefix = @".installing-";
         return;
     }
     if (requireSignature) {
-        completion(nil, NSLocalizedStringWithDefaultValue(@"ScriptImporter.NotValidArchive", nil, [NSBundle mainBundle], @"This is not a valid CryTerm script archive.", @"Error shown when a file offered for import is not an CryTerm script archive"), NO, NO, NO);
+        completion(nil, NSLocalizedStringWithDefaultValue(@"ScriptImporter.NotValidArchive", nil, [NSBundle mainBundle], @"This is not a valid CryTerm script archive.", @"Error shown when a file offered for import is not a CryTerm script archive"), NO, NO, NO);
         return;
     }
     completion(url, nil, NO, NO, NO);

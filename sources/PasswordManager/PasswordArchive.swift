@@ -51,7 +51,7 @@ enum PasswordArchiveError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .notAPasswordArchive:
-            return String(localized: "PasswordArchive.NotAnArchive", defaultValue: "This is not an CryTerm passwords file.", comment: "Error shown when importing a file that is not a password export")
+            return String(localized: "PasswordArchive.NotAnArchive", defaultValue: "This is not a CryTerm passwords file.", comment: "Error shown when importing a file that is not a password export")
         case .wrongPassphraseOrDamaged:
             return String(localized: "PasswordArchive.WrongPassphrase", defaultValue: "The passphrase is incorrect, or the file is damaged.", comment: "Error shown when an encrypted password export can't be decrypted")
         case .unsupportedVersion:

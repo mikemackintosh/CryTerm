@@ -36799,7 +36799,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Command to view man pages.\nUsed when you press the man page button on the touch bar. %@ is replaced with the command. End the command with & to avoid opening an CryTerm window (e.g., if you're launching an external viewer)."
+            "value" : "Command to view man pages.\nUsed when you press the man page button on the touch bar. %@ is replaced with the command. End the command with & to avoid opening a CryTerm window (e.g., if you're launching an external viewer)."
           }
         },
         "ja" : {
@@ -39223,7 +39223,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "When CryTerm is excluded from the dock, you can always get back to Preferences using the status bar item. Look for an CryTerm icon on the right side of your menu bar."
+            "value" : "When CryTerm is excluded from the dock, you can always get back to Preferences using the status bar item. Look for a CryTerm icon on the right side of your menu bar."
           }
         },
         "ja" : {
@@ -62377,7 +62377,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Code auf %1$@ meldet seinen Status über die iTerm2-API an CryTerm.\n\nWenn Sie %2$@ immer erlauben, kann jedes Programm, das auf diesem Host unter Ihrem Benutzer läuft, Ihre Terminalsitzungen sehen und steuern, ihren Inhalt lesen und darin tippen, ohne nachzufragen, bei dieser und jeder künftigen Verbindung.\n\nWenn Sie „Bei jeder Verbindung fragen“ wählen, fragt CryTerm bei jeder neuen Verbindung nach, wenn Claude Code zum ersten Mal einen Status meldet.\n\nSie können einem Host die dauerhafte Erlaubnis unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH wieder entziehen."
+            "value" : "Claude Code auf %1$@ meldet seinen Status über die iTerm2-API a CryTerm.\n\nWenn Sie %2$@ immer erlauben, kann jedes Programm, das auf diesem Host unter Ihrem Benutzer läuft, Ihre Terminalsitzungen sehen und steuern, ihren Inhalt lesen und darin tippen, ohne nachzufragen, bei dieser und jeder künftigen Verbindung.\n\nWenn Sie „Bei jeder Verbindung fragen“ wählen, fragt CryTerm bei jeder neuen Verbindung nach, wenn Claude Code zum ersten Mal einen Status meldet.\n\nSie können einem Host die dauerhafte Erlaubnis unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH wieder entziehen."
           }
         },
         "en" : {
@@ -64927,7 +64927,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "• CryTerm’s Python API is enabled\n• An CryTerm status hook is added to ~/.claude/settings.json\n• The toolbelt is shown\n• A Claude Code workgroup is added to CryTerm’s settings\n• Enter/Exit Workgroup triggers are added to the profiles you pick"
+            "value" : "• CryTerm’s Python API is enabled\n• A CryTerm status hook is added to ~/.claude/settings.json\n• The toolbelt is shown\n• A Claude Code workgroup is added to CryTerm’s settings\n• Enter/Exit Workgroup triggers are added to the profiles you pick"
           }
         },
         "ja" : {
@@ -154268,7 +154268,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This is not an CryTerm passwords file."
+            "value" : "This is not a CryTerm passwords file."
           }
         },
         "ja" : {
@@ -182617,7 +182617,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An CryTerm Python Runtime must be downloaded to proceed.%@"
+            "value" : "A CryTerm Python Runtime must be downloaded to proceed.%@"
           }
         },
         "ja" : {
@@ -182665,7 +182665,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "An CryTerm Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@"
+            "value" : "A CryTerm Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@"
           }
         },
         "ja" : {
@@ -199150,7 +199150,7 @@
       }
     },
     "ScriptImporter.NotValidArchive" : {
-      "comment" : "Error shown when a file offered for import is not an CryTerm script archive",
+      "comment" : "Error shown when a file offered for import is not a CryTerm script archive",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {

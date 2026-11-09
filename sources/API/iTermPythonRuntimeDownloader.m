@@ -419,10 +419,10 @@ NSString *const iTermPythonRuntimeDownloaderDidInstallRuntimeNotification = @"iT
 
     NSString *message;
     if (pythonVersion) {
-        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededVersionMessage", nil, [NSBundle mainBundle], @"An CryTerm Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@", @"Message that a runtime of a specific version must be downloaded; first %@ is the version, second %@ is an optional reason"),
+        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededVersionMessage", nil, [NSBundle mainBundle], @"A CryTerm Python Runtime with Python version %1$@ must be downloaded to proceed.%2$@", @"Message that a runtime of a specific version must be downloaded; first %@ is the version, second %@ is an optional reason"),
                    pythonVersion, reason];
     } else {
-        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededMessage", nil, [NSBundle mainBundle], @"An CryTerm Python Runtime must be downloaded to proceed.%@", @"Message that a runtime must be downloaded; %@ is an optional reason"),
+        message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"PythonRuntimeDownloader.RuntimeNeededMessage", nil, [NSBundle mainBundle], @"A CryTerm Python Runtime must be downloaded to proceed.%@", @"Message that a runtime must be downloaded; %@ is an optional reason"),
                    reason];
     }
     [iTermWarning showWarningWithTitle:message

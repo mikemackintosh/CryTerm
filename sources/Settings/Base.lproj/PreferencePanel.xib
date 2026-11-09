@@ -9021,7 +9021,7 @@ You can choose to define the characters considered part of a word with a regular
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Abh-LD-N61">
                                                 <rect key="frame" x="254" y="49" width="555" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                <string key="toolTip">Shows an CryTerm icon in the menu bar, followed by the text below. It is always shown while CryTerm is excluded from the Dock so you can get back to Settings.</string>
+                                                <string key="toolTip">Shows a CryTerm icon in the menu bar, followed by the text below. It is always shown while CryTerm is excluded from the Dock so you can get back to Settings.</string>
                                                 <buttonCell key="cell" type="check" title="Show menu bar icon" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="7MO-8Z-Pic">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>

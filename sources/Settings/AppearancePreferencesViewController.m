@@ -262,7 +262,7 @@ NSString *const iTermProcessTypeDidChangeNotification = @"iTermProcessTypeDidCha
             iTermWarningSelection selection =
                 [iTermWarning showWarningWithTitle:NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockWarning", nil, [NSBundle mainBundle], @"When CryTerm is excluded from the dock, you can "
                                                    @"always get back to Preferences using the status "
-                                                   @"bar item. Look for an CryTerm icon on the right "
+                                                   @"bar item. Look for a CryTerm icon on the right "
                                                    @"side of your menu bar.", @"Warning shown when the user excludes CryTerm from the Dock and app switcher")
                                            actions:@[ NSLocalizedStringWithDefaultValue(@"Appearance.ExcludeFromDockAction", nil, [NSBundle mainBundle], @"Exclude From Dock and App Switcher", @"Button confirming exclusion of CryTerm from the Dock and app switcher"), iTermLocalizedCancel() ]
                                         identifier:nil
