@@ -141,7 +141,10 @@ static iTermController *gSharedInstance;
     if (self) {
         // A test host would offer to report any recent iTerm2 crash in a modal window, which
         // blocks button and menu actions in the tests that follow.
-        if (![NSApp isRunningUnitTests]) {
+        // Crash reports are sent to iterm2.com, so only upstream iTerm2 builds offer to send
+        // them; a rebranded fork (CryTerm) must not report its crashes to iTerm2's developer.
+        const BOOL upstreamBuild = [[[NSBundle mainBundle] bundleIdentifier] hasPrefix:@"com.googlecode.iterm2"];
+        if (![NSApp isRunningUnitTests] && upstreamBuild) {
             UKCrashReporterCheckForCrash();
         }
 

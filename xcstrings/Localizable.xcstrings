@@ -290,7 +290,7 @@
       }
     },
     "AIConnectionTester.GatewayKeyWithheldHint" : {
-      "comment" : "Advice shown when a request to a third-party AI gateway fails because iTerm2 did not send an API key; “Manage AI Models” is the name of a settings window, and “API key” and “Custom headers” are labels in its model editor",
+      "comment" : "Advice shown when a request to a third-party AI gateway fails because CryTerm did not send an API key; “Manage AI Models” is the name of a settings window, and “API key” and “Custom headers” are labels in its model editor",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -1010,7 +1010,7 @@
       }
     },
     "AIKeyHint.SelfHosted" : {
-      "comment" : "Hint shown when the model URL is on the local network, where iTerm2 withholds the API key",
+      "comment" : "Hint shown when the model URL is on the local network, where CryTerm withholds the API key",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -5419,7 +5419,7 @@
       }
     },
     "AIPluginClient.VersionMismatch" : {
-      "comment" : "Error message when the AI plugin version does not match the version iTerm2 expects",
+      "comment" : "Error message when the AI plugin version does not match the version CryTerm expects",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -5467,7 +5467,7 @@
       }
     },
     "AIPluginClient.VersionUnknown" : {
-      "comment" : "Error message when iTerm2 cannot determine the AI plugin version",
+      "comment" : "Error message when CryTerm cannot determine the AI plugin version",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -9504,6 +9504,18 @@
         }
       }
     },
+    "AboutWindow.BasedOnITerm2" : {
+      "comment" : "Attribution line in the about window. Keep the product names CryTerm and iTerm2 and the person’s name untranslated.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\n\nCryTerm is a modified version of iTerm2 by George Nachman and contributors."
+          }
+        }
+      }
+    },
     "AboutWindow.BuildVersion" : {
       "comment" : "Build version line in the about window; placeholder is the build number",
       "extractionState" : "extracted_with_value",
@@ -9649,7 +9661,7 @@
       }
     },
     "AboutWindow.HomePage" : {
-      "comment" : "Link title in the about window that opens the iTerm2 home page",
+      "comment" : "Link title in the about window that opens the CryTerm home page",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -9692,6 +9704,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "主页"
+          }
+        }
+      }
+    },
+    "AboutWindow.License" : {
+      "comment" : "Link title in the about window that opens the license",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "\nLicensed under the GNU General Public License v2 or later."
           }
         }
       }
@@ -39066,8 +39090,80 @@
         }
       }
     },
+    "AppSupportMigration.Copy" : {
+      "comment" : "Button that copies files from iTerm2’s Application Support folder",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy"
+          }
+        }
+      }
+    },
+    "AppSupportMigration.DontCopy" : {
+      "comment" : "Button that declines copying files from iTerm2’s Application Support folder",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Don’t Copy"
+          }
+        }
+      }
+    },
+    "AppSupportMigration.Failed" : {
+      "comment" : "Shown when copying files from iTerm2’s Application Support folder partly fails; the placeholder lists the items and errors",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Some items could not be copied:\n\n%@"
+          }
+        }
+      }
+    },
+    "AppSupportMigration.FailedHeading" : {
+      "comment" : "Heading of the alert shown when copying files from iTerm2’s folder partly fails",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Incomplete"
+          }
+        }
+      }
+    },
+    "AppSupportMigration.Heading" : {
+      "comment" : "Heading of the first-launch offer to copy files from iTerm2’s Application Support folder",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy Files from iTerm2?"
+          }
+        }
+      }
+    },
+    "AppSupportMigration.Message" : {
+      "comment" : "Shown on first launch of a renamed build of iTerm2. The first and later placeholders are the app name; the list placeholder is a bulleted list of file names.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ keeps its scripts, dynamic profiles, fonts, and SSH configuration separately from iTerm2. These items were found in iTerm2’s Application Support folder:\n\n%2$@%3$@\n\nCopy them to %4$@? Nothing in iTerm2’s folder is changed, and nothing already in %5$@’s folder is replaced."
+          }
+        }
+      }
+    },
     "Appearance.ExcludeFromDockAction" : {
-      "comment" : "Button confirming exclusion of iTerm2 from the Dock and app switcher",
+      "comment" : "Button confirming exclusion of CryTerm from the Dock and app switcher",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -39115,7 +39211,7 @@
       }
     },
     "Appearance.ExcludeFromDockWarning" : {
-      "comment" : "Warning shown when the user excludes iTerm2 from the Dock and app switcher",
+      "comment" : "Warning shown when the user excludes CryTerm from the Dock and app switcher",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -58809,7 +58905,7 @@
       }
     },
     "ChatViewController.UnsupportedMessage" : {
-      "comment" : "Shown for a message that a newer iTerm2 sent that this build cannot decode",
+      "comment" : "Shown for a message that a newer CryTerm sent that this build cannot decode",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -61459,7 +61555,7 @@
       }
     },
     "ClaudeCode.RemoteHookIdentityUnknown" : {
-      "comment" : "Detail shown during uninstall when iTerm2 could not determine whether a remote host is this Mac, so it made no changes there; the value is the host",
+      "comment" : "Detail shown during uninstall when CryTerm could not determine whether a remote host is this Mac, so it made no changes there; the value is the host",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -62227,7 +62323,7 @@
       }
     },
     "ClaudeCodeOnboarding.AlwaysAllow" : {
-      "comment" : "Button that installs the remote Claude Code hook and always allows the host to use the iTerm2 API",
+      "comment" : "Button that installs the remote Claude Code hook and always allows the host to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -62371,7 +62467,7 @@
       }
     },
     "ClaudeCodeOnboarding.AskEachConnection" : {
-      "comment" : "Button that installs the remote Claude Code hook without always allowing the host; iTerm2 asks on each connection",
+      "comment" : "Button that installs the remote Claude Code hook without always allowing the host; CryTerm asks on each connection",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -62707,7 +62803,7 @@
       }
     },
     "ClaudeCodeOnboarding.ConfigResolutionFailedBody" : {
-      "comment" : "Body of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR from the user’s shell",
+      "comment" : "Body of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR from the user’s shell",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -62755,7 +62851,7 @@
       }
     },
     "ClaudeCodeOnboarding.ConfigResolutionFailedTitle" : {
-      "comment" : "Title of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR from the user’s shell",
+      "comment" : "Title of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR from the user’s shell",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -63955,7 +64051,7 @@
       }
     },
     "ClaudeCodeOnboarding.RemoteConfigResolutionFailedBody" : {
-      "comment" : "Body of the alert shown when iTerm2 could not read CLAUDE_CONFIG_DIR on a remote host; the value is the host",
+      "comment" : "Body of the alert shown when CryTerm could not read CLAUDE_CONFIG_DIR on a remote host; the value is the host",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -74365,7 +74461,7 @@
       }
     },
     "Companion.Paired.Reconnecting" : {
-      "comment" : "Status text when paired but iTerm2 is not yet listening",
+      "comment" : "Status text when paired but CryTerm is not yet listening",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -83887,43 +83983,43 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Hallo iTerm2-Entwickler,\n\nhier ist, was ich euch mitteilen möchte:\n\n\t...\n\n-- {USERNAME}\n\nAntworten Sie mir unter {EMAIL}"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hi CryTerm Developers,\n\nhere’s what I’d like to tell you:\n\n\t...\n\n-- {USERNAME}\n\nReply to me at {EMAIL}"
+            "value" : "Hi iTerm2 Developers,\n\nhere’s what I’d like to tell you:\n\n\t...\n\n-- {USERNAME}\n\nReply to me at {EMAIL}"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "CryTerm開発者の皆様、\n\nお伝えしたいことは次のとおりです。\n\n\t...\n\n-- {USERNAME}\n\n返信先: {EMAIL}"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "CryTerm 개발자님께,\n\n전하고 싶은 내용은 다음과 같습니다:\n\n\t...\n\n-- {USERNAME}\n\n회신 주소: {EMAIL}"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Olá, desenvolvedores do CryTerm,\n\naqui está o que eu gostaria de dizer:\n\n\t...\n\n-- {USERNAME}\n\nResponda para mim em {EMAIL}"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Здравствуйте, разработчики CryTerm,\n\nвот что я хочу вам сообщить:\n\n\t...\n\n-- {USERNAME}\n\nОтветьте мне по адресу {EMAIL}"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "您好，CryTerm开发者们：\n\n这是我想告诉您的：\n\n\t...\n\n-- {USERNAME}\n\n请通过{EMAIL}回复我"
           }
         }
@@ -89861,7 +89957,7 @@
       }
     },
     "EditKeyAction.ActionRemapLocally" : {
-      "comment" : "Action name: Remap Modifiers in iTerm2 Only",
+      "comment" : "Action name: Remap Modifiers in CryTerm Only",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -93317,7 +93413,7 @@
       }
     },
     "EditKeyAction.HelpRemapLocally" : {
-      "comment" : "Help text for the Remap Modifiers in iTerm2 Only action",
+      "comment" : "Help text for the Remap Modifiers in CryTerm Only action",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -97834,43 +97930,43 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### Hintergrund\nWenn Sie eine Einstellung an einen Ausdruck binden, können Sie Einstellungen programmatisch ändern.\n\niTerm2 verwaltet für jede Sitzung eine Sammlung von „Variablen“. Weitere Informationen dazu finden Sie unter [Scripting Fundamentals](https://iterm2.com/documentation-scripting-fundamentals.html).\n\nÜblicherweise wird diese Funktion verwendet, indem eine Einstellung an eine benutzerdefinierte Variable gebunden wird.\n\n### Beispiel\nAm einfachsten legen Sie eine benutzerdefinierte Variable fest, indem Sie die Shell-Integration installieren und dann eine Funktion `iterm2_print_user_vars` definieren. Hier ist ein Beispiel mit bash:\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nDies wird jedes Mal ausgeführt, wenn die Shell-Eingabeaufforderung angezeigt wird. Das Beispiel setzt eine benutzerdefinierte Variable auf den Wert der Umgebungsvariable `%3$@`.\n\nDer passende Ausdruck, um dieses Beispiel zu binden, wäre `user.%4$@`. Alle benutzerdefinierten Variablen befinden sich im Gültigkeitsbereich `user`.\n\n### Fehlersuche\nSie können Variablen im Inspector anzeigen (**Scripts > Manage > Console** und dann auf **Inspector** klicken)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "### Background\nBinding a setting to an expression lets you change settings programmatically.\n\niTerm2 tracks a collection of “Variables” for each session. You can learn more about them in [Scripting Fundamentals](https://iterm2.com/documentation-scripting-fundamentals.html).\n\nTypically this feature is used by binding a setting to a user-defined variable.\n\n### Example\nThe easiest way to set a user-defined variable is to install shell integration and then define a `iterm2_print_user_vars` function. Here's an example using bash:\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nThis runs each time the shell prompt is printed. The example sets a user-defined variable to the value of the environment variable `%3$@`.\n\nThe appropriate expression to bind this example would be `user.%4$@`. All user-defined variables go in the `user` scope.\n\n### Debugging\nYou can view variables in the Inspector (**Scripts > Manage > Console** and then click **Inspector**)."
+            "value" : "### Background\nBinding a setting to an expression lets you change settings programmatically.\n\nCryTerm tracks a collection of “Variables” for each session. You can learn more about them in [Scripting Fundamentals](https://iterm2.com/documentation-scripting-fundamentals.html).\n\nTypically this feature is used by binding a setting to a user-defined variable.\n\n### Example\nThe easiest way to set a user-defined variable is to install shell integration and then define a `iterm2_print_user_vars` function. Here's an example using bash:\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nThis runs each time the shell prompt is printed. The example sets a user-defined variable to the value of the environment variable `%3$@`.\n\nThe appropriate expression to bind this example would be `user.%4$@`. All user-defined variables go in the `user` scope.\n\n### Debugging\nYou can view variables in the Inspector (**Scripts > Manage > Console** and then click **Inspector**)."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### 背景\n設定を式にバインドすると、プログラムから設定を変更できるようになります。\n\niTerm2は各セッションについて「変数」の集合を管理しています。詳しくは[スクリプティングの基礎](https://iterm2.com/documentation-scripting-fundamentals.html)をご覧ください。\n\n通常、この機能はユーザー定義変数に設定をバインドするために使用します。\n\n### 例\nユーザー定義変数を設定する最も簡単な方法は、シェル統合をインストールしてから`iterm2_print_user_vars`関数を定義することです。以下はbashを使った例です。\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nこれはシェルのプロンプトが表示されるたびに実行されます。この例では、環境変数`%3$@`の値をユーザー定義変数に設定しています。\n\nこの例をバインドするのに適した式は`user.%4$@`です。ユーザー定義変数はすべて`user`スコープに置かれます。\n\n### デバッグ\n変数はInspectorで確認できます（**Scripts > Manage > Console**を開き、**Inspector**をクリックします）。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### 배경\n설정을 표현식에 바인딩하면 프로그래밍 방식으로 설정을 변경할 수 있습니다.\n\niTerm2는 각 세션에 대해 “변수” 모음을 관리합니다. 변수에 대한 자세한 내용은 [스크립팅 기본 사항](https://iterm2.com/documentation-scripting-fundamentals.html)에서 알아볼 수 있습니다.\n\n일반적으로 이 기능은 설정을 사용자 정의 변수에 바인딩하는 방식으로 사용합니다.\n\n### 예시\n사용자 정의 변수를 설정하는 가장 쉬운 방법은 셸 통합을 설치한 다음 `iterm2_print_user_vars` 함수를 정의하는 것입니다. 다음은 bash를 사용한 예입니다.\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\n이 함수는 셸 프롬프트가 출력될 때마다 실행됩니다. 이 예에서는 사용자 정의 변수를 환경 변수 `%3$@`의 값으로 설정합니다.\n\n이 예에 바인딩할 적절한 표현식은 `user.%4$@`입니다. 모든 사용자 정의 변수는 `user` 범위에 들어갑니다.\n\n### 디버깅\n검사기에서 변수를 볼 수 있습니다(**스크립트 > 관리 > 콘솔**을 선택한 다음 **검사기** 클릭)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### Contexto\nVincular um ajuste a uma expressão permite alterar ajustes de forma programática.\n\nO CryTerm rastreia um conjunto de “Variáveis” para cada sessão. Você pode saber mais sobre elas em [Fundamentos de scripting](https://iterm2.com/documentation-scripting-fundamentals.html).\n\nNormalmente este recurso é usado vinculando um ajuste a uma variável definida pelo usuário.\n\n### Exemplo\nA maneira mais fácil de definir uma variável definida pelo usuário é instalar o shell integration e depois definir uma função `iterm2_print_user_vars`. Aqui está um exemplo usando bash:\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nIsto é executado cada vez que o prompt do shell é impresso. O exemplo define uma variável definida pelo usuário com o valor da variável de ambiente `%3$@`.\n\nA expressão apropriada para vincular este exemplo seria `user.%4$@`. Todas as variáveis definidas pelo usuário ficam no escopo `user`.\n\n### Depuração\nVocê pode ver as variáveis no Inspetor (**Scripts > Manage > Console** e depois clique em **Inspector**)."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### Общие сведения\nПривязка настройки к выражению позволяет изменять настройки программно.\n\niTerm2 отслеживает набор «Переменных» для каждого сеанса. Подробнее о них можно узнать в разделе [Основы скриптинга](https://iterm2.com/documentation-scripting-fundamentals.html).\n\nОбычно эта функция используется для привязки настройки к пользовательской переменной.\n\n### Пример\nПроще всего задать пользовательскую переменную, установив интеграцию с оболочкой и определив функцию `iterm2_print_user_vars`. Вот пример для bash:\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\nЭта функция выполняется каждый раз при выводе приглашения оболочки. В примере пользовательской переменной присваивается значение переменной окружения `%3$@`.\n\nПодходящим выражением для привязки в этом примере будет `user.%4$@`. Все пользовательские переменные находятся в области видимости `user`.\n\n### Отладка\nПросмотреть переменные можно в Инспекторе (**Скрипты > Управление > Консоль**, затем нажмите **Инспектор**)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "### 背景\n将设置绑定到表达式后，你可以通过编程方式更改设置。\n\niTerm2 会为每个会话跟踪一组“变量”。你可以在 [Scripting Fundamentals](https://iterm2.com/documentation-scripting-fundamentals.html) 中了解更多信息。\n\n通常，这个功能的用法是将设置绑定到用户定义的变量。\n\n### 示例\n设置用户定义变量最简单的方法是安装 shell integration，然后定义 `iterm2_print_user_vars` 函数。下面是一个 bash 示例：\n\n```\niterm2_print_user_vars() {\n  iterm2_set_user_var %1$@ $(echo $%2$@)\n}\n```\n\n每次 shell 提示符输出时都会运行它。这个示例将用户定义变量设置为环境变量 `%3$@` 的值。\n\n适合绑定到这个示例的表达式是 `user.%4$@`。所有用户定义变量都位于 `user` 作用域中。\n\n### 调试\n你可以在检查器中查看变量（依次点按 **Scripts > Manage > Console**，然后点按 **Inspector**）。"
           }
         }
@@ -99893,7 +99989,7 @@
       }
     },
     "FramerPane.Stranded.Title" : {
-      "comment" : "Announcement shown when programs that iTerm2 ran on a remote host for a workgroup are still running there after a restart, but their sessions were not restored. The count is the number of programs.",
+      "comment" : "Announcement shown when programs that CryTerm ran on a remote host for a workgroup are still running there after a restart, but their sessions were not restored. The count is the number of programs.",
       "localizations" : {
         "de" : {
           "variations" : {
@@ -104428,7 +104524,7 @@
       }
     },
     "GeneralPrefs.RemoteHostGrants" : {
-      "comment" : "Search index name for the button that lists remote hosts always allowed to use the iTerm2 API over SSH integration; matches that button’s title",
+      "comment" : "Search index name for the button that lists remote hosts always allowed to use the CryTerm API over SSH integration; matches that button’s title",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -104476,7 +104572,7 @@
       }
     },
     "GeneralPrefs.RestartRequired" : {
-      "comment" : "Warning that a setting change requires restarting iTerm2",
+      "comment" : "Warning that a setting change requires restarting CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106233,7 +106329,7 @@
       }
     },
     "IT2HostGrants.Done" : {
-      "comment" : "Button that closes the list of remote hosts always allowed to use the iTerm2 API",
+      "comment" : "Button that closes the list of remote hosts always allowed to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106281,7 +106377,7 @@
       }
     },
     "IT2HostGrants.Empty" : {
-      "comment" : "Shown in place of the list when no remote hosts are always allowed to use the iTerm2 API",
+      "comment" : "Shown in place of the list when no remote hosts are always allowed to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106329,7 +106425,7 @@
       }
     },
     "IT2HostGrants.Explanation" : {
-      "comment" : "Explanation at the top of the list of remote hosts always allowed to use the iTerm2 API",
+      "comment" : "Explanation at the top of the list of remote hosts always allowed to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106377,7 +106473,7 @@
       }
     },
     "IT2HostGrants.GrantedColumn" : {
-      "comment" : "Column header for when a remote host was first always allowed to use the iTerm2 API",
+      "comment" : "Column header for when a remote host was first always allowed to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106425,7 +106521,7 @@
       }
     },
     "IT2HostGrants.HostColumn" : {
-      "comment" : "Column header for the remote host in the list of hosts always allowed to use the iTerm2 API",
+      "comment" : "Column header for the remote host in the list of hosts always allowed to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106473,7 +106569,7 @@
       }
     },
     "IT2HostGrants.Remove" : {
-      "comment" : "Button that stops always allowing the selected remote hosts to use the iTerm2 API",
+      "comment" : "Button that stops always allowing the selected remote hosts to use the CryTerm API",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106521,7 +106617,7 @@
       }
     },
     "IT2HostGrants.WindowTitle" : {
-      "comment" : "Title of the sheet listing remote hosts always allowed to use the iTerm2 API over SSH integration",
+      "comment" : "Title of the sheet listing remote hosts always allowed to use the CryTerm API over SSH integration",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106569,7 +106665,7 @@
       }
     },
     "IT2Proxy.APINotEnabled" : {
-      "comment" : "Error when the iTerm2 Python API is disabled",
+      "comment" : "Error when the CryTerm Python API is disabled",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -106713,7 +106809,7 @@
       }
     },
     "IT2Proxy.NewerProtocol" : {
-      "comment" : "Error when a remote it2 client speaks a newer protocol than this iTerm2 understands",
+      "comment" : "Error when a remote it2 client speaks a newer protocol than this CryTerm understands",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -109334,7 +109430,7 @@
       }
     },
     "InstanceLock.Heading" : {
-      "comment" : "Heading of the warning shown when launching a second copy of iTerm2",
+      "comment" : "Heading of the warning shown when launching a second copy of CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -109382,7 +109478,7 @@
       }
     },
     "InstanceLock.LaunchAnyway" : {
-      "comment" : "Button that keeps launching a second copy of iTerm2 despite the risk",
+      "comment" : "Button that keeps launching a second copy of CryTerm despite the risk",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -109430,7 +109526,7 @@
       }
     },
     "InstanceLock.Message" : {
-      "comment" : "Shown at launch when another instance of iTerm2 is already running. %d is a process ID.",
+      "comment" : "Shown at launch when another instance of CryTerm is already running. %d is a process ID.",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -109478,7 +109574,7 @@
       }
     },
     "InstanceLock.Quit" : {
-      "comment" : "Button that quits this copy of iTerm2 and switches to the one already running",
+      "comment" : "Button that quits this copy of CryTerm and switches to the one already running",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -120317,7 +120413,7 @@
       }
     },
     "LaunchExperience.PasteBehaviorChangeMessage" : {
-      "comment" : "Message explaining that iTerm2 no longer warns before multi-line pastes",
+      "comment" : "Message explaining that CryTerm no longer warns before multi-line pastes",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -128615,7 +128711,7 @@
       }
     },
     "MultiClient.DaemonStartFailed" : {
-      "comment" : "Alert title shown when the iTerm2 daemon fails to start",
+      "comment" : "Alert title shown when the CryTerm daemon fails to start",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -128711,7 +128807,7 @@
       }
     },
     "MultiClient.Quit" : {
-      "comment" : "Button to quit iTerm2 when a required file is missing",
+      "comment" : "Button to quit CryTerm when a required file is missing",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -136705,7 +136801,7 @@
       }
     },
     "OpenLink.FileTitle" : {
-      "comment" : "Prompt asking whether to open a file in iTerm2 instead of the default app",
+      "comment" : "Prompt asking whether to open a file in CryTerm instead of the default app",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -136753,7 +136849,7 @@
       }
     },
     "OpenLink.Heading" : {
-      "comment" : "Heading of the prompt asking whether to open a link in iTerm2",
+      "comment" : "Heading of the prompt asking whether to open a link in CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -136801,7 +136897,7 @@
       }
     },
     "OpenLink.OpenIniTerm2" : {
-      "comment" : "Button to open a link in iTerm2",
+      "comment" : "Button to open a link in CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -136945,7 +137041,7 @@
       }
     },
     "OpenLink.WebTitle" : {
-      "comment" : "Prompt asking whether to open a web link in iTerm2 instead of the default browser",
+      "comment" : "Prompt asking whether to open a web link in CryTerm instead of the default browser",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -143407,7 +143503,7 @@
       }
     },
     "PTYSession.AlreadyAttachedTmux" : {
-      "comment" : "Warning that this iTerm2 instance is already attached to a tmux session",
+      "comment" : "Warning that this CryTerm instance is already attached to a tmux session",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -143455,7 +143551,7 @@
       }
     },
     "PTYSession.AlwaysAllowThisHost" : {
-      "comment" : "Button that allows a remote host to control iTerm2 on this and every future connection, not just this one",
+      "comment" : "Button that allows a remote host to control CryTerm on this and every future connection, not just this one",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -143839,7 +143935,7 @@
       }
     },
     "PTYSession.CannotAttach" : {
-      "comment" : "Heading for a warning that iTerm2 cannot attach to a tmux session",
+      "comment" : "Heading for a warning that CryTerm cannot attach to a tmux session",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -145615,7 +145711,7 @@
       }
     },
     "PTYSession.IT2AuthorizationPrompt" : {
-      "comment" : "Prompt asking whether to allow a remote session to control iTerm2 via the API; placeholder is the session name",
+      "comment" : "Prompt asking whether to allow a remote session to control CryTerm via the API; placeholder is the session name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -153488,7 +153584,7 @@
       }
     },
     "PasswordArchive.ExportAuthReason" : {
-      "comment" : "Completes the system prompt “iTerm2 is trying to …” shown before exporting passwords",
+      "comment" : "Completes the system prompt “CryTerm is trying to …” shown before exporting passwords",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -153680,7 +153776,7 @@
       }
     },
     "PasswordArchive.ImportAuthReason" : {
-      "comment" : "Completes the system prompt “iTerm2 is trying to …” shown before importing passwords",
+      "comment" : "Completes the system prompt “CryTerm is trying to …” shown before importing passwords",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -180260,7 +180356,7 @@
       }
     },
     "PseudoTerminal.RestartNow" : {
-      "comment" : "Button that restarts iTerm2 immediately",
+      "comment" : "Button that restarts CryTerm immediately",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -180356,7 +180452,7 @@
       }
     },
     "PseudoTerminal.RestartToEnableFeature" : {
-      "comment" : "Warning shown when a feature requires restarting iTerm2",
+      "comment" : "Warning shown when a feature requires restarting CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -183565,7 +183661,7 @@
       }
     },
     "RecordingCodec.NewerVersion" : {
-      "comment" : "Warning title shown when a recording is from a newer iTerm2 version",
+      "comment" : "Warning title shown when a recording is from a newer CryTerm version",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -198958,7 +199054,7 @@
       }
     },
     "ScriptImporter.LegacyArchiveUnsupported" : {
-      "comment" : "Error shown when trying to install a deprecated script archive from an older iTerm2 version",
+      "comment" : "Error shown when trying to install a deprecated script archive from an older CryTerm version",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -199006,7 +199102,7 @@
       }
     },
     "ScriptImporter.NoValidScript" : {
-      "comment" : "Error shown when an imported archive does not contain a valid iTerm2 script",
+      "comment" : "Error shown when an imported archive does not contain a valid CryTerm script",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -199054,7 +199150,7 @@
       }
     },
     "ScriptImporter.NotValidArchive" : {
-      "comment" : "Error shown when a file offered for import is not an iTerm2 script archive",
+      "comment" : "Error shown when a file offered for import is not an CryTerm script archive",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -203067,7 +203163,7 @@
       }
     },
     "SecureUserDefaults.CreateFolderPrompt" : {
-      "comment" : "Authorization prompt shown when iTerm2 needs privileges to create the fallback secure-settings folder; %@ is the folder path",
+      "comment" : "Authorization prompt shown when CryTerm needs privileges to create the fallback secure-settings folder; %@ is the folder path",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -203259,7 +203355,7 @@
       }
     },
     "SecureUserDefaults.ModifySettingsPrompt" : {
-      "comment" : "Authorization prompt shown when iTerm2 needs privileges to modify secure settings",
+      "comment" : "Authorization prompt shown when CryTerm needs privileges to modify secure settings",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -203307,7 +203403,7 @@
       }
     },
     "SecureUserDefaults.ModifySingleSettingPrompt" : {
-      "comment" : "Authorization prompt shown when iTerm2 needs privileges to modify one secure setting",
+      "comment" : "Authorization prompt shown when CryTerm needs privileges to modify one secure setting",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -205683,7 +205779,7 @@
       }
     },
     "SetStatus.UnknownExpiresOn" : {
-      "comment" : "Error when the expires_on argument names an event iTerm2 does not know. The placeholder is the value the caller passed.",
+      "comment" : "Error when the expires_on argument names an event CryTerm does not know. The placeholder is the value the caller passed.",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -206931,7 +207027,7 @@
       }
     },
     "ShellIntegrationInstaller.InstallFailed" : {
-      "comment" : "Shown when the command that installs the iTerm2 utility scripts reports that they could not be extracted",
+      "comment" : "Shown when the command that installs the CryTerm utility scripts reports that they could not be extracted",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -211377,7 +211473,7 @@
       }
     },
     "SpecialExceptions.ImportNewerVersion" : {
-      "comment" : "Error shown when an imported special exceptions file is from a newer iTerm2 version",
+      "comment" : "Error shown when an imported special exceptions file is from a newer CryTerm version",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -217137,7 +217233,7 @@
       }
     },
     "StatusMenu.QuitiTerm2" : {
-      "comment" : "Status-icon menu item to quit iTerm2",
+      "comment" : "Status-icon menu item to quit CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -232856,7 +232952,7 @@
       }
     },
     "TmuxController.ResetRedTabsTitle" : {
-      "comment" : "Warning message asking whether to reset tmux tab colors that are pure red due to an old iTerm2 bug",
+      "comment" : "Warning message asking whether to reset tmux tab colors that are pure red due to an old CryTerm bug",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -233000,7 +233096,7 @@
       }
     },
     "TmuxController.UnsupportedOptionMessage" : {
-      "comment" : "Error explaining that a tmux option is incompatible with iTerm2; %@ is the option name",
+      "comment" : "Error explaining that a tmux option is incompatible with CryTerm; %@ is the option name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -234786,7 +234882,7 @@
       }
     },
     "TmuxWorkgroup.LockWait.TakeOver" : {
-      "comment" : "Button that stops waiting for the other iTerm2 and proceeds anyway",
+      "comment" : "Button that stops waiting for the other CryTerm and proceeds anyway",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -234834,7 +234930,7 @@
       }
     },
     "TmuxWorkgroup.LockWait.Title" : {
-      "comment" : "Announcement shown while creating a workgroup's sessions in tmux waits for another iTerm2 attached to the same tmux session",
+      "comment" : "Announcement shown while creating a workgroup's sessions in tmux waits for another CryTerm attached to the same tmux session",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -240287,7 +240383,7 @@
       }
     },
     "Trigger.Bounce.Param.UntilActivated" : {
-      "comment" : "Bounce Dock icon trigger option: keep bouncing until the user activates iTerm2",
+      "comment" : "Bounce Dock icon trigger option: keep bouncing until the user activates CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -243935,7 +244031,7 @@
       }
     },
     "Trigger.SetDirectory.Title" : {
-      "comment" : "Trigger action name: report the current directory to iTerm2",
+      "comment" : "Trigger action name: report the current directory to CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -243983,7 +244079,7 @@
       }
     },
     "Trigger.SetHostname.Title" : {
-      "comment" : "Trigger action name: report the current user and host name to iTerm2",
+      "comment" : "Trigger action name: report the current user and host name to CryTerm",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
