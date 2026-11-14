@@ -46,9 +46,6 @@ static const CGFloat kAboutBylineToVersionGap = 4.0;
 static const CGFloat kAboutVersionToButtonsGap = 16.0;
 static const CGFloat kAboutButtonSpacing = 8.0;
 static const CGFloat kAboutSectionGap = 28.0;
-static const CGFloat kAboutSectionGapTight = 24.0;
-static const CGFloat kAboutEyebrowToContentGap = 8.0;
-static const CGFloat kAboutWellToFooterGap = 20.0;
 
 static const CGFloat kAboutTitleFontSize = 22.0;
 static const CGFloat kAboutBylineFontSize = 13.0;
