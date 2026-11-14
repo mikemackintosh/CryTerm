@@ -1,0 +1,88 @@
+# Places where “iTerm2” may stay in CryTerm, read by tools/cryterm/branding.rb.
+#
+#   file <glob>                 skip a whole file (git path, * matches within a folder)
+#   key <regex>                 skip a string-catalog key and all its translations
+#   line <path><TAB><text>      skip one line; <text> is the line with leading and
+#                               trailing spaces removed
+#
+# Every entry needs a reason. Keep attribution: the GPL requires that CryTerm say
+# it is a modified iTerm2.
+
+# Attribution, and the first-launch offer to copy files from iTerm2's folder.
+key ^AboutWindow\.(BasedOnITerm2|License)$
+key ^AppSupportMigration\.
+file sources/AppLaunch/iTermAppSupportMigration.swift
+
+# Upstream's donation and backer credits. CryTerm hides them; the text stays so
+# that nothing claims people donated to CryTerm.
+key ^Donate\.
+key ^About\.Backers
+file sources/Settings/DonateViewController.swift
+line sources/AboutWindow/Base.lproj/AboutWindow.xib	<string key="content">iTerm2 is supported by these backers on &lt;a href="https://patreon.com/gnachman"&gt;Patreon&lt;/a&gt; and &lt;a href="https://github.com/sponsors/gnachman"&gt;GitHub Sponsors&lt;/a&gt;</string>
+line sources/AboutWindow/iTermAboutWindowController.m	@{ @"image": @"whitebox_logo", @"title": @"Whitebox", @"url": @"https://whitebox.so/?utm_source=iTerm2" },
+line plists/InternetAccessPolicy.plist	<string>CryTerm is a free terminal emulator based on iTerm2.</string>
+line plists/release-iTerm2.plist	<string>CryTerm © 2026 Danger Close Security Co. Based on iTerm2 © George Nachman and contributors. GPL v2 or later.</string>
+
+# The crash reporter only runs in upstream's builds and writes to upstream's
+# developers.
+key ^CrashReporter\.
+
+# Build configurations CryTerm does not release, and the AppleScript test host.
+file plists/dev-iTerm2.plist
+file plists/nightly-iTerm2.plist
+file plists/beta-iTerm2.plist
+file plists/preview-iTerm2.plist
+file plists/iTerm2ForApplescriptTesting-Info.plist
+
+# Resource file names inside the bundle.
+line plists/release-iTerm2.plist	<string>iTerm2 App Icon for Release</string>
+line plists/release-iTerm2.plist	<string>iTerm2.icns</string>
+line plists/release-iTerm2.plist	<string>iTerm2.sdef</string>
+
+# The second half of “iTerm2 Buddy”, split across two literals.
+line sources/Companion/CompanionPairingController.swift	warning.title = "This version of CryTerm is too old to connect to the iTerm2 "
+
+# Protocol strings: programs and scripts look for these exact values.
+line sources/PTYSession/PTYSession.m	env[@"LC_TERMINAL"] = @"iTerm2";
+line sources/PTYSession/PTYSession.m	NSArray<NSString *> *builtInJobsToIgnore = @[ @"login", @"iTerm2", executableName, @"ShellLauncher" ];
+line sources/PTYSession/PTYSession.m	NSString *const executableName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleExecutableKey] ?: @"iTerm2";
+line sources/PTYSession/PTYSession.m	return @{ @"suite": [iTermUserDefaults apiSuiteName] ?: @"iTerm2",
+line sources/Settings/iTermUserDefaults.m	if (executableName.length > 0 && ![executableName isEqualToString:@"iTerm2"]) {
+line sources/Categories/NSThread+iTerm.m	return [anObject containsString:@" iTerm2 "] || [anObject containsString:@" CryTerm "];
+line sources/API/iTermScriptHistory.m	identifier:@"iTerm2"];
+line sources/ClaudeCode/ClaudeCodeRemoteConfigDirResolver.swift	return "iTerm2-claude-config-dir-begin-\(sentinel)"
+line sources/ClaudeCode/ClaudeCodeRemoteConfigDirResolver.swift	return "iTerm2-claude-config-dir-end-\(sentinel)"
+line sources/ShellIntegrationInstaller/iTermShellIntegrationWindowController.m	static NSString *const iTermShellIntegrationNuAutoloadDirReadyRegex = @"^iTerm2-nu-autoload-dir-ready$";
+line sources/ShellIntegrationInstaller/iTermShellIntegrationWindowController.m	@"IT2_NU_AUTOLOAD_DIR=$(case \"${SHELL##*/}\" in (nu) IT2_NU=\"$SHELL\";; (*) IT2_NU=$(command -v nu);; esac; \"$IT2_NU\" --no-config-file -c 'print ($nu.user-autoload-dirs? | default [($nu.data-dir | path join vendor autoload)] | first)'); mkdir -p \"$IT2_NU_AUTOLOAD_DIR\"; echo iTerm2-nu-autoload-dir-\"\"ready\n";
+line sources/Infrastructure/Views/iTermWebViewWrapperViewController.m	configuration.applicationNameForUserAgent = @"iTerm2";
+line sources/Toolbelt/ToolWebView.m	configuration.applicationNameForUserAgent = @"iTerm2";
+line sources/AITerm/MessagePrepPipeline.swift	name: "iTerm2.\(chatID)") { [weak self] result in
+line sources/Browser/AdBlocking/iTermBrowserAdblockManager.swift	forIdentifier: "iTerm2-Adblock",
+file sources/Browser/AudioMuting/mute-audio.js
+
+# Names of things CryTerm already stored in password managers and the
+# keychain. Renaming them would lose the user's saved entries.
+line sources/PasswordManager/AdapterPasswordDataSource.swift	"iTerm2-Adapter-\(identifier)"
+line sources/PasswordManager/KeychainPasswordDataSource.swift	dict[kSecAttrLabel] as? String == "iTerm2" {
+line sources/PasswordManager/KeychainPasswordDataSource.swift	"iTerm2-Browser"
+line sources/PasswordManager/KeychainPasswordDataSource.swift	"iTerm2"
+line sources/PasswordManager/LastPassDataSource.swift	let iterm = "iTerm2"
+line sources/PasswordManager/LastPassDataSource.swift	let groupPrefix = (browser ? "" : "iTerm2/")
+line sources/PasswordManager/OnePasswordDataSource.swift	tag = browser ? nil : "iTerm2"
+line sources/PasswordManager/OnePasswordDataSource.swift	tagToExclude = browser ? "iTerm2" : nil
+line sources/PasswordManager/OnePasswordDataSource.swift	let otpDisabled = $0.tags?.contains("iTerm2-no-otp") ?? false
+line sources/PasswordManager/OnePasswordDataSource.swift	Array(Set(tags).union(Set(["iTerm2-no-otp"])))
+line sources/PasswordManager/OnePasswordDataSource.swift	Array(Set(tags).subtracting(Set(["iTerm2-no-otp"])))
+
+# Temporary files, sockets, locks, and log names. Other processes (the session
+# server, older builds, tests) look for these names.
+line sources/AppKit/iTermInstanceLock.swift	let domain = iTermUserDefaults.customSuiteName() ?? Bundle.main.bundleIdentifier ?? "iTerm2"
+line sources/AppKit/iTermInstanceLock.swift	let path = (NSTemporaryDirectory() as NSString).appendingPathComponent("iTerm2.instance.\(safeDomain).lock")
+line sources/Settings/iTermTestHostIsolation.swift	let lockPrefix = "iTerm2.instance."
+line sources/Settings/iTermTestHostIsolation.swift	paths.temporaryDirectory.appendingPathComponent("iTerm2.instance.\(suite).lock")] {
+line sources/InlineImages/iTermImageInfo.m	name = [[NSWorkspace sharedWorkspace] temporaryFileNameWithPrefix:@"iTerm2."
+line sources/Tasks/iTermFileDescriptorMultiServer.c	openlog("iTerm2-Server", LOG_PID | LOG_NDELAY, LOG_USER);
+line sources/Tasks/iTermFileDescriptorServer.c	openlog("iTerm2-Server", LOG_PID | LOG_NDELAY, LOG_USER);
+line sources/Tasks/iTermFileDescriptorSocketPath.c	static char gSocketNamePrefix[128] = "iTerm2.socket.";
+line sources/Tasks/iTermMonoServerJobManager.m	NSString *tempPath = [[NSWorkspace sharedWorkspace] temporaryFileNameWithPrefix:@"iTerm2-temp-socket."
+line sources/FileTransfer/TransferrableFile.m	properties[(__bridge NSString *)kLSQuarantineAgentNameKey] = info[(__bridge NSString *)kCFBundleNameKey] ?: @"iTerm2";

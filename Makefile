@@ -302,6 +302,15 @@ ingest-catalogs:
 
 Development Beta Deployment Nightly: ingest-catalogs
 
+# List user-visible text that says iTerm2 instead of CryTerm (CI runs this too).
+# After merging from upstream, run `make fix-branding` first.
+.PHONY: check-branding fix-branding
+check-branding:
+	/usr/bin/ruby tools/cryterm/branding.rb check
+
+fix-branding:
+	/usr/bin/ruby tools/cryterm/branding.rb fix
+
 # Enable the repo's git hooks (tracked in tools/git-hooks). The pre-commit hook
 # blocks committing a newly-added string in xcstrings/Localizable.xcstrings that
 # isn't translated into every language the catalog uses. Run once per clone.

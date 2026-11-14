@@ -2709,7 +2709,7 @@ static NSDictionary *iTermTmuxControllerDefaultFontOverridesFromProfile(Profile 
 - (void)optionValidationFailedForOption:(NSString *)option
 {
     NSString *message = [NSString stringWithFormat:
-                            NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionMessage", nil, [NSBundle mainBundle], @"The “%@” option is turned on in tmux. It is not compatible with the iTerm2-tmux integration. Please disable it and try again.", @"Error explaining that a tmux option is incompatible with CryTerm; %@ is the option name"),
+                            NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionMessage", nil, [NSBundle mainBundle], @"The “%@” option is turned on in tmux. It is not compatible with the CryTerm-tmux integration. Please disable it and try again.", @"Error explaining that a tmux option is incompatible with CryTerm; %@ is the option name"),
                              option];
     [gateway_ abortWithErrorMessage:message
                               title:NSLocalizedStringWithDefaultValue(@"TmuxController.UnsupportedOptionTitle", nil, [NSBundle mainBundle], @"Unsupported tmux option", @"Title of the error shown when tmux has an unsupported option enabled")];

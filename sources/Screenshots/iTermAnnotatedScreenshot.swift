@@ -378,7 +378,7 @@ class iTermAnnotatedScreenshot: NSObject {
     @objc static func defaultScreenshotFilename() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        return "iTerm2-Screenshot-\(formatter.string(from: Date())).png"
+        return "CryTerm-Screenshot-\(formatter.string(from: Date())).png"
     }
 
     /// Encodes an NSImage as PNG data, or nil on failure.
