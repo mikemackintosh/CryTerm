@@ -1,0 +1,26 @@
+# Fails when user-visible text says iTerm2 instead of CryTerm.
+#
+# Merges from upstream iTerm2 bring new strings and translations that name
+# iTerm2. Run `tools/cryterm/branding.rb fix` after a merge; this check catches
+# whatever was missed. tools/cryterm/branding.rb explains what it scans and
+# tools/cryterm/branding-allowlist.txt lists the mentions that stay on purpose.
+name: Branding
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  branding:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for user-visible iTerm2
+        run: ruby tools/cryterm/branding.rb check

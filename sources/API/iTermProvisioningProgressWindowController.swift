@@ -29,7 +29,7 @@ class iTermProvisioningProgressWindowController: NSObject {
                             backing: .buffered,
                             defer: false)
         // Localization unneeded
-        panel.title = "iTerm2"
+        panel.title = "CryTerm"
         panel.isReleasedWhenClosed = false
         panel.hidesOnDeactivate = false
 

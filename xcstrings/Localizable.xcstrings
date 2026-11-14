@@ -7195,7 +7195,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies ist eine Demonstrationsantwort des iTerm2-KI-Assistenten. CryTerm ist für die App-Überprüfung mit einem Platzhalterschlüssel konfiguriert, sodass kein externer KI-Dienst kontaktiert wird und keine Daten Ihren Mac verlassen. Um echte Antworten zu erhalten, legen Sie den API-Schlüssel Ihres KI-Anbieters unter iTerm2-Einstellungen > KI fest."
+            "value" : "Dies ist eine Demonstrationsantwort des CryTerm-KI-Assistenten. CryTerm ist für die App-Überprüfung mit einem Platzhalterschlüssel konfiguriert, sodass kein externer KI-Dienst kontaktiert wird und keine Daten Ihren Mac verlassen. Um echte Antworten zu erhalten, legen Sie den API-Schlüssel Ihres KI-Anbieters unter CryTerm-Einstellungen > KI fest."
           }
         },
         "en" : {
@@ -7879,7 +7879,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein anderer Prozess versucht, die iTerm2-API zu verwenden. Die API ermöglicht es einem Skript, CryTerm zu steuern sowie dessen Inhalte anzuzeigen und zu ändern. Verbindung zulassen?"
+            "value" : "Ein anderer Prozess versucht, die CryTerm-API zu verwenden. Die API ermöglicht es einem Skript, CryTerm zu steuern sowie dessen Inhalte anzuzeigen und zu ändern. Verbindung zulassen?"
           }
         },
         "en" : {
@@ -13231,7 +13231,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pfad zu den iTerm2-Dienstprogrammen für neue Sitzungen zu $PATH hinzufügen?"
+            "value" : "Pfad zu den CryTerm-Dienstprogrammen für neue Sitzungen zu $PATH hinzufügen?"
           }
         },
         "en" : {
@@ -14815,7 +14815,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wo sollen neue tmux-Fenster geöffnet werden, die nicht von CryTerm erstellt wurden?\n„Fokussiertes Fenster“ (Standard) hängt das Fenster als Tab an das iTerm2-Fenster an, das gerade den Tastaturfokus hat. „Oberstes Sitzungsfenster“ hängt es an das vorderste iTerm2-Fenster an, das bereits einen Tab dieser tmux-Sitzung zeigt, unabhängig vom Fokus."
+            "value" : "Wo sollen neue tmux-Fenster geöffnet werden, die nicht von CryTerm erstellt wurden?\n„Fokussiertes Fenster“ (Standard) hängt das Fenster als Tab an das CryTerm-Fenster an, das gerade den Tastaturfokus hat. „Oberstes Sitzungsfenster“ hängt es an das vorderste CryTerm-Fenster an, das bereits einen Tab dieser tmux-Sitzung zeigt, unabhängig vom Fokus."
           }
         },
         "en" : {
@@ -20239,7 +20239,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Semantic History für über das Netzwerk eingebundene Dateisysteme aktivieren?\nAktivieren Sie dies nur, wenn Sie wissen, dass Ihre über das Netzwerk eingebundenen Dateisysteme wirklich schnell und zuverlässig sind. Ein langsames Dateisystem kann dazu führen, dass die gesamte iTerm2-App hängen bleibt."
+            "value" : "Semantic History für über das Netzwerk eingebundene Dateisysteme aktivieren?\nAktivieren Sie dies nur, wenn Sie wissen, dass Ihre über das Netzwerk eingebundenen Dateisysteme wirklich schnell und zuverlässig sind. Ein langsames Dateisystem kann dazu führen, dass die gesamte CryTerm-App hängen bleibt."
           }
         },
         "en" : {
@@ -30937,7 +30937,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Umgebungsvariable IT2_APP_PATH bei neuen Sitzungen setzen, die auf das App-Bundle dieses iTerm2-Builds verweist?\nDies löst Mehrdeutigkeiten beim AppleScript-Ziel auf, wenn mehrere iTerm2-Builds mit derselben Bundle-ID laufen, sodass die „it2“-CLI ihren Cookie von dieser iTerm2-Instanz anfordert. Für iTerm2-Entwickler gedacht. Wirkt sich nur auf Sitzungen aus, die nach dem Ändern dieser Einstellung erstellt werden."
+            "value" : "Umgebungsvariable IT2_APP_PATH bei neuen Sitzungen setzen, die auf das App-Bundle dieses CryTerm-Builds verweist?\nDies löst Mehrdeutigkeiten beim AppleScript-Ziel auf, wenn mehrere CryTerm-Builds mit derselben Bundle-ID laufen, sodass die „it2“-CLI ihren Cookie von dieser CryTerm-Instanz anfordert. Für CryTerm-Entwickler gedacht. Wirkt sich nur auf Sitzungen aus, die nach dem Ändern dieser Einstellung erstellt werden."
           }
         },
         "en" : {
@@ -35497,13 +35497,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Befehl, der beim Öffnen einer angeklickten URL ausgeführt wird, statt das Betriebssystem darum zu bitten, sie zu öffnen.\nWenn nicht leer, läuft dieser Befehl als stille Hintergrundaufgabe über /bin/sh -c, sobald Sie eine URL anklicken (einschließlich OSC-8-Hyperlinks und automatisch erkannter URLs), die CryTerm andernfalls an das System übergeben würde. Dies ist eine interpolierte Zeichenfolge; verwenden Sie \\(url) für die URL und \\(background) dafür, ob ein Öffnen im Hintergrund angefordert wurde (1, wenn beim Klicken die Wahltaste gedrückt gehalten wurde, sonst 0). Der Befehl ist dafür verantwortlich, die URL nach Belieben zu öffnen (z. B. „open -g \\(url)“, um im Hintergrund zu öffnen). Wenn leer, werden URLs normal geöffnet. iTerm2-interne Schemata (iterm2:), einem Profil zugeordnete URL-Schemata und Dateilinks der Semantic History sind davon nicht betroffen."
+            "value" : "Befehl, der beim Öffnen einer angeklickten URL ausgeführt wird, statt das Betriebssystem darum zu bitten, sie zu öffnen.\nWenn nicht leer, läuft dieser Befehl als stille Hintergrundaufgabe über /bin/sh -c, sobald Sie eine URL anklicken (einschließlich OSC-8-Hyperlinks und automatisch erkannter URLs), die CryTerm andernfalls an das System übergeben würde. Dies ist eine interpolierte Zeichenfolge; verwenden Sie \\(url) für die URL und \\(background) dafür, ob ein Öffnen im Hintergrund angefordert wurde (1, wenn beim Klicken die Wahltaste gedrückt gehalten wurde, sonst 0). Der Befehl ist dafür verantwortlich, die URL nach Belieben zu öffnen (z. B. „open -g \\(url)“, um im Hintergrund zu öffnen). Wenn leer, werden URLs normal geöffnet. CryTerm-interne Schemata (iterm2:), einem Profil zugeordnete URL-Schemata und Dateilinks der Semantic History sind davon nicht betroffen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Command to run when opening a clicked URL, instead of asking the OS to open it.\nWhen non-empty, this command runs as a silent background task via /bin/sh -c whenever you click a URL (including OSC 8 hyperlinks and auto-detected URLs) that CryTerm would otherwise hand to the system. This is an interpolated string; use \\(url) for the URL and \\(background) for whether a background open was requested (1 if you held option while clicking, otherwise 0). The command is responsible for opening the URL however it likes (e.g., “open -g \\(url)” to open in the background). When empty, URLs open normally. iTerm2-internal schemes (iterm2:), URL schemes bound to a profile, and Semantic History file links are not affected."
+            "value" : "Command to run when opening a clicked URL, instead of asking the OS to open it.\nWhen non-empty, this command runs as a silent background task via /bin/sh -c whenever you click a URL (including OSC 8 hyperlinks and auto-detected URLs) that CryTerm would otherwise hand to the system. This is an interpolated string; use \\(url) for the URL and \\(background) for whether a background open was requested (1 if you held option while clicking, otherwise 0). The command is responsible for opening the URL however it likes (e.g., “open -g \\(url)” to open in the background). When empty, URLs open normally. CryTerm-internal schemes (iterm2:), URL schemes bound to a profile, and Semantic History file links are not affected."
           }
         },
         "ja" : {
@@ -36793,7 +36793,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Befehl zum Anzeigen von Man-Pages.\nWird verwendet, wenn Sie die Man-Page-Schaltfläche auf der Touch Bar drücken. %@ wird durch den Befehl ersetzt. Beenden Sie den Befehl mit &, um zu verhindern, dass sich ein iTerm2-Fenster öffnet (z. B. wenn Sie einen externen Viewer starten)."
+            "value" : "Befehl zum Anzeigen von Man-Pages.\nWird verwendet, wenn Sie die Man-Page-Schaltfläche auf der Touch Bar drücken. %@ wird durch den Befehl ersetzt. Beenden Sie den Befehl mit &, um zu verhindern, dass sich ein CryTerm-Fenster öffnet (z. B. wenn Sie einen externen Viewer starten)."
           }
         },
         "en" : {
@@ -38917,7 +38917,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues にバグを報告してください。"
+            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにCryTermのコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues にバグを報告してください。"
           }
         },
         "ko" : {
@@ -39217,7 +39217,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn CryTerm aus dem Dock ausgeschlossen ist, können Sie über das Statusleistensymbol jederzeit zu den Einstellungen zurückkehren. Suchen Sie nach einem iTerm2-Symbol auf der rechten Seite Ihrer Menüleiste."
+            "value" : "Wenn CryTerm aus dem Dock ausgeschlossen ist, können Sie über das Statusleistensymbol jederzeit zu den Einstellungen zurückkehren. Suchen Sie nach einem CryTerm-Symbol auf der rechten Seite Ihrer Menüleiste."
           }
         },
         "en" : {
@@ -53871,7 +53871,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Sitzung"
+            "value" : "CryTerm-Sitzung"
           }
         },
         "en" : {
@@ -56079,7 +56079,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Im Orchestrierungsmodus kann der Agent die Koordination über beliebige iTerm2-Sitzungen hinweg übernehmen. Er kann Bildschirminhalte aus jeder Sitzung lesen, benötigt jedoch Ihre Erlaubnis, um in eine Sitzung zu tippen. Dies ist ein großzügigeres Modell als wenn ein Agent mit einer einzelnen Sitzung verknüpft ist, wo es sehr feingranulare Berechtigungseinstellungen gibt.\n\nDurch die Aktivierung wird jede verknüpfte Terminal- oder Browser-Sitzung getrennt und der Chat in den Orchestrierungsmodus umgeschaltet."
+            "value" : "Im Orchestrierungsmodus kann der Agent die Koordination über beliebige CryTerm-Sitzungen hinweg übernehmen. Er kann Bildschirminhalte aus jeder Sitzung lesen, benötigt jedoch Ihre Erlaubnis, um in eine Sitzung zu tippen. Dies ist ein großzügigeres Modell als wenn ein Agent mit einer einzelnen Sitzung verknüpft ist, wo es sehr feingranulare Berechtigungseinstellungen gibt.\n\nDurch die Aktivierung wird jede verknüpfte Terminal- oder Browser-Sitzung getrennt und der Chat in den Orchestrierungsmodus umgeschaltet."
           }
         },
         "en" : {
@@ -61897,7 +61897,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ auch nicht mehr dauerhaft die Verwendung der iTerm2-API erlauben?"
+            "value" : "%@ auch nicht mehr dauerhaft die Verwendung der CryTerm-API erlauben?"
           }
         },
         "en" : {
@@ -61993,7 +61993,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies entfernt den Status-Hook von CryTerm aus %@, die Claude-Code-Arbeitsgruppe aus Ihren Einstellungen und die Trigger zum Betreten/Verlassen der Arbeitsgruppe aus jedem Profil. Sie können die Integration jederzeit über das iTerm2-Menü erneut einrichten."
+            "value" : "Dies entfernt den Status-Hook von CryTerm aus %@, die Claude-Code-Arbeitsgruppe aus Ihren Einstellungen und die Trigger zum Betreten/Verlassen der Arbeitsgruppe aus jedem Profil. Sie können die Integration jederzeit über das CryTerm-Menü erneut einrichten."
           }
         },
         "en" : {
@@ -62377,7 +62377,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Claude Code auf %1$@ meldet seinen Status über die iTerm2-API a CryTerm.\n\nWenn Sie %2$@ immer erlauben, kann jedes Programm, das auf diesem Host unter Ihrem Benutzer läuft, Ihre Terminalsitzungen sehen und steuern, ihren Inhalt lesen und darin tippen, ohne nachzufragen, bei dieser und jeder künftigen Verbindung.\n\nWenn Sie „Bei jeder Verbindung fragen“ wählen, fragt CryTerm bei jeder neuen Verbindung nach, wenn Claude Code zum ersten Mal einen Status meldet.\n\nSie können einem Host die dauerhafte Erlaubnis unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH wieder entziehen."
+            "value" : "Claude Code auf %1$@ meldet seinen Status über die CryTerm-API a CryTerm.\n\nWenn Sie %2$@ immer erlauben, kann jedes Programm, das auf diesem Host unter Ihrem Benutzer läuft, Ihre Terminalsitzungen sehen und steuern, ihren Inhalt lesen und darin tippen, ohne nachzufragen, bei dieser und jeder künftigen Verbindung.\n\nWenn Sie „Bei jeder Verbindung fragen“ wählen, fragt CryTerm bei jeder neuen Verbindung nach, wenn Claude Code zum ersten Mal einen Status meldet.\n\nSie können einem Host die dauerhafte Erlaubnis unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH wieder entziehen."
           }
         },
         "en" : {
@@ -62425,7 +62425,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ immer die Verwendung der iTerm2-API erlauben?"
+            "value" : "%@ immer die Verwendung der CryTerm-API erlauben?"
           }
         },
         "en" : {
@@ -64153,7 +64153,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ darf die iTerm2-API bereits dauerhaft verwenden. Sie können dies unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH ändern."
+            "value" : "%@ darf die CryTerm-API bereits dauerhaft verwenden. Sie können dies unter Einstellungen > Allgemein > Magie > API-Zugriff über SSH ändern."
           }
         },
         "en" : {
@@ -64921,7 +64921,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "• Die Python-API von CryTerm wird aktiviert\n• Ein Status-Hook von CryTerm wird zu ~/.claude/settings.json hinzugefügt\n• Der Werkzeugkasten wird angezeigt\n• Eine Claude-Code-Arbeitsgruppe wird zu den iTerm2-Einstellungen hinzugefügt\n• Trigger zum Betreten/Verlassen der Arbeitsgruppe werden zu den von Ihnen ausgewählten Profilen hinzugefügt"
+            "value" : "• Die Python-API von CryTerm wird aktiviert\n• Ein Status-Hook von CryTerm wird zu ~/.claude/settings.json hinzugefügt\n• Der Werkzeugkasten wird angezeigt\n• Eine Claude-Code-Arbeitsgruppe wird zu den CryTerm-Einstellungen hinzugefügt\n• Trigger zum Betreten/Verlassen der Arbeitsgruppe werden zu den von Ihnen ausgewählten Profilen hinzugefügt"
           }
         },
         "en" : {
@@ -71923,7 +71923,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Befehl"
+            "value" : "CryTerm-Befehl"
           }
         },
         "en" : {
@@ -77446,7 +77446,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-SSH-Integrationsprotokoll\nBenutzername: %1$@\nHost: %2$@\nDatei: %3$@"
+            "value" : "CryTerm-SSH-Integrationsprotokoll\nBenutzername: %1$@\nHost: %2$@\nDatei: %3$@"
           }
         },
         "en" : {
@@ -83804,7 +83804,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにiTerm2のコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues でバグを報告してください"
+            "value" : "必要なファイルが見つからないか破損しているようですが、意外なことにCryTermのコード署名は有効です。https://github.com/mikemackintosh/CryTerm/issues でバグを報告してください"
           }
         },
         "ko" : {
@@ -106431,7 +106431,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Hosts können die iTerm2-API über die SSH-Integration verwenden, ohne vorher zu fragen. Wenn Sie einen Host entfernen, fragt er bei der nächsten Verbindung wieder nach."
+            "value" : "Diese Hosts können die CryTerm-API über die SSH-Integration verwenden, ohne vorher zu fragen. Wenn Sie einen Host entfernen, fragt er bei der nächsten Verbindung wieder nach."
           }
         },
         "en" : {
@@ -106671,7 +106671,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die iTerm2-Python-API ist nicht aktiviert (Einstellungen > Allgemein > Magic)."
+            "value" : "Die CryTerm-Python-API ist nicht aktiviert (Einstellungen > Allgemein > Magic)."
           }
         },
         "en" : {
@@ -108015,7 +108015,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Einstellungen und -Daten exportieren"
+            "value" : "CryTerm-Einstellungen und -Daten exportieren"
           }
         },
         "en" : {
@@ -126845,7 +126845,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das Application-Support-Verzeichnis von CryTerm hat sich geändert.\n\nBisher wurden beide dieser Verzeichnisse unterstützt:\n~/Library/Application Support/iTerm\n~/Library/Application Support/CryTerm.\n\nJetzt wird nur noch die iTerm2-Version unterstützt. Da Sie jedoch Dateien in beiden haben, verschieben Sie bitte alles von iTerm nach CryTerm."
+            "value" : "Das Application-Support-Verzeichnis von CryTerm hat sich geändert.\n\nBisher wurden beide dieser Verzeichnisse unterstützt:\n~/Library/Application Support/iTerm\n~/Library/Application Support/CryTerm.\n\nJetzt wird nur noch die CryTerm-Version unterstützt. Da Sie jedoch Dateien in beiden haben, verschieben Sie bitte alles von iTerm nach CryTerm."
           }
         },
         "en" : {
@@ -128717,7 +128717,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Problem beim Starten des iTerm2-Daemons"
+            "value" : "Problem beim Starten des CryTerm-Daemons"
           }
         },
         "en" : {
@@ -136567,7 +136567,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die 1Password-CLI unter %1$@ ist zu alt. Die iTerm2-Integration erfordert Version %2$@ oder neuer."
+            "value" : "Die 1Password-CLI unter %1$@ ist zu alt. Die CryTerm-Integration erfordert Version %2$@ oder neuer."
           }
         },
         "en" : {
@@ -140095,7 +140095,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Sitzung"
+            "value" : "CryTerm-Sitzung"
           }
         },
         "en" : {
@@ -143893,7 +143893,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Browser-Sitzung konnte nicht gestartet werden, da das iTerm2-Browser-Plugin nicht gefunden wurde."
+            "value" : "Eine Browser-Sitzung konnte nicht gestartet werden, da das CryTerm-Browser-Plugin nicht gefunden wurde."
           }
         },
         "en" : {
@@ -153446,7 +153446,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Passwörter.iterm2passwords"
+            "value" : "CryTerm-Passwörter.iterm2passwords"
           }
         },
         "en" : {
@@ -153470,13 +153470,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Senhas do iTerm2.iterm2passwords"
+            "value" : "Senhas do CryTerm.iterm2passwords"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пароли iTerm2.iterm2passwords"
+            "value" : "Пароли CryTerm.iterm2passwords"
           }
         },
         "zh-Hans" : {
@@ -154262,7 +154262,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies ist keine iTerm2-Passwortdatei."
+            "value" : "Dies ist keine CryTerm-Passwortdatei."
           }
         },
         "en" : {
@@ -156086,7 +156086,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dadurch werden die iTerm2-Konfigurationseinstellungen für diesen Passwort-Manager gelöscht. Die eigentlichen Passwörter bleiben davon unberührt. Sie müssen einige Einrichtungsschritte erneut durchlaufen, um ihn wieder nutzen zu können. Diese Aktion kann nicht rückgängig gemacht werden."
+            "value" : "Dadurch werden die CryTerm-Konfigurationseinstellungen für diesen Passwort-Manager gelöscht. Die eigentlichen Passwörter bleiben davon unberührt. Sie müssen einige Einrichtungsschritte erneut durchlaufen, um ihn wieder nutzen zu können. Diese Aktion kann nicht rückgängig gemacht werden."
           }
         },
         "en" : {
@@ -182611,7 +182611,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine iTerm2-Python-Laufzeitumgebung muss heruntergeladen werden, um fortzufahren.%@"
+            "value" : "Eine CryTerm-Python-Laufzeitumgebung muss heruntergeladen werden, um fortzufahren.%@"
           }
         },
         "en" : {
@@ -182659,7 +182659,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine iTerm2-Python-Laufzeitumgebung mit Python-Version %1$@ muss heruntergeladen werden, um fortzufahren.%2$@"
+            "value" : "Eine CryTerm-Python-Laufzeitumgebung mit Python-Version %1$@ muss heruntergeladen werden, um fortzufahren.%2$@"
           }
         },
         "en" : {
@@ -199108,7 +199108,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das Archiv enthält kein gültiges iTerm2-Skript"
+            "value" : "Das Archiv enthält kein gültiges CryTerm-Skript"
           }
         },
         "en" : {
@@ -199156,7 +199156,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dies ist kein gültiges iTerm2-Skriptarchiv."
+            "value" : "Dies ist kein gültiges CryTerm-Skriptarchiv."
           }
         },
         "en" : {
@@ -206745,7 +206745,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "➡ Wählen Sie „Fortfahren“, um die iTerm2-Hilfsskripte zu installieren."
+            "value" : "➡ Wählen Sie „Fortfahren“, um die CryTerm-Hilfsskripte zu installieren."
           }
         },
         "en" : {
@@ -207033,7 +207033,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🛑 Die iTerm2-Hilfsskripte wurden nicht installiert. Prüfen Sie das Terminal auf Fehler und wählen Sie dann „Fortfahren“, um es erneut zu versuchen."
+            "value" : "🛑 Die CryTerm-Hilfsskripte wurden nicht installiert. Prüfen Sie das Terminal auf Fehler und wählen Sie dann „Fortfahren“, um es erneut zu versuchen."
           }
         },
         "en" : {
@@ -207081,7 +207081,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "✅ iTerm2-Hilfsskripte installiert."
+            "value" : "✅ CryTerm-Hilfsskripte installiert."
           }
         },
         "en" : {
@@ -207609,7 +207609,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Schritt 3. iTerm2-Hilfsskripte installieren."
+            "value" : "Schritt 3. CryTerm-Hilfsskripte installieren."
           }
         },
         "en" : {
@@ -219374,7 +219374,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dieses Fenster zeigt den iTerm2-Tipp des Tages. Es erscheint alle 24 Stunden, um Sie über neue Funktionen und versteckte Geheimnisse zu informieren. Klicken Sie auf „Weitere Optionen“, um weitere Tipps anzuzeigen oder sie ganz zu deaktivieren."
+            "value" : "Dieses Fenster zeigt den CryTerm-Tipp des Tages. Es erscheint alle 24 Stunden, um Sie über neue Funktionen und versteckte Geheimnisse zu informieren. Klicken Sie auf „Weitere Optionen“, um weitere Tipps anzuzeigen oder sie ganz zu deaktivieren."
           }
         },
         "en" : {
@@ -220910,7 +220910,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn Sie tmux verwenden, probieren Sie „tmux -CC“ aus, um den tmux-Integrationsmodus von CryTerm zu aktivieren. Die tmux-Fenster erscheinen dann als native iTerm2-Fenster, und Sie können die Tastaturkürzel von CryTerm verwenden. Es funktioniert sogar über ssh!"
+            "value" : "Wenn Sie tmux verwenden, probieren Sie „tmux -CC“ aus, um den tmux-Integrationsmodus von CryTerm zu aktivieren. Die tmux-Fenster erscheinen dann als native CryTerm-Fenster, und Sie können die Tastaturkürzel von CryTerm verwenden. Es funktioniert sogar über ssh!"
           }
         },
         "en" : {
@@ -225710,7 +225710,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ein Koprozess ist ein Vorgang, etwa ein Shellskript, der in einer besonderen Beziehung zu einer bestimmten iTerm2-Sitzung steht. Jede Ausgabe in einem Terminalfenster (also alles, was Sie auf dem Bildschirm sehen) wird auch als Eingabe an den Koprozess weitergegeben. Jede Ausgabe des Koprozesses verhält sich wie Text, den der Benutzer über die Tastatur eingibt."
+            "value" : "Ein Koprozess ist ein Vorgang, etwa ein Shellskript, der in einer besonderen Beziehung zu einer bestimmten CryTerm-Sitzung steht. Jede Ausgabe in einem Terminalfenster (also alles, was Sie auf dem Bildschirm sehen) wird auch als Eingabe an den Koprozess weitergegeben. Jede Ausgabe des Koprozesses verhält sich wie Text, den der Benutzer über die Tastatur eingibt."
           }
         },
         "en" : {
@@ -228206,7 +228206,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sichern oder übertragen Sie Ihre iTerm2-Einstellungen ganz einfach mit der Export-/Import-Funktion unter „Einstellungen > Allgemein > Einstellungen“."
+            "value" : "Sichern oder übertragen Sie Ihre CryTerm-Einstellungen ganz einfach mit der Export-/Import-Funktion unter „Einstellungen > Allgemein > Einstellungen“."
           }
         },
         "en" : {
@@ -231374,7 +231374,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Tipp des Tages"
+            "value" : "CryTerm-Tipp des Tages"
           }
         },
         "en" : {
@@ -231566,7 +231566,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iTerm2-Tipp des Tages"
+            "value" : "CryTerm-Tipp des Tages"
           }
         },
         "en" : {
@@ -233102,13 +233102,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Option „%@“ ist in tmux aktiviert. Sie ist nicht mit der iTerm2-tmux-Integration kompatibel. Bitte deaktivieren Sie sie und versuchen Sie es erneut."
+            "value" : "Die Option „%@“ ist in tmux aktiviert. Sie ist nicht mit der CryTerm-tmux-Integration kompatibel. Bitte deaktivieren Sie sie und versuchen Sie es erneut."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The “%@” option is turned on in tmux. It is not compatible with the iTerm2-tmux integration. Please disable it and try again."
+            "value" : "The “%@” option is turned on in tmux. It is not compatible with the CryTerm-tmux integration. Please disable it and try again."
           }
         },
         "ja" : {
@@ -233120,25 +233120,25 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "tmux에서 “%@” 옵션이 켜져 있습니다. 이 옵션은 iTerm2-tmux 통합과 호환되지 않습니다. 옵션을 끄고 다시 시도하십시오."
+            "value" : "tmux에서 “%@” 옵션이 켜져 있습니다. 이 옵션은 CryTerm-tmux 통합과 호환되지 않습니다. 옵션을 끄고 다시 시도하십시오."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A opção “%@” está ativada no tmux. Ela não é compatível com a integração iTerm2-tmux. Desative-a e tente novamente."
+            "value" : "A opção “%@” está ativada no tmux. Ela não é compatível com a integração CryTerm-tmux. Desative-a e tente novamente."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Опция «%@» включена в tmux. Она несовместима с интеграцией iTerm2-tmux. Отключите её и повторите попытку."
+            "value" : "Опция «%@» включена в tmux. Она несовместима с интеграцией CryTerm-tmux. Отключите её и повторите попытку."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "tmux 中启用了“%@”选项。它与 iTerm2-tmux 集成不兼容。请将其停用后重试。"
+            "value" : "tmux 中启用了“%@”选项。它与 CryTerm-tmux 集成不兼容。请将其停用后重试。"
           }
         }
       }
@@ -238536,7 +238536,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das Installationsskript für Touch ID fehlt im iTerm2-Anwendungspaket."
+            "value" : "Das Installationsskript für Touch ID fehlt im CryTerm-Anwendungspaket."
           }
         },
         "en" : {

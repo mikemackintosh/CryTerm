@@ -323,7 +323,7 @@ void iTermExec(const char *argpath,
                 break;
             case EINVAL:
             case EFAULT:
-                iTermSignalSafeWrite(errorFd, "This appears to be a bug in iTerm2. Please report it at https://github.com/mikemackintosh/CryTerm/issues.");
+                iTermSignalSafeWrite(errorFd, "This appears to be a bug in CryTerm. Please report it at https://github.com/mikemackintosh/CryTerm/issues.");
                 break;
             case EIO:
                 iTermSignalSafeWrite(errorFd, "An I/O error occurred while reading from the file system.");
