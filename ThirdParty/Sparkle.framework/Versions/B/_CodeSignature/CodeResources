@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/Info.plist</key>
 		<data>
-		G5rY8lK2UBemYl+ZJP4CGIDLem0=
+		n8v7V0SH0BUXC0CnQu5XODWK4Oc=
 		</data>
 		<key>Resources/ReleaseNotesColorStyle.css</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Resources/SUUpdateAlert.nib</key>
 		<data>
-		wCpdZSzM+2ArDcwSa4pKmFM5SJs=
+		uI9Quy3Ys+rgxVjG5fRcIrbKpvQ=
 		</data>
 		<key>Resources/SUUpdatePermissionPrompt.nib</key>
 		<data>
-		Sj67Ou8Y1tbOQhF7Sbo5PHEneAk=
+		jWkiYJ4Z6xVR/BbjXzh4SloAiOw=
 		</data>
 		<key>Resources/ar.lproj/Sparkle.strings</key>
 		<dict>
@@ -346,10 +346,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			AXPNLvfSRA2F+SGToxa5tFKUwkY=
+			tYaplutB7SEst+4jWkBnEdZFm1Q=
 			</data>
 			<key>requirement</key>
-			<string>identifier Autoupdate and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7V7XYVQ7D</string>
+			<string>identifier Autoupdate and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "994Z8EH423"</string>
 		</dict>
 		<key>Headers/SPUAppcastSigningValidationStatus.h</key>
 		<dict>
@@ -586,7 +586,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zvMe0nX2er+trdldRTs7KB5hzmiuqVaDew22A0BhSCc=
+			xToMOHWuXL54dpzRukUf3of6turyMGCzBD+IrlIKFNo=
 			</data>
 		</dict>
 		<key>Resources/ReleaseNotesColorStyle.css</key>
@@ -600,14 +600,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4TUpXDM/UzZaUc/zCmMMuRpUkFQgBm89jcinTtTpUtM=
+			iYBVm6xHMK8sswX+geDtbDWs9kgbdrznRCs5dKj5hPM=
 			</data>
 		</dict>
 		<key>Resources/SUUpdatePermissionPrompt.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NadpBH6/aF6alUNnocFYsJ7lTu1sTorMcbgNkzVqHdE=
+			rYDGGfaqWj2S8F+xdmf72Z0iFwzdBYVWGMZMugFm7W0=
 			</data>
 		</dict>
 		<key>Resources/ar.lproj/Sparkle.strings</key>
@@ -929,10 +929,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			bQM9lSwYWuj0Qap6ivQqLyYD9Ww=
+			ZcPuee/D28aB6Y/hsYMElE9lWMo=
 			</data>
 			<key>requirement</key>
-			<string>identifier "org.sparkle-project.Sparkle.Updater" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7V7XYVQ7D</string>
+			<string>identifier "org.sparkle-project.Sparkle.Updater" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "994Z8EH423"</string>
 		</dict>
 	</dict>
 	<key>rules</key>
