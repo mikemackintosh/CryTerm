@@ -44,7 +44,6 @@ NSString *const kScreenStateShellIntegrationInstalledKey = @"Shell Integration I
 NSString *const kScreenStateLastCommandMarkKey = @"Last Command Mark";
 NSString *const kScreenStatePrimaryGridStateKey = @"Primary Grid State";
 NSString *const kScreenStateAlternateGridStateKey = @"Alternate Grid State";
-NSString *const kScreenStateCursorCoord = @"Cursor Coord";
 NSString *const kScreenStateProtectedMode = @"Protected Mode";
 NSString *const kScreenStateExfiltratedEnvironmentKey = @"Client Environment";
 NSString *const kScreenStatePromptStateKey = @"Prompt State";
@@ -232,6 +231,7 @@ NSString *VT100ScreenTerminalStateKeyPath = @"Path";
     _lastPromptLine = source.lastPromptLine;
     _intervalTreeObserver = source.intervalTreeObserver;
     _lastCommandMark = [source.cachedLastCommandMark doppelganger];
+    _lastCommandMarkGeneration = source.lastCommandMarkGeneration;
     // Let the read-only snapshot recompute -lastRemoteHost lazily rather than
     // copy the mutation thread's cached mark across the doppelganger boundary
     // (which would require reaching into another instance's protected ivars).
@@ -640,6 +640,23 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
     return [self coordRangeForInterval:mark.entry.interval];
 }
 
+- (NSDictionary<NSString *, iTermRange *> *)blockMarkDictionaryOnLine:(long long)y {
+    const long long overflow = self.cumulativeScrollbackOverflow;
+    if (y < overflow) {
+        return nil;
+    }
+    const int start = y - overflow;
+
+    NSMutableDictionary<NSString *, iTermRange *> *blockMarks = nil;
+    for (iTermBlockMark *blockMark in [self objectsOnLine:start ofClass:[iTermBlockMark class]]) {
+        if (!blockMarks) {
+            blockMarks = [NSMutableDictionary dictionary];
+        }
+        blockMarks[blockMark.blockID] = [iTermRange rangeWithLocation:0 length:1];
+    }
+    return blockMarks;
+}
+
 - (iTermBlockMark *)blockMarkWithID:(NSString *)blockID {
     NSNumber *n = self.blockStartAbsLine[blockID];
     if (!n) {
@@ -977,6 +994,9 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
                 if (mark.firstLineOfCommand) {
                     DLog(@"Found mark %@ in line number range %@", mark,
                          VT100GridRangeDescription([self lineNumberRangeOfInterval:obj.entry.interval]));
+                    // Fill the cache directly: the mutable state's setter would queue an update for
+                    // the main thread, which does this same search itself and gets the cached value
+                    // at the next sync anyway.
                     _lastCommandMark = mark;
                     return mark;
                 }
@@ -1042,17 +1062,26 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
     return [extractor haveNonWhitespaceInFirstLineOfRange:VT100GridWindowedRangeMake(range, 0, 0)];
 }
 
+// Where `mark`'s output begins: the coordinate recorded at FTCS C, or failing that the line after
+// the mark. The mark covers only the prompt's first line, so the fallback can land on a later prompt
+// line or a command continuation line.
+- (VT100GridCoord)startOfOutputForCommandMark:(id<VT100ScreenMarkReading>)mark {
+    BOOL ok = NO;
+    const VT100GridCoord outputStart = VT100GridCoordFromAbsCoord(mark.outputStart, self.cumulativeScrollbackOverflow, &ok);
+    if (ok) {
+        return outputStart;
+    }
+    VT100GridCoord start = [self coordRangeForInterval:mark.entry.interval].end;
+    start.x = 0;
+    start.y++;
+    return start;
+}
+
 - (VT100GridCoordRange)rangeOfOutputForCommandMark:(id<VT100ScreenMarkReading>)mark {
     id<VT100ScreenMarkReading> nextScreenMark = [self nextNonDescendantPromptMarkAfter:mark];
     if (nextScreenMark) {
         VT100GridCoordRange range;
-        BOOL ok = NO;
-        range.start = VT100GridCoordFromAbsCoord(mark.outputStart, self.cumulativeScrollbackOverflow, &ok);
-        if (!ok) {
-            range.start = [self coordRangeForInterval:mark.entry.interval].end;
-            range.start.x = 0;
-            range.start.y++;
-        }
+        range.start = [self startOfOutputForCommandMark:mark];
         range.end = [self coordRangeForInterval:nextScreenMark.entry.interval].start;
         if (nextScreenMark.lineStyle) {
             DLog(@"Move end up one line for line-style mark at next prompt");
@@ -1068,12 +1097,21 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
 
     // Command must still be running with no subsequent prompt.
     VT100GridCoordRange range;
-    range.start = [self coordRangeForInterval:mark.entry.interval].end;
-    range.start.x = 0;
-    range.start.y++;
+    range.start = [self startOfOutputForCommandMark:mark];
     range.end.x = 0;
     range.end.y = self.numberOfLines - self.height + [self.currentGrid numberOfLinesUsed];
     return range;
+}
+
+- (VT100GridRange)lineRangeOfOutputForCoordRange:(VT100GridCoordRange)coordRange {
+    // The coord range is half-open. When it ends at column 0, which is where
+    // the next prompt begins, its last line holds none of the output. Output
+    // with no trailing newline shares that line with the prompt and is not
+    // counted, which matches what Copy Output selects.
+    const int location = MAX(0, coordRange.start.y);
+    const int endY = coordRange.end.x > 0 ? coordRange.end.y + 1 : coordRange.end.y;
+    const int length = MAX(0, endY - location);
+    return VT100GridRangeMake(location, length);
 }
 
 - (NSIndexSet *)foldsInRange:(VT100GridRange)gridRange {
@@ -1305,6 +1343,14 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
     return [self commandInRange:range maxLines:50];
 }
 
+- (NSString *)currentCommandText {
+    const VT100GridCoordRange commandRange = self.commandRange;
+    if (commandRange.start.x < 0) {
+        return nil;
+    }
+    return [self commandInRange:commandRange];
+}
+
 - (NSString *)commandInRange:(VT100GridCoordRange)range maxLines:(int)maxLines {
     if (range.start.x == -1) {
         return nil;
@@ -1437,7 +1483,7 @@ static NSRange NSRangeFromBounds(NSInteger lowerBound, NSInteger upperBound) {
 #pragma mark - Double Buffer
 
 - (iTermTemporaryDoubleBufferedGridController *)temporaryDoubleBuffer {
-    if (!self.config.reduceFlicker && !_temporaryDoubleBuffer.explicit) {
+    if (!self.config.reduceFlicker && !_temporaryDoubleBuffer.appliesWithoutReduceFlicker) {
         return nil;
     }
     return _temporaryDoubleBuffer;

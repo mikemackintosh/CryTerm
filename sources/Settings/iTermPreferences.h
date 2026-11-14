@@ -95,7 +95,9 @@ typedef NS_ENUM(NSUInteger, iTermAIVendor) {
     iTermAIVendorOpenAI = 2,
     iTermAIVendorLlama = 3,
     iTermAIVendorAnthropic = 4,
-    iTermAIVendorApple = 5
+    iTermAIVendorApple = 5,
+    // Append-only: prefs store this raw value.
+    iTermAIVendorXAI NS_SWIFT_NAME(xAI) = 6
 };
 
 typedef NS_ENUM(NSUInteger, iTermAIPrompt) {
@@ -311,6 +313,7 @@ extern NSString *const kPreferenceKeyEnableProxyIcon;
 extern NSString *const kPreferenceKeyDimBackgroundWindows;
 extern NSString *const kPreferenceKeySeparateStatusBarsPerPane;
 extern NSString *const kPreferenceKeyHTMLTabTitles;
+extern NSString *const kPreferenceKeyShowTabSwitcherWhenCyclingTabs;
 extern NSString *const kPreferenceKeySideMargins;
 extern NSString *const kPreferenceKeyTopBottomMargins;
 

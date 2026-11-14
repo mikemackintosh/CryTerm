@@ -44,7 +44,6 @@ extern NSString *const kScreenStateShellIntegrationInstalledKey;
 extern NSString *const kScreenStateLastCommandMarkKey;
 extern NSString *const kScreenStatePrimaryGridStateKey;
 extern NSString *const kScreenStateAlternateGridStateKey;
-extern NSString *const kScreenStateCursorCoord;
 extern NSString *const kScreenStatePromptStateKey;
 extern NSString *const kScreenStateProtectedMode;
 extern NSString *const kScreenStateExfiltratedEnvironmentKey;
@@ -346,6 +345,8 @@ extern NSString *const kScreenStateOpenAidStackKey;
 - (NSArray<iTermTerminalButtonPlace *> *)buttonsInRange:(VT100GridRange)range;
 - (VT100GridCoordRange)rangeOfBlockWithID:(NSString *)blockID;
 - (id<iTermBlockMarkReading> _Nullable)blockMarkWithID:(NSString *)blockID;
+// The block marks on absolute line `y`, by block ID, each covering the one line.
+- (NSDictionary<NSString *, iTermRange *> * _Nullable)blockMarkDictionaryOnLine:(long long)y;
 - (BOOL)haveFoldsInRange:(NSRange)absLineRange;
 - (NSIndexSet *)foldsInRange:(VT100GridRange)gridRange;
 - (NSArray<id<iTermFoldMarkReading>> *)foldMarksInRange:(VT100GridRange)range;
@@ -401,6 +402,8 @@ extern NSString *const kScreenStateOpenAidStackKey;
 
 - (NSString * _Nullable)commandInRange:(VT100GridCoordRange)range;
 - (NSString * _Nullable)commandInRange:(VT100GridCoordRange)range maxLines:(int)maxLines;
+// The text of the command being entered, or nil when there is no command range.
+- (NSString * _Nullable)currentCommandText;
 
 - (id<IntervalTreeImmutableObject> _Nullable)lastMarkMustBePrompt:(BOOL)wantPrompt class:(Class)theClass;
 
@@ -409,6 +412,8 @@ extern NSString *const kScreenStateOpenAidStackKey;
 - (NSString * _Nullable)workingDirectoryOnLine:(int)line;
 - (NSString * _Nullable)currentWorkingDirectory;
 - (VT100GridCoordRange)rangeOfOutputForCommandMark:(id<VT100ScreenMarkReading>)mark;
+// The lines holding the output in a half-open range from rangeOfOutputForCommandMark:.
+- (VT100GridRange)lineRangeOfOutputForCoordRange:(VT100GridCoordRange)coordRange;
 
 // WARNING - If you add any new APIs that return interval tree objects update VT100ScreenStateSanitizingAdapter
 

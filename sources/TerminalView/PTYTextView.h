@@ -265,6 +265,8 @@ extern const CGFloat PTYTextViewMarginClickGraceWidth;
 
 // Describes the current user, host, and path.
 - (NSURL *)textViewCurrentLocation;
+// The local working directory the session already knows, without blocking or polling.
+- (NSString *)textViewKnownLocalWorkingDirectory;
 - (void)textViewBurySession;
 // anchor is a visual range
 - (BOOL)textViewShowHoverURL:(NSString *)url anchor:(VT100GridWindowedRange)anchor;
@@ -311,6 +313,8 @@ extern const CGFloat PTYTextViewMarginClickGraceWidth;
 - (void)textViewFloatingPaneMoveMouseUp:(NSEvent *)event;
 - (BOOL)textViewCanDockFloatingPane;
 - (void)textViewDockFloatingPane;
+- (BOOL)textViewCanFloatPane;
+- (void)textViewFloatPane;
 - (void)textViewRaiseFloatingPaneToFront:(BOOL)toFront;
 - (void)textViewFindOnPageLocationsDidChange;
 - (void)textViewFindOnPageSelectedResultDidChange;
@@ -401,7 +405,8 @@ extern const CGFloat PTYTextViewMarginClickGraceWidth;
 - (CGFloat)textViewRightExtra;
 - (CGFloat)textViewPanelReservation;
 - (void)textViewLiveSelectionDidEnd;
-- (void)textViewShowJSONPromotion;
+// Returns YES if the promotion was shown.
+- (BOOL)textViewShowJSONPromotion;
 - (void)textViewUserDidClickPathMark:(id<iTermPathMarkReading>)pathMark;
 - (void)textViewCancelSingleClick;
 - (void)textViewRevealChannelWithUID:(NSString *)uid;
@@ -841,6 +846,10 @@ extendResultsAcrossSoftBoundaries:(BOOL)extendResultsAcrossSoftBoundaries;
 
 // A text badge shown in the top right of the window
 - (void)setBadgeLabel:(NSString *)badgeLabel;
+
+// Re-renders the badge if its text, colors, or available size changed. Call after the delegate's
+// badge color changes, since the badge image caches it.
+- (void)recomputeBadgeLabel;
 
 // Menu for session title bar hamburger button
 - (NSMenu *)titleBarMenu;

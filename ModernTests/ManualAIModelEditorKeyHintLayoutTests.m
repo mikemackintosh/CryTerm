@@ -32,7 +32,7 @@
 // Every shipped translation. English has no compiled table; its hints come
 // from the editor's own strings (see testEnglishHintsFitTheEditor).
 + (NSArray<NSString *> *)translations {
-    return @[ @"de", @"ja", @"pt-BR", @"ru", @"zh-Hans" ];
+    return @[ @"ca", @"cs", @"da", @"de", @"el", @"en-AU", @"en-CA", @"en-GB", @"en-IN", @"es", @"es-419", @"en-PH", @"es-US", @"fi", @"fr", @"fr-CA", @"hi", @"hr", @"hu", @"id", @"it", @"ja", @"ms", @"nb", @"nl", @"pl", @"pt-BR", @"pt-PT", @"ro", @"ru", @"sk", @"sl", @"sv", @"th", @"tr", @"uk", @"vi", @"yue-Hans", @"zh-HK", @"zh-Hans", @"zh-Hant" ];
 }
 
 // The English hints that take more than one line.
@@ -249,7 +249,8 @@
     XCTAssertNotNil(hint, @"%@", error);
     const NSRect frame = [self rectOfXMLElement:hint];
     NSXMLElement *cell = [[hint nodesForXPath:@"textFieldCell" error:nil] firstObject];
-    XCTAssertEqualObjects([cell attributeForName:@"lineBreakMode"].stringValue, @"wordWrapping");
+    // Xcode omits lineBreakMode when it is the default, word wrapping.
+    XCTAssertEqualObjects([cell attributeForName:@"lineBreakMode"].stringValue ?: @"wordWrapping", @"wordWrapping");
 
     NSTextField *twoLineLabel = [NSTextField wrappingLabelWithString:@""];
     twoLineLabel.font = [NSFont systemFontOfSize:NSFont.systemFontSize];

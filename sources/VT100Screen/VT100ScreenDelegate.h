@@ -17,6 +17,7 @@ typedef NS_ENUM(NSInteger, iTermLinesShiftedReason) {
 };
 
 @class ParsedSSHOutput;
+@class iTermCommandOutput;
 @protocol Porthole;
 @class Trigger;
 @protocol VT100RemoteHostReading;
@@ -89,6 +90,18 @@ typedef NS_ENUM(NSUInteger, VT100ScreenWorkingDirectoryPushType) {
     VT100ScreenWorkingDirectoryPushTypeStrongPush
 };
 
+// How a reported working directory is known to be on this machine.
+typedef NS_ENUM(NSUInteger, VT100ScreenWorkingDirectoryLocality) {
+    // It might be a remote path that looks local (e.g., an OSC 7 without a machineID).
+    VT100ScreenWorkingDirectoryLocalityUnverified,
+    // The report proved it came from this machine (an OSC 7 machineID matching ours), so the
+    // directory is as good as a poll of the local shell.
+    VT100ScreenWorkingDirectoryLocalityVerifiedReport,
+    // It came from polling the local shell. The tracker records polls as they finish, so it
+    // needn't record this one again.
+    VT100ScreenWorkingDirectoryLocalityLocalPoll
+};
+
 @protocol VT100ScreenDelegate <NSObject, iTermImmutableColorMapDelegate, iTermObject, iTermTriggerSideEffectExecutor>
 
 // Screen contents have become dirty and should be redrawn right away.
@@ -118,12 +131,15 @@ typedef NS_ENUM(NSUInteger, VT100ScreenWorkingDirectoryPushType) {
 // Terminal can change title
 - (BOOL)screenAllowTitleSetting;
 
-// Called after text was added to the current line. Can be used to check triggers.
+// Called after text was added to the current line. Can be used to check triggers. `encoding` is the
+// terminal's encoding when the text arrived, which may differ from the main thread's copy if it
+// changed since the last sync.
 - (void)screenDidAppendStringToCurrentLine:(NSString * _Nonnull)string
                                isPlainText:(BOOL)plainText
                                 foreground:(screen_char_t)fg
                                 background:(screen_char_t)bg
-                                  atPrompt:(BOOL)atPrompt;
+                                  atPrompt:(BOOL)atPrompt
+                                  encoding:(NSStringEncoding)encoding;
 
 - (void)screenDidAppendAsciiDataToCurrentLine:(NSData * _Nonnull)asciiData
                                    foreground:(screen_char_t)fg
@@ -258,8 +274,11 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 // PTYTextView deselect
 - (void)screenRemoveSelection;
 - (void)screenDidClearFromAbsoluteLineToEnd:(long long)absY;
+// `regionAbsTop` is the absolute line number of the region's top row, computed on the mutation
+// thread because lines may have scrolled into history since the main thread's last sync.
 - (void)screenMoveSelectionUpBy:(int)n
-                       inRegion:(VT100GridRect)region;
+                       inRegion:(VT100GridRect)region
+                   regionAbsTop:(long long)regionAbsTop;
 
 - (void)screenResetTailFind;
 
@@ -284,10 +303,15 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 // Bounce the dock. Set request to false to cancel.
 - (void)screenRequestAttention:(VT100AttentionRequestType)request;
 - (void)screenDidTryToUseDECRQCRA;
+// Called after an app read screen contents with DECRQCRA, which it may only do if the user allowed it.
+- (void)screenDidUseDECRQCRA;
 
 - (void)screenDisinterSession;
 
-- (void)screenGetWorkingDirectoryWithCompletion:(void (^ _Nonnull)(NSString * _Nullable workingDirectory))completion;
+// Polls for the working directory. reportedChange means the shell reported a directory change
+// without saying where (e.g., an empty CurrentDir), which is a strong push.
+- (void)screenGetWorkingDirectoryForReportedChange:(BOOL)reportedChange
+                                        completion:(void (^ _Nonnull)(NSString * _Nullable workingDirectory))completion;
 
 // Show/hide the cursor.
 - (void)screenSetCursorVisible:(BOOL)visible;
@@ -307,7 +331,15 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
                    alert:(BOOL)alert
               completion:(void (^ _Nonnull)(void))completion;
 - (void)screenPromptDidStartAtLine:(int)line;
-- (void)screenPromptDidEndWithMark:(id<VT100ScreenMarkReading> _Nonnull)mark;
+// `command` is the text in the command range when the prompt ended, `cursor` where the cursor was,
+// `workingDirectory` the directory on the prompt's last line and `encoding` the terminal's encoding,
+// all captured on the mutation thread because the main thread's copy of that state may be from
+// before this prompt.
+- (void)screenPromptDidEndWithMark:(id<VT100ScreenMarkReading> _Nonnull)mark
+                           command:(NSString * _Nullable)command
+                            cursor:(VT100GridAbsCoord)cursor
+                  workingDirectory:(NSString * _Nullable)workingDirectory
+                          encoding:(NSStringEncoding)encoding;
 
 // Called for OSC 133;A / 133;P with a non-initial `k=` attribute
 // (secondary/continuation/right/unknown). The receiver should NOT treat this
@@ -401,19 +433,25 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 // the live value later: by the time this side effect runs, a shell like Fish
 // 4.x may have already re-enabled key reporting for its next prompt, which
 // would otherwise look like an app that left key reporting stuck on. See 13015.
+//
+// `output` is the command's output as of the FTCS D token, captured on the mutation thread because
+// the main thread's copy of the screen may be missing the last of it or, by the time observers read
+// it, have scrolled the start of it off. It is nil when there is no mark or nothing consumes the
+// output (see iTermCommandOutput.hasConsumersForSessionReferences:).
 - (void)screenCommandDidExitWithCode:(int)code
                     keyReportingFlags:(VT100TerminalKeyReportingFlags)keyReportingFlags
-                                 mark:(id<VT100ScreenMarkReading> _Nullable)maybeMark;
-// Failed to run the command (e.g., syntax error)
-- (void)screenCommandDidAbortOnLine:(int)line
-                        outputRange:(VT100GridCoordRange)outputRange
-                            command:(NSString *_Nonnull)command
-                               mark:(id<VT100ScreenMarkReading> _Nonnull)mark;
+                                 mark:(id<VT100ScreenMarkReading> _Nullable)maybeMark
+                               output:(iTermCommandOutput * _Nullable)output;
+// Failed to run the command (e.g., syntax error). `output` is captured as above.
+- (void)screenCommandDidAbortWithOutput:(iTermCommandOutput * _Nullable)output
+                                command:(NSString *_Nonnull)command
+                                   mark:(id<VT100ScreenMarkReading> _Nonnull)mark;
 
 - (void)screenLogWorkingDirectoryOnAbsoluteLine:(long long)absLine
                                      remoteHost:(id<VT100RemoteHostReading> _Nullable)remoteHost
                                   withDirectory:(NSString * _Nullable)directory
                                        pushType:(VT100ScreenWorkingDirectoryPushType)pushType
+                                       locality:(VT100ScreenWorkingDirectoryLocality)locality
                                        accepted:(BOOL)accepted;
 
 - (void)screenSuggestShellIntegrationUpgrade;
@@ -429,7 +467,11 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 - (BOOL)screenShouldReduceFlicker;
 - (NSInteger)screenUnicodeVersion;
 - (void)screenSetUnicodeVersion:(NSInteger)unicodeVersion;
-- (void)screenSetLabel:(NSString * _Nonnull)label forKey:(NSString * _Nonnull)keyName;
+// `absLineOfCursor` is the cursor's absolute line when the label was set, which the main thread's
+// copy of the screen may not know yet.
+- (void)screenSetLabel:(NSString * _Nonnull)label
+                forKey:(NSString * _Nonnull)keyName
+       absLineOfCursor:(long long)absLineOfCursor;
 - (void)screenPushKeyLabels:(NSString * _Nonnull)value;
 - (void)screenPopKeyLabels:(NSString * _Nonnull)value;
 - (void)screenSendModifiersDidChange;
@@ -451,6 +493,8 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
                        displayInline:(BOOL)displayInline
                          promptIfBig:(BOOL * _Nonnull)promptIfBig;
 - (void)screenAskAboutClearingScrollback;
+// Called after a control sequence cleared scrollback, which it may only do if the user allowed it.
+- (void)screenDidClearScrollbackWithPermission;
 - (VT100GridRange)screenRangeOfVisibleLines;
 - (void)screenDidResize;
 - (NSString * _Nullable)screenStringForKeypressWithCode:(unsigned short)keycode
@@ -546,7 +590,6 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 // payload). Delivered on the main thread.
 - (void)screenDidReceiveKittyDragAndDrop:(NSString * _Nonnull)content;
 
-- (void)screenFoldRange:(NSRange)range;
 // Called when lines are inserted or removed (fold/unfold/porthole resize).
 // delta is positive when lines are inserted, negative when removed.
 // mark is the fold mark or porthole mark associated with the change, or nil.
@@ -607,5 +650,11 @@ typedef NS_ENUM(NSUInteger, PTYSessionResizePermission) {
 // as of the report.
 - (void)screenProgressProtocolDidReportProgress:(VT100ScreenProgress)progress
                                      generation:(NSInteger)generation;
+
+// A restored session brought back the progress bar it was showing when it was
+// saved. Nothing has reported it since, so it may be stale. The generation is
+// VT100ScreenMutableState.progressGeneration as of the restore.
+- (void)screenProgressWasRestored:(VT100ScreenProgress)progress
+                       generation:(NSInteger)generation;
 
 @end

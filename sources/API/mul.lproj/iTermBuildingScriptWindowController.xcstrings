@@ -5,16 +5,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Hang tight! Installing a new Python environment…\"; ObjectID = \"9NL-Qh-f9P\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un moment! Instal·lant un entorn de Python nou…"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chvilku strpení! Instaluje se nové prostředí Pythonu…"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vent lidt! Installerer et nyt Python-miljø…"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Einen Moment! Neue Python-Umgebung wird installiert…"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Περιμένετε λίγο! Εγκατάσταση νέου περιβάλλοντος Python…"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hang tight! Installing a new Python environment…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Un momento! Instalando un nuevo entorno de Python…"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Un momento! Instalando un nuevo entorno de Python…"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Un momento! Instalando un nuevo entorno de Python…"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hetkinen! Asennetaan uutta Python-ympäristöä…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patientez ! Installation d’un nouvel environnement Python…"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patientez! Installation d’un nouvel environnement Python…"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कृपया प्रतीक्षा करें! नया Python एनवायरन्मेंट इंस्टॉल हो रहा है…"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samo trenutak! Instalira se novo Python okruženje…"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egy pillanat! Új Python-környezet telepítése…"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mohon tunggu! Menginstal lingkungan Python baru…"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un attimo di pazienza! Installazione di un nuovo ambiente Python…"
           }
         },
         "ja" : {
@@ -29,10 +149,46 @@
             "value" : "잠시만 기다려 주십시오! 새로운 Python 환경을 설치하는 중…"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sila tunggu sebentar! Memasang persekitaran Python baharu…"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et øyeblikk! Installerer et nytt Python-miljø…"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Even geduld! Een nieuwe Python-omgeving wordt geïnstalleerd…"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chwileczkę! Instalowanie nowego środowiska Pythona…"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aguarde! Instalando um novo ambiente Python…"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aguarde! A instalar um novo ambiente Python…"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un moment! Se instalează un nou mediu Python…"
           }
         },
         "ru" : {
@@ -41,10 +197,70 @@
             "value" : "Подождите! Устанавливается новое окружение Python…"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chvíľu strpenia! Inštaluje sa nové prostredie Python…"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samo trenutek! Nameščanje novega okolja Python …"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vänta lite! Installerar en ny Python-miljö…"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โปรดรอสักครู่ กำลังติดตั้งสภาพแวดล้อม Python ใหม่…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lütfen bekleyin! Yeni bir Python ortamı yükleniyor…"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зачекайте! Інсталяція нового середовища Python…"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vui lòng chờ! Đang cài đặt môi trường Python mới…"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请稍候！正在安装新的Python环境…"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請稍候！正在安裝新的 Python 環境…"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "请稍候！正在安装新的 Python 环境…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請稍候！正在安裝新的 Python 環境…"
           }
         }
       }

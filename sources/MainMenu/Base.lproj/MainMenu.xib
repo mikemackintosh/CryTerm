@@ -1494,6 +1494,13 @@ DQ
                                                 <action selector="movePane:" target="-1" id="dpH-EE-K3B"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Move Session to Floating Pane" identifier="Move Session to Floating Pane" id="fpn-ms-itm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <accessibility identifier="Move Session to Floating Pane"/>
+                                            <connections>
+                                                <action selector="moveSessionToFloatingPane:" target="-1" id="fpn-ms-act"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -1993,6 +2000,13 @@ DQ
                                                 <action selector="addTabToNewGroupAction:" target="-1" id="tgA-02-act"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Move Tab to New Sub-group…" identifier="Move Tab to New Sub-group" id="tgS-01-sub">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <accessibility identifier="Move Tab to New Sub-group…"/>
+                                            <connections>
+                                                <action selector="addTabToNewSubgroupAction:" target="-1" id="tgS-02-act"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Remove Tab from Group" identifier="Remove Tab from Group" id="tgR-01-rem">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <accessibility identifier="Remove Tab from Group"/>
@@ -2119,6 +2133,12 @@ DQ
                                                         <accessibility identifier="Send to Back"/>
                                                         <connections>
                                                             <action selector="sendFloatingPaneToBack:" target="-1" id="fpn-sn-act"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Select Next Floating Pane" identifier="Floating Panes.Select Next Floating Pane" id="fpn-nx-itm">
+                                                        <accessibility identifier="Select Next Floating Pane"/>
+                                                        <connections>
+                                                            <action selector="selectNextFloatingPane:" target="-1" id="fpn-nx-act"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Dock Floating Pane" identifier="Floating Panes.Dock Floating Pane" id="fpn-dk-itm">
@@ -2481,7 +2501,6 @@ DQ
                 <outlet property="maximizePane" destination="1233" id="1237"/>
                 <outlet property="selectTab" destination="847" id="863"/>
                 <outlet property="showFullScreenTabs" destination="1257" id="1260"/>
-                <outlet property="suUpdater" destination="879" id="FRj-mW-Vma"/>
                 <outlet property="toolbeltMenu" destination="1296" id="1299"/>
                 <outlet property="useTransparency" destination="1228" id="1230"/>
                 <outlet property="windowArrangementsAsTabs_" destination="z6V-EJ-Ntf" id="wse-Wc-WVw"/>
@@ -2491,7 +2510,6 @@ DQ
             </connections>
         </customObject>
         <customObject id="266" userLabel="Font Manager" customClass="NSFontManager"/>
-        <customObject id="879" userLabel="SUUpdater" customClass="SUUpdater"/>
         <customObject id="vNk-ru-3oN" userLabel="Snippets Menu Controller" customClass="iTermSnippetsMenuController">
             <connections>
                 <outlet property="_menuItem" destination="s0f-jP-7Pk" id="Yh8-jB-GRV"/>

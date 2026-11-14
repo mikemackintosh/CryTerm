@@ -55,7 +55,42 @@
 @end
 
 
-@implementation iTermMetalCursorInfo
+@implementation iTermMetalCursorInfo {
+    vector_float4 _normalTextColors[iTermBoxCursorMaxColumns];
+}
+
+- (const vector_float4 *)normalTextColors {
+    return _normalTextColors;
+}
+
+- (void)recordNormalTextColor:(vector_float4)color forColumn:(int)x {
+    if (_normalTextColorsCount == 0) {
+        _normalTextColorsFirstColumn = x;
+    }
+    if (_normalTextColorsCount >= iTermBoxCursorMaxColumns ||
+        x != _normalTextColorsFirstColumn + _normalTextColorsCount) {
+        ITConservativeBetaAssert(NO, @"Unexpected column %d after %d columns starting at %d",
+                     x, _normalTextColorsCount, _normalTextColorsFirstColumn);
+        return;
+    }
+    _normalTextColors[_normalTextColorsCount++] = color;
+}
+
+- (void)enumerateBoxCoverageInRowOfWidth:(int)width
+                                   block:(void (^ NS_NOESCAPE)(int x, CGFloat coverage))block {
+    const CGFloat boxLeft = _coord.x + _columnOffset;
+    const CGFloat boxRight = boxLeft + (_doubleWidth ? 2 : 1);
+    const int firstColumn = MAX(0, (int)floor(boxLeft));
+    const int lastColumn = MIN(width - 1, (int)ceil(boxRight) - 1);
+    for (int x = firstColumn; x <= lastColumn; x++) {
+        const CGFloat coverage = MIN(1, MAX(0, MIN(boxRight, x + 1) - MAX(boxLeft, x)));
+        if (coverage <= 0.001) {
+            continue;
+        }
+        block(x, coverage);
+    }
+}
+
 @end
 
 @implementation iTermMetalIMEInfo
@@ -1469,14 +1504,25 @@ panelReservationPoints:(CGFloat)panelReservationPoints {
                                                         cursorInfo.cursorColor.blueComponent,
                                                         1);
         const CGFloat fade = cursorInfo.fadeAlpha;
-        if (fade >= 1.0) {
-            glyphAttributes[cursorInfo.coord.x].foregroundColor = cursorInfo.textColor;
-            glyphAttributes[cursorInfo.coord.x].backgroundColor = cursorBg;
-        } else {
-            const vector_float4 t = simd_make_float4(fade, fade, fade, fade);
-            glyphAttributes[cursorInfo.coord.x].backgroundColor = simd_mix(cursorInfo.backgroundColor, cursorBg, t);
-        }
-        glyphAttributes[cursorInfo.coord.x].hasUnderlineColor = NO;
+        // During a slide the box can straddle two columns. Each covered
+        // column's foreground was crossfaded by coverage in the per-frame
+        // state, so crossfade the background its glyph is antialiased against
+        // by the same amount. At rest this touches only coord.x.
+        const int width = frameData.gridSize.width;
+        [cursorInfo enumerateBoxCoverageInRowOfWidth:width block:^(int x, CGFloat coverage) {
+            const CGFloat t = coverage * fade;
+            if (t >= 1.0) {
+                glyphAttributes[x].foregroundColor = cursorInfo.textColor;
+                glyphAttributes[x].backgroundColor = cursorBg;
+            } else {
+                // The cursor's own cell uses the background computed for the
+                // cursor (as before slides were supported); a neighbor the box
+                // is sliding over uses that cell's background.
+                const vector_float4 normalBg = (x == cursorInfo.coord.x) ? cursorInfo.backgroundColor : glyphAttributes[x].backgroundColor;
+                glyphAttributes[x].backgroundColor = simd_mix(normalBg, cursorBg, simd_make_float4(t, t, t, t));
+            }
+            glyphAttributes[x].hasUnderlineColor = NO;
+        }];
         [rowWithCursor.attributesData checkForOverrun];
     }
 
@@ -1519,12 +1565,14 @@ panelReservationPoints:(CGFloat)panelReservationPoints {
                 tState.hdrBrightness = cursorInfo.hdrBrightness;
                 tState.doubleWidth = cursorInfo.doubleWidth;
                 tState.fadeAlpha = cursorFadeAlpha;
+                tState.pixelOffset = cursorInfo.pixelOffset;
 
                 tState = [frameData transientStateForRenderer:_frameCursorRenderer];
                 tState.coord = cursorInfo.coord;
                 tState.color = cursorInfo.cursorColor;
                 tState.doubleWidth = cursorInfo.doubleWidth;
                 tState.fadeAlpha = cursorFadeAlpha;
+                tState.pixelOffset = cursorInfo.pixelOffset;
                 break;
             }
             case CURSOR_VERTICAL: {
@@ -1565,6 +1613,47 @@ panelReservationPoints:(CGFloat)panelReservationPoints {
     tState.destinationRect = frameData.perFrameState.badgeDestinationRect;
 }
 
+// Tells the text renderer where a filled box cursor is. Glyphs in the columns
+// it covers keep their normal colors, and the fragment shader draws pixels
+// inside the cursor box in the cursor text color. Coloring by pixel keeps a
+// glyph that spans cells, such as a ligature, from taking the cursor color
+// outside the cursor, and follows the box exactly while it slides.
+// Must run after the per-frame state has built the cursor row. Issue 13203.
+- (void)configureCursorTextForTextState:(iTermTextRendererTransientState *)textState
+                              frameData:(iTermMetalFrameData *)frameData
+               drawOffscreenCommandLine:(BOOL)drawOffscreenCommandLine {
+    iTermTextCursorInfo info;
+    memset(&info, 0, sizeof(info));
+    iTermMetalCursorInfo *cursorInfo = [frameData.perFrameState metalDriverCursorInfo];
+    const VT100GridCoord coord = cursorInfo.coord;
+    const BOOL enabled = (!drawOffscreenCommandLine &&
+                          cursorInfo.recolorsText &&
+                          coord.y >= 0 &&
+                          coord.y < (int)frameData.rows.count);
+    if (enabled) {
+        // Use the box cursor's own geometry and slide offset, which can differ
+        // from the cell (line spacing, the fullHeightCursor setting, smooth
+        // typing). The block cursor renderer gets the same pixelOffset in
+        // populateCursorRendererTransientStateWithFrameData:.
+        const CGRect frame = iTermBlockCursorFrame(textState.cellConfiguration,
+                                                   coord,
+                                                   cursorInfo.doubleWidth,
+                                                   cursorInfo.pixelOffset);
+        info.rect = simd_make_float4(CGRectGetMinX(frame),
+                                     CGRectGetMinY(frame),
+                                     CGRectGetMaxX(frame),
+                                     CGRectGetMaxY(frame));
+        info.color = cursorInfo.boxTextColor;
+        info.color.w = 1;
+        info.enabled = 1;
+    }
+    textState.cursorTextInfo = info;
+    [textState setCursorRow:coord.y
+                firstColumn:cursorInfo.normalTextColorsFirstColumn
+                      count:enabled ? cursorInfo.normalTextColorsCount : 0
+           normalTextColors:cursorInfo.normalTextColors];
+}
+
 // The meaning of drawOffscreenCommandLine is:
 //   nil - just draw
 //   @YES - draw only first line
@@ -1601,6 +1690,9 @@ panelReservationPoints:(CGFloat)panelReservationPoints {
 
     iTermMetalIMEInfo *imeInfo = frameData.perFrameState.imeInfo;
 
+    [self configureCursorTextForTextState:textState
+                                frameData:frameData
+                 drawOffscreenCommandLine:drawOffscreenCommandLine.boolValue];
     textState.suppressedTopHeight = suppressedTopHeight;
     [frameData.rows enumerateObjectsUsingBlock:^(iTermMetalRowData * _Nonnull rowData, NSUInteger idx, BOOL * _Nonnull stop) {
         NSRange markedRangeOnLine = NSMakeRange(NSNotFound, 0);

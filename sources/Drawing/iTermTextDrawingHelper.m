@@ -3067,6 +3067,8 @@ BOOL iTermDecodeKittyUnicodePlaceholder(const screen_char_t *c,
         case iTermThinStrokesSettingRetinaOnly:
             return _isRetina;
     }
+    ITAssertWithMessage(CGColorGetNumberOfComponents(foregroundColor) >= 3,
+                        @"Foreground color %@ has too few components", foregroundColor);
     return [backgroundColor brightnessComponent] < PerceivedBrightness(components[0], components[1], components[2]);
 }
 
@@ -3886,8 +3888,13 @@ iTermKittyImageDraw *iTermFindKittyImageDrawForVirtualPlaceholder(NSArray<iTermK
     if (![self cursorIsSolidRectangle]) {
         return NO;
     }
-    // Block cursor inverts character colors - doesn't work for smooth slide
-    return _cursorType == CURSOR_UNDERLINE || _cursorType == CURSOR_VERTICAL;
+    // The box cursor also redraws the character underneath it in a
+    // contrasting color. The Metal renderer handles that mid-slide by
+    // crossfading each covered column by coverage (see
+    // applyBoxCursorTextColorTweakForRow: in iTermMetalPerFrameState.m). The
+    // legacy renderer cannot, so PTYTextView does not slide a box cursor on
+    // the legacy path.
+    return _cursorType == CURSOR_UNDERLINE || _cursorType == CURSOR_VERTICAL || _cursorType == CURSOR_BOX;
 }
 
 typedef struct {
@@ -4118,7 +4125,7 @@ typedef struct {
         if ([iTermCursor shouldUseHDRCursorOnBackground:[self defaultBackgroundColor]
                                          profileEnabled:self.hdrCursorEnabled
                                       potentialHeadroom:headroom]) {
-            cursorColor = [NSColor whiteColor];
+            cursorColor = [NSColor it_colorInDefaultColorSpaceWithRed:1 green:1 blue:1 alpha:1];
             hdrComponentValue = [iTermCursor hdrCursorComponentValueForRequestedBrightness:self.hdrCursorBrightness
                                                                                   headroom:headroom];
             hdrCursor = YES;
@@ -4155,6 +4162,12 @@ typedef struct {
                                                           bold:NO
                                                          faint:NO
                                                   isBackground:NO];
+    }
+    if (hdrCursor && _useSmartCursorColor) {
+        // Smart cursor color is suppressed for the HDR cursor (see below), but the
+        // user still asked for legible contrast, and black is the best contrast
+        // against a full-white block. The Metal path does the same.
+        cursorTextColor = [NSColor it_colorInDefaultColorSpaceWithRed:0 green:0 blue:0 alpha:1];
     }
     cursor.hdrComponentValue = hdrComponentValue;
     _drawBoldCursorCharacter = hdrCursor;

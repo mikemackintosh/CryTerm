@@ -24,9 +24,11 @@
 //       - `vectorStore` (default "disabled").
 //       - `fixtureExempt` (default false): true for models that can't be
 //         refusal-fixtured (local Llama, on-device Apple, models unreachable
-//         for new keys, or models that block the refusal prompt at HTTP 400).
+//         for new keys, models that block the refusal prompt at HTTP 400, or
+//         models we don't send the refusal prompt to).
 //         Anything in AILiveHarness.unreachableForNewKeys / refusalBlockedAtHTTP
-//         MUST be marked fixtureExempt; the coverage test asserts they agree.
+//         / refusalNotCaptured MUST be marked fixtureExempt; the coverage test
+//         asserts they agree.
 //       - `economyModel` (optional): the name of a cheaper same-vendor model to
 //         prefer for high-frequency, low-stakes work (e.g. the orchestration
 //         screen-watch poller). Must name another entry in this catalog. See
@@ -43,7 +45,7 @@
 //        ITERM2_AI_LIVE_REFUSAL=missing ITERM2_AI_LIVE_<VENDOR>_MODELS=<modelname> \
 //            tools/run_ai_live.sh test_<vendor>_refusal
 //
-//     <vendor> is openai / anthropic / gemini / deepseek (lowercase). The
+//     <vendor> is openai / anthropic / gemini / deepseek / xai (lowercase). The
 //     refusal prompt is a request vendors flag as abuse, so the scenario is
 //     opt-in and "missing" skips models already fixtured. Don't run it more
 //     than needed.
@@ -75,6 +77,11 @@ class AIModel: NSObject {
             apiGuess = .deepSeek
             featuresGuess = [.functionCalling, .streaming]
             vendorGuess = .deepSeek
+        } else if modelName.contains("grok") {
+            urlGuess = "https://api.x.ai/v1/chat/completions"
+            apiGuess = .chatCompletions
+            featuresGuess = [.functionCalling, .streaming]
+            vendorGuess = .xAI
         } else if modelName.contains("llama") {
             urlGuess = "http://localhost:11434/api/chat"
             apiGuess = .llama
@@ -349,6 +356,10 @@ class AIMetadata: NSObject {
         return recommendedModel(for: .apple)
     }
 
+    static var recommendedXAIModel: Model {
+        return recommendedModel(for: .xAI)
+    }
+
     static var alternateOpenAIModels: [Model] {
         return AIMetadata.instance.models.filter { candidate in
             candidate.vendor == .openAI
@@ -376,6 +387,12 @@ class AIMetadata: NSObject {
     static var alternateAppleModels: [Model] {
         return AIMetadata.instance.models.filter { candidate in
             candidate.vendor == .apple
+        }
+    }
+
+    static var alternateXAIModels: [Model] {
+        return AIMetadata.instance.models.filter { candidate in
+            candidate.vendor == .xAI
         }
     }
 
@@ -427,6 +444,9 @@ class AIMetadata: NSObject {
     func api(for model: String, fallback: iTermAIAPI) -> iTermAIAPI {
         if let modelIndex = models.firstIndex(where: { $0.name == model }) {
             return models[modelIndex].api
+        }
+        if model.contains("grok") {
+            return .chatCompletions
         }
         if model.contains("gpt") {
             return .responses

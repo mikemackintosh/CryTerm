@@ -125,6 +125,39 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 // group; the invariant "the active tab is never in a collapsed group" is
 // enforced by PseudoTerminal. Meaningful only when tabGroupID is non-nil.
 @property (nonatomic) BOOL tabGroupCollapsed;
+// When this tab's group (tabGroupID) is a sub-group, the definition of its
+// parent group. Nesting is one level deep: a parent never has a parent. Like
+// the fields above, the parent's definition rides every tab of every one of its
+// sub-groups (and its own direct members carry it as their tabGroupID/Name/...),
+// so a parent with no direct members still exists through its sub-groups.
+// tabGroupParentID is nil for a top-level group; the others are meaningful only
+// when it is set.
+@property (nonatomic, copy) NSString *tabGroupParentID;
+@property (nonatomic, copy) NSString *tabGroupParentName;
+@property (nonatomic, copy) NSColor *tabGroupParentColor;
+@property (nonatomic) BOOL tabGroupParentCollapsed;
+// tabGroupParentID when the tab is grouped and its group is a sub-group, else
+// nil. Use this, not tabGroupParentID, wherever a stale parent on an ungrouped
+// tab must not count.
+@property (nonatomic, readonly) NSString *nestedTabGroupParentID;
+// The outermost group this tab belongs to: its parent group if it is in a
+// sub-group, else tabGroupID.
+@property (nonatomic, readonly) NSString *tabGroupTopLevelID;
+// YES if the tab belongs to `groupID` directly or through a sub-group of it.
+- (BOOL)isInTabGroup:(NSString *)groupID;
+// YES if the tab is hidden in the tab bar because its group or its group's
+// parent is collapsed.
+@property (nonatomic, readonly) BOOL tabGroupHidden;
+// Read and write the definition of `groupID` as carried by this tab, which may
+// be its own group or its group's parent. No-op/nil/NO if the tab is not in it.
+- (NSString *)nameOfTabGroup:(NSString *)groupID;
+- (NSColor *)colorOfTabGroup:(NSString *)groupID;
+- (BOOL)isTabGroupCollapsed:(NSString *)groupID;
+- (void)setName:(NSString *)name ofTabGroup:(NSString *)groupID;
+- (void)setColor:(NSColor *)color ofTabGroup:(NSString *)groupID;
+- (void)setCollapsed:(BOOL)collapsed ofTabGroup:(NSString *)groupID;
+// Clear the parent-group fields (the tab's group becomes top-level).
+- (void)clearTabGroupParent;
 @property(nonatomic, readonly) NSString *title;  // the effective title
 @property (nonatomic, readonly) iTermVariableScope<iTermTabScope> *variablesScope;
 @property(nonatomic, readonly) iTermMetalUnavailableReason metalUnavailableReason;
@@ -187,6 +220,9 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
                   settingCustomLocale:(NSString *)lang;
 + (NSDictionary *)repairedArrangement:(NSDictionary *)arrangement
                        profileMutator:(Profile *(^)(Profile *))profileMutator;
+// The tab arrangement without its tab group parent, so its group restores as a
+// top-level group.
++ (NSDictionary *)arrangementRemovingTabGroupParent:(NSDictionary *)arrangement;
 
 + (NSDictionary *)arrangementForSessionWithGUID:(NSString *)sessionGUID
                                   inArrangement:(NSDictionary *)arrangement;
@@ -248,6 +284,10 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 - (void)setDvrInSession:(PTYSession*)newSession;
 - (void)showLiveSession:(PTYSession*)liveSession inPlaceOf:(PTYSession*)replaySession;
 
+// An image of the tab’s split panes as laid out, each drawn from its session’s terminal content
+// snapshot. Floating panes are not included. Returns nil if there is nothing to draw.
+- (NSImage *)contentSnapshot;
+
 // Screenshot mode: creates synthetic session for interactive redaction selection
 - (PTYSession *)enterScreenshotModeForSession:(PTYSession *)liveSession;
 - (void)exitScreenshotModeForSession:(PTYSession *)syntheticSession;
@@ -306,12 +346,21 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 - (BOOL)sessionIsFloating:(PTYSession *)session;
 - (iTermFloatingPaneView *)floatingPaneForSession:(PTYSession *)session;
 
-// Adds an already set up session as a floating pane in front of the others. frame is the float's
-// frame in the tab's container, outline included. The float gets the largest grid that fits in it,
-// keeping its top left, and its frame then follows from that grid.
-- (void)addFloatingSession:(PTYSession *)session frame:(NSRect)frame;
-// Adds an existing session's view as a float with the given outline frame, keeping its grid.
+// Adds an existing session's view as a float sized and placed like a new one: the largest grid
+// that fits 80% of the tab, centered. The frame follows from the grid.
+- (iTermFloatingPaneView *)installNewlyPlacedFloatingSession:(PTYSession *)session;
+// Adds an existing session's view as a float with the given outline frame, keeping its grid. A
+// route that adds a float to a live tab finishes with didInstallFloatingPane:session:activate: once
+// the float is placed. Restoring an arrangement and adopting tmux's floats do not: their tab is
+// still being built, and the underlays, blur and dimming are settled once the layout is complete.
 - (iTermFloatingPaneView *)installFloatingSession:(PTYSession *)session outlineFrame:(NSRect)frame;
+// The same, for a caller that places the float right after, which sets its frame from its grid.
+- (iTermFloatingPaneView *)installFloatingSessionAwaitingPlacement:(PTYSession *)session;
+// The common tail of every route that adds a float to a live tab, once its pane is installed and
+// placed: the underlay, focus, blur and dimming.
+- (void)didInstallFloatingPane:(iTermFloatingPaneView *)pane
+                       session:(PTYSession *)session
+                      activate:(BOOL)activate;
 
 // Hides or shows every floating pane in the tab. Their sessions keep running. Activating a float
 // shows them again.
@@ -372,6 +421,16 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 - (PTYSession *)splitTargetForSession:(PTYSession *)session;
 
 - (void)removeSession:(PTYSession *)aSession;
+// Removes a session the caller puts back in this tab at once, as a float or as a tiled pane. The
+// active session is unchanged, even if it is this one, so no successor is activated, no other
+// pane's activity counter changes, and the pane used most recently stays the one the user last
+// worked in. Nothing is notified of the removal: the install that follows renumbers the panes and
+// tells the window, once the tab is consistent again. Once the session is back, the caller makes it
+// active with setActiveSessionRestoringFocus: if it should be.
+- (void)removeSessionForReinstallation:(PTYSession *)aSession;
+// Makes a session active. If it already was, as after removeSessionForReinstallation:, its view
+// leaving the window took keyboard focus from it, which this gives back.
+- (void)setActiveSessionRestoringFocus:(PTYSession *)session;
 
 // Anyone changing the number of sessions must call this after the sessions
 // are "well formed".
@@ -379,8 +438,12 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 - (BOOL)updatePaneTitles;
 - (void)updateSessionOrdinals;
 
+// sessionKeepingGrid's views are laid out but its grid is not resized. This is for the session a
+// zoomed layout will maximize, since shrinking it to its hidden split size first would discard rows
+// tmux won't redraw.
 - (void)resizeViewsInViewHierarchy:(NSView *)view
-                      forNewLayout:(NSMutableDictionary *)parseTree;
+                      forNewLayout:(NSMutableDictionary *)parseTree
+                sessionKeepingGrid:(PTYSession *)sessionKeepingGrid;
 - (void)reloadTmuxLayout;
 // Size we are given the current layout
 
@@ -393,6 +456,12 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 // tmux changed which panes have no border (pane-border-lines none). Borderless floats hide their
 // title bars.
 - (void)tmuxPaneBordersDidChange;
+
+// Whether a tiled pane can become a float or a float a tiled pane, as far as tmux is concerned. It
+// refuses both while the window is zoomed (cmd-break-pane.c, cmd-join-pane.c). Raising, moving and
+// resizing a float are allowed then (resizing unzooms), so this is separate from
+// tmuxAllowsChangingFloatingPanes. Always YES natively.
+- (BOOL)tmuxAllowsChangingWhichPanesFloat;
 
 // Whether the floats can be moved, resized, raised or docked. tmux 3.7 has floating panes but no
 // commands to change them, so they only show.

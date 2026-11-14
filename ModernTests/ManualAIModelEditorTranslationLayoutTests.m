@@ -102,7 +102,7 @@
 }
 
 - (void)testTranslatedTitlesFit {
-    for (NSString *language in @[ @"de", @"ja", @"pt-BR", @"ru", @"zh-Hans" ]) {
+    for (NSString *language in @[ @"ca", @"cs", @"da", @"de", @"el", @"en-AU", @"en-CA", @"en-GB", @"en-IN", @"es", @"es-419", @"en-PH", @"es-US", @"fi", @"fr", @"fr-CA", @"hi", @"hr", @"hu", @"id", @"it", @"ja", @"ms", @"nb", @"nl", @"pl", @"pt-BR", @"pt-PT", @"ro", @"ru", @"sk", @"sl", @"sv", @"th", @"tr", @"uk", @"vi", @"yue-Hans", @"zh-HK", @"zh-Hans", @"zh-Hant" ]) {
         NSDictionary<NSString *, NSString *> *strings = [self stringsForLanguage:language];
         id<ManualAIModelEditorTranslationLayoutForTesting> editor = [self newEditor];
         NSView *content = editor.window.contentView;
@@ -145,6 +145,41 @@
                                          @"%@: the Test button runs into %@", language, [(NSButton *)view title]);
             }
         }
+    }
+}
+
+// The Fetch Models button clipped fr “Récupérer les mo…” at its fixed 130
+// points. It switches among three titles (Fetch Models, Refresh Models, and
+// Fetching…), so it has to fit the widest of them. The Model field beside it
+// gives up the room, and the button stays flush with the fields below.
+- (void)testFetchModelsButtonFitsEveryTitle {
+    for (NSString *language in @[ @"ca", @"cs", @"da", @"de", @"el", @"en-AU", @"en-CA", @"en-GB", @"en-IN", @"es", @"es-419", @"en-PH", @"es-US", @"fi", @"fr", @"fr-CA", @"hi", @"hr", @"hu", @"id", @"it", @"ja", @"ms", @"nb", @"nl", @"pl", @"pt-BR", @"pt-PT", @"ro", @"ru", @"sk", @"sl", @"sv", @"th", @"tr", @"uk", @"vi", @"yue-Hans", @"zh-HK", @"zh-Hans", @"zh-Hant" ]) {
+        NSDictionary<NSString *, NSString *> *strings = [self stringsForLanguage:language];
+        NSMutableArray<NSString *> *titles = [NSMutableArray array];
+        for (NSString *key in @[ @"AIModelEditor.FetchModels", @"AIModelEditor.RefreshModels", @"AIModelEditor.FetchingProgress" ]) {
+            XCTAssertNotNil(strings[key], @"%@ %@", language, key);
+            if (strings[key]) {
+                [titles addObject:strings[key]];
+            }
+        }
+        id<ManualAIModelEditorTranslationLayoutForTesting> editor = [self newEditor];
+        NSObject *object = (NSObject *)editor;
+        [object setValue:titles forKey:@"fetchModelsButtonTitles"];
+        [editor layoutForTranslations];
+
+        NSButton *fetchButton = [object valueForKey:@"fetchModelsButton"];
+        NSTextField *nameField = [object valueForKey:@"nameField"];
+        NSView *modelPopup = [object valueForKey:@"modelPopup"];
+        NSTextField *urlField = [object valueForKey:@"urlField"];
+        for (NSString *title in titles) {
+            fetchButton.title = title;
+            XCTAssertGreaterThanOrEqual(NSWidth(fetchButton.frame), ceil(fetchButton.cell.cellSize.width),
+                                        @"%@ clipped: %@", language, title);
+        }
+        XCTAssertLessThanOrEqual(NSMaxX(nameField.frame) + 6, NSMinX(fetchButton.frame) + 0.5,
+                                 @"%@: the Model field runs into the Fetch Models button", language);
+        XCTAssertTrue(NSEqualRects(modelPopup.frame, nameField.frame), @"%@", language);
+        XCTAssertEqualWithAccuracy(NSMaxX(fetchButton.frame), NSMaxX(urlField.frame), 0.5, @"%@", language);
     }
 }
 

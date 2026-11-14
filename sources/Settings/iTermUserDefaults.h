@@ -29,8 +29,21 @@ extern NSString *const iTermUserDefaultsMigrationValuesAfterKey;
 // Returns the custom suite name if one was set via setCustomSuiteName:, otherwise nil.
 + (nullable NSString *)customSuiteName;
 
+// The name to use in place of the suite name for this instance's folders on disk (its
+// Application Support folder, dot directory, and secure settings fallback) and for IT2_SUITE,
+// which clients use to find those folders. Returns nil when no custom suite was set.
+//
+// Usually this is the suite name itself. But the main app's folders are named iTerm2 and
+// iterm2, and the default macOS file system is case-insensitive, so a suite named iterm2 in any
+// case (as a checkout at ~/git/iterm2 gets) would share them. A development build would then
+// adopt the main app's session servers and use its sockets. Such a suite gets a distinct name.
++ (nullable NSString *)customSuiteDirectoryName;
+
+// The pure form of customSuiteDirectoryName, for testing.
++ (nullable NSString *)directoryNameForSuiteName:(nullable NSString *)suiteName;
+
 // The name of this instance's Application Support folder, for the iterm2 Python module and it2
-// (which default to “iTerm2”): the custom suite if set, else the executable name if it is not
+// (which default to “iTerm2”): customSuiteDirectoryName if a custom suite is set, else the executable name if it is not
 // iTerm2 (a rebranded build), else nil.
 + (nullable NSString *)apiSuiteName;
 
@@ -65,6 +78,7 @@ typedef NS_ENUM(NSUInteger, iTermAppleWindowTabbingMode) {
 @property (class, nonatomic) BOOL requireAuthenticationAfterScreenLocks;
 @property (class, nonatomic) BOOL openTmuxDashboardIfHiddenWindows;
 @property (class, nonatomic) BOOL claudeCodeWorkgroupUpsellSuppressed;
+@property (class, nonatomic, readonly) NSString *claudeCodeWorkgroupUpsellSuppressedUserDefaultsKey;
 @property (class, nonatomic) BOOL claudeCodeHooksInstalled;
 @property (class, nonatomic) BOOL claudeCodeTriggersInstalled;
 // Absolute path to the directory Claude Code's settings.json was last
@@ -82,13 +96,12 @@ typedef NS_ENUM(NSUInteger, iTermAppleWindowTabbingMode) {
 // rewriting ~/.claude/settings.json) silently strips our hook.
 @property (class, nonatomic) BOOL claudeCodeIntegrationCompleted;
 
-// Whether session-status text (from cc-status, OSC 21337, the SetTabStatus
-// trigger, or iterm2.set_status) is woven into the tab’s subtitle and
-// allowed to tint that subtitle text. The colored dot on the tab is
-// independent and always visible regardless of this setting. Default YES
-// preserves the existing behavior. Posted as
-// iTermShowSessionStatusInTabSubtitleDidChange when toggled so tabs can
-// refresh their labels live.
+// Whether session status (from cc-status, OSC 21337, OSC 7501, the
+// SetTabStatus trigger, or iterm2.set_status) appears on the tab at all: the
+// status text woven into the tab’s subtitle, the tint on that subtitle text,
+// and the colored dot drawn as the tab’s icon. Default YES preserves the
+// existing behavior. Posted as iTermShowSessionStatusInTabSubtitleDidChange
+// when toggled so tabs can refresh their labels and icons live.
 @property (class, nonatomic) BOOL showSessionStatusInTabSubtitle;
 @property (class, nonatomic) BOOL haveExplainedHowToAddTouchbarControls;
 
@@ -141,6 +154,12 @@ typedef NS_ENUM(NSUInteger, iTermAppleWindowTabbingMode) {
 // When Idle toolbar item to the Claude Code workgroup's main (root)
 // session has run. NoSync for the same reason as workgroupShortcutsBackfilled.
 @property (class, nonatomic) BOOL claudeCodeAutoRequestReviewBackfilled;
+
+// Latched once the one-time migration that adds the Code Review Model
+// toolbar item (and the matching command variable) to the Claude Code
+// workgroup's Code Review peer has run. NoSync for the same reason as
+// workgroupShortcutsBackfilled.
+@property (class, nonatomic) BOOL claudeCodeReviewModelSelectorBackfilled;
 
 // Set when the user chooses “Don’t Ask Again” on the offer to interpret key
 // bindings by physical key (shown when a keystroke fails to match a binding but

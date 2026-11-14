@@ -12,6 +12,7 @@
 @interface VT100ScreenConfiguration()
 @property (nonatomic, readwrite) BOOL shouldPlacePromptAtFirstColumn;
 @property (nonatomic, copy, readwrite) NSString *sessionGuid;
+@property (nonatomic, copy, readwrite) NSString *stableID;
 @property (nonatomic, readwrite) BOOL treatAmbiguousCharsAsDoubleWidth;
 @property (nonatomic, readwrite) NSInteger unicodeVersion;
 @property (nonatomic, readwrite) BOOL enableTriggersInInteractiveApps;
@@ -64,6 +65,7 @@
 @property (nonatomic, readwrite) BOOL postUserNotifications;
 @property (nonatomic, readwrite) BOOL cursorBlinks;
 @property (nonatomic, readwrite) BOOL allowTitleReporting;
+@property (nonatomic, readwrite) BOOL allowTitleSetting;
 @property (nonatomic, readwrite) BOOL allowAlternateMouseScroll;
 @end
 
@@ -71,6 +73,7 @@
 
 @synthesize shouldPlacePromptAtFirstColumn = _shouldPlacePromptAtFirstColumn;
 @synthesize sessionGuid = _sessionGuid;
+@synthesize stableID = _stableID;
 @synthesize treatAmbiguousCharsAsDoubleWidth = _treatAmbiguousCharsAsDoubleWidth;
 @synthesize unicodeVersion = _unicodeVersion;
 @synthesize enableTriggersInInteractiveApps = _enableTriggersInInteractiveApps;
@@ -121,6 +124,7 @@
 @synthesize postUserNotifications = _postUserNotifications;
 @synthesize cursorBlinks = _cursorBlinks;
 @synthesize allowTitleReporting = _allowTitleReporting;
+@synthesize allowTitleSetting = _allowTitleSetting;
 @synthesize allowAlternateMouseScroll = _allowAlternateMouseScroll;
 
 @synthesize isDirty = _isDirty;
@@ -131,6 +135,7 @@
     if (self) {
         _shouldPlacePromptAtFirstColumn = other.shouldPlacePromptAtFirstColumn;
         _sessionGuid = other.sessionGuid;
+        _stableID = other.stableID;
         _treatAmbiguousCharsAsDoubleWidth = other.treatAmbiguousCharsAsDoubleWidth;
         _unicodeVersion = other.unicodeVersion;
         _enableTriggersInInteractiveApps = other.enableTriggersInInteractiveApps;
@@ -182,6 +187,7 @@
         _postUserNotifications = other.postUserNotifications;
         _cursorBlinks = other.cursorBlinks;
         _allowTitleReporting = other.allowTitleReporting;
+        _allowTitleSetting = other.allowTitleSetting;
         _allowAlternateMouseScroll = other.allowAlternateMouseScroll;
 
         _isDirty = other.isDirty;
@@ -200,6 +206,7 @@
 - (NSString *)description {
     NSDictionary *dict = @{ @"shouldPlacePromptAtFirstColumn": @(_shouldPlacePromptAtFirstColumn),
                             @"sessionGuid": _sessionGuid ?: @"(nil)",
+                            @"stableID": _stableID ?: @"(nil)",
                             @"treatAmbiguousCharsAsDoubleWidth": @(_treatAmbiguousCharsAsDoubleWidth),
                             @"unicodeVersion": @(_unicodeVersion),
                             @"enableTriggersInInteractiveApps": @(_enableTriggersInInteractiveApps),
@@ -251,6 +258,7 @@
                             @"postUserNotifications": @(_postUserNotifications),
                             @"cursorBlinks": @(_cursorBlinks),
                             @"allowTitleReporting": @(_allowTitleReporting),
+                            @"allowTitleSetting": @(_allowTitleSetting),
                             @"allowAlternateMouseScroll": @(_allowAlternateMouseScroll),
 
                             @"isDirty": @(_isDirty),
@@ -272,6 +280,7 @@
 
 @dynamic shouldPlacePromptAtFirstColumn;
 @dynamic sessionGuid;
+@dynamic stableID;
 @dynamic treatAmbiguousCharsAsDoubleWidth;
 @dynamic unicodeVersion;
 @dynamic enableTriggersInInteractiveApps;
@@ -323,6 +332,7 @@
 @dynamic postUserNotifications;
 @dynamic cursorBlinks;
 @dynamic allowTitleReporting;
+@dynamic allowTitleSetting;
 @dynamic allowAlternateMouseScroll;
 
 @dynamic isDirty;

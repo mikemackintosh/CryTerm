@@ -18,7 +18,31 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm"
@@ -27,6 +51,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "CryTerm"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "CryTerm"
           }
         },
@@ -42,7 +162,43 @@
             "value" : "CryTerm"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm"
@@ -54,7 +210,67 @@
             "value" : "CryTerm"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm"
@@ -66,16 +282,136 @@
       "comment" : "Privacy - AppleEvents Sending Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir AppleScript."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat AppleScript."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge AppleScript."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte AppleScript verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει το AppleScript."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use AppleScript."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar AppleScript."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar AppleScript."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar AppleScript."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää AppleScriptiä."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser AppleScript."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser AppleScript."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन AppleScript का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti AppleScript."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás az AppleScriptet szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan AppleScript."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare AppleScript."
           }
         },
         "ja" : {
@@ -90,10 +426,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 AppleScript를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan AppleScript."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke AppleScript."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil AppleScript gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć AppleScript."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar o AppleScript."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar o AppleScript."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească AppleScript."
           }
         },
         "ru" : {
@@ -102,10 +474,70 @@
             "value" : "Приложение в CryTerm хочет использовать AppleScript."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať AppleScript."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati AppleScript."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda AppleScript."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ AppleScript"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama AppleScript’i kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати AppleScript."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng AppleScript."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用AppleScript。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用 AppleScript。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问 AppleScript。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用 AppleScript。"
           }
         }
       }
@@ -114,16 +546,136 @@
       "comment" : "Privacy - Bluetooth Always Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir el Bluetooth."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat Bluetooth."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge Bluetooth."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte Bluetooth verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει το Bluetooth."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Bluetooth."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar Bluetooth."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar Bluetooth."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar Bluetooth."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää Bluetoothia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser le Bluetooth."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser le Bluetooth."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन Bluetooth का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti Bluetooth."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a Bluetooth-t szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan Bluetooth."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare il Bluetooth."
           }
         },
         "ja" : {
@@ -138,10 +690,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 Bluetooth를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan Bluetooth."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke Bluetooth."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil Bluetooth gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć Bluetooth."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar o Bluetooth."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar o Bluetooth."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească Bluetooth."
           }
         },
         "ru" : {
@@ -150,10 +738,70 @@
             "value" : "Приложение в CryTerm хочет использовать Bluetooth."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať Bluetooth."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati Bluetooth."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda Bluetooth."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ Bluetooth"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama Bluetooth’u kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати Bluetooth."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng Bluetooth."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用蓝牙。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用藍牙。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问蓝牙。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用藍牙。"
           }
         }
       }
@@ -162,16 +810,136 @@
       "comment" : "Privacy - Calendars Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir les dades del Calendari."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat data Kalendáře."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge data fra Kalender."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte auf Kalenderdaten zugreifen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει δεδομένα του Ημερολογίου."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use Calendar data."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar datos de Calendario."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar datos de Calendario."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar datos de Calendario."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää Kalenterin tietoja."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser les données de Calendrier."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser les données de Calendrier."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन कैलेंडर डेटा का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti podatke aplikacije Kalendar."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a Naptár adatait szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan data Kalender."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare i dati di Calendario."
           }
         },
         "ja" : {
@@ -186,10 +954,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 캘린더 데이터를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan data Kalendar."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke Kalender-data."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil Agenda-gegevens gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć danych z Kalendarza."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar os dados do Calendário."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar os dados do Calendário."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească datele din Calendar."
           }
         },
         "ru" : {
@@ -198,10 +1002,70 @@
             "value" : "Приложение в CryTerm хочет использовать данные календаря."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať údaje Kalendára."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati podatke aplikacije Koledar."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda data från Kalender."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ข้อมูลปฏิทิน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama Takvim verilerini kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати дані Календаря."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng dữ liệu Lịch."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用“日历”数据。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用日曆資料。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问日历数据。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用行事曆資料。"
           }
         }
       }
@@ -210,16 +1074,136 @@
       "comment" : "Privacy - Camera Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir la càmera."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat kameru."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge kameraet."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte die Kamera verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει την κάμερα."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the camera."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la cámara."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la cámara."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la cámara."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää kameraa."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la caméra."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la caméra."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन कैमरे का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti kameru."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a kamerát szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan kamera."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare la fotocamera."
           }
         },
         "ja" : {
@@ -234,10 +1218,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 카메라를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan kamera."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke kameraet."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil de camera gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć kamery."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar a câmera."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar a câmara."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească camera."
           }
         },
         "ru" : {
@@ -246,10 +1266,70 @@
             "value" : "Приложение в CryTerm хочет использовать камеру."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať kameru."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati kamero."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda kameran."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้กล้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama kamerayı kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати камеру."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng camera."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用摄像头。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用相機。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问相机。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用相機。"
           }
         }
       }
@@ -258,16 +1338,136 @@
       "comment" : "Privacy - Contacts Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir els teus contactes."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat vaše kontakty."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge dine kontakter."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte auf Ihre Kontakte zugreifen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει τις επαφές σας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your contacts."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus contactos."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus contactos."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus contactos."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää yhteystietojasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos contacts."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos contacts."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन आपके संपर्कों का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti vaše kontakte."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a névjegyeit szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan kontak Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare i tuoi contatti."
           }
         },
         "ja" : {
@@ -282,10 +1482,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 사용자의 연락처를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan kenalan anda."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke kontaktene dine."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je contacten gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć twoich kontaktów."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar seus contatos."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar os seus contactos."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească contactele dvs."
           }
         },
         "ru" : {
@@ -294,58 +1530,70 @@
             "value" : "Приложение в CryTerm хочет использовать ваши контакты."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať vaše kontakty."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati vaše stike."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda dina kontakter."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ผู้ติดต่อของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama kişilerinizi kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати ваші контакти."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng danh bạ của bạn."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用你的通讯录。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的通訊錄。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问通讯录。"
           }
-        }
-      }
-    },
-    "NSHumanReadableCopyright" : {
-      "comment" : "Copyright (human-readable)",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GPL v2"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "GPL v2"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GPL v2"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GPL v2"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GPL v2"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GPL v2"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GPL v2"
+            "value" : "CryTerm 中的應用程式想要使用你的聯絡人。"
           }
         }
       }
@@ -354,16 +1602,136 @@
       "comment" : "Privacy - Local Network Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol accedir a la xarxa local."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce přistupovat k místní síti."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil have adgang til det lokale netværk."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte auf das lokale Netzwerk zugreifen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να αποκτήσει πρόσβαση στο τοπικό δίκτυο."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to access the local network."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere acceder a la red local."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere acceder a la red local."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere acceder a la red local."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää lähiverkkoa."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite accéder au réseau local."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite accéder au réseau local."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन लोकल नेटवर्क ऐक्सेस करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi pristupiti lokalnoj mreži."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás hozzá szeretne férni a helyi hálózathoz."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin mengakses jaringan lokal."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole accedere alla rete locale."
           }
         },
         "ja" : {
@@ -378,10 +1746,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 로컬 네트워크에 접근하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu mengakses rangkaian setempat."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil ha tilgang til det lokale nettverket."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil toegang tot het lokale netwerk."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce uzyskać dostęp do sieci lokalnej."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer acessar a rede local."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer aceder à rede local."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să acceseze rețeaua locală."
           }
         },
         "ru" : {
@@ -390,10 +1794,70 @@
             "value" : "Приложение в CryTerm хочет получить доступ к локальной сети."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce pristupovať k lokálnej sieti."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi dostopati do lokalnega omrežja."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill komma åt det lokala nätverket."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการเข้าถึงเครือข่ายภายใน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama yerel ağa erişmek istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче отримати доступ до локальної мережі."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn truy cập mạng cục bộ."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要访问本地网络。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要取用區域網絡。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问本地网络。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要取用區域網路。"
           }
         }
       }
@@ -402,16 +1866,136 @@
       "comment" : "Privacy - Location Always Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir la informació de la teva ubicació, fins i tot en segon pla."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat informace o vaší poloze, i na pozadí."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge oplysninger om din lokalitet, også i baggrunden."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden, auch im Hintergrund."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει πληροφορίες για την τοποθεσία σας, ακόμη και στο παρασκήνιο."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information, even in the background."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación, incluso en segundo plano."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación, incluso en segundo plano."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación, incluso en segundo plano."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää sijaintitietojasi, myös taustalla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation, même en arrière-plan."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation, même en arrière-plan."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन बैकग्राउंड में भी आपकी स्थान जानकारी का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti podatke o vašoj lokaciji, čak i u pozadini."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a helyadatait szeretné használni, a háttérben is."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan informasi lokasi Anda, bahkan di latar belakang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare le informazioni sulla tua posizione, anche in background."
           }
         },
         "ja" : {
@@ -426,10 +2010,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 백그라운드에서도 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan maklumat lokasi anda, walaupun di latar belakang."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke posisjonsinformasjonen din, også i bakgrunnen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je locatiegegevens gebruiken, ook op de achtergrond."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce używać informacji o twojej lokalizacji, także w tle."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar suas informações de localização, mesmo em segundo plano."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar as suas informações de localização, mesmo em segundo plano."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească informațiile dvs. de localizare, chiar și în fundal."
           }
         },
         "ru" : {
@@ -438,10 +2058,70 @@
             "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении, даже в фоновом режиме."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať informácie o vašej polohe, aj na pozadí."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati podatke o vaši lokaciji, tudi v ozadju."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda din platsinformation, även i bakgrunden."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ข้อมูลตำแหน่งที่ตั้งของคุณ แม้ในขณะทำงานอยู่เบื้องหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama, arka planda bile konum bilgilerinizi kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати дані про ваше місцеперебування, навіть у фоновому режимі."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng thông tin vị trí của bạn, kể cả khi chạy nền."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用你的位置信息，即使在后台也是如此。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的位置資料，即使在背景執行時也一樣。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问你的位置信息，即使在后台。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的位置資訊，即使在背景執行時也一樣。"
           }
         }
       }
@@ -450,16 +2130,136 @@
       "comment" : "Privacy - Location Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir la informació de la teva ubicació."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat informace o vaší poloze."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge oplysninger om din lokalitet."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει πληροφορίες για την τοποθεσία σας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää sijaintitietojasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन आपकी स्थान जानकारी का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti podatke o vašoj lokaciji."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a helyadatait szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan informasi lokasi Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare le informazioni sulla tua posizione."
           }
         },
         "ja" : {
@@ -474,10 +2274,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan maklumat lokasi anda."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke posisjonsinformasjonen din."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je locatiegegevens gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć informacji o twojej lokalizacji."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar suas informações de localização."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar as suas informações de localização."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească informațiile dvs. de localizare."
           }
         },
         "ru" : {
@@ -486,10 +2322,70 @@
             "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať informácie o vašej polohe."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati podatke o vaši lokaciji."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda din platsinformation."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ข้อมูลตำแหน่งที่ตั้งของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama konum bilgilerinizi kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати дані про ваше місцеперебування."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng thông tin vị trí của bạn."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用你的位置信息。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的位置資料。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问你的位置信息。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的位置資訊。"
           }
         }
       }
@@ -498,16 +2394,136 @@
       "comment" : "Privacy - Location When In Use Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir la informació de la teva ubicació mentre és activa."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat informace o vaší poloze, když je aktivní."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge oplysninger om din lokalitet, mens det er aktivt."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte Ihre Standortinformationen verwenden, während sie aktiv ist."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει πληροφορίες για την τοποθεσία σας όσο είναι ενεργή."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your location information while active."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación mientras está activa."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación mientras está activa."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu información de ubicación mientras está activa."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää sijaintitietojasi, kun se on aktiivinen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation lorsqu’elle est active."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos informations de localisation lorsqu’elle est active."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन सक्रिय रहने के दौरान आपकी स्थान जानकारी का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti podatke o vašoj lokaciji dok je aktivna."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a helyadatait szeretné használni, amíg aktív."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan informasi lokasi Anda saat aktif."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare le informazioni sulla tua posizione mentre è in uso."
           }
         },
         "ja" : {
@@ -522,10 +2538,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 활성 상태일 때 사용자의 위치 정보를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan maklumat lokasi anda semasa aktif."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke posisjonsinformasjonen din mens det er aktivt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je locatiegegevens gebruiken terwijl de app actief is."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć informacji o twojej lokalizacji, gdy jest aktywna."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar suas informações de localização enquanto estiver ativo."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar as suas informações de localização enquanto estiver ativa."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească informațiile dvs. de localizare cât timp este activă."
           }
         },
         "ru" : {
@@ -534,10 +2586,70 @@
             "value" : "Приложение в CryTerm хочет использовать данные о вашем местоположении, пока оно активно."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať informácie o vašej polohe, keď je aktívna."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati podatke o vaši lokaciji, ko je aktivna."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda din platsinformation när det är aktivt."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ข้อมูลตำแหน่งที่ตั้งของคุณขณะที่ใช้งานอยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama, etkinken konum bilgilerinizi kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати дані про ваше місцеперебування, поки вона активна."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng thông tin vị trí của bạn khi đang hoạt động."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要在使用期间使用你的位置信息。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要在使用中時使用你的位置資料。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要在活动时访问你的位置信息。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要在使用中時使用你的位置資訊。"
           }
         }
       }
@@ -546,16 +2658,136 @@
       "comment" : "Privacy - Microphone Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir el teu micròfon."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat váš mikrofon."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge din mikrofon."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte Ihr Mikrofon verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει το μικρόφωνό σας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your microphone."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu micrófono."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu micrófono."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tu micrófono."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää mikrofoniasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser votre microphone."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser votre microphone."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन आपके माइक्रोफ़ोन का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti vaš mikrofon."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a mikrofonját szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan mikrofon Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare il tuo microfono."
           }
         },
         "ja" : {
@@ -570,10 +2802,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 마이크를 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan mikrofon anda."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke mikrofonen din."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je microfoon gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć twojego mikrofonu."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar seu microfone."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar o seu microfone."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească microfonul dvs."
           }
         },
         "ru" : {
@@ -582,10 +2850,70 @@
             "value" : "Приложение в CryTerm хочет использовать ваш микрофон."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať váš mikrofón."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati vaš mikrofon."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda din mikrofon."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้ไมโครโฟนของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama mikrofonunuzu kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати ваш мікрофон."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng micro của bạn."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用你的麦克风。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的咪高風。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问麦克风。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的麥克風。"
           }
         }
       }
@@ -594,16 +2922,136 @@
       "comment" : "Privacy - Photo Library Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir la fototeca."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat knihovnu fotografií."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge fotobiblioteket."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte auf die Fotomediathek zugreifen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει τη βιβλιοθήκη φωτογραφιών."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use the photo library."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la fototeca."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la fototeca."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar la fototeca."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää kuvakirjastoa."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la photothèque."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la photothèque."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन फ़ोटो लाइब्रेरी का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti biblioteku fotografija."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a fotókönyvtárat szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan pustaka foto."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare la libreria foto."
           }
         },
         "ja" : {
@@ -618,10 +3066,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 사진 보관함을 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan pustaka foto."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke bildebiblioteket."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil de fotobibliotheek gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć biblioteki zdjęć."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar a fototeca."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar a fototeca."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească biblioteca de fotografii."
           }
         },
         "ru" : {
@@ -630,10 +3114,70 @@
             "value" : "Приложение в CryTerm хочет использовать фотобиблиотеку."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať knižnicu fotografií."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati fotoknjižnico."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda fotobiblioteket."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้คลังภาพถ่าย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama Fotoğraflar kitaplığını kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати бібліотеку фотографій."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng thư viện ảnh."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用照片图库。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用照片圖庫。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问照片图库。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用照片圖庫。"
           }
         }
       }
@@ -642,16 +3186,136 @@
       "comment" : "Privacy - Reminders Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir els teus recordatoris."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat vaše připomínky."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge dine påmindelser."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte auf Ihre Erinnerungen zugreifen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει τις υπενθυμίσεις σας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use your reminders."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus recordatorios."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus recordatorios."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar tus recordatorios."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää muistutuksiasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos rappels."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser vos rappels."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन आपके रिमाइंडर का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti vaše podsjetnike."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás az emlékeztetőit szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan pengingat Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare i tuoi promemoria."
           }
         },
         "ja" : {
@@ -666,10 +3330,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 사용자의 미리 알림을 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan peringatan anda."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke påminnelsene dine."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil je herinneringen gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć twoich przypomnień."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar seus lembretes."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar os seus lembretes."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească mementourile dvs."
           }
         },
         "ru" : {
@@ -678,10 +3378,70 @@
             "value" : "Приложение в CryTerm хочет использовать ваши напоминания."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať vaše pripomienky."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati vaše opomnike."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda dina påminnelser."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้การเตือนความจำของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama anımsatıcılarınızı kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати ваші нагадування."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng lời nhắc của bạn."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用你的提醒事项。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的提醒事項。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问提醒事项。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用你的提醒事項。"
           }
         }
       }
@@ -690,16 +3450,136 @@
       "comment" : "Privacy - Speech Recognition Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicació de l’CryTerm vol fer servir el reconeixement de veu."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace v CryTerm chce používat rozpoznávání řeči."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruge talegenkendelse."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eine Anwendung in CryTerm möchte die Spracherkennung verwenden."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια εφαρμογή στο CryTerm θέλει να χρησιμοποιήσει την αναγνώριση ομιλίας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application in CryTerm wants to use speech recognition."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar el reconocimiento de voz."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar el reconocimiento de voz."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una aplicación en CryTerm quiere usar el reconocimiento de voz."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sovellus CryTerm:ssa haluaa käyttää puheentunnistusta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la reconnaissance vocale."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une application dans CryTerm souhaite utiliser la reconnaissance vocale."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में कोई ऐप्लिकेशन स्पीच रिकग्निशन का उपयोग करना चाहता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija u CryTerm želi koristiti prepoznavanje govora."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben futó egyik alkalmazás a beszédfelismerést szeretné használni."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi di CryTerm ingin menggunakan pengenalan ucapan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un’applicazione in CryTerm vuole usare il riconoscimento vocale."
           }
         },
         "ja" : {
@@ -714,10 +3594,46 @@
             "value" : "CryTerm 안의 응용 프로그램이 음성 인식을 사용하려고 합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikasi dalam CryTerm mahu menggunakan pengecaman pertuturan."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et program i CryTerm vil bruke talegjenkjenning."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een app in CryTerm wil spraakherkenning gebruiken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja w CryTerm chce użyć rozpoznawania mowy."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um aplicativo no CryTerm quer usar o reconhecimento de fala."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma aplicação no CryTerm quer usar o reconhecimento de fala."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplicație din CryTerm dorește să folosească recunoașterea vocală."
           }
         },
         "ru" : {
@@ -726,10 +3642,70 @@
             "value" : "Приложение в CryTerm хочет использовать распознавание речи."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia v CryTerm chce používať rozpoznávanie reči."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacija v CryTerm želi uporabljati prepoznavanje govora."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett program i CryTerm vill använda taligenkänning."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปพลิเคชันใน CryTerm ต้องการใช้การรู้จำเสียงพูด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir uygulama konuşma tanımayı kullanmak istiyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Програма в CryTerm хоче використовувати розпізнавання мовлення."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ứng dụng trong CryTerm muốn dùng tính năng nhận dạng giọng nói."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的某个App想要使用语音识别。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用語音識別。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 想要访问语音识别。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的應用程式想要使用語音辨識。"
           }
         }
       }
@@ -738,16 +3714,136 @@
       "comment" : "Privacy - System Administration Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’operació que està duent a terme un programa de l’CryTerm requereix permisos elevats."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operace prováděná programem v CryTerm vyžaduje zvýšená oprávnění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Handlingen, som et program i CryTerm udfører, kræver forhøjet tilladelse."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Der von einem Programm in CryTerm ausgeführte Vorgang erfordert erweiterte Berechtigungen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η λειτουργία που εκτελείται από ένα πρόγραμμα στο CryTerm απαιτεί αυξημένη άδεια."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operation being performed by a program in CryTerm requires elevated permission."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La operación que está realizando un programa en CryTerm requiere permisos elevados."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La operación que está realizando un programa en CryTerm requiere permisos elevados."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La operación que está realizando un programa en CryTerm requiere permisos elevados."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm:ssa suoritettavan ohjelman tekemä toiminto vaatii korotetut käyttöoikeudet."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’opération effectuée par un programme dans CryTerm nécessite des autorisations élevées."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’opération effectuée par un programme dans CryTerm nécessite des autorisations élevées."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm में किसी प्रोग्राम द्वारा की जा रही कार्रवाई के लिए उच्च अनुमति की आवश्यकता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Radnja koju izvodi program u CryTerm zahtijeva povišena dopuštenja."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az CryTerm-ben egy program által végrehajtott művelethez emelt szintű engedély szükséges."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operasi yang dilakukan oleh program di CryTerm memerlukan izin yang lebih tinggi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’operazione eseguita da un programma in CryTerm richiede autorizzazioni elevate."
           }
         },
         "ja" : {
@@ -762,10 +3858,46 @@
             "value" : "CryTerm 안의 프로그램이 수행하는 작업에 더 높은 권한이 필요합니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operasi yang dilakukan oleh program dalam CryTerm memerlukan kebenaran dipertingkat."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operasjonen som utføres av et program i CryTerm, krever utvidede tillatelser."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voor de bewerking die een programma in CryTerm uitvoert, is verhoogde toestemming nodig."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operacja wykonywana przez program w CryTerm wymaga podwyższonych uprawnień."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A operação sendo executada por um programa no CryTerm requer permissão elevada."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A operação que está a ser executada por um programa no CryTerm requer permissão elevada."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operația efectuată de un program din CryTerm necesită permisiuni elevate."
           }
         },
         "ru" : {
@@ -774,10 +3906,70 @@
             "value" : "Операция, выполняемая программой в CryTerm, требует повышенных прав."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operácia vykonávaná programom v CryTerm vyžaduje zvýšené oprávnenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operacija, ki jo izvaja program v CryTerm, zahteva povišano dovoljenje."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Åtgärden som utförs av ett program i CryTerm kräver utökad behörighet."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การดำเนินการที่โปรแกรมใน CryTerm กำลังทำต้องใช้สิทธิ์ระดับสูง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm’deki bir programın yaptığı işlem yükseltilmiş izin gerektiriyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Операція, яку виконує програма в CryTerm, потребує підвищених дозволів."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thao tác đang được một chương trình trong CryTerm thực hiện yêu cầu quyền nâng cao."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm中的程序正在执行的操作需要提升权限。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的程式所執行的操作需要更高的權限。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "CryTerm 中的程序正在执行的操作需要更高权限。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CryTerm 中的程式所執行的操作需要更高的權限。"
           }
         }
       }

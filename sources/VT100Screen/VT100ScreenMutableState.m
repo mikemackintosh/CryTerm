@@ -452,6 +452,25 @@ static BOOL sOSC7DisabledWarningShown;
     }];
 }
 
+// Like addPausedNoDelegateSideEffect: but urgent, and the side effect runs even if self has been
+// freed by the time it executes. Use it for a block that must always run, such as one that
+// settles a promise.
+- (void)addUrgentPausedNoDelegateSideEffect:(void (^)(iTermTokenExecutorUnpauser *unpauser))sideEffect
+                                       name:(NSString *)name {
+    DLog(@"[side effects] %@ Add urgent paused no-delegate side effect %@", self.config.sessionGuid, name);
+    __weak __typeof(self) weakSelf = self;
+    iTermTokenExecutorUnpauser *unpauser = [_tokenExecutor pause];
+    [_tokenExecutor addUrgentSideEffect:^{
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+            DLog(@"[side effects] %@ running after dealloc", name);
+            sideEffect(unpauser);
+            return;
+        }
+        [strongSelf performPausedNoDelegateSideEffect:unpauser block:sideEffect name:name];
+    }];
+}
+
 - (void)addIntervalTreeSideEffect:(void (^)(id<iTermIntervalTreeObserver> observer))sideEffect
                              name:(NSString *)name {
     DLog(@"[side effects] %@ Add interval tree side effect %@", self.config.sessionGuid, name);
@@ -839,9 +858,10 @@ static BOOL sOSC7DisabledWarningShown;
 
     if (!sent && shouldMoveSelectionIfUnsent) {
         const VT100GridRect rect = [grid scrollRegionRect];
+        const long long regionAbsTop = [self absLineOfGridRow:rect.origin.y];
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
             DLog(@"begin side-effect");
-            [delegate screenMoveSelectionUpBy:1 inRegion:rect];
+            [delegate screenMoveSelectionUpBy:1 inRegion:rect regionAbsTop:regionAbsTop];
         } name:@"appendLineFeed"];
     }
 
@@ -1020,7 +1040,12 @@ static BOOL sOSC7DisabledWarningShown;
          self.currentGrid.cursorY,
          self.currentGrid.cursorY + [self.linebuffer numLinesWithWidth:self.currentGrid.size.width]);
 
-    assert(self.terminal);
+    if (!self.terminal) {
+        // The session terminated (which disables the terminal) after something like a
+        // disconnection banner was queued to be appended.
+        DLog(@"Not appending because the terminal is disabled");
+        return;
+    }
 
     // Check if we can use the preconverted data from the parser thread.
     BOOL needColorFixup = NO;
@@ -2564,8 +2589,11 @@ void VT100ScreenEraseCell(screen_char_t *sct,
         [super setCursorVisible:visible];
         if (visible) {
             [self.temporaryDoubleBuffer reset];
-        } else {
+        } else if (self.temporaryDoubleBuffer) {
             [self.temporaryDoubleBuffer start];
+        } else if ([self cursorHideBeginsPromptRepaint]) {
+            DLog(@"Cursor hidden for a prompt repaint. Draw the saved grid until it's shown.");
+            [self.unconditionalTemporaryDoubleBuffer startForPromptRepaint];
         }
     }
     if (visible) {
@@ -2579,6 +2607,21 @@ void VT100ScreenEraseCell(screen_char_t *sct,
             [delegate screenSetCursorVisible:NO];
         } name:@"set cursor visible 2"];
     }
+}
+
+// Line editors like reedline erase and redraw the whole prompt line, command included, on every
+// keystroke, hiding the cursor while they do. A sync partway through draws the line with the
+// command missing. This is called when the cursor is hidden while Reduce Flicker is off. It allows
+// the flicker fixer only while editing a command at a prompt, and only if the tokens already queued
+// behind the hide redraw the prompt (OSC 133;A) and then show the cursor, which ends the saved grid.
+- (BOOL)cursorHideBeginsPromptRepaint {
+    if (![iTermAdvancedSettingsModel holdScreenDuringPromptRepaint]) {
+        return NO;
+    }
+    if (!self.enteringCommand) {
+        return NO;
+    }
+    return self.tokenExecutor.queuedTokensRepaintPromptAndShowCursor;
 }
 
 - (void)activateBell {
@@ -2678,6 +2721,12 @@ void VT100ScreenEraseCell(screen_char_t *sct,
     NSArray<iTermTuple<Interval *, id<IntervalTreeObject>> *> *updates =
     [objects mapWithBlock:^id _Nullable(id<IntervalTreeObject> note) {
         if (note.entry.interval.location < screenInterval.location) {
+            if (screenInterval.location < 1) {
+                // The object starts at a negative location and the screen starts at 0, so
+                // the truncated interval would end before 0, which Interval can't represent.
+                DLog(@"Not truncating %@ because the screen starts at %@", note, @(screenInterval.location));
+                return nil;
+            }
             // Truncate note so that it ends just before screen.
             // Subtract 1 because end coord is inclusive of y even when x is 0.
             Interval *newInterval = [Interval intervalWithLocation:note.entry.interval.location
@@ -3336,21 +3385,8 @@ void VT100ScreenEraseCell(screen_char_t *sct,
         return @(theKey);
     }];
     [self.mutableMarkCache removeMarks:objects onLines:keys];
+    [self lastCommandMarkCacheWillRemoveMarks:objects];
     [objects enumerateObjectsUsingBlock:^(VT100ScreenMark * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        // Only invalidate the cache when the mark being removed IS the cached
-        // last-command mark. Removing any other mark can't change which command
-        // mark is last, so nilling it unconditionally just forces the next
-        // -lastCommandMark (assignCurrentCommandEndDate calls it on every OSC
-        // 133 prompt) to re-walk the whole interval tree via
-        // reverseLimitEnumerator. Under a redraw firehose that churns marks
-        // every frame, that made every prompt pay for a full walk. Compare
-        // against the raw cache, not -lastCommandMark, so the test itself
-        // doesn't trigger the walk. This is one of several per-prompt tree
-        // walks (see also -lastRemoteHost); the runaway memory it fed is bounded
-        // separately by the per-token autoreleasepool. See issue #12992.
-        if (obj == self.cachedLastCommandMark) {
-            self.lastCommandMark = nil;
-        }
         VT100ScreenMark *screenMark = [VT100ScreenMark castFrom:obj];
         if (screenMark.name) {
             [self.namedMarks removeObjectsPassingTest:^BOOL(id  _Nullable obj) {
@@ -3368,8 +3404,8 @@ void VT100ScreenEraseCell(screen_char_t *sct,
         // -[mutableIntervalTree removeObject:] / bulkRemoveObjects: directly
         // and BYPASS this hook, so the registry stays correct for those
         // (mark survives the operation, entry is re-set by the matching
-        // addObject:). commandWasAborted: / abortSpecificAidMark: also use
-        // the direct path; they do their own explicit registry cleanup.
+        // addObject:). commandWasAborted / abortSpecificAidMark: call this hook
+        // themselves before their direct removal, and also prune the registry.
         if (screenMark.aid != nil &&
             self.marksByAid[screenMark.aid] == screenMark) {
             DLog(@"willRemoveScreenMarks: dropping aid=%@ for removed mark %@",
@@ -4055,7 +4091,7 @@ void VT100ScreenEraseCell(screen_char_t *sct,
     __weak __typeof(self) weakSelf = self;
     DLog(@"%p: Performing async working directory fetch for %@", self, fetches);
     dispatch_queue_t queue = _queue;
-    [delegate screenGetWorkingDirectoryWithCompletion:^(NSString *path) {
+    [delegate screenGetWorkingDirectoryForReportedChange:NO completion:^(NSString *path) {
         DLog(@"%p: Async update got %@ for %@", weakSelf, path, fetches);
         if (path) {
             dispatch_async(queue, ^{
@@ -4094,7 +4130,22 @@ void VT100ScreenEraseCell(screen_char_t *sct,
                   onAbsLine:(long long)absLine
                      pushed:(BOOL)pushed
                       token:(id<iTermOrderedToken>)token {
-    DLog(@"%p: setWorkingDirectory:%@ onLine:%lld token:%@", self, workingDirectory, absLine, token);
+    [self setWorkingDirectory:workingDirectory
+                    onAbsLine:absLine
+                       pushed:pushed
+                     locality:VT100ScreenWorkingDirectoryLocalityUnverified
+                        token:token];
+}
+
+// locality says whether the directory is known to be on this machine. The remote host on `line`
+// can't tell you that: a report that names no host inherits the previous one.
+- (void)setWorkingDirectory:(NSString *)workingDirectory
+                  onAbsLine:(long long)absLine
+                     pushed:(BOOL)pushed
+                   locality:(VT100ScreenWorkingDirectoryLocality)locality
+                      token:(id<iTermOrderedToken>)token {
+    DLog(@"%p: setWorkingDirectory:%@ onLine:%lld locality:%@ token:%@",
+         self, workingDirectory, absLine, @(locality), token);
     const int line = [self workingDirectoryLineForAbsLine:absLine];
     if (line < 0) {
         return;
@@ -4165,19 +4216,23 @@ void VT100ScreenEraseCell(screen_char_t *sct,
                                                remoteHost:remoteHost
                                             withDirectory:workingDirectory
                                                  pushType:pushType
+                                                 locality:locality
                                                  accepted:accepted];
     } name:@"set pwd 2"];
 }
 
 - (void)currentDirectoryReallyDidChangeTo:(NSString *)dir
                                 onAbsLine:(long long)cursorAbsLine
+                                 locality:(VT100ScreenWorkingDirectoryLocality)locality
                                completion:(void (^)(void))completion {
-    DLog(@"currentDirectoryReallyDidChangeTo:%@ onAbsLine:%@", dir, @(cursorAbsLine));
+    DLog(@"currentDirectoryReallyDidChangeTo:%@ onAbsLine:%@ locality:%@",
+         dir, @(cursorAbsLine), @(locality));
     self.shouldExpectWorkingDirectoryUpdates = YES;
     BOOL willChange = ![dir isEqualToString:[self workingDirectoryOnLine:cursorAbsLine - self.cumulativeScrollbackOverflow]];
     [self setWorkingDirectory:dir
                     onAbsLine:cursorAbsLine
                        pushed:YES
+                     locality:locality
                         token:nil];
     if (willChange) {
         int line = [self numberOfScrollbackLines] + self.cursorY;
@@ -4204,7 +4259,17 @@ void VT100ScreenEraseCell(screen_char_t *sct,
 
 - (void)currentDirectoryDidChangeTo:(NSString *)dir
                          completion:(void (^)(void))completion {
-    DLog(@"%p: currentDirectoryDidChangeTo:%@", self, dir);
+    [self currentDirectoryDidChangeTo:dir verifiedLocalhost:NO completion:completion];
+}
+
+// verifiedLocalhost describes a non-empty `dir`, which is reported as
+// VT100ScreenWorkingDirectoryLocalityVerifiedReport or VT100ScreenWorkingDirectoryLocalityUnverified
+// (see setWorkingDirectory:onAbsLine:pushed:locality:token:). An empty `dir` is filled in by a poll
+// and reported as VT100ScreenWorkingDirectoryLocalityLocalPoll.
+- (void)currentDirectoryDidChangeTo:(NSString *)dir
+                  verifiedLocalhost:(BOOL)verifiedLocalhost
+                         completion:(void (^)(void))completion {
+    DLog(@"%p: currentDirectoryDidChangeTo:%@ verifiedLocalhost:%@", self, dir, @(verifiedLocalhost));
     [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
         [delegate screenSetPreferredProxyIcon:nil]; // Clear current proxy icon if exists.
     } name:@"pwd did change 1"];
@@ -4212,7 +4277,10 @@ void VT100ScreenEraseCell(screen_char_t *sct,
     const int cursorLine = self.numberOfLines - self.height + self.currentGrid.cursorY;
     const long long cursorAbsLine = self.cumulativeScrollbackOverflow + cursorLine;
     if (dir.length) {
-        [self currentDirectoryReallyDidChangeTo:dir onAbsLine:cursorAbsLine completion:completion];
+        [self currentDirectoryReallyDidChangeTo:dir
+                                      onAbsLine:cursorAbsLine
+                                       locality:verifiedLocalhost ? VT100ScreenWorkingDirectoryLocalityVerifiedReport : VT100ScreenWorkingDirectoryLocalityUnverified
+                                     completion:completion];
         return;
     }
 
@@ -4221,7 +4289,7 @@ void VT100ScreenEraseCell(screen_char_t *sct,
     id<iTermOrderedToken> token = [self.currentDirectoryDidChangeOrderEnforcer newToken];
     DLog(@"Fetching directory asynchronously with token %@", token);
     [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
-        [delegate screenGetWorkingDirectoryWithCompletion:^(NSString *workingDirectory) {
+        [delegate screenGetWorkingDirectoryForReportedChange:YES completion:^(NSString *workingDirectory) {
             DLog(@"For token %@, the working directory is %@", token, workingDirectory);
             if (![token commit]) {
                 return;
@@ -4229,8 +4297,13 @@ void VT100ScreenEraseCell(screen_char_t *sct,
             [weakSelf performBlockAsynchronously:^(VT100Terminal * _Nonnull terminal,
                                                    VT100ScreenMutableState * _Nonnull mutableState,
                                                    id<VT100ScreenDelegate>  _Nonnull delegate) {
+                // The directory came from polling. The tracker treated the report as a push
+                // when the poll was requested and recorded the poll when it finished, so it
+                // must neither poll again nor treat this as a report it should trust over
+                // later polls.
                 [mutableState currentDirectoryReallyDidChangeTo:workingDirectory
                                                       onAbsLine:cursorAbsLine
+                                                       locality:VT100ScreenWorkingDirectoryLocalityLocalPoll
                                                      completion:completion];
             }];
         }];
@@ -4480,10 +4553,12 @@ localityVerified:(BOOL)localityVerified
     // FTCS D; reading the live value in the side effect would see that later state and falsely
     // conclude that an app left key reporting stuck on. See 13015.
     const VT100TerminalKeyReportingFlags keyReportingFlags = self.terminalKeyReportingFlags;
+    iTermCommandOutput *output = [self commandOutputForMark:mark];
     [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
         [delegate screenCommandDidExitWithCode:returnCode
                              keyReportingFlags:keyReportingFlags
-                                          mark:doppelganger];
+                                          mark:doppelganger
+                                        output:output];
     } name:@"set rc 2"];
 }
 
@@ -4866,7 +4941,9 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
 
     __weak __typeof(self) weakSelf = self;
     void (^completion)(void) = ^{
-        [weakSelf setPathFromURL:path fromShellIntegration:fromShellIntegration];
+        [weakSelf setPathFromURL:path
+            fromShellIntegration:fromShellIntegration
+               verifiedLocalhost:machineLocality == VT100RemoteHostLocalityLocalhost];
     };
     if (host.length > 0 || user != nil || machineLocality != VT100RemoteHostLocalityUnknown) {
         [self setHost:host
@@ -4942,7 +5019,9 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
     } name:@"warn OSC 7 disabled"];
 }
 
-- (void)setPathFromURL:(NSString *)path fromShellIntegration:(BOOL)fromShellIntegration {
+- (void)setPathFromURL:(NSString *)path
+  fromShellIntegration:(BOOL)fromShellIntegration
+     verifiedLocalhost:(BOOL)verifiedLocalhost {
     if (path.length == 0) {
         // A pathless OSC 7 (file://user@host, or a peer that dropped the path)
         // carries no directory. Don't fall into currentDirectoryDidChangeTo:'s
@@ -4952,7 +5031,7 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
         return;
     }
     __weak __typeof(self) weakSelf = self;
-    [self currentDirectoryDidChangeTo:path completion:^{
+    [self currentDirectoryDidChangeTo:path verifiedLocalhost:verifiedLocalhost completion:^{
         __strong __typeof(self) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
@@ -4974,14 +5053,11 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
 - (void)commandWasAborted {
     id<VT100ScreenMarkReading> screenMark = [self lastPromptMark];
     BOOL hadMark = NO;
-    int line = 0;
-    VT100GridCoordRange outputRange = { 0 };
+    iTermCommandOutput *output = nil;
     NSString *command = nil;
     if (screenMark) {
         hadMark = YES;
-        const VT100GridRange lineRange = [self lineNumberRangeOfInterval:screenMark.entry.interval];
-        line = lineRange.location;
-        outputRange = [self rangeOfOutputForCommandMark:screenMark];
+        output = [self commandOutputForMark:screenMark];
         command = [[[self contentInRange:screenMark.commandRange] mapWithBlock:^id _Nullable(ScreenCharArray * _Nonnull sca) {
             return sca.stringValue;
         }] componentsJoinedByString:@"\n"];
@@ -4994,19 +5070,20 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
                                                  onLine:line];
         } name:@"command was aborted 1"];
         DLog(@"Command was aborted. Remove %@", screenMark);
+        // The hook drops the mark from the mark cache, the last command mark caches, and the aid
+        // registry, as for every other permanent removal.
+        [self willRemoveScreenMarksFromIntervalTree:@[ (VT100ScreenMark *)screenMark ]];
         [self.mutableIntervalTree removeObject:(VT100ScreenMark *)screenMark];
         [self.mutableSavedIntervalTree removeObject:(VT100ScreenMark *)screenMark];
-        [self.mutableMarkCache removeMark:screenMark onLine:relativeLine];
     }
     [self invalidateCommandStartCoordWithoutSideEffects];
     [self didUpdatePromptLocation];
     [self commandDidEndWithRange:VT100GridCoordRangeMake(-1, -1, -1, -1)];
     if (hadMark) {
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
-            [delegate screenCommandDidAbortOnLine:line
-                                      outputRange:outputRange
-                                          command:command
-                                             mark:screenMark];
+            [delegate screenCommandDidAbortWithOutput:output
+                                              command:command
+                                                 mark:screenMark];
         } name:@"command was aborted 2"];
     }
     [self pruneAidRegistry];
@@ -5054,10 +5131,12 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
                                                                     commandStartLocation.x,
                                                                     commandStartLocation.y + self.numberOfScrollbackLines + self.cumulativeScrollbackOverflow);
     DLog(@"Prompt range is %@", VT100GridAbsCoordRangeDescription(promptRange));
+    // The range's end is inclusive, so this many rows end at end.y.
     const int maxPromptLines = 4;
-    if (promptRange.end.y - promptRange.start.y > maxPromptLines) {
+    if (promptRange.end.y - promptRange.start.y + 1 > maxPromptLines) {
         DLog(@"Reduce to last %d lines", maxPromptLines);
-        promptRange.start.y = promptRange.end.y = maxPromptLines;
+        promptRange.start.y = promptRange.end.y - maxPromptLines + 1;
+        promptRange.start.x = 0;
     }
     if (shortCircuitDups &&
         VT100GridAbsCoordRangeEquals(self.currentPromptRange, promptRange)) {
@@ -5075,8 +5154,18 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
                                                                               promptText:promptText] doppelganger];
     [_promptStateMachine didCapturePrompt:promptText];
     [self addMarksForPathsInRange:promptRange];
+    // Capture what the delegate reports about the prompt now: the main thread's copy of the command
+    // range, cursor and directory marks may be from before this prompt.
+    NSString *command = [self currentCommandText];
+    const VT100GridAbsCoord cursor = VT100GridAbsCoordMake(self.currentGrid.cursor.x, [self absLineOfCursor]);
+    NSString *workingDirectory = [self workingDirectoryOnLine:promptRange.end.y - self.cumulativeScrollbackOverflow];
+    const NSStringEncoding encoding = self.terminal.encoding;
     [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {
-        [delegate screenPromptDidEndWithMark:mark];
+        [delegate screenPromptDidEndWithMark:mark
+                                     command:command
+                                      cursor:cursor
+                            workingDirectory:workingDirectory
+                                    encoding:encoding];
     } name:@"prompt ended and command started"];
 }
 
@@ -5259,6 +5348,143 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
     [super setFakePromptDetectedAbsLine:fakePromptDetectedAbsLine];
 }
 
+// How many lines of the output of the command at `mark` have scrolled out of the buffer. Once the
+// output's start has scrolled off, the mark no longer records it, so count from the line after the
+// mark, which is where output begins when its start was not recorded.
+- (long long)numberOfOutputLinesLostToScrollbackForCommandMark:(id<VT100ScreenMarkReading>)mark {
+    const VT100GridAbsCoord outputStart = mark.outputStart;
+    Interval *interval = mark.entry.interval;
+    if (outputStart.y < 0 && !interval) {
+        return 0;
+    }
+    const long long absStart = outputStart.y >= 0 ? outputStart.y : interval.limit / (self.width + 1) + 1;
+    return MAX(0, self.cumulativeScrollbackOverflow - absStart);
+}
+
+// Everything the command-exit notification needs about the output of `mark`, captured now. Its
+// observers read the output after the side effect that posts it, by which time the main thread's
+// copy of the screen may be missing the last of the output or have scrolled the start of it off.
+// Only the last iTermCommandOutput.maxLines lines of the output are copied, since this runs for
+// every command that ends. Returns nil unless something consumes the session's output, asked of
+// iTermCommandOutput now so a consumer that came or went since the last sync counts.
+- (iTermCommandOutput *)commandOutputForMark:(id<VT100ScreenMarkReading>)mark {
+    if (!mark || ![iTermCommandOutput hasConsumersForSessionReferences:[self commandOutputConsumerReferences]]) {
+        return nil;
+    }
+    const VT100GridRange lineRange = [self lineRangeOfOutputForCoordRange:[self rangeOfOutputForCommandMark:mark]];
+    const int location = lineRange.location;
+    int end = MIN(location + lineRange.length, self.numberOfLines);
+    // There is no next prompt yet, so the range runs through the line the cursor is on, which is
+    // empty when the output ended with a newline. Only lines holding output count toward the cap
+    // and the omitted count, or output of exactly the cap's length would lose its first line. The
+    // scan stops after the cap's worth of lines so that output ending in a long run of blank lines
+    // costs no more than the capture itself; the blank lines left are then kept as output.
+    const int lowestEnd = MAX(location, end - iTermCommandOutput.maxLines);
+    while (end > lowestEnd && [self screenCharArrayForLine:end - 1].lengthExcludingTrailingWhitespaceAndNulls == 0) {
+        end--;
+    }
+    const int firstLine = MAX(location, end - iTermCommandOutput.maxLines);
+    NSMutableArray<ScreenCharArray *> *lines = [NSMutableArray array];
+    for (int y = firstLine; y < end; y++) {
+        [lines addObject:[[self screenCharArrayForLine:y] copy]];
+    }
+    const int line = [self lineNumberRangeOfInterval:mark.entry.interval].location;
+    // The line range starts at the top of the buffer when the output's start has scrolled out of
+    // it, so count the lines lost that way too.
+    const long long droppedLineCount = (firstLine - location) + [self numberOfOutputLinesLostToScrollbackForCommandMark:mark];
+    return [[iTermCommandOutput alloc] initWithLines:lines
+                                           startLine:firstLine
+                                    droppedLineCount:(int)MIN(droppedLineCount, INT_MAX)
+                                               width:self.width
+                                            overflow:self.cumulativeScrollbackOverflow
+                                          remoteHost:[[self remoteHostOnLine:line] doppelganger]
+                                    workingDirectory:[self workingDirectoryOnLine:line]];
+}
+
+// The references a consumer of this session's command output may register under (see
+// iTermSessionReferenceKeys): the guid and the stable ID, when the configuration has them.
+- (NSArray<NSString *> *)commandOutputConsumerReferences {
+    // Before the first sync loads the configuration there is no guid and nothing to match. An empty
+    // string would match a consumer registered under an empty guid and capture for every such session.
+    NSMutableArray<NSString *> *references = [NSMutableArray array];
+    if (self.config.sessionGuid) {
+        [references addObject:self.config.sessionGuid];
+    }
+    if (self.config.stableID) {
+        [references addObject:self.config.stableID];
+    }
+    return references;
+}
+
+// The main thread's copy of this cache is otherwise refreshed only by a sync, so side effects drained
+// before the next sync would see the previous command's mark (for example, the Captured Output tool
+// reloading after a Capture Output trigger or ClearCapturedOutput). Update it in order with the
+// interval tree changes that precede it in the side effect queue: a mark's doppelganger is added to
+// the main thread's tree by a side effect queued when the mark was added, so by the time this one
+// runs the main thread's tree has it and rangeOfOutputForCommandMark: and the like work on it.
+//
+// A sync before the side effect runs may already have copied a newer value, so the update is
+// skipped unless the main thread's generation is older. Clearing queues an update too (a nil
+// doppelganger): when a command is aborted its mark is removed and the cache cleared, and without
+// the clearing update the one queued when the mark was set would run after the removal and
+// install a mark that is no longer in the tree. The lazy search in the getter fills the cache
+// without coming through here, so it queues nothing; the next sync copies what it found.
+- (void)setLastCommandMark:(id<VT100ScreenMarkReading>)lastCommandMark {
+    const BOOL changed = (lastCommandMark != self.cachedLastCommandMark);
+    [super setLastCommandMark:lastCommandMark];
+    if (!changed) {
+        return;
+    }
+    const NSUInteger generation = self.lastCommandMarkGeneration + 1;
+    self.lastCommandMarkGeneration = generation;
+    id<VT100ScreenMarkReading> doppelganger = [lastCommandMark doppelganger];
+    __weak __typeof(self) weakSelf = self;
+    [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {
+        VT100ScreenState *mainThreadCopy = weakSelf.mainThreadCopy;
+        if (mainThreadCopy.lastCommandMarkGeneration >= generation) {
+            return;
+        }
+        mainThreadCopy.lastCommandMarkGeneration = generation;
+        mainThreadCopy.lastCommandMark = doppelganger;
+    } name:@"update main thread last command mark"];
+}
+
+// `marks` are about to leave the interval tree. Only a removal of the cached mark changes which
+// command mark is last, so the caches are cleared only then: clearing on every removal would make
+// the next -lastCommandMark (called on every OSC 133 prompt) walk the whole tree again, which under
+// a redraw firehose that churns marks every frame made every prompt pay for a full walk (issue
+// 12992). Compare against the raw caches, not -lastCommandMark, so the test itself doesn't walk.
+//
+// Each thread's cache is filled lazily and on its own by the getter, so the main thread's may hold
+// a mark this thread's never did: for instance after this thread's cache was cleared and before
+// anything here read it, while a main-thread feature looked the mark up. So compare on each
+// thread: against this thread's cache here, and against the main thread's in a side effect. Either
+// way the main thread forgets the mark before the next sync, so side effects drained before then
+// don't see a mark that is no longer in the tree. The side effect is queued only for marks the
+// getter would cache, those with a command, so removals of other marks cost nothing extra.
+- (void)lastCommandMarkCacheWillRemoveMarks:(NSArray<VT100ScreenMark *> *)marks {
+    id<VT100ScreenMarkReading> cachedHere = self.cachedLastCommandMark;
+    if (cachedHere && [marks containsObject:(VT100ScreenMark *)cachedHere]) {
+        // Clears here and, through the generation-guarded update this queues, on the main thread.
+        self.lastCommandMark = nil;
+        return;
+    }
+    NSArray<id<VT100ScreenMarkReading>> *doppelgangers = [marks mapWithBlock:^id _Nullable(VT100ScreenMark * _Nonnull mark) {
+        return mark.firstLineOfCommand ? mark.doppelganger : nil;
+    }];
+    if (doppelgangers.count == 0) {
+        return;
+    }
+    __weak __typeof(self) weakSelf = self;
+    [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {
+        VT100ScreenState *mainThreadCopy = weakSelf.mainThreadCopy;
+        id<VT100ScreenMarkReading> cached = mainThreadCopy.cachedLastCommandMark;
+        if (cached && [doppelgangers containsObject:cached]) {
+            mainThreadCopy.lastCommandMark = nil;
+        }
+    } name:@"forget removed last command mark"];
+}
+
 - (void)incrementClearCountForCommandMark:(id<VT100ScreenMarkReading>)mark {
     if (![self.intervalTree containsObject:mark]) {
         return;
@@ -5425,6 +5651,25 @@ static NSString *iTermOSC7MachineIDFromComponents(NSURLComponents *components) {
 
     DLog(@"After unfold:");
     DLog(@"%@", [self compactLineDumpWithHistoryAndContinuationMarksAndLineNumbersAndIntervalTreeObjects]);
+}
+
+// The Fold trigger folds here. It declines while an app owns the alternate screen: its lines are
+// not scrollback and the fold would tear up what the app drew. Folds made from the text view (a
+// block, a selection, or a command) go through PTYTextView's fold(range:) instead and do not check.
+- (void)foldAbsLineRange:(NSRange)range {
+    if (self.terminalSoftAlternateScreenMode) {
+        DLog(@"Declining to fold in alternate screen mode");
+        return;
+    }
+    const long long overflow = self.cumulativeScrollbackOverflow;
+    if (NSMaxRange(range) < overflow) {
+        return;
+    }
+    const int start = range.location > overflow ? range.location - overflow : 0;
+    [self replaceRange:VT100GridAbsCoordRangeMake(0, range.location, self.width, NSMaxRange(range))
+             withLines:@[ [self screenCharArrayForLine:start] ]
+          promptLength:0
+            blockMarks:[self blockMarkDictionaryOnLine:start + overflow]];
 }
 
 - (BOOL)removeFoldsInRange:(NSRange)foldRange {
@@ -6512,12 +6757,14 @@ lengthExcludingInBandSignaling:data.length
         const screen_char_t foregroundColorCode = self.terminal.foregroundColorCode;
         const screen_char_t backgroundColorCode = self.terminal.backgroundColorCode;
         const BOOL atPrompt = _promptStateMachine.isAtPrompt;
+        const NSStringEncoding encoding = self.terminal.encoding;
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
             [delegate screenDidAppendStringToCurrentLine:string
                                              isPlainText:YES
                                               foreground:foregroundColorCode
                                               background:backgroundColorCode
-                                                atPrompt:atPrompt];
+                                                atPrompt:atPrompt
+                                                encoding:encoding];
         } name:@"really append ascii data to trigger line"];
     }
     return YES;
@@ -7034,6 +7281,15 @@ lengthExcludingInBandSignaling:data.length
 
     if (screenState) {
         self.progress = [screenState[kScreenStateProgressKey] integerValue];
+        // The program that put the bar up may be gone, and even if it is still
+        // running it may never report again, so the bar expires like one it
+        // just reported.
+        self.progressGeneration += 1;
+        const NSInteger progressGeneration = self.progressGeneration;
+        const VT100ScreenProgress restoredProgress = self.progress;
+        [self addDeferredSideEffect:^(id<VT100ScreenDelegate> delegate) {
+            [delegate screenProgressWasRestored:restoredProgress generation:progressGeneration];
+        } name:@"progress restored"];
         // OSC 133 aid: restore the open-aid stack. marksByAid rebuilds from
         // this in fixUpDeserializedIntervalTree:'s aid pass.
         [self.openAidStack removeAllObjects];
@@ -7138,8 +7394,16 @@ lengthExcludingInBandSignaling:data.length
     }
 }
 
+- (dispatch_queue_t)queueForTesting {
+    return _queue;
+}
+
 - (long long)absLineOfCursor {
-    return self.cumulativeScrollbackOverflow + self.numberOfScrollbackLines + self.currentGrid.cursor.y;
+    return [self absLineOfGridRow:self.currentGrid.cursor.y];
+}
+
+- (long long)absLineOfGridRow:(int)row {
+    return self.cumulativeScrollbackOverflow + self.numberOfScrollbackLines + row;
 }
 
 - (void)appendArchiveRestoredBanner {
@@ -7571,7 +7835,7 @@ lengthExcludingInBandSignaling:data.length
     if (path) {
         // A restore (conductor unhook), not a live shell-integration OSC 7: no
         // 133;A follows, so establish the prompt as before.
-        [self setPathFromURL:path fromShellIntegration:NO];
+        [self setPathFromURL:path fromShellIntegration:NO verifiedLocalhost:NO];
     }
 }
 
@@ -8047,12 +8311,19 @@ lengthExcludingInBandSignaling:data.length
 
 #pragma mark - iTermTriggerScopeProvider
 
-- (void)performBlockWithScope:(void (^)(iTermVariableScope *scope, id<iTermObject> object))block {
+- (void)performBlockWithScope:(void (^)(iTermVariableScope * _Nullable scope, id<iTermObject> _Nullable object))block {
     // Urgent because token execution is paused until this runs. At a non-visible session's
     // side-effect period that could take a second, and while paused the session stops reading
     // input, which for a tmux pane stalls every session. Issue 13160.
-    [self addUrgentPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
+    // A no-delegate side effect, because the block must run even if the session has gone away:
+    // it settles a promise, which asserts if it is freed unsettled.
+    __weak __typeof(self) weakSelf = self;
+    [self addUrgentPausedNoDelegateSideEffect:^(iTermTokenExecutorUnpauser *unpauser) {
         [iTermGCD assertMainQueueSafe];
+        id<VT100ScreenDelegate> delegate = weakSelf.sideEffectPerformer.sideEffectPerformingScreenDelegate;
+        if (!delegate) {
+            DLog(@"No delegate to provide a variable scope for a trigger");
+        }
         block([delegate triggerSideEffectVariableScope], delegate);
         [unpauser unpause];
     } name:@"trigger requested scope"];
@@ -8207,8 +8478,9 @@ launchCoprocessWithCommand:(NSString *)command
     if (!stopScrolling) {
         return;
     }
-    const long long line = self.cumulativeScrollbackOverflow + self.numberOfScrollbackLines + self.currentGrid.cursorY;
-    // Pause to avoid a visual stutter if more tokens cause scrolling.
+    const long long line = [self absLineOfCursor];
+    // The delegate scrolls to the line once its copy of the screen has it, so there's no need to
+    // join. Pause to avoid a visual stutter if more tokens cause scrolling.
     [self addPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
         [delegate triggerSideEffectStopScrollingAtLine:line];
         [unpauser unpause];
@@ -8496,8 +8768,29 @@ launchCoprocessWithCommand:(NSString *)command
         return;
     }
     const long long startAbsLine = [self absCoordRangeForInterval:mark.entry.interval].start.y;
+    // The range is fixed here, in absolute lines, where the lines are current (they may have arrived
+    // since the last sync). The fold itself waits, for two reasons. This may be running inline during
+    // trigger evaluation for the line, and later triggers on the same line act on absolute line
+    // numbers that a fold would shift. And folding from the main thread leaves copy mode first (see
+    // -[VT100Screen mutateAsynchronously:]): copy mode's cursor and the selection are placed against
+    // line numbers the fold changes. So the side effect that leaves copy mode sends the fold back to
+    // this thread, the same order as from the main thread.
+    //
+    // Token execution pauses until then so that no later token can touch the lines before they
+    // fold. Text in the same token as the match has already been appended, but a token of text and
+    // newlines only adds lines after the matched one; anything that could reach the lines above
+    // the cursor, such as a cursor movement or an erase, is its own token and waits. The fold runs
+    // as a high-priority task, which the executor runs even while paused and before any token, so
+    // the unpause can follow it in the same side effect.
+    const NSRange range = NSMakeRange(startAbsLine, MAX(1, absLine - startAbsLine));
+    __weak __typeof(self) weakSelf = self;
     [self addPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
-        [delegate screenFoldRange:NSMakeRange(startAbsLine, MAX(1, absLine - startAbsLine))];
+        [delegate screenEnsureDefaultMode];
+        [weakSelf performBlockAsynchronously:^(VT100Terminal *terminal,
+                                               VT100ScreenMutableState *mutableState,
+                                               id<VT100ScreenDelegate> delegate) {
+            [mutableState foldAbsLineRange:range];
+        }];
         [unpauser unpause];
     } name:@"trigger fold"];
 }
@@ -8877,9 +9170,10 @@ launchCoprocessWithCommand:(NSString *)command
 
 - (void)promptStateMachineRevealComposerWithPrompt:(NSArray<ScreenCharArray *> *)prompt {
     if (self.config.autoComposerEnabled) {
-        [self addPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
+        // Joined because the delegate places the composer using the last prompt mark and the
+        // scrollback size, which must include the prompt that was just detected.
+        [self addJoinedSideEffect:^(id<VT100ScreenDelegate> delegate) {
             [delegate screenRevealComposerWithPrompt:prompt];
-            [unpauser unpause];
         } name:@"prompt state machine reveal composer 1"];
     } else {
         [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {

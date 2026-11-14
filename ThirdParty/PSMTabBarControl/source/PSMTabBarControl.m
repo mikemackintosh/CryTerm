@@ -159,6 +159,9 @@ PSMTabBarControlOptionKey PSMTabBarControlOptionPUAFontProvider = @"PSMTabBarCon
 static const NSTimeInterval PSMTabBarSpringLoadingDelay = 0.6;
 
 @implementation PSMTabBarControl {
+    // The tab a tab switcher has highlighted, drawn with an outline.
+    __weak NSTabViewItem *_previewedTabViewItem;
+
     // The tab a drag is resting over, which will be selected if it stays there. Not retained: it
     // is checked against _cells before use.
     PSMTabBarCell *_springLoadingCell;
@@ -1643,6 +1646,7 @@ static CAShapeLayer *PSMMaskShapeForPath(NSBezierPath *path, NSRect subviewFrame
               clipRect:rect
             horizontal:horizontalFlag
           withOverflow:_lainOutWithOverflow];
+    [self drawPreviewedTabOutline];
     if (needClip) {
         [NSGraphicsContext restoreGraphicsState];
     }
@@ -2175,10 +2179,39 @@ static CAShapeLayer *PSMMaskShapeForPath(NSBezierPath *path, NSRect subviewFrame
     return [self cellsByInsertingDragChipsInto:tabCells controlView:controlView];
 }
 
+// Append a chip for every level of `path` below the prefix it shares with
+// `currentPath`, so a run entering a sub-group gets the sub-group's chip (and,
+// when it also enters the parent, the parent's chip first). A sub-group's chip
+// is hidden when the cell that opens it sits in a collapsed parent.
+static void PSMAppendChipsForPath(NSArray<NSString *> *path,
+                                  NSArray<NSString *> *currentPath,
+                                  PSMTabBarCell *cell,
+                                  PSMTabBarControl *controlView,
+                                  NSMutableArray<PSMTabBarCell *> *result) {
+    NSUInteger shared = 0;
+    while (shared < path.count && shared < currentPath.count &&
+           [path[shared] isEqualToString:currentPath[shared]]) {
+        shared++;
+    }
+    for (NSUInteger level = shared; level < path.count; level++) {
+        PSMTabBarCell *chip = [[[PSMTabBarCell alloc] initWithControlView:controlView] autorelease];
+        [chip setIsTabGroupChip:YES];
+        [chip setTabGroupIdentifier:path[level]];
+        if (level > 0) {
+            [chip setTabGroupParentIdentifier:path[level - 1]];
+            [chip setIsCollapsedHidden:cell.isTabGroupParentCollapsed];
+        }
+        [result addObject:chip];
+    }
+}
+
 + (NSArray<PSMTabBarCell *> *)cellsByInsertingDragChipsInto:(NSArray<PSMTabBarCell *> *)cells
                                                 controlView:(PSMTabBarControl *)controlView {
     NSMutableArray<PSMTabBarCell *> *result = [NSMutableArray array];
-    NSString *runID = nil;
+    // The group path of the run being built. With nesting a run is a path: a
+    // sub-group's run sits inside its parent's, so leaving the sub-group for a
+    // direct member of the parent continues the parent's run without a new chip.
+    NSArray<NSString *> *runPath = @[];
     for (PSMTabBarCell *cell in cells) {
         if ([cell isTabGroupChip]) {
             // Stray chip from a prior pass: drop it, we re-derive below.
@@ -2190,26 +2223,17 @@ static CAShapeLayer *PSMMaskShapeForPath(NSBezierPath *path, NSRect subviewFrame
             // Exception: the dragged member's drop-slot placeholder carries its
             // group id, so it anchors the run (and its chip) at that slot rather
             // than letting the chip jump past it to the next real member.
-            NSString *pgid = [cell tabGroupIdentifier];
-            if (pgid.length > 0 && ![pgid isEqualToString:runID]) {
-                PSMTabBarCell *chip = [[[PSMTabBarCell alloc] initWithControlView:controlView] autorelease];
-                [chip setIsTabGroupChip:YES];
-                [chip setTabGroupIdentifier:pgid];
-                [result addObject:chip];
-                runID = pgid;
+            if ([cell tabGroupIdentifier].length > 0) {
+                NSArray<NSString *> *path = [cell tabGroupPath];
+                PSMAppendChipsForPath(path, runPath, cell, controlView, result);
+                runPath = path;
             }
             [result addObject:cell];
             continue;
         }
-        NSString *gid = [cell tabGroupIdentifier];
-        const BOOL grouped = (gid.length > 0);
-        if (grouped && ![gid isEqualToString:runID]) {
-            PSMTabBarCell *chip = [[[PSMTabBarCell alloc] initWithControlView:controlView] autorelease];
-            [chip setIsTabGroupChip:YES];
-            [chip setTabGroupIdentifier:gid];
-            [result addObject:chip];
-        }
-        runID = grouped ? gid : nil;
+        NSArray<NSString *> *path = [cell tabGroupPath];
+        PSMAppendChipsForPath(path, runPath, cell, controlView, result);
+        runPath = path;
         [result addObject:cell];
     }
     return result;
@@ -2631,14 +2655,19 @@ typedef struct {
         if (c.isPlaceholder) {
             continue;
         }
-        if (c.isTabGroupChip || ![c.tabGroupIdentifier isEqualToString:gid]) {
+        if (![c continuesRunOfTabGroup:gid]) {
             break;
+        }
+        if (c.isTabGroupChip) {
+            // A sub-group's chip inside this run: not a member itself, but its
+            // tabs that follow are.
+            continue;
         }
         if (run.firstMember < 0) {
             run.firstMember = j;
         }
         run.memberCount++;
-        if (c.isCollapsedHidden) {
+        if ([c isCollapsedByTabGroup:gid]) {
             run.anyCollapsed = YES;
         } else {
             run.allCollapsed = NO;
@@ -2662,7 +2691,8 @@ typedef struct {
     const PSMTabGroupRun run = [self tabGroupRunAfterChipAtIndex:index];
     return [self widthOfTabGroupChipCellForIdentifier:cell.tabGroupIdentifier
                                             collapsed:(run.memberCount > 0 && run.allCollapsed)
-                                          memberCount:run.memberCount];
+                                          memberCount:run.memberCount
+                                               nested:(cell.tabGroupParentIdentifier.length > 0)];
 }
 
 // Chip width from explicit group state, so a SYNTHESIZED chip (a drag chip that
@@ -2672,11 +2702,12 @@ typedef struct {
 // dragged group jump wider on drop.
 - (CGFloat)widthOfTabGroupChipCellForIdentifier:(NSString *)identifier
                                       collapsed:(BOOL)collapsed
-                                    memberCount:(NSInteger)memberCount {
+                                    memberCount:(NSInteger)memberCount
+                                         nested:(BOOL)nested {
     id<PSMTabGroup> group = [self.tabGroupDataSource tabGroupWithIdentifier:identifier];
     NSString *name = group ? group.name : @"";
     if (collapsed && memberCount > 0) {
-        return [self collapsedChipCellWidthForGroupName:name memberCount:memberCount];
+        return [self collapsedChipCellWidthForGroupName:name memberCount:memberCount nested:nested];
     }
     return [self chipCellWidthForGroupName:name];
 }
@@ -2691,17 +2722,19 @@ typedef struct {
 }
 
 // Width of a collapsed group-chip cell, in this bar's style.
-- (CGFloat)collapsedChipCellWidthForGroupName:(NSString *)name memberCount:(NSInteger)count {
+- (CGFloat)collapsedChipCellWidthForGroupName:(NSString *)name
+                                  memberCount:(NSInteger)count
+                                       nested:(BOOL)nested {
     name = name ?: @"";
-    NSString *key = [NSString stringWithFormat:@"WC:%@:%ld:%@",
-                     [(NSObject *)self.style class], (long)count, name];
+    NSString *key = [NSString stringWithFormat:@"WC:%@:%ld:%d:%@",
+                     [(NSObject *)self.style class], (long)count, (int)nested, name];
     NSNumber *cached = [PSMChipSizeCache() objectForKey:key];
     if (cached) {
         return cached.doubleValue;
     }
     CGFloat width;
-    if ([self.style respondsToSelector:@selector(tabGroupCollapsedChipCellWidthForName:memberCount:)]) {
-        width = [self.style tabGroupCollapsedChipCellWidthForName:name memberCount:count];
+    if ([self.style respondsToSelector:@selector(tabGroupCollapsedChipCellWidthForName:memberCount:nested:)]) {
+        width = [self.style tabGroupCollapsedChipCellWidthForName:name memberCount:count nested:nested];
     } else {
         // Fallback: the name-only width (the count/chevron may crowd, but the
         // basic styles don't draw a collapsed chip anyway).
@@ -3860,7 +3893,8 @@ typedef struct {
     return nil;
 }
 
-// The contiguous member tab cells (same group id) that follow `chip`.
+// The contiguous member tab cells (same group id, including the tabs of its
+// sub-groups) that follow `chip`.
 - (NSArray<PSMTabBarCell *> *)tabGroupMemberCellsForChip:(PSMTabBarCell *)chip {
     const NSInteger chipIdx = [_cells indexOfObject:chip];
     if (chipIdx == NSNotFound) {
@@ -3870,10 +3904,12 @@ typedef struct {
     NSMutableArray<PSMTabBarCell *> *members = [NSMutableArray array];
     for (NSInteger j = chipIdx + 1; j < (NSInteger)_cells.count; j++) {
         PSMTabBarCell *c = _cells[j];
-        if (c.isTabGroupChip || ![c.tabGroupIdentifier isEqualToString:gid]) {
+        if (![c continuesRunOfTabGroup:gid]) {
             break;
         }
-        [members addObject:c];
+        if (!c.isTabGroupChip) {
+            [members addObject:c];
+        }
     }
     return members;
 }
@@ -4544,6 +4580,59 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
     }
 }
 
+- (void)tabView:(NSTabView *)tabView setPreviewedTabViewItem:(NSTabViewItem *)tabViewItem {
+    if (_previewedTabViewItem == tabViewItem) {
+        return;
+    }
+    _previewedTabViewItem = tabViewItem;
+    [self setNeedsDisplay:YES];
+}
+
+- (NSRect)tabBarScreenFrameForTabView:(NSTabView *)tabView {
+    if (!self.window || self.isHiddenOrHasHiddenAncestor || NSIsEmptyRect(self.bounds)) {
+        return NSZeroRect;
+    }
+    return [self.window convertRectToScreen:[self convertRect:self.bounds toView:nil]];
+}
+
+- (void)tabView:(NSTabView *)tabView closeTabViewItemWithConfirmation:(NSTabViewItem *)tabViewItem {
+    [[tabViewItem retain] autorelease];
+    if ([[self delegate] respondsToSelector:@selector(tabView:shouldCloseTabViewItem:)] &&
+        ![[self delegate] tabView:_tabView shouldCloseTabViewItem:tabViewItem]) {
+        return;
+    }
+    if ([[self delegate] respondsToSelector:@selector(tabView:closeTab:button:)]) {
+        [[self delegate] tabView:_tabView closeTab:[tabViewItem identifier] button:0];
+    }
+}
+
+- (void)drawPreviewedTabOutline {
+    NSTabViewItem *item = _previewedTabViewItem;
+    if (!item) {
+        return;
+    }
+    for (PSMTabBarCell *cell in [self cells]) {
+        if (cell.representedObject != item) {
+            continue;
+        }
+        if (cell.isInOverflowMenu || cell.isCollapsedHidden || cell.isTabGroupChip || NSIsEmptyRect(cell.frame)) {
+            return;
+        }
+        const CGFloat lineWidth = 2;
+        NSBezierPath *path = nil;
+        if ([_style respondsToSelector:@selector(previewOutlinePathForTabCell:lineWidth:)]) {
+            path = [_style previewOutlinePathForTabCell:cell lineWidth:lineWidth];
+        }
+        if (!path) {
+            path = [NSBezierPath bezierPathWithRect:NSInsetRect(cell.frame, lineWidth / 2, lineWidth / 2)];
+        }
+        path.lineWidth = lineWidth;
+        [[NSColor controlAccentColor] set];
+        [path stroke];
+        return;
+    }
+}
+
 - (void)tabView:(NSTabView *)aTabView willRemoveTabViewItem:(NSTabViewItem *)tabViewItem {
     if ([[self delegate] respondsToSelector:@selector(tabView:willRemoveTabViewItem:)]) {
         [[self delegate] tabView:aTabView willRemoveTabViewItem:tabViewItem];
@@ -4933,6 +5022,12 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
 
 - (void)setTabGroupIdentifiers:(NSArray *)identifiers
                forTabViewItems:(NSArray<NSTabViewItem *> *)tabViewItems {
+    [self setTabGroupIdentifiers:identifiers parentIdentifiers:nil forTabViewItems:tabViewItems];
+}
+
+- (void)setTabGroupIdentifiers:(NSArray *)identifiers
+             parentIdentifiers:(NSArray *)parentIdentifiers
+               forTabViewItems:(NSArray<NSTabViewItem *> *)tabViewItems {
     // Match strictly by tab view item: a cell whose item is not listed (or a
     // tab whose cell is absent, e.g. the dragged tab mid-drag) is left alone.
     // Re-derive chips and relayout at most once, however many memberships
@@ -4940,9 +5035,15 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
     NSMapTable *gidByItem = [NSMapTable mapTableWithKeyOptions:(NSMapTableObjectPointerPersonality |
                                                                 NSMapTableStrongMemory)
                                                   valueOptions:NSMapTableStrongMemory];
+    NSMapTable *parentByItem = [NSMapTable mapTableWithKeyOptions:(NSMapTableObjectPointerPersonality |
+                                                                   NSMapTableStrongMemory)
+                                                     valueOptions:NSMapTableStrongMemory];
     const NSUInteger count = MIN(identifiers.count, tabViewItems.count);
     for (NSUInteger i = 0; i < count; i++) {
         [gidByItem setObject:identifiers[i] forKey:tabViewItems[i]];
+        if (i < parentIdentifiers.count) {
+            [parentByItem setObject:parentIdentifiers[i] forKey:tabViewItems[i]];
+        }
     }
     BOOL changed = NO;
     for (PSMTabBarCell *cell in _cells) {
@@ -4961,6 +5062,17 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
                  cell, cell.tabGroupIdentifier, gid);
             cell.tabGroupIdentifier = gid;
             changed = YES;
+        }
+        id parentValue = [parentByItem objectForKey:item];
+        if (parentValue) {
+            NSString *parent = [parentValue isKindOfClass:[NSString class]] ? parentValue : nil;
+            if (cell.tabGroupParentIdentifier != parent &&
+                ![cell.tabGroupParentIdentifier isEqualToString:parent]) {
+                RLog(@"tabGroup: cell %p parent group %@ -> %@",
+                     cell, cell.tabGroupParentIdentifier, parent);
+                cell.tabGroupParentIdentifier = parent;
+                changed = YES;
+            }
         }
     }
     if (changed) {
@@ -4984,15 +5096,28 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
 
 - (void)setTabGroupCollapsedFlags:(NSArray<NSNumber *> *)flags
                   forTabViewItems:(NSArray<NSTabViewItem *> *)tabViewItems {
+    [self setTabGroupCollapsedFlags:flags parentCollapsedFlags:nil forTabViewItems:tabViewItems];
+}
+
+- (void)setTabGroupCollapsedFlags:(NSArray<NSNumber *> *)flags
+             parentCollapsedFlags:(NSArray<NSNumber *> *)parentFlags
+                  forTabViewItems:(NSArray<NSTabViewItem *> *)tabViewItems {
     // Mirror -setTabGroupIdentifiers:forTabViewItems:: match strictly by tab
     // view item and relayout at most once. Collapse doesn't change chip
-    // derivation (that depends only on tabGroupIdentifier), so no re-normalize.
+    // derivation (that depends only on the group identifiers), so no
+    // re-normalize; only a sub-group chip's visibility follows its parent.
     NSMapTable *flagByItem = [NSMapTable mapTableWithKeyOptions:(NSMapTableObjectPointerPersonality |
                                                                 NSMapTableStrongMemory)
                                                    valueOptions:NSMapTableStrongMemory];
+    NSMapTable *parentFlagByItem = [NSMapTable mapTableWithKeyOptions:(NSMapTableObjectPointerPersonality |
+                                                                       NSMapTableStrongMemory)
+                                                         valueOptions:NSMapTableStrongMemory];
     const NSUInteger count = MIN(flags.count, tabViewItems.count);
     for (NSUInteger i = 0; i < count; i++) {
         [flagByItem setObject:flags[i] forKey:tabViewItems[i]];
+        if (i < parentFlags.count) {
+            [parentFlagByItem setObject:parentFlags[i] forKey:tabViewItems[i]];
+        }
     }
     BOOL changed = NO;
     for (PSMTabBarCell *cell in _cells) {
@@ -5009,6 +5134,14 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
             cell.isCollapsedHidden = collapsed;
             changed = YES;
         }
+        NSNumber *parentValue = [parentFlagByItem objectForKey:item];
+        if (parentValue && cell.isTabGroupParentCollapsed != parentValue.boolValue) {
+            cell.isTabGroupParentCollapsed = parentValue.boolValue;
+            changed = YES;
+        }
+    }
+    if ([self syncSubgroupChipVisibility]) {
+        changed = YES;
     }
     if (changed) {
         // Ask the next horizontal layout to run the dedicated collapse animator.
@@ -5017,6 +5150,46 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
         _collapseExpandPending = YES;
         [self update:YES];
     }
+}
+
+// A sub-group's chip is hidden exactly when its parent is collapsed, which the
+// sub-group's tab cells record in isTabGroupParentCollapsed. Returns YES if any
+// chip changed.
+- (BOOL)syncSubgroupChipVisibility {
+    BOOL changed = NO;
+    for (NSInteger i = 0; i < (NSInteger)_cells.count; i++) {
+        PSMTabBarCell *chip = _cells[i];
+        if (!chip.isTabGroupChip || chip.tabGroupParentIdentifier.length == 0) {
+            continue;
+        }
+        BOOL hidden = chip.isCollapsedHidden;
+        for (NSInteger j = i + 1; j < (NSInteger)_cells.count; j++) {
+            PSMTabBarCell *c = _cells[j];
+            if (c.isPlaceholder) {
+                continue;
+            }
+            if (!c.isTabGroupChip && [c.tabGroupIdentifier isEqualToString:chip.tabGroupIdentifier]) {
+                hidden = c.isTabGroupParentCollapsed;
+            }
+            break;
+        }
+        if (hidden != chip.isCollapsedHidden) {
+            chip.isCollapsedHidden = hidden;
+            changed = YES;
+        }
+    }
+    return changed;
+}
+
+// While a group drag image is captured, only the dragged group and its own
+// sub-groups are decorated. A dragged sub-group still leaves out its parent.
+- (BOOL)tabGroupChipPassesDecorationFilter:(PSMTabBarCell *)chip {
+    NSString *only = self.onlyTabGroupRunDecorationIdentifier;
+    if (!only) {
+        return YES;
+    }
+    return ([chip.tabGroupIdentifier isEqualToString:only] ||
+            [chip.tabGroupParentIdentifier isEqualToString:only]);
 }
 
 // Enumerate each FULLY collapsed tab group: a chip whose following same-group
@@ -5029,6 +5202,9 @@ static CFAbsoluteTime gDragMoveFirstTime = 0;
     for (NSInteger i = 0; i < (NSInteger)_cells.count; i++) {
         PSMTabBarCell *chip = _cells[i];
         if (![chip isTabGroupChip] || chip.tabGroupIdentifier.length == 0) {
+            continue;
+        }
+        if (![self tabGroupChipPassesDecorationFilter:chip]) {
             continue;
         }
         // A chip that fell past the fit boundary is marked in-overflow but keeps a
@@ -5091,11 +5267,33 @@ static NSRect PSMRunUnionRect(NSRect a, NSRect b) {
         if (![chip isTabGroupChip] || gid.length == 0) {
             continue;
         }
+        if (![self tabGroupChipPassesDecorationFilter:chip]) {
+            continue;
+        }
         NSRect tabsRect = NSZeroRect;
         PSMTabBarCell *firstTab = nil;
         BOOL any = NO;
+        if (chip.isCollapsedHidden) {
+            // A sub-group chip inside a collapsed parent draws nothing.
+            continue;
+        }
         for (NSInteger j = i + 1; j < (NSInteger)cells.count; j++) {
             PSMTabBarCell *c = cells[j];
+            // A sub-group's chip inside this run belongs to the run's extent
+            // (when visible); its tabs follow and are members via their parent.
+            if (c.isTabGroupChip && [c.tabGroupParentIdentifier isEqualToString:gid] &&
+                !c.isInOverflowMenu) {
+                if (!c.isCollapsedHidden && NSWidth(c.frame) > 0) {
+                    tabsRect = any ? PSMRunUnionRect(tabsRect, rect(c)) : rect(c);
+                    // When the run opens with a sub-group, the parent's
+                    // decoration hugs that sub-group's chip as its first cell.
+                    if (!firstTab) {
+                        firstTab = c;
+                    }
+                    any = YES;
+                }
+                continue;
+            }
             // A collapsed member is hidden (zero frame): skip it so it never
             // enters the run's rect. A fully-collapsed run then leaves any==NO,
             // so no enclosing pill is drawn (the collapsed chip draws its own).
@@ -5115,19 +5313,19 @@ static NSRect PSMRunUnionRect(NSRect a, NSRect b) {
             // must keep enclosing it rather than snapping down at drag start
             // and shrinking only as the slot collapses).
             if (c.isPlaceholder) {
-                if ([c.tabGroupIdentifier isEqualToString:gid]) {
+                if ([c isInTabGroup:gid]) {
                     // The dragged member's own slot counts as part of the run
                     // (it can even BE the run, e.g. the first or sole member
                     // is being dragged and no real member precedes it).
                     tabsRect = any ? NSUnionRect(tabsRect, rect(c)) : rect(c);
                     any = YES;
-                } else if (any && [c.joinsTabGroupIdentifier isEqualToString:gid]) {
+                } else if (any && ([c.joinsTabGroupIdentifier isEqualToString:gid] ||
+                                   [c.joinsTabGroupParentIdentifier isEqualToString:gid])) {
                     tabsRect = NSUnionRect(tabsRect, rect(c));
                 }
                 continue;
             }
-            if (c.isTabGroupChip || c.isInOverflowMenu ||
-                ![c.tabGroupIdentifier isEqualToString:gid]) {
+            if (c.isTabGroupChip || c.isInOverflowMenu || ![c isInTabGroup:gid]) {
                 break;
             }
             tabsRect = any ? PSMRunUnionRect(tabsRect, rect(c)) : rect(c);
@@ -5187,7 +5385,7 @@ static NSRect PSMRunUnionRect(NSRect a, NSRect b) {
         if (c.isPlaceholder) {
             continue;
         }
-        if (c.isTabGroupChip || ![c.tabGroupIdentifier isEqualToString:groupID]) {
+        if (![c continuesRunOfTabGroup:groupID]) {
             return c;
         }
     }

@@ -26,6 +26,8 @@ extern const int64_t VT100ScreenMutableStateSideEffectFlagDidReceiveLineFeed;
 @class iTermTitleBatch;
 @class iTermTitleDirectoryFetch;
 
+@class iTermCommandOutput;
+
 @interface VT100ScreenMutableState()<
 PTYAnnotationDelegate,
 PTYTriggerEvaluatorDelegate,
@@ -62,6 +64,12 @@ iTermTriggerScopeProvider> {
     // Whether the title batch's side effect was added with addSideEffect
     // rather than deferred. A working directory request needs that.
     BOOL _titleBatchIsImmediate;
+    // The titles most recently set by the program, to tell whether a new one
+    // changes anything. Cleared when something else may have changed the
+    // displayed title (a title pop or a reset). Mutation thread only.
+    NSString *_lastWindowTitle;
+    NSString *_lastIconTitle;
+    NSString *_lastSubtitle;
     dispatch_queue_t _queue;
     PTYTriggerEvaluator *_triggerEvaluator;
     dispatch_group_t _tmuxGroup;
@@ -125,6 +133,10 @@ iTermTriggerScopeProvider> {
 // Usually 0; the restoration banner can leave it nonzero.
 @property (nonatomic) int restoredCursorOffsetFromPreferred;
 - (long long)absLineOfCursor;
+// The absolute line number of row `row` of the current grid.
+- (long long)absLineOfGridRow:(int)row;
+// The output of the command that `mark` belongs to, captured for the command-exit notification.
+- (iTermCommandOutput *)commandOutputForMark:(id<VT100ScreenMarkReading>)mark;
 
 // Has the running command appended any output since it began executing (FTCS C)? Reset at FTCS C,
 // set whenever text is appended. Used to decide whether a program that moves the cursor above its
@@ -217,5 +229,9 @@ iTermTriggerScopeProvider> {
 // Drops excluded subranges of `mark` whose cells no longer hold the text they held when their
 // prompt closed: the shell erased or typed over them.
 - (void)dropStaleExcludedSubrangesOfMark:(id<VT100ScreenMarkReading>)mark;
+
+// Call before removing screen marks from the interval tree for good. Drops them from the mark
+// cache, the last command mark caches, the named marks, and the aid registry.
+- (void)willRemoveScreenMarksFromIntervalTree:(NSArray<VT100ScreenMark *> *)objects;
 
 @end

@@ -18,8 +18,12 @@ class JSONPrettyPrinter: NSObject {
     // Tell the user about the JSON pretty printing feature when they've
     // selected one that we're pretty sure is hard to read, but avoid wasting a
     // bunch of CPU on giant selections.
+    //
+    // The callback returns true if it showed the promotion. If it could not
+    // (e.g., the selection is not eligible for replacement), the promotion
+    // stays available for a later copy.
     @objc
-    static func promoteIfJSON(string: String, callback: @escaping ()->()) {
+    static func promoteIfJSON(string: String, callback: @escaping () -> Bool) {
         if string.count < 200 || string.count > 100_000 {
             return
         }
@@ -34,6 +38,9 @@ class JSONPrettyPrinter: NSObject {
         }
         busy = true
         DispatchQueue.global().async {
+            defer {
+                DispatchQueue.main.async { busy = false }
+            }
             guard let data = string.data(using: .utf8) else {
                 return
             }
@@ -44,15 +51,15 @@ class JSONPrettyPrinter: NSObject {
                let desiredNumberOfLines = JSONPrettyPrinter(maybeObject as AnyObject)?.result.attributedStrings.count {
                 let actualNumberOfLines = string.ranges(of: "\n").count
                 DispatchQueue.main.async {
-                    busy = false
                     if desiredNumberOfLines < 10 {
                         return
                     }
                     if actualNumberOfLines > desiredNumberOfLines / 4 {
                         return
                     }
-                    iTermUserDefaults.userDefaults().set(true, forKey: userDefaultsKey)
-                    callback()
+                    if callback() {
+                        iTermUserDefaults.userDefaults().set(true, forKey: userDefaultsKey)
+                    }
                 }
             }
         }

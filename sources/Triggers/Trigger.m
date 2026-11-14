@@ -47,6 +47,9 @@ NSString * const kTriggerVariableValueRegexKey = @"variableValueRegex";
     iTermSwiftyStringWithBackreferencesEvaluator *_evaluator;
     NSRegularExpression *_compiledRegex;
     iTermMovingHistogram *_stats;
+    // The classification of the parameter string last evaluated. See -interpolatedParameterForString:.
+    NSString *_interpolatedParameterString;
+    iTermTriggerInterpolatedParameter *_interpolatedParameter;
 }
 
 @synthesize regex = regex_;
@@ -404,12 +407,23 @@ NSString * const kTriggerVariableValueRegexKey = @"variableValueRegex";
                                   useInterpolation:useInterpolation];
 }
 
+// A trigger is checked against every line of output, so the hit here, a string comparison, is what
+// a line costs. The cache in iTermTriggerInterpolatedParameter is shared by every session's mutation
+// thread under a lock; this trigger belongs to one session and asks it only when the string changes.
+- (iTermTriggerInterpolatedParameter *)interpolatedParameterForString:(NSString *)string {
+    if (!_interpolatedParameter || ![_interpolatedParameterString isEqualToString:string]) {
+        _interpolatedParameter = [iTermTriggerInterpolatedParameter parameterWithString:string];
+        _interpolatedParameterString = [string copy];
+    }
+    return _interpolatedParameter;
+}
+
 - (iTermPromise<NSString *> *)promisedValueOfInterpolatedString:(NSString *)p
                            withBackreferencesReplacedWithValues:(NSArray *)stringArray
                                                         absLine:(long long)absLine
                                                           scope:(id<iTermTriggerScopeProvider>)scopeProvider
                                                useInterpolation:(BOOL)useInterpolation {
-    iTermTriggerInterpolatedParameter *parameter = useInterpolation ? [iTermTriggerInterpolatedParameter parameterWithString:p] : nil;
+    iTermTriggerInterpolatedParameter *parameter = useInterpolation ? [self interpolatedParameterForString:p] : nil;
     if (parameter.kind == iTermTriggerInterpolatedParameterKindTriggerLocal) {
         // Evaluate without the session's scope so that token execution need not pause.
         NSString *value = [parameter valueWithMatches:stringArray absLine:absLine];
@@ -422,8 +436,13 @@ NSString * const kTriggerVariableValueRegexKey = @"variableValueRegex";
     }
     if (parameter && parameter.kind != iTermTriggerInterpolatedParameterKindLiteral) {
         return [iTermPromise promise:^(id<iTermPromiseSeal>  _Nonnull seal) {
-            [scopeProvider performBlockWithScope:^(iTermVariableScope * _Nonnull scope, id<iTermObject> _Nonnull object) {
+            [scopeProvider performBlockWithScope:^(iTermVariableScope * _Nullable scope, id<iTermObject> _Nullable object) {
                 assert([NSThread isMainThread]);
+                if (!scope || !object) {
+                    DLog(@"No scope to evaluate %@ in", p);
+                    [seal reject:[NSError errorWithDomain:@"com.iterm2.trigger" code:0 userInfo:nil]];
+                    return;
+                }
                 [self evaluateSwiftyStringParameter:p
                                      backreferences:stringArray
                                             absLine:absLine

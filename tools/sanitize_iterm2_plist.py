@@ -54,12 +54,18 @@ TOP-LEVEL keys
     FileDropCoprocess, UrlHandlerCommand   user shell commands
   NoSyncKnownHosts ....................... user@host:port list
   NoSyncWorkgroupGitBaseRecents .......... git base/ref recents
+  NoSyncWorkgroupCodeReviewModelRecents .. code review model name recents
+  WorkgroupCodeReviewDefaultModel ........ default code review model name
   NoSyncRecentArchives ................... archive file paths
   NoSyncOllamaDiscoveredModels ........... discovered Ollama models, keyed by
                                            endpoint URL (removed, not redacted:
                                            the private part is in the KEY)
   NoSyncRecordedVariables ................ recorded variable names (deep)
   NoSyncSearchHistory[2] ................. find-bar search terms
+  NoSyncSuppressedAlertsCatalog .......... suppressed alert/announcement
+                                           messages (may name URLs, paths,
+                                           hosts) keyed by identifiers that
+                                           can hold a host; removed
   NoSyncOpenAIAPIKey ..................... legacy plaintext API key
   NoSyncCompanion* ....................... push token / paired id / relay
                                            origin (string values only)
@@ -294,6 +300,8 @@ CONTENT_KEYS = {
     "FakeFullyQualifiedDomainName": REDACT_V,
     "FakeBootSessionUUID": REDACT_V,
     "NoSyncWorkgroupGitBaseRecents": REDACT_V,
+    "NoSyncWorkgroupCodeReviewModelRecents": REDACT_V,
+    "WorkgroupCodeReviewDefaultModel": REDACT_V,
     # environment / variables / remote state (deep: every string within)
     "Environment": REDACT_V,
     "Variables": REDACT_V,
@@ -323,6 +331,7 @@ CONTENT_KEYS = {
     "Custom Tab Title": REDACT_V,
     "Title Override": REDACT_V,
     "Tab Group Name": REDACT_V,
+    "Tab Group Parent Name": REDACT_V,
     "tmux Pane Title": REDACT_V,
     "Custom Locale": REDACT_V,
     "Jobs to Ignore": REDACT_V,
@@ -345,6 +354,8 @@ CONTENT_KEYS = {
     # find-bar search history
     "NoSyncSearchHistory2": REDACT_V,
     "NoSyncSearchHistory": REDACT_V,  # legacy; no-op if it holds a bool
+    # Suppressed Alerts panel state; its keys can name hosts, so drop it all.
+    "NoSyncSuppressedAlertsCatalog": REMOVE,
     # user-authored session messages
     "SessionEndMessageText": REDACT_V,
     "SessionRestartedMessageText": REDACT_V,

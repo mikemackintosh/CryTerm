@@ -36,7 +36,7 @@ final class BrowserScriptingPermissionsColumnWidthTests: XCTestCase {
     }
 
     func testColumnsFitEveryLanguage() {
-        for language in ["de", "ja", "pt-BR", "ru", "zh-Hans"] {
+        for language in ["ca", "cs", "da", "de", "el", "en-AU", "en-CA", "en-GB", "en-IN", "es", "es-419", "en-PH", "es-US", "fi", "fr", "fr-CA", "hi", "hr", "hu", "id", "it", "ja", "ms", "nb", "nl", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl", "sv", "th", "tr", "uk", "vi", "yue-Hans", "zh-HK", "zh-Hans", "zh-Hant"] {
             let table = strings(language)
             guard let permissionTitle = table["BrowserScriptingPermissions.PermissionColumn"],
                   let allowedTitle = table["BrowserScriptingPermissions.AllowedColumn"],
@@ -46,7 +46,7 @@ final class BrowserScriptingPermissionsColumnWidthTests: XCTestCase {
                 continue
             }
             let permissionColumn = column(titled: permissionTitle)
-            let permissionWidth = iTermBrowserScriptingPermissionsWindowController.width(
+            let permissionWidth = BrowserScriptingPermissionsViewController.width(
                 toFit: permissionColumn, cellTexts: [runJavaScript, loadURLs], minimum: 130)
             XCTAssertGreaterThanOrEqual(permissionWidth, permissionColumn.headerCell.cellSize.width, language)
             for name in [runJavaScript, loadURLs] {
@@ -54,7 +54,7 @@ final class BrowserScriptingPermissionsColumnWidthTests: XCTestCase {
             }
 
             let allowedColumn = column(titled: allowedTitle)
-            let allowedWidth = iTermBrowserScriptingPermissionsWindowController.width(
+            let allowedWidth = BrowserScriptingPermissionsViewController.width(
                 toFit: allowedColumn, cellTexts: [], minimum: 60)
             XCTAssertGreaterThanOrEqual(allowedWidth, allowedColumn.headerCell.cellSize.width, "\(language): \(allowedTitle)")
         }
@@ -68,10 +68,10 @@ final class BrowserScriptingPermissionsColumnWidthTests: XCTestCase {
     }
 
     func testEnglishKeepsTheOriginalWidths() {
-        let permissionWidth = iTermBrowserScriptingPermissionsWindowController.width(
+        let permissionWidth = BrowserScriptingPermissionsViewController.width(
             toFit: column(titled: "Permission"), cellTexts: ["Run JavaScript", "Load URLs"], minimum: 130)
         XCTAssertEqual(permissionWidth, 130)
-        let allowedWidth = iTermBrowserScriptingPermissionsWindowController.width(
+        let allowedWidth = BrowserScriptingPermissionsViewController.width(
             toFit: column(titled: "Allowed"), cellTexts: [], minimum: 60)
         XCTAssertEqual(allowedWidth, 60)
     }

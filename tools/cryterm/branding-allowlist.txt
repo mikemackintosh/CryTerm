@@ -86,3 +86,6 @@ line sources/Tasks/iTermFileDescriptorServer.c	openlog("iTerm2-Server", LOG_PID 
 line sources/Tasks/iTermFileDescriptorSocketPath.c	static char gSocketNamePrefix[128] = "iTerm2.socket.";
 line sources/Tasks/iTermMonoServerJobManager.m	NSString *tempPath = [[NSWorkspace sharedWorkspace] temporaryFileNameWithPrefix:@"iTerm2-temp-socket."
 line sources/FileTransfer/TransferrableFile.m	properties[(__bridge NSString *)kLSQuarantineAgentNameKey] = info[(__bridge NSString *)kCFBundleNameKey] ?: @"iTerm2";
+
+# Log line in the checker that only upstream builds run.
+line sources/AppLaunch/iTermBackupUpdateChecker.swift	DLog("Not starting the backup update checker: bundle ID \(Bundle.main.bundleIdentifier ?? "(none)") is not iTerm2's")

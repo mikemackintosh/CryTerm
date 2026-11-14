@@ -92,7 +92,10 @@ The vendored ones with a macOS Xcode target: **CoreParse, Highlightr,
 MultiCursor, NMSSH, Sparkle, SwiftyMarkdown**. For each:
 
 1. Bump **every** `MACOSX_DEPLOYMENT_TARGET` in its `.xcodeproj` that is
-   below the floor (leave anything already higher). Do not bump just the
+   below the floor (leave anything already higher). Sparkle is the
+   exception: its target is set once in
+   `Configurations/ConfigCommon.xcconfig`, which every Sparkle target
+   inherits, so bump it there. Do not bump just the
    "main" config: a partial bump leaves the framework building at the old
    min (this is exactly why NMSSH kept building at 10.15 through the 11->12
    bump). NMSSH also carries prebuilt `NMSSH-OSX/Libraries/lib/*.a`
@@ -107,7 +110,7 @@ Not bumped, and why:
 
 - openssl (gnachman fork) builds via the Makefile `DEPLOYMENT_TARGET`,
   no pbxproj target to touch.
-- adblock-rust, railroad_dsl (Rust) and iTerm2-shell-integration (shell)
+- railroad_dsl (Rust) and iTerm2-shell-integration (shell)
   have no Apple deployment target and emit no Apple deprecation warnings.
 - SFSymbolEnum is a codegen package (its output compiles under the app's
   target), so its own platform is irrelevant.

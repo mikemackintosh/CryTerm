@@ -28,7 +28,7 @@ final class AIModelCatalogTest: XCTestCase {
         let models = try bundledModels()
         XCTAssertFalse(models.isEmpty,
                        "AI model catalog decoded to zero models")
-        XCTAssertEqual(models.count, 51,
+        XCTAssertEqual(models.count, 56,
                        "Unexpected catalog size; update this test if you intentionally changed ai-models.json")
     }
 
@@ -40,18 +40,19 @@ final class AIModelCatalogTest: XCTestCase {
     func testRecommendedModelPerVendor() throws {
         let models = try bundledModels()
         XCTAssertEqual(AIModelCatalog.recommendedModel(for: .openAI, in: models)?.name, "gpt-6-astra")
-        XCTAssertEqual(AIModelCatalog.recommendedModel(for: .gemini, in: models)?.name, "gemini-3.8-flash")
+        XCTAssertEqual(AIModelCatalog.recommendedModel(for: .gemini, in: models)?.name, "gemini-4-argon")
         XCTAssertEqual(AIModelCatalog.recommendedModel(for: .deepSeek, in: models)?.name, "deepseek-flash")
         XCTAssertEqual(AIModelCatalog.recommendedModel(for: .anthropic, in: models)?.name, "claude-opus-5-5")
         // Ollama models are discovered from the local server, not the catalog.
         XCTAssertNil(AIModelCatalog.recommendedModel(for: .llama, in: models))
         XCTAssertEqual(AIModelCatalog.recommendedModel(for: .apple, in: models)?.name, "apple-on-device")
+        XCTAssertEqual(AIModelCatalog.recommendedModel(for: .xAI, in: models)?.name, "grok-4.7")
     }
 
     func testAlternateModelsFilterByVendor() throws {
         let models = try bundledModels()
         let anthropic = models.filter { $0.vendor == .anthropic }
-        XCTAssertEqual(anthropic.count, 12)
+        XCTAssertEqual(anthropic.count, 13)
         XCTAssertTrue(anthropic.allSatisfy { $0.vendor == .anthropic })
         XCTAssertTrue(models.filter { $0.vendor == .gemini }.allSatisfy { $0.vendor == .gemini })
         XCTAssertTrue(models.filter { $0.vendor == .openAI }.allSatisfy { $0.vendor == .openAI })
@@ -73,6 +74,11 @@ final class AIModelCatalogTest: XCTestCase {
         XCTAssertTrue(opus.features.contains(.streaming))
         XCTAssertTrue(opus.recommended)
 
+        // Haiku 5.5, the economy model, rejects temperature too.
+        if let haiku = models.first(where: { $0.name == "claude-haiku-5-5" }) {
+            XCTAssertFalse(haiku.supportsTemperature)
+        }
+
         // A model that still accepts temperature defaults to true.
         if let sonnet = models.first(where: { $0.name == "claude-sonnet-4-6" }) {
             XCTAssertTrue(sonnet.supportsTemperature)
@@ -85,6 +91,43 @@ final class AIModelCatalogTest: XCTestCase {
         if let gpt55 = models.first(where: { $0.name == "gpt-5.5" }) {
             XCTAssertEqual(gpt55.vectorStoreConfig, .disabled)
         }
+
+        guard let grok = models.first(where: { $0.name == "grok-4.7" }) else {
+            XCTFail("grok-4.7 missing from catalog")
+            return
+        }
+        XCTAssertEqual(grok.api, .chatCompletions)
+        XCTAssertEqual(grok.vendor, .xAI)
+        XCTAssertEqual(grok.url, "https://api.x.ai/v1/chat/completions")
+        XCTAssertEqual(grok.contextWindowTokens, 500_000)
+        XCTAssertEqual(grok.maxResponseTokens, 128_000)
+        XCTAssertTrue(grok.features.contains(.functionCalling))
+        XCTAssertTrue(grok.features.contains(.streaming))
+        XCTAssertTrue(grok.recommended)
+        XCTAssertEqual(grok.economyModelName, "grok-4.3")
+        XCTAssertEqual(grok.reasoningEfforts, [.low, .medium, .high, .xhigh])
+
+        guard let grok43 = models.first(where: { $0.name == "grok-4.3" }) else {
+            XCTFail("grok-4.3 missing from catalog")
+            return
+        }
+        XCTAssertEqual(grok43.vendor, .xAI)
+        XCTAssertEqual(grok43.api, .chatCompletions)
+        XCTAssertEqual(grok43.contextWindowTokens, 1_000_000)
+        XCTAssertEqual(grok43.maxResponseTokens, 128_000)
+        XCTAssertFalse(grok43.recommended)
+        XCTAssertEqual(grok43.reasoningEfforts, [.none, .low, .medium, .high, .xhigh])
+    }
+
+    func testGrokNameGuessUsesChatCompletions() {
+        let guessed = AIModel(modelName: "grok-custom", url: nil, legacy: false)
+        XCTAssertEqual(guessed.model.vendor, .xAI)
+        XCTAssertEqual(guessed.model.api, .chatCompletions)
+        XCTAssertEqual(guessed.model.url, "https://api.x.ai/v1/chat/completions")
+        XCTAssertTrue(guessed.model.features.contains(.functionCalling))
+        XCTAssertTrue(guessed.model.features.contains(.streaming))
+        XCTAssertEqual(AIMetadata.instance.api(for: "grok-name-guess", fallback: .completions),
+                       .chatCompletions)
     }
 
     // Reasoning effort and service tier are per-model catalog data (OpenAI
@@ -126,9 +169,9 @@ final class AIModelCatalogTest: XCTestCase {
             XCTFail("claude-opus-4-8 missing from catalog")
             return
         }
-        XCTAssertEqual(opus.economyModelName, "claude-haiku-4-5")
+        XCTAssertEqual(opus.economyModelName, "claude-haiku-5-5")
         let economy = AIMetadata.economyModel(for: opus, in: models)
-        XCTAssertEqual(economy?.name, "claude-haiku-4-5")
+        XCTAssertEqual(economy?.name, "claude-haiku-5-5")
         // Transport (and auth) is preserved from the caller's model.
         XCTAssertEqual(economy?.url, opus.url)
         XCTAssertEqual(economy?.api, opus.api)

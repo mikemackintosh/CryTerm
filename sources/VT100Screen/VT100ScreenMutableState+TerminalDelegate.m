@@ -60,13 +60,15 @@ static const int kMinimumVisibleProgressPercentage = 10;
         const screen_char_t foregroundColorCode = self.terminal.foregroundColorCode;
         const screen_char_t backgroundColorCode = self.terminal.backgroundColorCode;
         const BOOL atPrompt = _promptStateMachine.isAtPrompt;
+        const NSStringEncoding encoding = self.terminal.encoding;
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
             DLog(@"begin side-effect");
             [delegate screenDidAppendStringToCurrentLine:string
                                               isPlainText:YES
                                               foreground:foregroundColorCode
                                               background:backgroundColorCode
-                                                atPrompt:atPrompt];
+                                                atPrompt:atPrompt
+                                                encoding:encoding];
         } name:@"append string"];
     }
 }
@@ -404,13 +406,15 @@ typedef struct {
         const screen_char_t foregroundColorCode = self.terminal.foregroundColorCode;
         const screen_char_t backgroundColorCode = self.terminal.backgroundColorCode;
         const BOOL atPrompt = _promptStateMachine.isAtPrompt;
+        const NSStringEncoding encoding = self.terminal.encoding;
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
             DLog(@"begin side-effect");
             [delegate screenDidAppendStringToCurrentLine:@"\a"
                                              isPlainText:NO
                                               foreground:foregroundColorCode
                                               background:backgroundColorCode
-                                                atPrompt:atPrompt];
+                                                atPrompt:atPrompt
+                                                encoding:encoding];
         } name:@"ring bell"];
     }
 }
@@ -916,6 +920,11 @@ typedef struct {
 
 - (void)terminalDidReset {
     [self invalidatePendingPromptState];
+    // Treat the next title of each kind as a change rather than reason about
+    // what a reset does to the displayed titles.
+    _lastWindowTitle = nil;
+    _lastIconTitle = nil;
+    _lastSubtitle = nil;
     self.progress = VT100ScreenProgressStopped;
     self.progressGeneration += 1;
     const NSInteger generation = self.progressGeneration;
@@ -1220,8 +1229,12 @@ typedef struct {
 // `immediate` means the change must not wait for a deferred side-effect pass,
 // as with a working directory request, which used to be its own immediate
 // side effect.
+//
+// `expedite` means the change alters a visible title, so it should not wait
+// out a hidden session's batching. See -[TokenExecutor expediteForTitleChange].
 - (void)updateTitles:(void (^)(iTermTitleUpdate *update))block
-           immediate:(BOOL)immediate {
+           immediate:(BOOL)immediate
+            expedite:(BOOL)expedite {
     if (_titleBatch &&
         (_titleBatchIsImmediate || !immediate) &&
         self.tokenExecutor.sideEffectSerial == _titleBatchSideEffectSerial &&
@@ -1229,6 +1242,7 @@ typedef struct {
         // This changes state the main thread reads, like adding a side
         // effect would.
         [self.tokenExecutor noteStateSideEffectScheduled];
+        [self expediteTitleChangeIfNeeded:expedite];
         return;
     }
     iTermTitleBatch *batch = [[iTermTitleBatch alloc] init];
@@ -1260,6 +1274,16 @@ typedef struct {
     _titleBatch = (serialAfter == serialBefore + 1) ? batch : nil;
     _titleBatchSideEffectSerial = serialAfter;
     _titleBatchIsImmediate = immediate;
+    [self expediteTitleChangeIfNeeded:expedite];
+}
+
+// A change that joined a batch needs this as much as one that started a
+// batch: the batch may have started with a title that changed nothing.
+- (void)expediteTitleChangeIfNeeded:(BOOL)expedite {
+    if (!expedite || !self.config.allowTitleSetting) {
+        return;
+    }
+    [self.tokenExecutor expediteForTitleChange];
 }
 
 // Main thread, in a side effect.
@@ -1290,6 +1314,8 @@ typedef struct {
 
 - (void)terminalSetWindowTitle:(NSString *)title {
     DLog(@"begin %@", title);
+    const BOOL changed = ![NSObject object:title isEqualToObject:_lastWindowTitle];
+    _lastWindowTitle = [title copy];
 
     // If you know to use RemoteHost then assume you also use CurrentDirectory. Innocent window title
     // changes shouldn't override CurrentDirectory.
@@ -1297,7 +1323,7 @@ typedef struct {
         DLog(@"Already have a remote host so not updating working directory because of title change");
         [self updateTitles:^(iTermTitleUpdate *update) {
             [update changeWindowTitle:title];
-        } immediate:NO];
+        } immediate:NO expedite:changed];
         return;
     }
     // If OSC 7 or shell integration has provided working directory updates, don't update the
@@ -1310,7 +1336,7 @@ typedef struct {
         [self updateTitles:^(iTermTitleUpdate *update) {
             [update changeWindowTitle:title];
             [update pollLocalDirectoryOnly];
-        } immediate:YES];
+        } immediate:YES expedite:changed];
         return;
     }
     DLog(@"Don't have a remote host, so changing working directory");
@@ -1325,28 +1351,32 @@ typedef struct {
     if ([self workingDirectoryLineForAbsLine:absLine] < 0) {
         [self updateTitles:^(iTermTitleUpdate *update) {
             [update changeWindowTitle:title];
-        } immediate:NO];
+        } immediate:NO expedite:changed];
         return;
     }
     id<iTermOrderedToken> token = [self.setWorkingDirectoryOrderEnforcer newToken];
     [self updateTitles:^(iTermTitleUpdate *update) {
         [update changeWindowTitle:title];
         [update fetchWorkingDirectoryOnAbsLine:absLine token:token];
-    } immediate:YES];
+    } immediate:YES expedite:changed];
 }
 
 - (void)terminalSetIconTitle:(NSString *)title {
     DLog(@"begin %@", title);
+    const BOOL changed = ![NSObject object:title isEqualToObject:_lastIconTitle];
+    _lastIconTitle = [title copy];
     [self updateTitles:^(iTermTitleUpdate *update) {
         [update changeIconTitle:title];
-    } immediate:NO];
+    } immediate:NO expedite:changed];
 }
 
 - (void)terminalSetSubtitle:(NSString *)subtitle {
     DLog(@"begin %@", subtitle);
+    const BOOL changed = ![NSObject object:subtitle isEqualToObject:_lastSubtitle];
+    _lastSubtitle = [subtitle copy];
     [self updateTitles:^(iTermTitleUpdate *update) {
         [update changeSubtitle:subtitle];
-    } immediate:NO];
+    } immediate:NO expedite:changed];
 }
 
 - (void)terminalCopyStringToPasteboard:(NSString *)string {
@@ -1596,9 +1626,10 @@ typedef struct {
         }
     }
     if (n > 0 && !anySent && self.currentGrid.haveScrollRegion) {
+        const long long regionAbsTop = [self absLineOfGridRow:rect.origin.y];
         [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
             DLog(@"begin side-effect");
-            [delegate screenMoveSelectionUpBy:n inRegion:rect];
+            [delegate screenMoveSelectionUpBy:n inRegion:rect regionAbsTop:regionAbsTop];
         } name:@"scroll up"];
     }
     [self clearTriggerLine];
@@ -1683,6 +1714,13 @@ typedef struct {
 
 - (void)terminalPopCurrentTitleForWindow:(BOOL)isWindow {
     DLog(@"begin %@", @(isWindow));
+    // The restored title may differ from the last one the program set, so
+    // setting that one again would be a visible change.
+    if (isWindow) {
+        _lastWindowTitle = nil;
+    } else {
+        _lastIconTitle = nil;
+    }
     [self addPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
         DLog(@"begin side-effect");
         if ([delegate screenAllowTitleSetting]) {
@@ -1706,6 +1744,20 @@ typedef struct {
     [self addDeferredSideEffect:^(id<VT100ScreenDelegate> delegate) {
         [delegate screenProgressProtocolDidReportProgress:progress generation:generation];
     } name:@"progress protocol"];
+}
+
+// OSC 9;4 has no way to say a program died without clearing its bar, so a bar
+// left alone for too long is taken down, as Ghostty and kitty do. A newer
+// report or a reset moves the generation on. A bar the OSC 7501 records took
+// over keeps the generation but changes the value, and is theirs to manage.
+- (void)expireProgressFromProtocol:(VT100ScreenProgress)progress generation:(NSInteger)generation {
+    if (self.progressGeneration != generation || self.progress != progress) {
+        DLog(@"Not expiring progress %@ from generation %@: now %@ in generation %@",
+             @(progress), @(generation), @(self.progress), @(self.progressGeneration));
+        return;
+    }
+    DLog(@"Expiring stale progress %@ from generation %@", @(progress), @(generation));
+    [self setProgressFromProtocol:VT100ScreenProgressStopped];
 }
 
 - (void)terminalPostUserNotification:(NSString *)message {
@@ -2028,6 +2080,10 @@ typedef struct {
         return;
     }
     [self clearScrollbackBuffer];
+    [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
+        DLog(@"begin side-effect");
+        [delegate screenDidClearScrollbackWithPermission];
+    } name:@"cleared scrollback buffer"];
 }
 
 - (void)terminalClearBuffer {
@@ -2122,6 +2178,10 @@ typedef struct {
     DLog(@"begin");
     if (![iTermAdvancedSettingsModel disableDECRQCRA]) {
         DLog(@"not disabled");
+        [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
+            DLog(@"begin side-effect");
+            [delegate screenDidUseDECRQCRA];
+        } name:@"used decrqcra"];
         return YES;
     }
     [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
@@ -2539,7 +2599,7 @@ typedef struct {
         [self.openAidStack removeObject:otherAid];
     }
     // Mirror commandWasAborted's full cleanup: remove the mark + fire
-    // screenCommandDidAbortOnLine:, then reset commandStartCoord and
+    // screenCommandDidAbortWithOutput:, then reset commandStartCoord and
     // close the command's interval so downstream state (Cmd-K's
     // commandStartCoord.x check, prompt-state-machine, etc.) tracks
     // the post-abort world the same way as the aid-less path.
@@ -2563,9 +2623,7 @@ typedef struct {
 // from this category.
 - (void)abortSpecificAidMark:(VT100ScreenMark *)target {
     DLog(@"abortSpecificAidMark: target=%@ aid=%@", target, target.aid);
-    const VT100GridRange lineRange = [self lineNumberRangeOfInterval:target.entry.interval];
-    const int line = lineRange.location;
-    const VT100GridCoordRange outputRange = [self rangeOfOutputForCommandMark:target];
+    iTermCommandOutput *output = [self commandOutputForMark:target];
     NSString *command = target.fullCommand ?: target.firstLineOfCommand ?: @"";
 
     const int relativeLine = [self coordRangeForInterval:target.entry.interval].start.y;
@@ -2574,17 +2632,17 @@ typedef struct {
         [observer intervalTreeDidRemoveObjectOfType:iTermIntervalTreeObjectTypeForObject(target)
                                              onLine:absLine];
     } name:@"aid abort 1"];
-    DLog(@"abortSpecificAidMark: removing %@ from tree (line=%@ relativeLine=%@)",
-         target, @(line), @(relativeLine));
+    DLog(@"abortSpecificAidMark: removing %@ from tree (relativeLine=%@)", target, @(relativeLine));
+    // The hook drops the mark from the mark cache, the last command mark caches, and the aid
+    // registry, as for every other permanent removal.
+    [self willRemoveScreenMarksFromIntervalTree:@[ target ]];
     [self.mutableIntervalTree removeObject:target];
     [self.mutableSavedIntervalTree removeObject:target];
-    [self.mutableMarkCache removeMark:target onLine:relativeLine];
     id<VT100ScreenMarkReading> doppelganger = target.doppelganger;
     [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {
-        [delegate screenCommandDidAbortOnLine:line
-                                  outputRange:outputRange
-                                      command:command
-                                         mark:doppelganger];
+        [delegate screenCommandDidAbortWithOutput:output
+                                          command:command
+                                             mark:doppelganger];
     } name:@"aid abort 2"];
 }
 
@@ -2646,6 +2704,7 @@ typedef struct {
     const int notifyCode = code != nil ? code.intValue : 0;
     // Snapshot key reporting flags as of this FTCS D token (see 13015).
     const VT100TerminalKeyReportingFlags keyReportingFlags = self.terminalKeyReportingFlags;
+    iTermCommandOutput *output = [self commandOutputForMark:mark];
     [self addSideEffect:^(id<VT100ScreenDelegate> delegate) {
         [delegate screenDidUpdateReturnCodeForMark:doppelganger remoteHost:remoteHost];
         // screenCommandDidExitWithCode always fires for the target so
@@ -2655,7 +2714,8 @@ typedef struct {
         // we keep the explicit "0 when unknown" default as a safety net.
         [delegate screenCommandDidExitWithCode:notifyCode
                              keyReportingFlags:keyReportingFlags
-                                          mark:doppelganger];
+                                          mark:doppelganger
+                                        output:output];
     } name:@"close aid mark notify"];
 }
 
@@ -3293,9 +3353,10 @@ typedef struct {
 
 - (void)terminalSetLabel:(NSString *)label forKey:(NSString *)keyName {
     DLog(@"begin label=%@ keyName=%@", label, keyName);
+    const long long absLineOfCursor = [self absLineOfCursor];
     [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
         DLog(@"begin side-effect");
-        [delegate screenSetLabel:label forKey:keyName];
+        [delegate screenSetLabel:label forKey:keyName absLineOfCursor:absLineOfCursor];
     } name:@"set label for key"];
 }
 
@@ -3627,6 +3688,9 @@ static BOOL iTermStringIsASCIIDecimal(NSString *string) {
         const screen_char_t foregroundColorCode = self.terminal.foregroundColorCode;
         const screen_char_t backgroundColorCode = self.terminal.backgroundColorCode;
         NSString *string = ScreenCharToStr(chars);
+        // Read on the mutation thread. The side effect runs on the main thread.
+        const BOOL isPlainText = (self.lastCharacter.complexChar || self.lastCharacter.code >= ' ');
+        const NSStringEncoding encoding = self.terminal.encoding;
         for (int i = 0; i < times; i++) {
             [self appendScreenCharArrayAtCursor:chars
                                          length:length
@@ -3639,11 +3703,11 @@ static BOOL iTermStringIsASCIIDecimal(NSString *string) {
                 [self addSideEffect:^(id<VT100ScreenDelegate>  _Nonnull delegate) {
                     DLog(@"begin side-effect");
                     [delegate screenDidAppendStringToCurrentLine:string
-                                                     isPlainText:(self.lastCharacter.complexChar ||
-                                                                  self.lastCharacter.code >= ' ')
+                                                     isPlainText:isPlainText
                                                       foreground:foregroundColorCode
                                                       background:backgroundColorCode
-                                                        atPrompt:atPrompt];
+                                                        atPrompt:atPrompt
+                                                        encoding:encoding];
                 } name:@"repeat previous char"];
             }
         }
@@ -4336,9 +4400,10 @@ willExecuteToken:(VT100Token *)token
 }
 
 - (void)terminalUpdateBlock:(NSString *)blockID action:(iTermUpdateBlockAction)action {
-    [self addPausedSideEffect:^(id<VT100ScreenDelegate> delegate, iTermTokenExecutorUnpauser *unpauser) {
+    // Joined because folding finds the block and reads its lines, which may have arrived since the
+    // last sync.
+    [self addJoinedSideEffect:^(id<VT100ScreenDelegate> delegate) {
         [delegate screenUpdateBlock:blockID action:action];
-        [unpauser unpause];
     } name:@"Update block"];
 }
 - (void)terminalBlock:(NSString *)blockID
