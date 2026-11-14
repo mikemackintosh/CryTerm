@@ -5,16 +5,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Use iTerm2 while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\\\"iterm2whatsnew:companion\\\">Try it now!</a>\"; ObjectID = \"0Bk-78-p2L\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fes servir l’CryTerm encara que siguis lluny del Mac. Pots controlar-lo mitjançant el xat d’IA, veure el contingut de les sessions i rebre notificacions push. El xifratge d’extrem a extrem manté les teves dades segures. <a href=\"iterm2whatsnew:companion\">Prova-ho ara!</a>"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Používejte CryTerm, i když jste mimo svůj Mac. Můžete ho ovládat pomocí chatu s AI, zobrazovat obsah relací a dostávat push oznámení. Koncové šifrování chrání vaše data. <a href=\"iterm2whatsnew:companion\">Vyzkoušejte to hned!</a>"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brug CryTerm, mens du er væk fra din Mac. Du kan styre den via AI-chat, se sessionsindhold og modtage push-notifikationer. Ende-til-ende-kryptering holder dine data sikre. <a href=\"iterm2whatsnew:companion\">Prøv det nu!</a>"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verwenden Sie CryTerm, wenn Sie nicht an Ihrem Mac sind. Sie können es per KI-Chat steuern, Sitzungsinhalte einsehen und Push-Benachrichtigungen erhalten. Ende-zu-Ende-Verschlüsselung schützt Ihre Daten. <a href=\"iterm2whatsnew:companion\">Jetzt ausprobieren!</a>"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρησιμοποιήστε το CryTerm ακόμη και όταν βρίσκεστε μακριά από το Mac σας. Μπορείτε να το ελέγχετε μέσω της συνομιλίας AI, να βλέπετε το περιεχόμενο των συνεδριών και να λαμβάνετε ειδοποιήσεις push. Η κρυπτογράφηση από άκρο σε άκρο διατηρεί τα δεδομένα σας ασφαλή. <a href=\"iterm2whatsnew:companion\">Δοκιμάστε το τώρα!</a>"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use CryTerm while you are apart from your Mac. You can control it via AI chat, view session content, and receive push notifications. End-to-end encryption keeps your data safe. <a href=\"iterm2whatsnew:companion\">Try it now!</a>"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa CryTerm aunque estés lejos de tu Mac. Puedes controlarlo mediante el chat de IA, ver el contenido de las sesiones y recibir notificaciones push. El cifrado de extremo a extremo mantiene tus datos seguros. <a href=\"iterm2whatsnew:companion\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa CryTerm aunque estés lejos de tu Mac. Puedes controlarlo mediante el chat de IA, ver el contenido de las sesiones y recibir notificaciones push. El cifrado de extremo a extremo mantiene tus datos seguros. <a href=\"iterm2whatsnew:companion\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa CryTerm aunque estés lejos de tu Mac. Puedes controlarlo mediante el chat de IA, ver el contenido de las sesiones y recibir notificaciones push. El cifrado de extremo a extremo mantiene tus datos seguros. <a href=\"iterm2whatsnew:companion\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytä CryTerm:ta myös silloin, kun olet kaukana Macistasi. Voit ohjata sitä AI-keskustelun kautta, katsoa istuntojen sisältöä ja vastaanottaa push-ilmoituksia. Päästä päähän -salaus pitää tietosi turvassa. <a href=\"iterm2whatsnew:companion\">Kokeile nyt!</a>"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez CryTerm même loin de votre Mac. Vous pouvez le contrôler via le chat IA, consulter le contenu des sessions et recevoir des notifications push. Le chiffrement de bout en bout protège vos données. <a href=\"iterm2whatsnew:companion\">Essayez-le maintenant !</a>"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez CryTerm même loin de votre Mac. Vous pouvez le contrôler par le chat IA, consulter le contenu des sessions et recevoir des notifications push. Le chiffrement de bout en bout protège vos données. <a href=\"iterm2whatsnew:companion\">Essayez-le maintenant!</a>"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपने Mac से दूर रहते हुए भी CryTerm का उपयोग करें। आप AI चैट से इसे नियंत्रित कर सकते हैं, सत्र की सामग्री देख सकते हैं और पुश सूचनाएँ पा सकते हैं। एंड-टू-एंड एन्क्रिप्शन आपके डेटा को सुरक्षित रखता है। <a href=\"iterm2whatsnew:companion\">अभी आज़माएँ!</a>"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koristite CryTerm i kad niste uz svoj Mac. Možete njime upravljati putem AI razgovora, pregledavati sadržaj sesija i primati push obavijesti. Sveobuhvatno šifriranje čuva vaše podatke sigurnima. <a href=\"iterm2whatsnew:companion\">Isprobajte odmah!</a>"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Használja az CryTerm-t akkor is, amikor nincs a Mac közelében. Vezérelheti AI-csevegéssel, megtekintheti a munkamenetek tartalmát, és push értesítéseket kaphat. A végpontok közötti titkosítás biztonságban tartja az adatait. <a href=\"iterm2whatsnew:companion\">Próbálja ki most!</a>"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan CryTerm saat Anda jauh dari Mac. Anda dapat mengendalikannya melalui obrolan AI, melihat konten sesi, dan menerima notifikasi push. Enkripsi ujung ke ujung menjaga data Anda tetap aman. <a href=\"iterm2whatsnew:companion\">Coba sekarang!</a>"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa CryTerm anche quando sei lontano dal tuo Mac. Puoi controllarlo tramite la chat IA, vedere il contenuto delle sessioni e ricevere notifiche push. La crittografia end-to-end protegge i tuoi dati. <a href=\"iterm2whatsnew:companion\">Provalo ora!</a>"
           }
         },
         "ja" : {
@@ -29,10 +149,46 @@
             "value" : "Mac에서 떨어져 있을 때도 CryTerm를 사용하십시오. AI 채팅으로 제어하고, 세션 내용을 보고, 푸시 알림을 받을 수 있습니다. 종단 간 암호화로 데이터를 안전하게 보호합니다. <a href=\"iterm2whatsnew:companion\">지금 사용해 보기!</a>"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan CryTerm semasa anda jauh daripada Mac anda. Anda boleh mengawalnya melalui sembang AI, melihat kandungan sesi dan menerima pemberitahuan push. Penyulitan hujung ke hujung memastikan data anda selamat. <a href=\"iterm2whatsnew:companion\">Cuba sekarang!</a>"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruk CryTerm når du er borte fra Macen. Du kan styre den via KI-chat, se øktinnhold og motta push-varsler. Ende-til-ende-kryptering holder dataene dine trygge. <a href=\"iterm2whatsnew:companion\">Prøv det nå!</a>"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruik CryTerm ook als je niet bij je Mac bent. Je kunt het bedienen via AI-chat, sessie-inhoud bekijken en pushmeldingen ontvangen. End-to-end-versleuteling houdt je gegevens veilig. <a href=\"iterm2whatsnew:companion\">Probeer het nu!</a>"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Używaj CryTerm, gdy jesteś z dala od komputera Mac. Możesz sterować nim przez czat AI, przeglądać zawartość sesji i otrzymywać powiadomienia push. Szyfrowanie end-to-end chroni twoje dane. <a href=\"iterm2whatsnew:companion\">Wypróbuj teraz!</a>"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use o CryTerm mesmo longe do seu Mac. Você pode controlá-lo via chat de IA, ver o conteúdo das sessões e receber notificações push. A criptografia de ponta a ponta mantém seus dados seguros. <a href=\"iterm2whatsnew:companion\">Experimente agora!</a>"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use o CryTerm mesmo longe do seu Mac. Pode controlá-lo através do chat de IA, ver o conteúdo das sessões e receber notificações push. A encriptação de ponta a ponta mantém os seus dados seguros. <a href=\"iterm2whatsnew:companion\">Experimente agora!</a>"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folosiți CryTerm chiar și când sunteți departe de Mac. Îl puteți controla prin chatul AI, puteți vizualiza conținutul sesiunilor și puteți primi notificări push. Criptarea integrală păstrează datele în siguranță. <a href=\"iterm2whatsnew:companion\">Încercați acum!</a>"
           }
         },
         "ru" : {
@@ -41,10 +197,70 @@
             "value" : "Используйте CryTerm, даже когда вы не рядом со своим Mac. Вы можете управлять им через чат с ИИ, просматривать содержимое сеанса и получать push-уведомления. Сквозное шифрование защищает ваши данные. <a href=\"iterm2whatsnew:companion\">Попробуйте прямо сейчас!</a>"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Používajte CryTerm, aj keď ste mimo svojho Macu. Môžete ho ovládať cez chat s AI, zobrazovať obsah relácií a dostávať push upozornenia. Koncové šifrovanie chráni vaše dáta. <a href=\"iterm2whatsnew:companion\">Vyskúšajte to hneď!</a>"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uporabljajte CryTerm, tudi ko niste ob svojem računalniku Mac. Upravljate ga lahko prek klepeta z AI, si ogledujete vsebino sej in prejemate potisna obvestila. Celovito šifriranje varuje vaše podatke. <a href=\"iterm2whatsnew:companion\">Preskusite zdaj!</a>"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Använd CryTerm även när du är borta från din Mac. Du kan styra den via AI-chatt, visa sessionsinnehåll och ta emot push-notiser. End-to-end-kryptering skyddar dina data. <a href=\"iterm2whatsnew:companion\">Prova nu!</a>"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้ CryTerm ได้แม้อยู่ห่างจาก Mac ของคุณ คุณสามารถควบคุมผ่านแชท AI ดูเนื้อหาของเซสชั่น และรับการแจ้งเตือนแบบพุช การเข้ารหัสแบบ end-to-end ช่วยรักษาข้อมูลของคุณให้ปลอดภัย <a href=\"iterm2whatsnew:companion\">ลองเลย</a>"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mac’inizden uzakta olduğunuzda da CryTerm’yi kullanın. Onu YZ sohbeti üzerinden kontrol edebilir, oturum içeriğini görüntüleyebilir ve anlık bildirimler alabilirsiniz. Uçtan uca şifreleme verilerinizi güvende tutar. <a href=\"iterm2whatsnew:companion\">Hemen deneyin!</a>"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Користуйтеся CryTerm, коли ви далеко від свого Mac. Ним можна керувати через чат ШІ, переглядати вміст сеансів і отримувати push-сповіщення. Наскрізне шифрування захищає ваші дані. <a href=\"iterm2whatsnew:companion\">Спробуйте зараз!</a>"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng CryTerm khi bạn rời xa Mac. Bạn có thể điều khiển nó qua trò chuyện AI, xem nội dung phiên và nhận thông báo đẩy. Mã hóa đầu cuối giữ an toàn cho dữ liệu của bạn. <a href=\"iterm2whatsnew:companion\">Dùng thử ngay!</a>"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在Mac旁边时也能使用CryTerm。你可以通过AI聊天控制它、查看会话内容并接收推送通知。端到端加密可确保你的数据安全。<a href=\"iterm2whatsnew:companion\">立即试用！</a>"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在 Mac 旁時也能使用 CryTerm。你可以透過 AI 聊天控制它、查看工作階段內容並接收推播通知。端對端加密確保你的資料安全。<a href=\"iterm2whatsnew:companion\">立即試用！</a>"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "即使不在 Mac 旁边，你也可以使用 CryTerm。你可以通过 AI 聊天控制它、查看会话内容并接收推送通知。端到端加密保护你的数据安全。<a href=\"iterm2whatsnew:companion\">立即试用！</a>"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不在 Mac 旁時也能使用 CryTerm。你可以透過 AI 聊天控制它、查看工作階段內容並接收推播通知。端對端加密確保你的資料安全。<a href=\"iterm2whatsnew:companion\">立即試用！</a>"
           }
         }
       }
@@ -53,7 +269,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"●\"; ObjectID = \"7s1-aT-qfO\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -62,6 +302,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "●"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "●"
           }
         },
@@ -77,7 +413,43 @@
             "value" : "●"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -89,7 +461,67 @@
             "value" : "●"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -101,16 +533,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\\\"iterm2whatsnew:orchestration\\\">Try it now!</a>\"; ObjectID = \"a2B-NS-5LJ\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nou mode de xat d’IA, Orquestració, deixa que la IA s’encarregui de tot per tu. Pot crear finestres, esperar que s’acabin tasques (fins i tot en apps interactives) i el nou verificador de seguretat automàtic t’estalvia haver de respondre a gairebé totes les sol·licituds de permís. <a href=\"iterm2whatsnew:orchestration\">Prova-ho ara!</a>"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový režim chatu s AI, Orchestrace, nechá AI převzít otěže. Umí vytvářet okna, čekat na dokončení úloh (i v interaktivních aplikacích) a nová automatická kontrola bezpečnosti vás zbaví nutnosti odpovídat na téměř všechny žádosti o oprávnění. <a href=\"iterm2whatsnew:orchestration\">Vyzkoušejte to hned!</a>"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En ny AI-chattilstand, Orkestrering, lader AI styre det hele for dig. Den kan oprette vinduer, vente på, at opgaver bliver færdige (også i interaktive apps), og den nye automatiske sikkerhedskontrol fritager dig for at skulle svare på næsten alle tilladelsesprompter. <a href=\"iterm2whatsnew:orchestration\">Prøv det nu!</a>"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ein neuer KI-Chat-Modus, Orchestrierung, lässt die KI die Regie für Sie übernehmen. Sie kann Fenster erstellen, auf den Abschluss von Aufgaben warten (auch in interaktiven Anwendungen), und die neue automatische Sicherheitsprüfung erspart es Ihnen, auf fast alle Berechtigungsanfragen reagieren zu müssen. <a href=\"iterm2whatsnew:orchestration\">Jetzt ausprobieren!</a>"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια νέα λειτουργία συνομιλίας AI, η Ενορχήστρωση, αφήνει την AI να τα αναλάβει όλα για εσάς. Μπορεί να δημιουργεί παράθυρα, να περιμένει την ολοκλήρωση εργασιών (ακόμη και σε διαδραστικές εφαρμογές), και ο νέος αυτόματος έλεγχος ασφάλειας σας απαλλάσσει από την ανάγκη να απαντάτε σχεδόν σε όλα τα αιτήματα άδειας. <a href=\"iterm2whatsnew:orchestration\">Δοκιμάστε το τώρα!</a>"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new AI chat mode, Orchestration, lets AI run the show for you. It can create windows, wait for tasks to complete (even in interactive apps), and the new automatic safety checker relieves you of having to respond to almost all permission prompts. <a href=\"iterm2whatsnew:orchestration\">Try it now!</a>"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nuevo modo de chat de IA, Orquestación, deja que la IA se encargue de todo por ti. Puede crear ventanas, esperar a que se completen tareas (incluso en apps interactivas) y el nuevo verificador de seguridad automático te evita tener que responder a casi todas las solicitudes de permiso. <a href=\"iterm2whatsnew:orchestration\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nuevo modo de chat de IA, Orquestación, deja que la IA se encargue de todo por ti. Puede crear ventanas, esperar a que se completen tareas (incluso en apps interactivas) y el nuevo verificador de seguridad automático te evita tener que responder a casi todas las solicitudes de permiso. <a href=\"iterm2whatsnew:orchestration\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nuevo modo de chat de IA, Orquestación, deja que la IA se encargue de todo por ti. Puede crear ventanas, esperar a que se completen tareas (incluso en apps interactivas) y el nuevo verificador de seguridad automático te evita tener que responder a casi todas las solicitudes de permiso. <a href=\"iterm2whatsnew:orchestration\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi AI-keskustelun tila, orkestrointi, antaa AI:n hoitaa homman puolestasi. Se voi luoda ikkunoita ja odottaa tehtävien valmistumista (myös interaktiivisissa sovelluksissa), ja uusi automaattinen turvatarkistus vapauttaa sinut vastaamasta lähes kaikkiin lupakehotteisiin. <a href=\"iterm2whatsnew:orchestration\">Kokeile nyt!</a>"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nouveau mode de chat IA, l’orchestration, laisse l’IA diriger les opérations à votre place. Elle peut créer des fenêtres, attendre la fin de tâches (même dans des apps interactives), et le nouveau vérificateur de sécurité automatique vous évite de répondre à presque toutes les demandes d’autorisation. <a href=\"iterm2whatsnew:orchestration\">Essayez-la maintenant !</a>"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nouveau mode de chat IA, l’orchestration, laisse l’IA diriger les opérations à votre place. Elle peut créer des fenêtres, attendre la fin de tâches (même dans des apps interactives), et le nouveau vérificateur de sécurité automatique vous évite de répondre à presque toutes les demandes d’autorisation. <a href=\"iterm2whatsnew:orchestration\">Essayez-la maintenant!</a>"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI चैट का नया मोड, ऑर्केस्ट्रेशन, AI को आपकी जगह सब सँभालने देता है। यह विंडो बना सकता है, कार्यों के पूरा होने की प्रतीक्षा कर सकता है (इंटरैक्टिव ऐप्लिकेशन में भी), और नया स्वचालित सुरक्षा जाँचकर्ता लगभग सभी अनुमति प्रॉम्प्ट का जवाब देने की आपकी ज़रूरत खत्म कर देता है। <a href=\"iterm2whatsnew:orchestration\">अभी आज़माएँ!</a>"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novi mod AI razgovora, Orkestracija, omogućuje AI-ju da sve odradi umjesto vas. Može izrađivati prozore, čekati završetak zadataka (čak i u interaktivnim aplikacijama), a novi automatski sigurnosni provjeravatelj oslobađa vas odgovaranja na gotovo sve zahtjeve za dopuštenje. <a href=\"iterm2whatsnew:orchestration\">Isprobajte odmah!</a>"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az AI-csevegés új módja, a Vezénylés, az AI-ra bízza az irányítást. Ablakokat hozhat létre, megvárhatja a feladatok befejezését (interaktív alkalmazásokban is), az új automatikus biztonsági ellenőrző pedig megkíméli Önt attól, hogy szinte minden engedélykérésre válaszolnia kelljen. <a href=\"iterm2whatsnew:orchestration\">Próbálja ki most!</a>"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode obrolan AI baru, Orkestrasi, membiarkan AI menjalankan semuanya untuk Anda. AI dapat membuat jendela, menunggu tugas selesai (bahkan di app interaktif), dan pemeriksa keamanan otomatis yang baru membebaskan Anda dari keharusan menanggapi hampir semua permintaan izin. <a href=\"iterm2whatsnew:orchestration\">Coba sekarang!</a>"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una nuova modalità della chat IA, Orchestrazione, lascia che sia l’IA a gestire tutto per te. Può creare finestre, attendere il completamento delle attività (anche nelle app interattive) e il nuovo controllo di sicurezza automatico ti evita di dover rispondere a quasi tutte le richieste di autorizzazione. <a href=\"iterm2whatsnew:orchestration\">Provala ora!</a>"
           }
         },
         "ja" : {
@@ -125,10 +677,46 @@
             "value" : "새로운 AI 채팅 모드인 오케스트레이션을 사용하면 AI가 작업을 주도합니다. 윈도우를 만들고 (대화형 앱에서도) 작업이 완료될 때까지 기다릴 수 있으며, 새로운 자동 안전 검사기 덕분에 거의 모든 권한 요청에 일일이 응답할 필요가 없습니다. <a href=\"iterm2whatsnew:orchestration\">지금 사용해 보기!</a>"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mod sembang AI baharu, Orkestrasi, membolehkan AI menguruskan segalanya untuk anda. Ia boleh mencipta tetingkap, menunggu tugas selesai (walaupun dalam app interaktif), dan penyemak keselamatan automatik yang baharu melegakan anda daripada perlu menjawab hampir semua gesaan kebenaran. <a href=\"iterm2whatsnew:orchestration\">Cuba sekarang!</a>"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En ny KI-chatmodus, Orkestrering, lar KI styre det hele for deg. Den kan opprette vinduer, vente på at oppgaver blir ferdige (også i interaktive apper), og den nye automatiske sikkerhetskontrollen sparer deg for å svare på nesten alle tillatelsesforespørsler. <a href=\"iterm2whatsnew:orchestration\">Prøv det nå!</a>"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Met een nieuwe AI-chatmodus, Orkestratie, neemt AI het voor je over. Ze kan vensters maken, wachten tot taken klaar zijn (ook in interactieve apps), en de nieuwe automatische veiligheidscontrole zorgt dat je bijna nooit meer op toestemmingsverzoeken hoeft te reageren. <a href=\"iterm2whatsnew:orchestration\">Probeer het nu!</a>"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowy tryb czatu AI, orkiestracja, pozwala AI przejąć stery. Może tworzyć okna, czekać na zakończenie zadań (nawet w aplikacjach interaktywnych), a nowy automatyczny weryfikator bezpieczeństwa uwalnia cię od odpowiadania na prawie wszystkie prośby o uprawnienia. <a href=\"iterm2whatsnew:orchestration\">Wypróbuj teraz!</a>"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um novo modo de chat de IA, Orchestration, deixa a IA no comando por você. Ele pode criar janelas, esperar a conclusão de tarefas (mesmo em apps interativos) e o novo verificador de segurança automático livra você de ter que responder a quase todas as solicitações de permissão. <a href=\"iterm2whatsnew:orchestration\">Experimente agora!</a>"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um novo modo de chat de IA, Orchestration, deixa a IA no comando por si. Pode criar janelas, esperar pela conclusão de tarefas (mesmo em aplicações interativas) e o novo verificador de segurança automático evita que tenha de responder a quase todos os pedidos de permissão. <a href=\"iterm2whatsnew:orchestration\">Experimente agora!</a>"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nou mod de chat AI, Orchestrarea, lasă AI-ul să conducă totul în locul dvs. Poate crea ferestre, poate aștepta finalizarea sarcinilor (chiar și în aplicații interactive), iar noul verificator automat de securitate vă scutește de a răspunde la aproape toate solicitările de permisiune. <a href=\"iterm2whatsnew:orchestration\">Încercați acum!</a>"
           }
         },
         "ru" : {
@@ -137,10 +725,70 @@
             "value" : "Новый режим чата с ИИ, Оркестрация, позволяет ИИ взять управление на себя. Он может создавать окна, дожидаться завершения задач (даже в интерактивных приложениях), а новый автоматический проверщик безопасности избавляет вас от необходимости отвечать почти на все запросы разрешений. <a href=\"iterm2whatsnew:orchestration\">Попробуйте прямо сейчас!</a>"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový režim chatu s AI, Orchestrácia, nechá AI viesť celé dianie za vás. Dokáže vytvárať okná, čakať na dokončenie úloh (aj v interaktívnych apkách) a nový automatický kontrolór bezpečnosti vás zbaví nutnosti odpovedať na takmer všetky žiadosti o povolenie. <a href=\"iterm2whatsnew:orchestration\">Vyskúšajte to hneď!</a>"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nov način klepeta z AI, Orkestracija, omogoča, da AI vodi delo namesto vas. Lahko ustvarja okna, počaka na dokončanje opravil (tudi v interaktivnih aplikacijah), novi samodejni varnostni preverjevalnik pa vas razbremeni odgovarjanja na skoraj vse zahteve za dovoljenje. <a href=\"iterm2whatsnew:orchestration\">Preskusite zdaj!</a>"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett nytt AI-chattläge, Orkestrering, låter AI sköta allt åt dig. Det kan skapa fönster, vänta på att uppgifter blir klara (även i interaktiva program), och den nya automatiska säkerhetskontrollen gör att du slipper svara på nästan alla behörighetsfrågor. <a href=\"iterm2whatsnew:orchestration\">Prova nu!</a>"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โหมดแชท AI ใหม่ที่ชื่อการประสานงาน ให้ AI ดูแลทุกอย่างแทนคุณ โดยสามารถสร้างหน้าต่าง รอให้งานเสร็จสิ้น (แม้ในแอปแบบโต้ตอบ) และตัวตรวจสอบความปลอดภัยอัตโนมัติใหม่ช่วยให้คุณไม่ต้องตอบพร้อมท์ขอสิทธิ์เกือบทั้งหมด <a href=\"iterm2whatsnew:orchestration\">ลองเลย</a>"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni bir YZ sohbet modu olan Orkestrasyon, işi sizin yerinize YZ’nin yönetmesini sağlar. Pencere oluşturabilir, görevlerin tamamlanmasını bekleyebilir (etkileşimli uygulamalarda bile) ve yeni otomatik güvenlik denetleyicisi sayesinde neredeyse tüm izin istemlerini yanıtlamanız gerekmez. <a href=\"iterm2whatsnew:orchestration\">Hemen deneyin!</a>"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новий режим чату ШІ, оркестрування, дає ШІ змогу керувати всім замість вас. Він може створювати вікна, чекати завершення завдань (навіть в інтерактивних програмах), а нова автоматична перевірка безпеки позбавляє вас потреби відповідати майже на всі запити дозволів. <a href=\"iterm2whatsnew:orchestration\">Спробуйте зараз!</a>"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một chế độ trò chuyện AI mới, Điều phối, để AI lo mọi việc cho bạn. Nó có thể tạo cửa sổ, chờ các tác vụ hoàn tất (kể cả trong ứng dụng tương tác), và trình kiểm tra an toàn tự động mới giúp bạn không phải trả lời gần như mọi lời nhắc cấp quyền. <a href=\"iterm2whatsnew:orchestration\">Dùng thử ngay!</a>"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的AI聊天模式“编排”让AI替你全权处理。它可以创建窗口、等待任务完成（即使在交互式App中也可以），而新的自动安全检查器让你几乎无需再响应各种权限提示。<a href=\"iterm2whatsnew:orchestration\">立即试用！</a>"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的 AI 聊天模式「協作調度」讓 AI 為你掌控全局。它可以建立視窗、等待工作完成（即使在互動式 App 中也行），而新的自動安全檢查器讓你幾乎不必回應任何權限提示。<a href=\"iterm2whatsnew:orchestration\">立即試用！</a>"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "新的 AI 聊天模式 Orchestration 让 AI 为你掌控全局。它可以创建窗口、等待任务完成（即使在交互式应用中），新的自动安全检查器让你几乎无需响应权限提示。<a href=\"iterm2whatsnew:orchestration\">立即试用！</a>"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的 AI 聊天模式「協作調度」讓 AI 為你掌控全局。它可以建立視窗、等待工作完成（即使在互動式 App 中也行），而新的自動安全檢查器讓你幾乎不必回應任何權限提示。<a href=\"iterm2whatsnew:orchestration\">立即試用！</a>"
           }
         }
       }
@@ -149,7 +797,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"●\"; ObjectID = \"a3u-gh-khi\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -158,6 +830,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "●"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "●"
           }
         },
@@ -173,7 +941,43 @@
             "value" : "●"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -185,7 +989,67 @@
             "value" : "●"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -197,16 +1061,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\\\"iterm2whatsnew:screenshot\\\">Session > Make Screenshot</a> to activate it.\"; ObjectID = \"d4H-cG-h3K\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nova funció Captures de pantalla simplifica la creació d’un PNG del contingut del terminal. Admet censures i ressaltats. Fes servir <a href=\"iterm2whatsnew:screenshot\">Sessió > Fes una captura de pantalla</a> per activar-la."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nová funkce Snímky obrazovky usnadňuje vytvoření PNG z obsahu terminálu. Podporuje redakce a zvýraznění. Aktivujete ji příkazem <a href=\"iterm2whatsnew:screenshot\">Relace > Pořídit snímek obrazovky</a>."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den nye funktion Skærmbilleder gør det nemt at lave en PNG af dit terminalindhold. Den understøtter censurering og fremhævning. Brug <a href=\"iterm2whatsnew:screenshot\">Session > Tag skærmbillede</a> for at aktivere den."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Die neue Funktion Screenshots vereinfacht das Erstellen einer PNG-Datei Ihres Terminal-Inhalts. Sie unterstützt Schwärzungen und Hervorhebungen. Verwenden Sie <a href=\"iterm2whatsnew:screenshot\">Sitzung > Screenshot erstellen</a>, um sie zu aktivieren."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η νέα δυνατότητα Στιγμιότυπα οθόνης απλοποιεί τη δημιουργία ενός PNG από το περιεχόμενο του τερματικού σας. Υποστηρίζει απαλείψεις και επισημάνσεις. Χρησιμοποιήστε το <a href=\"iterm2whatsnew:screenshot\">Συνεδρία > Λήψη στιγμιότυπου οθόνης</a> για να την ενεργοποιήσετε."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The new Screenshots feature simplifies creating a PNG of your terminal content. It supports redactions and highlights. Use <a href=\"iterm2whatsnew:screenshot\">Session > Make Screenshot</a> to activate it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nueva función Capturas de pantalla simplifica la creación de un PNG del contenido de tu terminal. Admite censuras y resaltados. Usa <a href=\"iterm2whatsnew:screenshot\">Sesión > Hacer captura de pantalla</a> para activarla."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nueva función Capturas de pantalla simplifica la creación de un PNG del contenido de tu terminal. Admite censuras y resaltados. Usa <a href=\"iterm2whatsnew:screenshot\">Sesión > Hacer captura de pantalla</a> para activarla."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nueva función Capturas de pantalla simplifica la creación de un PNG del contenido de tu terminal. Admite censuras y resaltados. Usa <a href=\"iterm2whatsnew:screenshot\">Sesión > Hacer captura de pantalla</a> para activarla."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi Kuvakaappaukset-ominaisuus helpottaa PNG-kuvan luomista päätteesi sisällöstä. Se tukee sensurointia ja korostuksia. Ota se käyttöön valitsemalla <a href=\"iterm2whatsnew:screenshot\">Istunto > Ota kuvakaappaus</a>."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nouvelle fonctionnalité Captures d’écran simplifie la création d’un PNG du contenu de votre terminal. Elle prend en charge le caviardage et la mise en évidence. Utilisez <a href=\"iterm2whatsnew:screenshot\">Session > Capturer l’écran</a> pour l’activer."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nouvelle fonctionnalité Captures d’écran simplifie la création d’un PNG du contenu de votre terminal. Elle prend en charge le caviardage et la mise en évidence. Utilisez <a href=\"iterm2whatsnew:screenshot\">Session > Capturer l’écran</a> pour l’activer."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नई स्क्रीनशॉट सुविधा आपके टर्मिनल की सामग्री का PNG बनाना आसान करती है। यह रिडैक्शन और हाइलाइट का समर्थन करती है। इसे सक्रिय करने के लिए <a href=\"iterm2whatsnew:screenshot\">सत्र > स्क्रीनशॉट लें</a> का उपयोग करें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova značajka Snimke zaslona pojednostavljuje izradu PNG-a sadržaja vašeg terminala. Podržava zacrnjivanja i isticanja. Aktivirajte je s <a href=\"iterm2whatsnew:screenshot\">Sesija > Snimi zaslon</a>."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az új Képernyőképek funkció leegyszerűsíti a terminál tartalmáról készített PNG létrehozását. Támogatja a kitakarásokat és a kiemeléseket. Az aktiváláshoz használja a <a href=\"iterm2whatsnew:screenshot\">Munkamenet > Képernyőkép készítése</a> parancsot."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fitur Tangkapan Layar yang baru menyederhanakan pembuatan PNG dari konten terminal Anda. Fitur ini mendukung penyamaran dan sorotan. Gunakan <a href=\"iterm2whatsnew:screenshot\">Sesi > Buat Tangkapan Layar</a> untuk mengaktifkannya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La nuova funzione Screenshot semplifica la creazione di un PNG del contenuto del terminale. Supporta oscuramenti ed evidenziazioni. Usa <a href=\"iterm2whatsnew:screenshot\">Sessione > Crea screenshot</a> per attivarla."
           }
         },
         "ja" : {
@@ -221,10 +1205,46 @@
             "value" : "새로운 스크린샷 기능으로 터미널 내용을 PNG로 쉽게 만들 수 있습니다. 가리기 및 강조 표시를 지원합니다. 사용하려면 <a href=\"iterm2whatsnew:screenshot\">세션 > 스크린샷 찍기</a>를 선택하십시오."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ciri Tangkapan Skrin yang baharu memudahkan pembuatan PNG kandungan terminal anda. Ia menyokong penghitaman dan serlahan. Gunakan <a href=\"iterm2whatsnew:screenshot\">Sesi > Buat Tangkapan Skrin</a> untuk mengaktifkannya."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den nye skjermbildefunksjonen gjør det enkelt å lage en PNG av terminalinnholdet. Den støtter sladding og utheving. Bruk <a href=\"iterm2whatsnew:screenshot\">«Økt > Ta skjermbilde…»</a> for å aktivere den."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Met de nieuwe functie Schermafbeeldingen maak je eenvoudig een PNG van je terminalinhoud. Ze ondersteunt onleesbaar maken en markeringen. Gebruik <a href=\"iterm2whatsnew:screenshot\">Sessie > Maak schermafbeelding</a> om de functie te activeren."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowa funkcja Zrzuty ekranu upraszcza tworzenie pliku PNG z zawartości terminala. Obsługuje zaczernienia i wyróżnienia. Użyj <a href=\"iterm2whatsnew:screenshot\">Sesja > Zrób zrzut ekranu</a>, aby ją włączyć."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "O novo recurso Capturas de tela simplifica a criação de um PNG do conteúdo do seu terminal. Ele oferece suporte a ocultações e destaques. Use <a href=\"iterm2whatsnew:screenshot\">Sessão > Criar captura de tela</a> para ativá-lo."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O novo recurso Capturas de ecrã simplifica a criação de um PNG do conteúdo do seu terminal. Suporta ocultações e destaques. Use <a href=\"iterm2whatsnew:screenshot\">Sessão > Criar captura de ecrã</a> para o ativar."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noua funcție Capturi de ecran simplifică crearea unui PNG cu conținutul terminalului. Acceptă cenzurări și evidențieri. Folosiți <a href=\"iterm2whatsnew:screenshot\">Sesiune > Faceți o captură de ecran…</a> pentru a o activa."
           }
         },
         "ru" : {
@@ -233,10 +1253,70 @@
             "value" : "Новая функция «Снимки экрана» упрощает создание PNG-файла с содержимым терминала. Она поддерживает скрытие данных и выделения. Используйте <a href=\"iterm2whatsnew:screenshot\">Сеанс > Сделать снимок экрана</a>, чтобы активировать её."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nová funkcia Snímky obrazovky zjednodušuje vytvorenie PNG z obsahu terminálu. Podporuje redigovanie a zvýraznenie. Aktivujete ju cez <a href=\"iterm2whatsnew:screenshot\">Relácia > Vytvoriť snímku obrazovky</a>."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova funkcija Posnetki zaslona poenostavi ustvarjanje slike PNG z vsebino terminala. Podpira zakritja in označbe. Aktivirate jo z <a href=\"iterm2whatsnew:screenshot\">Seja > Naredi posnetek zaslona</a>."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den nya funktionen Skärmavbilder gör det enkelt att skapa en PNG av terminalens innehåll. Den stöder censurering och markeringar. Använd <a href=\"iterm2whatsnew:screenshot\">Session > Ta skärmavbild</a> för att aktivera den."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คุณสมบัติภาพหน้าจอใหม่ช่วยให้สร้าง PNG ของเนื้อหาเทอร์มินัลได้ง่ายขึ้น รองรับการปิดบังและการไฮไลท์ ใช้ <a href=\"iterm2whatsnew:screenshot\">เซสชั่น > ถ่ายภาพหน้าจอ</a> เพื่อเปิดใช้งาน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Ekran Görüntüleri özelliği, terminal içeriğinizin PNG’sini oluşturmayı kolaylaştırır. Karartma ve vurgulamayı destekler. Etkinleştirmek için <a href=\"iterm2whatsnew:screenshot\">Oturum > Ekran Görüntüsü Oluştur</a> komutunu kullanın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нова функція «Знімки екрана» спрощує створення PNG вмісту вашого терміналу. Вона підтримує затирання й підсвічування. Щоб увімкнути її, скористайтеся <a href=\"iterm2whatsnew:screenshot\">«Сеанс > Зробити знімок екрана…»</a>."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tính năng Ảnh chụp màn hình mới giúp việc tạo PNG từ nội dung terminal của bạn trở nên đơn giản hơn. Nó hỗ trợ che thông tin và đánh dấu nổi bật. Dùng <a href=\"iterm2whatsnew:screenshot\">Phiên > Chụp ảnh màn hình</a> để kích hoạt."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的“屏幕截图”功能可简化创建终端内容PNG的过程，并支持遮盖和高亮。使用<a href=\"iterm2whatsnew:screenshot\">会话 > 制作屏幕截图</a>来启用它。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的「螢幕截圖」功能簡化了將終端機內容製作成 PNG 的流程。它支援遮蔽和醒目標示。使用<a href=\"iterm2whatsnew:screenshot\">工作階段 > 製作螢幕截圖</a>來啟用它。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "新的“截屏”功能简化了将终端内容保存为 PNG 的操作。它支持遮盖和高亮。使用<a href=\"iterm2whatsnew:screenshot\">会话 > 截屏</a>来激活它。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全新的「螢幕截圖」功能簡化了將終端機內容製作成 PNG 的流程。它支援遮蔽和醒目標示。使用<a href=\"iterm2whatsnew:screenshot\">工作階段 > 製作螢幕截圖</a>來啟用它。"
           }
         }
       }
@@ -245,16 +1325,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"What’s New in Version 3.7\"; ObjectID = \"Dih-Go-912\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novetats de la versió 3.7"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novinky ve verzi 3.7"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyheder i version 3.7"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Neuigkeiten in Version 3.7"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τι νέο υπάρχει στην έκδοση 3.7"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "What’s New in Version 3.7"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s New in Version 3.7"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s New in Version 3.7"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s New in Version 3.7"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s New in Version 3.7"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What’s New in Version 3.7"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades de la versión 3.7"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades de la versión 3.7"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades de la versión 3.7"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uutta versiossa 3.7"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés de la version 3.7"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés de la version 3.7"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "संस्करण 3.7 में नया क्या है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novosti u verziji 3.7"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 3.7-es verzió újdonságai"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yang Baru di Versi 3.7"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novità della versione 3.7"
           }
         },
         "ja" : {
@@ -269,10 +1469,46 @@
             "value" : "버전 3.7의 새로운 기능"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perkara Baharu dalam Versi 3.7"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt i versjon 3.7"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieuw in versie 3.7"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowości w wersji 3.7"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Novidades da versão 3.7"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novidades da versão 3.7"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noutăți din versiunea 3.7"
           }
         },
         "ru" : {
@@ -281,7 +1517,67 @@
             "value" : "Что нового в версии 3.7"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novinky vo verzii 3.7"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novosti v različici 3.7"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyheter i version 3.7"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มีอะไรใหม่ในเวอร์ชัน 3.7"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüm 3.7’deki Yenilikler"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Що нового у версії 3.7"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Có gì mới trong phiên bản 3.7"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3.7版本的新功能"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3.7 版的新功能"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3.7 版的新功能"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "3.7 版的新功能"
@@ -293,7 +1589,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \">\"; ObjectID = \"f8J-e6-gm5\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ">"
@@ -302,6 +1622,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : ">"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : ">"
           }
         },
@@ -317,7 +1733,43 @@
             "value" : ">"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ">"
@@ -329,7 +1781,67 @@
             "value" : ">"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ">"
@@ -341,7 +1853,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"●\"; ObjectID = \"fum-rI-3gd\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -350,6 +1886,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "●"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "●"
           }
         },
@@ -365,7 +1997,43 @@
             "value" : "●"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -377,7 +2045,67 @@
             "value" : "●"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -389,16 +2117,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Claude Code Integration\"; ObjectID = \"hKz-h7-CcP\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integració amb Claude Code"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrace Claude Code"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integration"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Claude Code-Integration"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ενσωμάτωση του Claude Code"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Claude Code Integration"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Integration"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Integration"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Integration"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Integration"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Integration"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integración con Claude Code"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integración con Claude Code"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integración con Claude Code"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code -integraatio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intégration de Claude Code"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intégration de Claude Code"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code इंटीग्रेशन"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracija s alatom Claude Code"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integráció"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrasi Claude Code"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrazione con Claude Code"
           }
         },
         "ja" : {
@@ -413,10 +2261,46 @@
             "value" : "Claude Code 통합"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrasi Claude Code"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integrering"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integratie"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracja z Claude Code"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Integração com o Claude Code"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integração com o Claude Code"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrarea Claude Code"
           }
         },
         "ru" : {
@@ -425,10 +2309,70 @@
             "value" : "Интеграция с Claude Code"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrácia Claude Code"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracija s Claude Code"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integrering"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การผสานรวม Claude Code"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code Entegrasyonu"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Інтеграція з Claude Code"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tích hợp Claude Code"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code集成"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code 整合"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Claude Code Integration"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code 整合"
           }
         }
       }
@@ -437,16 +2381,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too.\"; ObjectID = \"HuW-TG-xrj\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per ajudar-te a gestionar un gran nombre de pestanyes, ara pots combinar-les en grups plegables. A més, la barra de pestanyes ara es desplaça en lloc de mostrar un menú de desbordament."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abyste snáze zvládali velký počet panelů, můžete je nyní spojovat do sbalitelných skupin. Řádek panelů se také nově posouvá, místo aby zobrazoval nabídku přetečení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For at gøre det lettere at håndtere mange faner kan du nu kombinere faner i sammenfoldelige grupper. Fanelinjen ruller nu også i stedet for at vise en overløbsmenu."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Um den Umgang mit einer großen Anzahl von Tabs zu erleichtern, können Sie Tabs jetzt zu einklappbaren Gruppen zusammenfassen. Außerdem lässt sich die Tableiste jetzt scrollen, statt ein Überlaufmenü anzuzeigen."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Για να διαχειρίζεστε πιο εύκολα μεγάλο αριθμό καρτελών, μπορείτε πλέον να συνδυάζετε καρτέλες σε ομάδες που συμπτύσσονται. Επίσης, η γραμμή καρτελών πλέον κυλά αντί να εμφανίζει μενού υπερχείλισης."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To help manage a large number of tabs, you can now combine tabs into collapsible groups. The tab bar now scrolls instead of showing an overflow menu, too."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para ayudarte a gestionar un gran número de pestañas, ahora puedes combinarlas en grupos plegables. Además, la barra de pestañas ahora se desplaza en lugar de mostrar un menú de desbordamiento."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para ayudarte a administrar un gran número de pestañas, ahora puedes combinarlas en grupos plegables. Además, la barra de pestañas ahora se desplaza en lugar de mostrar un menú de desbordamiento."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para ayudarte a administrar un gran número de pestañas, ahora puedes combinarlas en grupos plegables. Además, la barra de pestañas ahora se desplaza en lugar de mostrar un menú de desbordamiento."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suuren välilehtimäärän hallintaa helpottaaksesi voit nyt yhdistää välilehtiä kutistettaviksi ryhmiksi. Välilehtipalkki myös vierittyy nyt ylivuotovalikon näyttämisen sijaan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour mieux gérer un grand nombre d’onglets, vous pouvez désormais les regrouper en groupes repliables. La barre d’onglets défile maintenant au lieu d’afficher un menu de débordement."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour mieux gérer un grand nombre d’onglets, vous pouvez désormais les regrouper en groupes repliables. La barre d’onglets défile maintenant au lieu d’afficher un menu de débordement."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बहुत सारे टैब सँभालने में मदद के लिए अब आप टैब को संक्षिप्त किए जा सकने वाले समूह में जोड़ सकते हैं। साथ ही, टैब बार अब ओवरफ़्लो मेन्यू दिखाने के बजाय स्क्रोल होता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za lakše upravljanje velikim brojem kartica sada ih možete spojiti u grupe koje se mogu sažeti. Traka s karticama sada se i listanjem pomiče umjesto da prikazuje izbornik prelijevanja."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lapok nagy számának kezeléséhez a lapokat mostantól összecsukható csoportokba vonhatja. A lapsor ezentúl görget a túlcsorduló lapok menüjének megjelenítése helyett."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untuk membantu mengelola banyak tab, Anda kini dapat menggabungkan tab ke dalam grup yang dapat diciutkan. Bar tab kini juga dapat digulir, bukan menampilkan menu luapan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per aiutarti a gestire un gran numero di pannelli, ora puoi riunirli in gruppi comprimibili. Inoltre la barra dei pannelli ora scorre invece di mostrare un menu di overflow."
           }
         },
         "ja" : {
@@ -461,10 +2525,46 @@
             "value" : "많은 탭을 관리하기 쉽도록 이제 탭을 접을 수 있는 그룹으로 묶을 수 있습니다. 또한 탭 막대는 이제 오버플로 메뉴를 표시하는 대신 스크롤됩니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untuk membantu mengurus sejumlah besar tab, anda kini boleh menggabungkan tab ke dalam kumpulan yang boleh diruntuhkan. Bar tab juga kini boleh diskrol dan tidak lagi menunjukkan menu limpahan."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For å hjelpe deg med å holde orden på mange faner kan du nå slå faner sammen i sammenleggbare grupper. Fanelinjen ruller nå også i stedet for å vise en overflytsmeny."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Om veel tabbladen beter te beheren, kun je tabbladen nu combineren in inklapbare groepen. De tabbladbalk scrolt nu ook in plaats van een overloopmenu te tonen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby łatwiej zarządzać dużą liczbą kart, możesz teraz łączyć karty w zwijane grupy. Pasek kart przewija się teraz zamiast pokazywać menu przepełnienia."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Para ajudar a gerenciar um grande número de abas, agora você pode combinar abas em grupos recolhíveis. A barra de abas agora rola em vez de mostrar um menu de excedentes."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para ajudar a gerir um grande número de separadores, agora pode combinar separadores em grupos recolhíveis. A barra de separadores agora desloca-se em vez de mostrar um menu de excedentes."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pentru a gestiona mai ușor un număr mare de file, acum le puteți combina în grupuri restrângibile. De asemenea, bara filelor se derulează acum, în loc să afișeze un meniu de depășire."
           }
         },
         "ru" : {
@@ -473,10 +2573,70 @@
             "value" : "Чтобы упростить работу с большим количеством вкладок, теперь их можно объединять в сворачиваемые группы. Кроме того, панель вкладок теперь прокручивается, а не показывает меню переполнения."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na lepšiu správu veľkého počtu tabov môžete taby teraz spájať do zbaliteľných skupín. Lišta s tabmi sa tiež rolovaním posúva, namiesto zobrazenia menu s prebytočnými tabmi."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za lažje upravljanje velikega števila zavihkov jih zdaj lahko združite v zložljive skupine. Vrstica z zavihki se zdaj tudi pomika, namesto da bi prikazovala meni s preostalimi zavihki."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "För att hjälpa dig hantera många flikar kan du nu kombinera flikar i hopfällbara grupper. Flikfältet rullar nu också i stället för att visa en överflödesmeny."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพื่อช่วยจัดการแถบจำนวนมาก ตอนนี้คุณสามารถรวมแถบเป็นกลุ่มที่ยุบได้ รายการแถบยังเลื่อนได้แทนการแสดงเมนูส่วนที่เกิน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çok sayıda sekmeyi yönetmenize yardımcı olmak için artık sekmeleri daraltılabilir gruplar halinde birleştirebilirsiniz. Ayrıca sekme çubuğu artık taşma menüsü göstermek yerine kayıyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Щоб легше керувати великою кількістю вкладок, їх тепер можна обʼєднувати у згорнуті групи. Також панель вкладок тепер прокручується замість показу меню переповнення."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để giúp quản lý số lượng lớn tab, giờ đây bạn có thể gộp các tab thành các nhóm có thể thu gọn. Thanh tab cũng cuộn thay vì hiển thị menu tràn."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为了帮助管理大量标签页，你现在可以将标签页合并为可折叠的标签页组。标签页栏现在也会滚动，而不是显示溢出菜单。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "為了方便管理大量分頁，現在可以將分頁合併成可摺疊的群組。分頁列現在也會捲動，而不是顯示溢位選單。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "为了便于管理大量标签页，现在可以将标签页合并为可折叠的标签页组。标签页栏也会自动滚动，而不是显示溢出菜单。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "為了方便管理大量標籤頁，現在可以將標籤頁合併成可摺疊的群組。標籤頁列現在也會捲動，而不是顯示溢位選單。"
           }
         }
       }
@@ -485,7 +2645,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"●\"; ObjectID = \"IHu-13-I9y\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -494,6 +2678,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "●"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "●"
           }
         },
@@ -509,7 +2789,43 @@
             "value" : "●"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -521,7 +2837,67 @@
             "value" : "●"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -533,16 +2909,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"The Claude Code integration organizes multiple related sessions—such as code review and reading diffs—into a customizable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\\\"iterm2whatsnew:claudecode\\\">Try it now!</a>\"; ObjectID = \"Lvg-vI-G64\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La integració amb Claude Code organitza diverses sessions relacionades (com la revisió de codi i la lectura de diffs) en una interfície personalitzable. També mostra l’estat de Claude perquè trobis fàcilment les instàncies que necessiten la teva atenció. <a href=\"iterm2whatsnew:claudecode\">Prova-ho ara!</a>"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrace Claude Code uspořádá více souvisejících relací (například revizi kódu a čtení diffů) do přizpůsobitelného rozhraní. Zobrazuje také stav Claude, takže snadno najdete instance, které čekají na vaši pozornost. <a href=\"iterm2whatsnew:claudecode\">Vyzkoušejte to hned!</a>"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integrationen organiserer flere relaterede sessioner (som kodegennemgang og læsning af diffs) i en tilpasselig brugerflade. Den viser også Claudes status, så du let kan finde instanser, der venter på din opmærksomhed. <a href=\"iterm2whatsnew:claudecode\">Prøv det nu!</a>"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Die Claude Code-Integration organisiert mehrere zusammengehörige Sitzungen, etwa für Code-Reviews und das Lesen von Diffs, in einer anpassbaren Oberfläche. Außerdem zeigt sie Claudes Status an, sodass Sie leicht Instanzen finden können, die auf Ihre Aufmerksamkeit warten. <a href=\"iterm2whatsnew:claudecode\">Jetzt ausprobieren!</a>"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η ενσωμάτωση του Claude Code οργανώνει πολλαπλές σχετικές συνεδρίες, όπως ο έλεγχος κώδικα και η ανάγνωση των diff, σε μια προσαρμόσιμη διεπαφή. Εμφανίζει επίσης την κατάσταση του Claude, ώστε να βρίσκετε εύκολα τις παρουσίες που περιμένουν την προσοχή σας. <a href=\"iterm2whatsnew:claudecode\">Δοκιμάστε το τώρα!</a>"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The Claude Code integration organizes multiple related sessions—such as code review and reading diffs—into a customizable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Claude Code integration organises multiple related sessions—such as code review and reading diffs—into a customisable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Claude Code integration organizes multiple related sessions—such as code review and reading diffs—into a customizable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Claude Code integration organises multiple related sessions—such as code review and reading diffs—into a customisable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Claude Code integration organises multiple related sessions—such as code review and reading diffs—into a customisable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Claude Code integration organizes multiple related sessions—such as code review and reading diffs—into a customizable UI. It also exposes Claude’s status so you can easily find instances that are blocked on your attention. <a href=\"iterm2whatsnew:claudecode\">Try it now!</a>"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La integración con Claude Code organiza varias sesiones relacionadas (como la revisión de código y la lectura de diffs) en una interfaz personalizable. También muestra el estado de Claude para que encuentres fácilmente las instancias que necesitan tu atención. <a href=\"iterm2whatsnew:claudecode\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La integración con Claude Code organiza varias sesiones relacionadas (como la revisión de código y la lectura de diffs) en una interfaz personalizable. También muestra el estado de Claude para que encuentres fácilmente las instancias que necesitan tu atención. <a href=\"iterm2whatsnew:claudecode\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La integración con Claude Code organiza varias sesiones relacionadas (como la revisión de código y la lectura de diffs) en una interfaz personalizable. También muestra el estado de Claude para que encuentres fácilmente las instancias que necesitan tu atención. <a href=\"iterm2whatsnew:claudecode\">¡Pruébalo ahora!</a>"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code -integraatio järjestää useita toisiinsa liittyviä istuntoja (kuten koodikatselmoinnin ja diffien lukemisen) mukautettavaksi käyttöliittymäksi. Se myös näyttää Clauden tilan, jotta löydät helposti ilmentymät, jotka odottavat huomiotasi. <a href=\"iterm2whatsnew:claudecode\">Kokeile nyt!</a>"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’intégration de Claude Code organise plusieurs sessions liées (comme la revue de code et la lecture des diffs) dans une interface personnalisable. Elle expose aussi l’état de Claude pour que vous trouviez facilement les instances qui attendent votre attention. <a href=\"iterm2whatsnew:claudecode\">Essayez-la maintenant !</a>"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’intégration de Claude Code organise plusieurs sessions liées (comme la revue de code et la lecture des diffs) dans une interface personnalisable. Elle expose aussi l’état de Claude pour que vous trouviez facilement les instances qui attendent votre attention. <a href=\"iterm2whatsnew:claudecode\">Essayez-la maintenant!</a>"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code इंटीग्रेशन कोड रिव्यू और diff पढ़ने जैसे कई संबंधित सत्रों को एक अनुकूलन-योग्य UI में व्यवस्थित करता है। यह Claude का स्टेटस भी दिखाता है ताकि आप आसानी से वे इंस्टेंस ढूँढ सकें जो आपके ध्यान की प्रतीक्षा में रुके हैं। <a href=\"iterm2whatsnew:claudecode\">अभी आज़माएँ!</a>"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracija s alatom Claude Code organizira više povezanih sesija, kao što su pregled koda i čitanje diffova, u prilagodljivo sučelje. Također prikazuje Claudeov status pa lako možete pronaći instance koje čekaju vašu pažnju. <a href=\"iterm2whatsnew:claudecode\">Isprobajte odmah!</a>"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Claude Code-integráció több kapcsolódó munkamenetet (például a kódáttekintést és a diffek olvasását) egy testreszabható felületen rendez. A Claude állapotát is megjeleníti, így könnyen megtalálhatja azokat a példányokat, amelyek az Ön figyelmére várnak. <a href=\"iterm2whatsnew:claudecode\">Próbálja ki most!</a>"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrasi Claude Code mengatur beberapa sesi terkait (seperti tinjauan kode dan pembacaan diff) ke dalam UI yang dapat disesuaikan. Integrasi ini juga menampilkan status Claude sehingga Anda dapat dengan mudah menemukan instans yang menunggu perhatian Anda. <a href=\"iterm2whatsnew:claudecode\">Coba sekarang!</a>"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’integrazione con Claude Code organizza più sessioni correlate (come la revisione del codice e la lettura dei diff) in un’interfaccia personalizzabile. Mostra anche lo stato di Claude, così puoi trovare facilmente le istanze in attesa della tua attenzione. <a href=\"iterm2whatsnew:claudecode\">Provala ora!</a>"
           }
         },
         "ja" : {
@@ -557,10 +3053,46 @@
             "value" : "Claude Code 통합은 코드 리뷰, diff 읽기 등 서로 관련된 여러 세션을 사용자 지정 가능한 UI로 정리합니다. 또한 Claude의 상태를 보여 주므로 사용자의 응답을 기다리며 멈춰 있는 인스턴스를 쉽게 찾을 수 있습니다. <a href=\"iterm2whatsnew:claudecode\">지금 사용해 보기!</a>"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrasi Claude Code menyusun beberapa sesi berkaitan, seperti semakan kod dan pembacaan diff, ke dalam UI yang boleh disesuaikan. Ia juga mendedahkan status Claude supaya anda mudah menemui contoh yang menunggu perhatian anda. <a href=\"iterm2whatsnew:claudecode\">Cuba sekarang!</a>"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integreringen organiserer flere beslektede økter, for eksempel kodegjennomgang og lesing av differ, i et tilpassbart grensesnitt. Den viser også Claudes status, så du lett finner instanser som venter på oppmerksomhet fra deg. <a href=\"iterm2whatsnew:claudecode\">Prøv det nå!</a>"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De Claude Code-integratie ordent meerdere gerelateerde sessies (zoals codereview en het lezen van diffs) in een aanpasbare interface. Ook toont ze de status van Claude, zodat je gemakkelijk instanties vindt die op jouw aandacht wachten. <a href=\"iterm2whatsnew:claudecode\">Probeer het nu!</a>"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracja z Claude Code porządkuje wiele powiązanych sesji, takich jak przegląd kodu i czytanie diffów, w konfigurowalnym interfejsie. Udostępnia też stan Claude, dzięki czemu łatwo znajdziesz instancje, które czekają na twoją uwagę. <a href=\"iterm2whatsnew:claudecode\">Wypróbuj teraz!</a>"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A integração com o Claude Code organiza várias sessões relacionadas (como revisão de código e leitura de diffs) em uma interface personalizável. Ela também mostra o status do Claude para que você encontre facilmente as instâncias que aguardam sua atenção. <a href=\"iterm2whatsnew:claudecode\">Experimente agora!</a>"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A integração com o Claude Code organiza várias sessões relacionadas (como revisão de código e leitura de diffs) numa interface personalizável. Também mostra o estado do Claude para que encontre facilmente as instâncias que aguardam a sua atenção. <a href=\"iterm2whatsnew:claudecode\">Experimente agora!</a>"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrarea Claude Code organizează mai multe sesiuni înrudite (cum ar fi revizuirea de cod și citirea diff-urilor) într-o interfață personalizabilă. Totodată afișează starea Claude, astfel încât să găsiți ușor instanțele care așteaptă atenția dvs. <a href=\"iterm2whatsnew:claudecode\">Încercați acum!</a>"
           }
         },
         "ru" : {
@@ -569,10 +3101,70 @@
             "value" : "Интеграция с Claude Code объединяет несколько связанных сеансов (например, просмотр кода и чтение различий) в единый настраиваемый интерфейс. Она также показывает статус Claude, чтобы вам было проще найти экземпляры, ожидающие вашего внимания. <a href=\"iterm2whatsnew:claudecode\">Попробуйте прямо сейчас!</a>"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integrácia Claude Code usporiada viacero súvisiacich relácií (napríklad revíziu kódu a čítanie diffov) do prispôsobiteľného rozhrania. Zobrazuje aj stav Claude, takže ľahko nájdete inštancie, ktoré čakajú na vašu pozornosť. <a href=\"iterm2whatsnew:claudecode\">Vyskúšajte to hneď!</a>"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integracija s Claude Code organizira več povezanih sej, na primer pregled kode in branje razlik, v prilagodljiv vmesnik. Prikazuje tudi stanje Claude, tako da zlahka najdete primerke, ki čakajo na vašo pozornost. <a href=\"iterm2whatsnew:claudecode\">Preskusite zdaj!</a>"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code-integreringen organiserar flera relaterade sessioner, till exempel kodgranskning och läsning av diffar, i ett anpassningsbart gränssnitt. Den visar också Claudes status så att du enkelt hittar instanser som väntar på din uppmärksamhet. <a href=\"iterm2whatsnew:claudecode\">Prova nu!</a>"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การผสานรวม Claude Code จัดระเบียบเซสชั่นที่เกี่ยวข้องกันหลายเซสชั่น (เช่น การตรวจทานโค้ดและการอ่าน diff) ไว้ในส่วนติดต่อผู้ใช้ที่ปรับแต่งได้ และยังแสดงสถานะของ Claude เพื่อให้คุณค้นหาอินสแตนซ์ที่รอความสนใจจากคุณได้ง่าย <a href=\"iterm2whatsnew:claudecode\">ลองเลย</a>"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code entegrasyonu, kod incelemesi ve diff okuma gibi birbiriyle ilişkili birden fazla oturumu özelleştirilebilir bir arayüzde düzenler. Ayrıca Claude’un durumunu göstererek dikkatinizi bekleyen örnekleri kolayca bulmanızı sağlar. <a href=\"iterm2whatsnew:claudecode\">Hemen deneyin!</a>"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Інтеграція з Claude Code упорядковує кілька повʼязаних сеансів (наприклад, рецензування коду й перегляд diff) у настроюваному інтерфейсі. Вона також показує стан Claude, тож ви легко знайдете екземпляри, що очікують на вашу увагу. <a href=\"iterm2whatsnew:claudecode\">Спробуйте зараз!</a>"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tích hợp Claude Code sắp xếp nhiều phiên liên quan, chẳng hạn như xem xét mã và đọc diff, vào một giao diện tùy chỉnh được. Nó cũng hiển thị trạng thái của Claude để bạn dễ dàng tìm các phiên bản đang chờ bạn xử lý. <a href=\"iterm2whatsnew:claudecode\">Dùng thử ngay!</a>"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code集成会将多个相关会话（例如代码审查和阅读diff）整理到可自定的界面中。它还会显示Claude的状态，让你轻松找到需要你关注而处于阻塞状态的实例。<a href=\"iterm2whatsnew:claudecode\">立即试用！</a>"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code 整合會將多個相關的工作階段（例如程式碼審查和閲讀差異）整理到可自訂的介面中。它也會顯示 Claude 的狀態，讓你輕鬆找到正在等待你處理的執行個體。<a href=\"iterm2whatsnew:claudecode\">立即試用！</a>"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Claude Code 集成将多个相关会话（如代码审查和阅读差异）组织到可自定义的界面中。它还会显示 Claude 的状态，让你轻松找到需要你处理的实例。<a href=\"iterm2whatsnew:claudecode\">立即试用！</a>"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Claude Code 整合會將多個相關的工作階段（例如程式碼審查和閱讀差異）整理到可自訂的介面中。它也會顯示 Claude 的狀態，讓你輕鬆找到正在等待你處理的執行個體。<a href=\"iterm2whatsnew:claudecode\">立即試用！</a>"
           }
         }
       }
@@ -581,16 +3173,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Companion iPhone App\"; ObjectID = \"LXN-RX-ZgC\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App complementària per a l’iPhone"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doprovodná aplikace pro iPhone"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ledsagerapp til iPhone"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Companion-iPhone-App"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Συνοδευτική εφαρμογή για iPhone"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Companion iPhone App"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Companion iPhone App"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Companion iPhone App"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Companion iPhone App"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Companion iPhone App"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Companion iPhone App"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App complementaria para iPhone"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App complementaria para iPhone"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App complementaria para iPhone"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone-kumppanisovellus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App compagnon pour iPhone"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App compagnon pour iPhone"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहयोगी iPhone ऐप"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prateća aplikacija za iPhone"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone-os társalkalmazás"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App iPhone Pendamping"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App associata per iPhone"
           }
         },
         "ja" : {
@@ -605,10 +3317,46 @@
             "value" : "iPhone 보조 앱"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Pengiring iPhone"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Følgeapp for iPhone"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Begeleidende iPhone-app"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikacja towarzysząca na iPhone’a"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "App complementar para iPhone"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicação complementar para iPhone"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplicația însoțitoare pentru iPhone"
           }
         },
         "ru" : {
@@ -617,10 +3365,70 @@
             "value" : "Приложение Companion для iPhone"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprievodná apka pre iPhone"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spremljevalna aplikacija za iPhone"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Följeslagarapp för iPhone"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แอปคู่หูบน iPhone"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone Eşlik Eden Uygulaması"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Супутня програма для iPhone"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ứng dụng đồng hành trên iPhone"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone配套App"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搭配 iPhone App"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Companion iPhone App"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搭配 iPhone App"
           }
         }
       }
@@ -629,7 +3437,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"●\"; ObjectID = \"N2h-T9-zrt\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -638,6 +3470,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "●"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "●"
           }
         },
@@ -653,7 +3581,43 @@
             "value" : "●"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -665,7 +3629,67 @@
             "value" : "●"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "●"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "●"
@@ -677,16 +3701,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Orchestration\"; ObjectID = \"OAI-gn-AQ7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orquestració"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestrace"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrering"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Orchestrierung"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ενορχήστρωση"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Orchestration"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orquestación"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orquestación"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orquestación"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrointi"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऑर्केस्ट्रेशन"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestracija"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vezénylés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrasi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestrazione"
           }
         },
         "ja" : {
@@ -701,10 +3845,46 @@
             "value" : "오케스트레이션"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrasi"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrering"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestratie"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkiestracja"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Orchestration"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestration"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestrare"
           }
         },
         "ru" : {
@@ -713,10 +3893,70 @@
             "value" : "Оркестрация"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orchestrácia"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestracija"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrering"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การประสานงาน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orkestrasyon"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оркестрування"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điều phối"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编排"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "協作調度"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Orchestration"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "協作調度"
           }
         }
       }
@@ -725,16 +3965,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Tab Groups\"; ObjectID = \"Qva-A1-Vbd\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grups de pestanyes"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skupiny panelů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fanegrupper"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tab-Gruppen"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ομάδες καρτελών"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tab Groups"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab Groups"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab Groups"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab Groups"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab Groups"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab Groups"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupos de pestañas"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupos de pestañas"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupos de pestañas"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välilehtiryhmät"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groupes d’onglets"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groupes d’onglets"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टैब समूह"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupe kartica"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lapcsoportok"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grup Tab"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppi di pannelli"
           }
         },
         "ja" : {
@@ -749,10 +4109,46 @@
             "value" : "탭 그룹"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kumpulan Tab"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fanegrupper"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tabbladgroepen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupy kart"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grupos de abas"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupos de separadores"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupuri de file"
           }
         },
         "ru" : {
@@ -761,10 +4157,70 @@
             "value" : "Группы вкладок"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skupiny tabov"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skupine zavihkov"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flikgrupper"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กลุ่มแถบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sekme Grupları"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Групи вкладок"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhóm tab"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "标签页组"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分頁群組"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "标签页组"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "標籤頁群組"
           }
         }
       }
@@ -773,16 +4229,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"Screenshots\"; ObjectID = \"VcV-iJ-Nlq\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captures de pantalla"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snímky obrazovky"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skærmbilleder"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screenshots"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Στιγμιότυπα οθόνης"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Screenshots"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshots"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshots"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshots"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshots"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshots"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturas de pantalla"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturas de pantalla"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturas de pantalla"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuvakaappaukset"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captures d’écran"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captures d’écran"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्क्रीनशॉट"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snimke zaslona"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Képernyőképek"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tangkapan Layar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screenshot"
           }
         },
         "ja" : {
@@ -797,10 +4373,46 @@
             "value" : "스크린샷"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tangkapan Skrin"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skjermbilder"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schermafbeeldingen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrzuty ekranu"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Capturas de tela"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturas de ecrã"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturi de ecran"
           }
         },
         "ru" : {
@@ -809,10 +4421,70 @@
             "value" : "Снимки экрана"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snímky obrazovky"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posnetki zaslona"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skärmavbilder"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ภาพหน้าจอ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekran Görüntüleri"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Знімки екрана"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ảnh chụp màn hình"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "屏幕截图"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "螢幕截圖"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "截屏"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "螢幕截圖"
           }
         }
       }
@@ -821,7 +4493,31 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"<\"; ObjectID = \"VdW-Ng-Wlh\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "el" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "<"
@@ -830,6 +4526,102 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "<"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "<"
           }
         },
@@ -845,7 +4637,43 @@
             "value" : "<"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "ro" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "<"
@@ -857,7 +4685,67 @@
             "value" : "<"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "<"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "<"

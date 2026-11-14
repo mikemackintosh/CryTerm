@@ -102,6 +102,10 @@ static NSString* TAB_ARRANGEMENT_GROUP_ID = @"Tab Group ID";
 static NSString* TAB_ARRANGEMENT_GROUP_NAME = @"Tab Group Name";
 static NSString* TAB_ARRANGEMENT_GROUP_COLOR = @"Tab Group Color";
 static NSString* TAB_ARRANGEMENT_GROUP_COLLAPSED = @"Tab Group Collapsed";
+static NSString* TAB_ARRANGEMENT_GROUP_PARENT_ID = @"Tab Group Parent ID";
+static NSString* TAB_ARRANGEMENT_GROUP_PARENT_NAME = @"Tab Group Parent Name";
+static NSString* TAB_ARRANGEMENT_GROUP_PARENT_COLOR = @"Tab Group Parent Color";
+static NSString* TAB_ARRANGEMENT_GROUP_PARENT_COLLAPSED = @"Tab Group Parent Collapsed";
 
 // Floating panes are an additive sibling of the tiled tree. Older builds ignore them.
 NSString *const TAB_ARRANGEMENT_FLOATING_PANES = @"Floating Panes";  // array, back to front
@@ -605,7 +609,7 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
                                                  name:iTermAnnotationVisibilityDidChange
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_refreshLabels:)
+                                             selector:@selector(showSessionStatusInTabSubtitleDidChange:)
                                                  name:iTermShowSessionStatusInTabSubtitleDidChange
                                                object:nil];
     [iTermPreferenceDidChangeNotification subscribe:self selector:@selector(preferenceDidChange:)];
@@ -911,7 +915,9 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
 }
 
 - (void)updateIcon {
-    if (_aggregatedTabStatus.hasActiveStatus && _aggregatedTabStatus.hasIndicator) {
+    if (_aggregatedTabStatus.hasActiveStatus &&
+        _aggregatedTabStatus.hasIndicator &&
+        iTermUserDefaults.showSessionStatusInTabSubtitle) {
         [self setIcon:[self tabStatusDotImage]];
     } else if (_state & kPTYTabDeadState) {
         [self setIcon:[PTYTab deadImageWithAppearance:self.realParentWindow.window.effectiveAppearance]];
@@ -926,6 +932,11 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
     } else {
         [self setIcon:nil];
     }
+}
+
+- (void)showSessionStatusInTabSubtitleDidChange:(NSNotification *)notification {
+    [self _refreshLabels:nil];
+    [self updateIcon];
 }
 
 - (NSImage *)tabStatusDotImage {
@@ -1056,6 +1067,14 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
 
 - (void)setActiveSession:(PTYSession *)session {
     [self setActiveSession:session updateActivityCounter:YES];
+}
+
+- (void)setActiveSessionRestoringFocus:(PTYSession *)session {
+    const BOOL reinstalled = (session == activeSession_);
+    [self setActiveSession:session];
+    if (reinstalled && [realParentWindow_ currentTab] == self) {
+        [[realParentWindow_ window] makeFirstResponder:[session mainResponder]];
+    }
 }
 
 - (void)setActiveSession:(PTYSession *)session updateActivityCounter:(BOOL)updateActivityCounter {
@@ -1874,12 +1893,34 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
     return view != nil && (view == root_ || [self floatingPaneWithRoot:view] != nil);
 }
 
-- (void)addFloatingSession:(PTYSession *)session frame:(NSRect)frame {
-    iTermFloatingPaneView *pane = [self installFloatingSession:session outlineFrame:frame];
-    // The grid is canonical; derive it from the requested frame now that the session has its title
-    // bar, then the frame from the grid.
-    [iTermFloatingPaneLayout fitFloatingPane:pane session:session toOutlineFrame:frame];
+- (void)didInstallFloatingPane:(iTermFloatingPaneView *)pane
+                       session:(PTYSession *)session
+                      activate:(BOOL)activate {
     [iTermFloatingPaneLayout updateUnderlayOfFloatingPane:pane session:session];
+    PTYSession *previous = activeSession_;
+    if (activate) {
+        // Rechecks blur, and dims the others if the active session changed.
+        [self setActiveSessionRestoringFocus:session];
+    } else {
+        [self recheckBlur];
+    }
+    if (previous == activeSession_) {
+        [realParentWindow_ setDimmingForSessions];
+    }
+    [session.view updateDim];
+}
+
+- (iTermFloatingPaneView *)installNewlyPlacedFloatingSession:(PTYSession *)session {
+    iTermFloatingPaneView *pane = [self installFloatingSessionAwaitingPlacement:session];
+    [iTermFloatingPaneLayout placeNewFloatingPane:pane session:session];
+    return pane;
+}
+
+- (iTermFloatingPaneView *)installFloatingSessionAwaitingPlacement:(PTYSession *)session {
+    // Any size: the placement sets the frame from the float's grid once the session's view is in
+    // the tab and has its title bar.
+    static const CGFloat provisionalSize = 200;
+    return [self installFloatingSession:session outlineFrame:NSMakeRect(0, 0, provisionalSize, provisionalSize)];
 }
 
 - (iTermFloatingPaneView *)installFloatingSession:(PTYSession *)session outlineFrame:(NSRect)frame {
@@ -2230,6 +2271,10 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
 
 - (BOOL)tmuxAllowsChangingFloatingPanes {
     return !self.isTmuxTab || self.tmuxController.supportsFloatingPanes;
+}
+
+- (BOOL)tmuxAllowsChangingWhichPanesFloat {
+    return !self.isTmuxTab || ![self hasMaximizedPane];
 }
 
 - (BOOL)floatingPaneCanResize:(iTermFloatingPaneView *)pane {
@@ -2626,6 +2671,68 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
     [self updateTabTitle];
 }
 
+#pragma mark - Content Snapshot
+
+- (NSImage *)contentSnapshot {
+    NSView *canvasView = root_;
+    const NSSize size = canvasView.bounds.size;
+    if (size.width <= 0 || size.height <= 0) {
+        return nil;
+    }
+    const BOOL flipped = canvasView.isFlipped;
+    NSMutableArray<NSDictionary *> *pieces = [NSMutableArray array];
+    // Render every pane now. The drawing handler below runs each time the image is drawn, so it
+    // must only composite what is already rendered.
+    for (PTYSession *session in [self tiledSessions]) {
+        SessionView *sessionView = session.view;
+        if (![sessionView isDescendantOf:canvasView] || sessionView.isHidden) {
+            continue;
+        }
+        NSView *contentView = sessionView.scrollview ?: sessionView;
+        NSMutableDictionary *piece = [NSMutableDictionary dictionary];
+        piece[@"sessionRect"] = [NSValue valueWithRect:[canvasView convertRect:sessionView.bounds fromView:sessionView]];
+        piece[@"contentRect"] = [NSValue valueWithRect:[canvasView convertRect:contentView.bounds fromView:contentView]];
+        piece[@"background"] = [session.processedBackgroundColor colorWithAlphaComponent:1] ?: [NSColor blackColor];
+        NSImage *image = [session terminalContentSnapshot];
+        if (image) {
+            piece[@"image"] = image;
+        }
+        [pieces addObject:piece];
+    }
+    DLog(@"Content snapshot of %@ has %@ panes", self, @(pieces.count));
+    if (pieces.count == 0) {
+        return nil;
+    }
+    return [NSImage imageWithSize:size flipped:flipped drawingHandler:^BOOL(NSRect dstRect) {
+        // What shows between panes.
+        [[NSColor colorWithWhite:0.35 alpha:1] set];
+        NSRectFill(NSMakeRect(0, 0, size.width, size.height));
+        for (NSDictionary *piece in pieces) {
+            const NSRect sessionRect = [piece[@"sessionRect"] rectValue];
+            const NSRect contentRect = [piece[@"contentRect"] rectValue];
+            [(NSColor *)piece[@"background"] set];
+            NSRectFill(sessionRect);
+            NSImage *image = piece[@"image"];
+            if (!image || image.size.width <= 0 || image.size.height <= 0) {
+                continue;
+            }
+            // Fill the pane’s width and keep the aspect ratio, pinned to the top of the pane.
+            const CGFloat height = contentRect.size.width * image.size.height / image.size.width;
+            const CGFloat y = flipped ? NSMinY(contentRect) : NSMaxY(contentRect) - height;
+            [NSGraphicsContext saveGraphicsState];
+            NSRectClip(contentRect);
+            [image drawInRect:NSMakeRect(NSMinX(contentRect), y, contentRect.size.width, height)
+                     fromRect:NSZeroRect
+                    operation:NSCompositingOperationSourceOver
+                     fraction:1
+               respectFlipped:YES
+                        hints:nil];
+            [NSGraphicsContext restoreGraphicsState];
+        }
+        return YES;
+    }];
+}
+
 #pragma mark - Screenshot Mode
 
 - (PTYSession *)enterScreenshotModeForSession:(PTYSession *)liveSession {
@@ -2986,6 +3093,14 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
 }
 
 - (void)removeSession:(PTYSession*)aSession {
+    [self removeSession:aSession activatingSuccessor:YES];
+}
+
+- (void)removeSessionForReinstallation:(PTYSession *)aSession {
+    [self removeSession:aSession activatingSuccessor:NO];
+}
+
+- (void)removeSession:(PTYSession *)aSession activatingSuccessor:(BOOL)activatingSuccessor {
     SessionView *theView = aSession.view;
 
     // Unmaximize if the session's view is in idMap_ (the normal maximized case,
@@ -3002,19 +3117,33 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
         [self unmaximize];
     }
     PtyLog(@"PTYTab removeSession:%p", aSession);
-    // Grab the nearest neighbor (arbitrarily, the subview before if there is on or after if not)
-    // to make its earliest descendent that is a session active.
-    SessionView *nearestNeighbor = [self nearestNeighborOfSession:aSession];
+    const BOOL wasActive = (aSession == activeSession_);
+    // The successor is chosen before the removal, which changes the layout it is read from: the
+    // nearest neighbor (arbitrarily, the subview before if there is one or after if not), whose
+    // earliest descendant that is a session becomes active.
+    SessionView *nearestNeighbor = nil;
     PTYSession *floatingSuccessor = nil;
-    if (aSession == activeSession_ && [self sessionIsFloating:aSession]) {
-        floatingSuccessor = [self successorOfRemovedFloatingSession:aSession];
+    if (wasActive && activatingSuccessor) {
+        nearestNeighbor = [self nearestNeighborOfSession:aSession];
+        if ([self sessionIsFloating:aSession]) {
+            floatingSuccessor = [self successorOfRemovedFloatingSession:aSession];
+        }
     }
 
     // Remove the session.
     [self _recursiveRemoveView:[aSession view]];
     PTYSession *promoted = [self promoteFrontFloatingPaneIfNeeded];
 
-    if (aSession == activeSession_) {
+    [self.viewToSessionMap removeObjectForKey:theView];
+    if (!activatingSuccessor) {
+        // The session is about to be put back, so the active session stays as it is, this one
+        // included, and nothing is told about a tab that is between two states: the install that
+        // follows renumbers the panes, updates their titles and blur, and tells the window. Only
+        // the window's cursor rects are reset now, as below, since a divider may just have gone.
+        [[realParentWindow_ window] resetCursorRects];
+        return;
+    }
+    if (wasActive) {
         [self setActiveSession:(floatingSuccessor ?:
                                 [self sessionForSessionView:nearestNeighbor] ?:
                                 promoted ?:
@@ -3027,8 +3156,6 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
         [self fitSubviewsToRoot];
     }
     [self numberOfSessionsDidChange];
-
-    [self.viewToSessionMap removeObjectForKey:theView];
 }
 
 - (BOOL)canSplitVertically:(BOOL)isVertical withSize:(NSSize)newSessionSize {
@@ -4476,6 +4603,18 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
         theTab.tabGroupColor = [groupColorDict colorValue];
     }
     theTab.tabGroupCollapsed = [arrangement[TAB_ARRANGEMENT_GROUP_COLLAPSED] boolValue];
+    // A parent is meaningful only for a grouped tab.
+    if (theTab.tabGroupID) {
+        theTab.tabGroupParentID = [arrangement[TAB_ARRANGEMENT_GROUP_PARENT_ID] nilIfNull];
+    }
+    if (theTab.tabGroupParentID) {
+        theTab.tabGroupParentName = [arrangement[TAB_ARRANGEMENT_GROUP_PARENT_NAME] nilIfNull];
+        NSDictionary *parentColorDict = [arrangement[TAB_ARRANGEMENT_GROUP_PARENT_COLOR] nilIfNull];
+        if (parentColorDict) {
+            theTab.tabGroupParentColor = [parentColorDict colorValue];
+        }
+        theTab.tabGroupParentCollapsed = [arrangement[TAB_ARRANGEMENT_GROUP_PARENT_COLLAPSED] boolValue];
+    }
     NSString *guid = arrangement[TAB_GUID];
     if (guid) {
         if ([[iTermController sharedInstance] tabWithGUID:guid] ||
@@ -4507,6 +4646,15 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
     return [self arrangement:arrangement transformingNodes:^NSDictionary *(NSDictionary *node) {
         return [PTYTab recursiveModifiedArrangementNode:node mutator:mutator];
     }];
+}
+
++ (NSDictionary *)arrangementRemovingTabGroupParent:(NSDictionary *)arrangement {
+    NSMutableDictionary *result = [arrangement mutableCopy];
+    [result removeObjectsForKeys:@[ TAB_ARRANGEMENT_GROUP_PARENT_ID,
+                                    TAB_ARRANGEMENT_GROUP_PARENT_NAME,
+                                    TAB_ARRANGEMENT_GROUP_PARENT_COLOR,
+                                    TAB_ARRANGEMENT_GROUP_PARENT_COLLAPSED ]];
+    return result;
 }
 
 + (NSDictionary *)repairedArrangement:(NSDictionary *)arrangement
@@ -4827,6 +4975,16 @@ NSString *const PTYTabArrangementOptionsPendingJumps = @"PTYTabArrangementOption
             encoder[TAB_ARRANGEMENT_GROUP_COLOR] = self.tabGroupColor.dictionaryValue;
         }
         encoder[TAB_ARRANGEMENT_GROUP_COLLAPSED] = @(self.tabGroupCollapsed);
+        if (self.tabGroupParentID) {
+            encoder[TAB_ARRANGEMENT_GROUP_PARENT_ID] = self.tabGroupParentID;
+            if (self.tabGroupParentName) {
+                encoder[TAB_ARRANGEMENT_GROUP_PARENT_NAME] = self.tabGroupParentName;
+            }
+            if (self.tabGroupParentColor) {
+                encoder[TAB_ARRANGEMENT_GROUP_PARENT_COLOR] = self.tabGroupParentColor.dictionaryValue;
+            }
+            encoder[TAB_ARRANGEMENT_GROUP_PARENT_COLLAPSED] = @(self.tabGroupParentCollapsed);
+        }
     }
     // If in screenshot mode, encode the live session instead of the synthetic one
     PTYSession *sessionToEncode = self.activeSession;
@@ -4992,8 +5150,7 @@ NSString *const PTYTabArrangementOptionsPendingJumps = @"PTYTabArrangementOption
                                                     desiredGrid:[NSDictionary castFrom:record[FLOATING_PANE_DESIRED_GRID_SIZE]]
                                     visualFrameBeforeMaximizing:[PTYTab floatingPaneFrameBeforeMaximizingInRecord:record]];
     [iTermFloatingPaneLayout refitFloatingPane:pane session:session];
-    [iTermFloatingPaneLayout updateUnderlayOfFloatingPane:pane session:session];
-    [self setActiveSession:session];
+    [self didInstallFloatingPane:pane session:session activate:YES];
 }
 
 // Restores the floats recorded in a tab arrangement. Returns the active session if it is one of
@@ -5071,6 +5228,8 @@ NSString *const PTYTabArrangementOptionsPendingJumps = @"PTYTabArrangementOption
                                     visualFrameBeforeMaximizing:[PTYTab floatingPaneFrameBeforeMaximizingInRecord:record]];
     // Applies the restored placement now if the tab has a size, else when it gets one.
     [iTermFloatingPaneLayout refitFloatingPane:pane session:session];
+    // Only the underlay: the tab is still being built, and blur and dimming are settled once the
+    // caller activates the restored active session.
     [iTermFloatingPaneLayout updateUnderlayOfFloatingPane:pane session:session];
     if (activeOut) {
         *activeOut = maybeActive;
@@ -5488,6 +5647,7 @@ static NSString *const PTYTabParseTreeRightExtraKey = @"iTerm2RightExtra";
 
 - (void)reloadTmuxLayout {
     BOOL shouldZoom = isMaximized_;
+    PTYSession *const sessionKeepingGrid = shouldZoom ? [self sessionToMaximize] : nil;
     if (isMaximized_) {
         DLog(@"Unmaximizing");
         [self unmaximize];
@@ -5497,7 +5657,7 @@ static NSString *const PTYTabParseTreeRightExtraKey = @"iTerm2RightExtra";
                              zoomed:isMaximized_
                             profile:[self.tmuxController profileForWindow:self.tmuxWindow]
                      tmuxController:self.tmuxController];
-    [self resizeViewsInViewHierarchy:root_ forNewLayout:parseTree_];
+    [self resizeViewsInViewHierarchy:root_ forNewLayout:parseTree_ sessionKeepingGrid:sessionKeepingGrid];
     if (shouldZoom) {
         [self maximizeAfterApplyingTmuxParseTree:visibleParseTree_ ?: parseTree_
                                   tmuxController:self.tmuxController];
@@ -6099,6 +6259,7 @@ typedef struct {
 // It updates the SessionView and nested PTYSplitView frames for a new layout.
 - (void)_recursiveResizeViewsInViewHierarchy:(NSView *)view
                               forArrangement:(NSDictionary *)arrangement
+                          sessionKeepingGrid:(PTYSession *)sessionKeepingGrid
 {
     assert(arrangement);
     [view setNeedsDisplay:YES];
@@ -6111,13 +6272,16 @@ typedef struct {
         NSArray *subarrangements = [arrangement objectForKey:SUBVIEWS];
         for (NSView *child in [view subviews]) {
             [self _recursiveResizeViewsInViewHierarchy:child
-                                        forArrangement:[subarrangements objectAtIndex:i]];
+                                        forArrangement:[subarrangements objectAtIndex:i]
+                                    sessionKeepingGrid:sessionKeepingGrid];
             i++;
         }
     } else {
         SessionView *sessionView = (SessionView *)view;
         PTYSession *theSession = [self sessionForSessionView:sessionView];
-        [theSession resizeFromArrangement:[arrangement objectForKey:TAB_ARRANGEMENT_SESSION]];
+        if (theSession != sessionKeepingGrid) {
+            [theSession resizeFromArrangement:[arrangement objectForKey:TAB_ARRANGEMENT_SESSION]];
+        }
         assert([arrangement objectForKey:TAB_ARRANGEMENT_SESSIONVIEW_FRAME]);
         NSRect aFrame = [PTYTab dictToFrame:[arrangement objectForKey:TAB_ARRANGEMENT_SESSIONVIEW_FRAME]];
         [sessionView setFrame:aFrame];
@@ -6286,7 +6450,9 @@ typedef struct {
     }
 }
 
-- (void)resizeViewsInViewHierarchy:(NSView *)view forNewLayout:(NSMutableDictionary *)parseTree {
+- (void)resizeViewsInViewHierarchy:(NSView *)view
+                      forNewLayout:(NSMutableDictionary *)parseTree
+                sessionKeepingGrid:(PTYSession *)sessionKeepingGrid {
     Profile *bookmark = [[ProfileModel sharedInstance] defaultBookmark];
     NSDictionary *arrangement = [PTYTab _recursiveArrangementForDecoratedTmuxParseTree:parseTree
                                                                               bookmark:bookmark
@@ -6296,7 +6462,9 @@ typedef struct {
                                                                                 window:self.tmuxWindow];
     ++tmuxOriginatedResizeInProgress_;
     [realParentWindow_ beginTmuxOriginatedResize];
-    [self _recursiveResizeViewsInViewHierarchy:view forArrangement:arrangement];
+    [self _recursiveResizeViewsInViewHierarchy:view
+                                forArrangement:arrangement
+                            sessionKeepingGrid:sessionKeepingGrid];
     [realParentWindow_ tmuxTabLayoutDidChange:NO tab:nil variableWindowSize:tmuxController_.variableWindowSize];
     [realParentWindow_ endTmuxOriginatedResize];
     --tmuxOriginatedResizeInProgress_;
@@ -6746,7 +6914,9 @@ typedef struct {
                             profile:[tmuxController profileForWindow:self.tmuxWindow]
                      tmuxController:tmuxController];
     DLog(@"PTYTab maximizeAfterApplyingTmuxParseTree using width of %@", parseTree[kLayoutDictMaximumPixelWidthKey]);
-    [self resizeViewsInViewHierarchy:root_ forNewLayout:maximizedParseTree];
+    [self resizeViewsInViewHierarchy:root_
+                        forNewLayout:maximizedParseTree
+                  sessionKeepingGrid:[self sessionToMaximize]];
     DLog(@"After resizing views in maximize, root_.width=%f, _containerView.width=%f",
           root_.frame.size.width, _containerView.frame.size.width);
     [self fitSubviewsToRoot];
@@ -6804,6 +6974,13 @@ typedef struct {
     if (zoomed) {
         shouldZoom = zoomed.boolValue;
     }
+    PTYSession *const zoomedSession = shouldZoom ? [self tmuxZoomedSessionInVisibleParseTree:visibleParseTree] : nil;
+    // Predict what -maximize will pick once the junior session is active and _tmuxZoomedSession is
+    // updated below.
+    PTYSession *const sessionKeepingGrid =
+        shouldZoom ? [self sessionToMaximizeWithActiveSession:[self juniorSession] ?: activeSession_
+                                                zoomedSession:zoomedSession]
+                   : nil;
     [PTYTab setSizesInTmuxParseTree:parseTree
                          inTerminal:realParentWindow_
                              zoomed:shouldZoom
@@ -6821,7 +6998,7 @@ typedef struct {
              parseTree[kLayoutDictMaximumPixelWidthKey],
              root_.frame.size.width,
              _containerView.frame.size.width);
-        [self resizeViewsInViewHierarchy:root_ forNewLayout:parseTree];
+        [self resizeViewsInViewHierarchy:root_ forNewLayout:parseTree sessionKeepingGrid:sessionKeepingGrid];
         [self fitSubviewsToRoot];
     } else {
         DLog(@"Parse tree does not match the root's view hierarchy.");
@@ -6840,7 +7017,7 @@ typedef struct {
     [self activateJuniorSession];
 
     if (shouldZoom) {
-        _tmuxZoomedSession = [self tmuxZoomedSessionInVisibleParseTree:visibleParseTree];
+        _tmuxZoomedSession = zoomedSession;
         [self maximizeAfterApplyingTmuxParseTree:visibleParseTree ?: parseTree
                                   tmuxController:tmuxController];
     } else {
@@ -7018,10 +7195,15 @@ typedef struct {
 // The tiled session maximizing shows. A float can be active, over the zoomed pane in tmux or after
 // activating one in a maximized tab; it is never what gets maximized.
 - (PTYSession *)sessionToMaximize {
-    if (![self sessionIsFloating:activeSession_]) {
-        return activeSession_;
+    return [self sessionToMaximizeWithActiveSession:activeSession_ zoomedSession:_tmuxZoomedSession];
+}
+
+- (PTYSession *)sessionToMaximizeWithActiveSession:(PTYSession *)activeSession
+                                     zoomedSession:(PTYSession *)zoomedSession {
+    if (![self sessionIsFloating:activeSession]) {
+        return activeSession;
     }
-    return _tmuxZoomedSession ?: [self mostRecentlyActiveTiledSession];
+    return zoomedSession ?: [self mostRecentlyActiveTiledSession];
 }
 
 // A session for a float tmux added, from its decorated leaf (with history and state).
@@ -7089,7 +7271,8 @@ typedef struct {
         if (!session) {
             session = [adopted objectPassingTest:isPane];
             if (session) {
-                [self installFloatingSession:session outlineFrame:NSMakeRect(0, 0, 200, 200)];
+                // placeTmuxFloatingPanes below sets its frame.
+                [self installFloatingSessionAwaitingPlacement:session];
             }
         }
         if (!session) {
@@ -7126,6 +7309,18 @@ typedef struct {
     }
 }
 
+// The session -activateJuniorSession will make active, or nil if this isn't a user-driven split.
+- (PTYSession *)juniorSession {
+    if (![self.sessions anyWithBlock:^BOOL(PTYSession *aSession) {
+        return aSession.sessionIsSeniorToTmuxSplitPane;
+    }]) {
+        return nil;
+    }
+    return [self.sessions objectPassingTest:^BOOL(PTYSession *aSession, NSUInteger index, BOOL *stop) {
+        return !aSession.sessionIsSeniorToTmuxSplitPane;
+    }];
+}
+
 // Find a session that is not "senior" to a tmux pane getting split by the user and make it
 // active.
 - (void)activateJuniorSession {
@@ -7144,15 +7339,7 @@ typedef struct {
         return;
     }
 
-    // Find a non-senior pane.
-    PTYSession *newSession = nil;
-    for (PTYSession *aSession in self.sessions) {
-        if (!aSession.sessionIsSeniorToTmuxSplitPane) {
-            newSession = aSession;
-            DLog(@"Found a junior session");
-            break;
-        }
-    }
+    PTYSession *newSession = [self juniorSession];
     if (newSession) {
         DLog(@"Activate junior session");
         [self setActiveSession:newSession];
@@ -7878,6 +8065,89 @@ typedef struct {
 
 - (BOOL)isPinned {
     return _pinned;
+}
+
+#pragma mark - Tab group nesting
+
+- (NSString *)nestedTabGroupParentID {
+    if (self.tabGroupID.length == 0 || self.tabGroupParentID.length == 0) {
+        return nil;
+    }
+    return self.tabGroupParentID;
+}
+
+- (NSString *)tabGroupTopLevelID {
+    return self.nestedTabGroupParentID ?: self.tabGroupID;
+}
+
+- (BOOL)isInTabGroup:(NSString *)groupID {
+    if (groupID.length == 0) {
+        return NO;
+    }
+    return [self.tabGroupID isEqualToString:groupID] || [self.tabGroupParentID isEqualToString:groupID];
+}
+
+- (BOOL)tabGroupHidden {
+    if (self.tabGroupID.length == 0) {
+        return NO;
+    }
+    return self.tabGroupCollapsed || (self.tabGroupParentID.length > 0 && self.tabGroupParentCollapsed);
+}
+
+- (BOOL)isParentTabGroup:(NSString *)groupID {
+    return groupID.length > 0 && [self.tabGroupParentID isEqualToString:groupID];
+}
+
+- (NSString *)nameOfTabGroup:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        return self.tabGroupParentName;
+    }
+    return [self.tabGroupID isEqualToString:groupID] ? self.tabGroupName : nil;
+}
+
+- (NSColor *)colorOfTabGroup:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        return self.tabGroupParentColor;
+    }
+    return [self.tabGroupID isEqualToString:groupID] ? self.tabGroupColor : nil;
+}
+
+- (BOOL)isTabGroupCollapsed:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        return self.tabGroupParentCollapsed;
+    }
+    return [self.tabGroupID isEqualToString:groupID] && self.tabGroupCollapsed;
+}
+
+- (void)setName:(NSString *)name ofTabGroup:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        self.tabGroupParentName = name;
+    } else if ([self.tabGroupID isEqualToString:groupID]) {
+        self.tabGroupName = name;
+    }
+}
+
+- (void)setColor:(NSColor *)color ofTabGroup:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        self.tabGroupParentColor = color;
+    } else if ([self.tabGroupID isEqualToString:groupID]) {
+        self.tabGroupColor = color;
+    }
+}
+
+- (void)setCollapsed:(BOOL)collapsed ofTabGroup:(NSString *)groupID {
+    if ([self isParentTabGroup:groupID]) {
+        self.tabGroupParentCollapsed = collapsed;
+    } else if ([self.tabGroupID isEqualToString:groupID]) {
+        self.tabGroupCollapsed = collapsed;
+    }
+}
+
+- (void)clearTabGroupParent {
+    self.tabGroupParentID = nil;
+    self.tabGroupParentName = nil;
+    self.tabGroupParentColor = nil;
+    self.tabGroupParentCollapsed = NO;
 }
 
 - (void)setTitleOverride:(NSString *)titleOverride {

@@ -189,6 +189,8 @@ static NSString *iTermAIVendorProviderName(iTermAIVendor vendor) {
             return NSLocalizedStringWithDefaultValue(@"AIProvider.Ollama", nil, [NSBundle mainBundle], @"Ollama", @"Ollama provider name");
         case iTermAIVendorApple:
             return NSLocalizedStringWithDefaultValue(@"AIProvider.AppleIntelligence", nil, [NSBundle mainBundle], @"Apple Intelligence", @"Apple Intelligence provider name");
+        case iTermAIVendorXAI:
+            return NSLocalizedStringWithDefaultValue(@"AIProvider.Grok", nil, [NSBundle mainBundle], @"Grok", @"Grok (xAI) provider name");
     }
     return NSLocalizedStringWithDefaultValue(@"AIProvider.OpenAI", nil, [NSBundle mainBundle], @"OpenAI", @"OpenAI provider name");
 }
@@ -203,6 +205,7 @@ static BOOL iTermAIVendorHasEnterableKey(iTermAIVendor vendor) {
         case iTermAIVendorAnthropic:
         case iTermAIVendorGemini:
         case iTermAIVendorDeepSeek:
+        case iTermAIVendorXAI:
             return YES;
         case iTermAIVendorLlama:
         case iTermAIVendorApple:
@@ -273,7 +276,8 @@ static NSArray<NSString *> *iTermAIKeyHintEditorVariants(void) {
         iTermAIVendorOpenAI,
         iTermAIVendorLlama,
         iTermAIVendorAnthropic,
-        iTermAIVendorApple
+        iTermAIVendorApple,
+        iTermAIVendorXAI
     };
     for (size_t k = 0; k < sizeof(kinds) / sizeof(*kinds); k++) {
         for (size_t v = 0; v < sizeof(vendors) / sizeof(*vendors); v++) {
@@ -670,6 +674,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 @end
 
+// The three titles the editor's Fetch Models button switches among.
+static NSString *iTermManualAIModelEditorFetchModelsTitle(void) {
+    return NSLocalizedStringWithDefaultValue(@"AIModelEditor.FetchModels", nil, [NSBundle mainBundle], @"Fetch Models", @"Button that lists models installed on the server");
+}
+
+static NSString *iTermManualAIModelEditorRefreshModelsTitle(void) {
+    return NSLocalizedStringWithDefaultValue(@"AIModelEditor.RefreshModels", nil, [NSBundle mainBundle], @"Refresh Models", @"Button that re-lists models installed on the Ollama server");
+}
+
+static NSString *iTermManualAIModelEditorFetchingTitle(void) {
+    return NSLocalizedStringWithDefaultValue(@"AIModelEditor.FetchingProgress", nil, [NSBundle mainBundle], @"Fetching…", @"Transient button title while the app lists models from the server");
+}
+
 @implementation iTermManualAIModelEditorController {
     NSWindow *_window;
     NSDictionary *_base;
@@ -699,6 +716,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSMutableDictionary<NSString *, NSButton *> *_featureButtons;
     NSButton *_testButton;
     NSButton *_fetchModelsButton;
+    // Every title the Fetch Models button can show. -layoutForTranslations
+    // widens the button to fit the widest.
+    NSArray<NSString *> *_fetchModelsButtonTitles;
+    // A Fetch Models request is in flight. The button stays disabled and reads
+    // “Fetching…” until it finishes, whatever else changes in the editor.
+    BOOL _fetchingModels;
     NSProgressIndicator *_testSpinner;
     // For -layoutForTranslations: the right-aligned labels in the left column,
     // the checkboxes in the right column, the buttons pinned to the right
@@ -855,12 +878,40 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         }
     }
 
+    [self fitFetchModelsButton];
+
     NSRect testFrame = _testButton.frame;
     testFrame.size.width = MAX(NSWidth(testFrame), ceil(_testButton.cell.cellSize.width));
     _testButton.frame = testFrame;
     NSRect spinnerFrame = _testSpinner.frame;
     spinnerFrame.origin.x = NSMaxX(testFrame) + 8;
     _testSpinner.frame = spinnerFrame;
+}
+
+// Widen the Fetch Models button leftward to fit the widest title it can show,
+// keeping its right edge flush with the fields below. The Model field (and the
+// popup that takes its place) gives up the room.
+- (void)fitFetchModelsButton {
+    NSString *currentTitle = _fetchModelsButton.title;
+    CGFloat needed = NSWidth(_fetchModelsButton.frame);
+    for (NSString *title in _fetchModelsButtonTitles) {
+        _fetchModelsButton.title = title;
+        needed = MAX(needed, ceil(_fetchModelsButton.cell.cellSize.width));
+    }
+    _fetchModelsButton.title = currentTitle;
+    const CGFloat growth = needed - NSWidth(_fetchModelsButton.frame);
+    if (growth <= 0) {
+        return;
+    }
+    NSRect buttonFrame = _fetchModelsButton.frame;
+    buttonFrame.origin.x -= growth;
+    buttonFrame.size.width += growth;
+    _fetchModelsButton.frame = buttonFrame;
+
+    NSRect nameFrame = _nameField.frame;
+    nameFrame.size.width -= growth;
+    _nameField.frame = nameFrame;
+    _modelPopup.frame = nameFrame;
 }
 
 - (void)buildWindowWithAPIKeyHintStrings:(NSArray<NSString *> *)apiKeyHintStrings {
@@ -944,17 +995,20 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     y -= rowHeight + 8;
 
     _nameField = addTextField(NSLocalizedStringWithDefaultValue(@"AIModelEditor.ModelLabel", nil, [NSBundle mainBundle], @"Model:", @"Label for the model name field"), _base[kAIManualModelNameKey]);
-    // Shrink the Model field and add a button that lists the models installed on
-    // the server (Ollama /api/tags), so the user can pick instead of typing an
-    // exact tag. Harmless for non-Ollama endpoints (it just reports none found).
+    // Shrink the Model field and add a button that lists the models on the server
+    // (Ollama /api/tags, or GET /models for OpenAI- and Anthropic-style APIs), so
+    // the user can pick instead of typing an exact name.
     {
         const CGFloat fetchWidth = 130;
         NSRect nameFrame = _nameField.frame;
         nameFrame.size.width -= (fetchWidth + 6);
         _nameField.frame = nameFrame;
-        _fetchModelsButton = [NSButton buttonWithTitle:NSLocalizedStringWithDefaultValue(@"AIModelEditor.FetchModels", nil, [NSBundle mainBundle], @"Fetch Models", @"Button that lists models installed on the server")
+        _fetchModelsButtonTitles = @[ iTermManualAIModelEditorFetchModelsTitle(),
+                                      iTermManualAIModelEditorRefreshModelsTitle(),
+                                      iTermManualAIModelEditorFetchingTitle() ];
+        _fetchModelsButton = [NSButton buttonWithTitle:iTermManualAIModelEditorFetchModelsTitle()
                                                 target:self
-                                                action:@selector(fetchOllamaModels:)];
+                                                action:@selector(fetchModels:)];
         _fetchModelsButton.bezelStyle = NSBezelStyleRounded;
         _fetchModelsButton.frame = NSMakeRect(NSMaxX(nameFrame) + 6, nameFrame.origin.y - 1,
                                               fetchWidth, 24);
@@ -1376,6 +1430,49 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)apiKeyHintInputDidChange:(id)sender {
     [self updateEditorAPIKeyHint];
+    [self updateAPIDependentControls];
+}
+
+// Everything besides the key hint that depends on the selected API.
+- (void)updateAPIDependentControls {
+    [self updateFetchModelsButton];
+    [self updateURLPlaceholder];
+}
+
+// LLMProvider.endpoint(forBaseURL:...) appends the API's endpoint to a base URL
+// at request time, so the placeholder shows the base form that works for the
+// selected API. Ollama's native API is completed only from a bare server URL
+// (its /v1 is the OpenAI-compatible shim), and Gemini's URL is never completed.
+- (void)updateURLPlaceholder {
+    const iTermAIAPI api = (iTermAIAPI)_apiPopup.selectedItem.tag;
+    switch (api) {
+        case iTermAIAPILlama:
+            _urlField.placeholderString = NSLocalizedStringWithDefaultValue(@"AIModelEditor.URLPlaceholder.Ollama", nil, [NSBundle mainBundle], @"Endpoint or server URL, like http://localhost:11434", @"Placeholder in the AI model editor’s URL field when the Ollama API is selected. The URL is an example and should not be translated.");
+            break;
+        case iTermAIAPIGemini:
+        case iTermAIAPIAppleIntelligence:
+            _urlField.placeholderString = NSLocalizedStringWithDefaultValue(@"AIModelEditor.URLPlaceholder.EndpointOnly", nil, [NSBundle mainBundle], @"Endpoint URL", @"Placeholder in the AI model editor’s URL field for an API whose full endpoint URL must be entered");
+            break;
+        default:
+            _urlField.placeholderString = NSLocalizedStringWithDefaultValue(@"AIModelEditor.URLPlaceholder", nil, [NSBundle mainBundle], @"Endpoint or base URL, like http://localhost:8000/v1", @"Placeholder in the AI model editor’s URL field. The URL is an example and should not be translated.");
+            break;
+    }
+}
+
+// The one place the Fetch Models button's title and enabled state are set, so a
+// change to the API or discovery mode can't clobber an in-flight fetch. It needs
+// a lister for the selected API: Ollama's native one or the OpenAI-style
+// GET /models. Gemini has neither.
+- (void)updateFetchModelsButton {
+    if (_fetchingModels) {
+        _fetchModelsButton.enabled = NO;
+        _fetchModelsButton.title = iTermManualAIModelEditorFetchingTitle();
+        return;
+    }
+    const iTermAIAPI api = (iTermAIAPI)_apiPopup.selectedItem.tag;
+    _fetchModelsButton.enabled = (api == iTermAIAPILlama || [iTermAIModelListDiscovery supportsAPI:api]);
+    const BOOL dynamic = _dynamicModelsButton.state == NSControlStateValueOn;
+    _fetchModelsButton.title = dynamic ? iTermManualAIModelEditorRefreshModelsTitle() : iTermManualAIModelEditorFetchModelsTitle();
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {
@@ -1738,11 +1835,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     _credentialPopup.enabled = !dynamic;
     [self updateEditorAPIKeyHint];
-    _fetchModelsButton.title = dynamic ? NSLocalizedStringWithDefaultValue(@"AIModelEditor.RefreshModels", nil, [NSBundle mainBundle], @"Refresh Models", @"Button that re-lists models installed on the Ollama server")
-                                       : NSLocalizedStringWithDefaultValue(@"AIModelEditor.FetchModels", nil, [NSBundle mainBundle], @"Fetch Models", @"Button that lists models installed on the server");
+    [self updateAPIDependentControls];
 }
 
-- (void)fetchOllamaModels:(id)sender {
+- (void)fetchModels:(id)sender {
     [_window makeFirstResponder:nil];
     NSString *url =
         [_urlField.stringValue stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
@@ -1752,10 +1848,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                                          _window);
         return;
     }
+    if (_fetchingModels) {
+        return;
+    }
     NSButton *button = _fetchModelsButton;
-    NSString *savedTitle = button.title;
-    button.enabled = NO;
-    button.title = NSLocalizedStringWithDefaultValue(@"AIModelEditor.FetchingProgress", nil, [NSBundle mainBundle], @"Fetching…", @"Transient button title while the app lists models from the Ollama server");
+    _fetchingModels = YES;
+    [self updateFetchModelsButton];
     NSArray<NSDictionary<NSString *, NSString *> *> *headers = [self nonEmptyHeaders];
     __weak __typeof(self) weakSelf = self;
 
@@ -1768,12 +1866,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                                               headers:headers
                                                 force:YES
                                            completion:^(NSInteger count, BOOL failed) {
-            button.enabled = YES;
-            button.title = savedTitle;
             __strong __typeof(weakSelf) strongSelf = weakSelf;
             if (!strongSelf) {
                 return;
             }
+            strongSelf->_fetchingModels = NO;
+            [strongSelf updateFetchModelsButton];
             // The cache is now seeded for this URL: repopulate the model popup so
             // the discovered tags are selectable without reopening the editor.
             [strongSelf reloadDynamicModelPopup];
@@ -1794,31 +1892,54 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     // Single-model mode: list the names and offer one to paste into the Model
     // field. Here an empty server IS a dead end (nothing to pick), so the names
     // path's "no models" error is appropriate.
-    [iTermOllamaModelDiscovery fetchModelNamesFromEndpoint:url
-                                                   headers:headers
-                                                   timeout:10
-                                                completion:^(NSArray<NSString *> *names, NSString *errorMessage) {
-        button.enabled = YES;
-        button.title = savedTitle;
+    void (^completion)(NSArray<NSString *> *, NSString *) = ^(NSArray<NSString *> *names, NSString *errorMessage) {
         __strong __typeof(weakSelf) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
         }
+        strongSelf->_fetchingModels = NO;
+        [strongSelf updateFetchModelsButton];
         if (errorMessage) {
-            iTermGeneralPreferencesShowSheet(NSLocalizedStringWithDefaultValue(@"AIModelEditor.CouldNotFetchModelsTitle", nil, [NSBundle mainBundle], @"Could Not Fetch Models", @"Alert title shown when listing the Ollama server's models fails"),
+            iTermGeneralPreferencesShowSheet(NSLocalizedStringWithDefaultValue(@"AIModelEditor.CouldNotFetchModelsTitle", nil, [NSBundle mainBundle], @"Could Not Fetch Models", @"Alert title shown when listing the server's models fails"),
                                              errorMessage,
                                              strongSelf->_window);
             return;
         }
-        [strongSelf presentOllamaModelMenu:names fromButton:button];
-    }];
+        // Discovery mode turned on while the fetch ran: its popup replaces the
+        // Model field, so a menu filling that hidden field would do nothing.
+        if (strongSelf->_dynamicModelsButton.state == NSControlStateValueOn) {
+            return;
+        }
+        [strongSelf presentModelMenu:names fromButton:button];
+    };
+    const iTermAIAPI api = (iTermAIAPI)_apiPopup.selectedItem.tag;
+    if (api == iTermAIAPILlama) {
+        [iTermOllamaModelDiscovery fetchModelNamesFromEndpoint:url
+                                                       headers:headers
+                                                       timeout:10
+                                                    completion:completion];
+        return;
+    }
+    NSString *name =
+        [_nameField.stringValue stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    NSString *apiKey = [iTermAIModelListDiscovery apiKeyForURL:url
+                                                           api:api
+                                                     modelName:name
+                                                    credential:[self selectedCredentialStoredValue]
+                                                   modelAPIKey:[self trimmedModelAPIKey]];
+    [iTermAIModelListDiscovery fetchModelNamesFromEndpoint:url
+                                                       api:api
+                                                    apiKey:apiKey
+                                                   headers:headers
+                                                   timeout:10
+                                                completion:completion];
 }
 
-- (void)presentOllamaModelMenu:(NSArray<NSString *> *)names fromButton:(NSButton *)button {
+- (void)presentModelMenu:(NSArray<NSString *> *)names fromButton:(NSButton *)button {
     NSMenu *menu = [[NSMenu alloc] init];
     for (NSString *name in names) {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:name
-                                                      action:@selector(ollamaModelMenuItemSelected:)
+                                                      action:@selector(modelMenuItemSelected:)
                                                keyEquivalent:@""];
         item.target = self;
         item.representedObject = name;
@@ -1829,7 +1950,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                             inView:button];
 }
 
-- (void)ollamaModelMenuItemSelected:(NSMenuItem *)item {
+- (void)modelMenuItemSelected:(NSMenuItem *)item {
     NSString *name = item.representedObject;
     if ([name isKindOfClass:NSString.class]) {
         _nameField.stringValue = name;
@@ -2111,11 +2232,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     IBOutlet NSButton *_enableAPI;
     IBOutlet NSPopUpButton *_apiPermission;
     IBOutlet NSButton *_browserScriptingPermissions;
-    iTermBrowserScriptingPermissionsWindowController *_browserScriptingPermissionsWindowController;
-    // "Remote Hosts Allowed to Control CryTerm…": opens the list of hosts granted Always Allow
-    // for it2 over ssh integration. Enabled only while the Python API is on, since that is the
-    // only thing a grant lets a host use.
-    IBOutlet NSButton *_remoteHostGrantsButton;
 
     // Enable bonjour
     IBOutlet NSButton *_enableBonjour;
@@ -2457,7 +2573,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
             __typeof(self) strongSelf = weakSelf;
             if (strongSelf) {
                 strongSelf->_enableAPI.state = NSControlStateValueOn;
-                [strongSelf updateRemoteHostGrantsButtonEnabled];
             }
         }
     }];
@@ -2480,8 +2595,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     };
 
     [self addViewToSearchIndex:_browserScriptingPermissions
-                   displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.BrowserScriptingPermissions", nil, [NSBundle mainBundle], @"Website permissions for scripts", @"Search index display name for the panel listing websites where Python API scripts may load URLs or run JavaScript in a browser session")
-                       phrases:@[ @"Python API browser JavaScript load URL allowed websites" ]
+                   displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.ScriptingPermissions", nil, [NSBundle mainBundle], @"Permissions for scripts and remote hosts", @"Search index display name for the panel listing websites where Python API scripts may load URLs or run JavaScript in a browser session, and remote hosts always allowed to use the CryTerm API over SSH integration")
+                       phrases:@[ @"Python API browser JavaScript load URL allowed websites",
+                                  @"ssh", @"it2", @"remote", @"always allow", @"api access over ssh" ]
                            key:nil];
 
     _advancedGPUWindowController = [[iTermAdvancedGPUSettingsWindowController alloc] initWithWindowNibName:@"iTermAdvancedGPUSettingsWindowController"];
@@ -2528,13 +2644,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     };
 
 
-    [self updateRemoteHostGrantsButtonEnabled];
-    if (_remoteHostGrantsButton) {
-        [self addViewToSearchIndex:_remoteHostGrantsButton
-                       displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.RemoteHostGrants", nil, [NSBundle mainBundle], @"API access over ssh", @"Search index name for the button that lists remote hosts always allowed to use the CryTerm API over SSH integration; matches that button’s title")
-                           phrases:@[ @"ssh", @"it2", @"remote", @"always allow", @"api" ]
-                               key:nil];
-    }
     [self addViewToSearchIndex:_advancedGPUPrefsButton
                    displayName:NSLocalizedStringWithDefaultValue(@"GeneralPrefs.AdvancedGPUSettings", nil, [NSBundle mainBundle], @"Advanced GPU settings", @"Search index display name for advanced GPU settings")
                        phrases:@[ _advancedGPUWindowController.viewController.disableWhenDisconnected.title,
@@ -3118,6 +3227,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         @(iTermAIVendorAnthropic),
         @(iTermAIVendorGemini),
         @(iTermAIVendorDeepSeek),
+        @(iTermAIVendorXAI),
         @(iTermAIVendorLlama)
     ];
 }
@@ -3734,7 +3844,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         @(iTermAIVendorOpenAI),
         @(iTermAIVendorAnthropic),
         @(iTermAIVendorGemini),
-        @(iTermAIVendorDeepSeek)
+        @(iTermAIVendorDeepSeek),
+        @(iTermAIVendorXAI)
     ];
 }
 
@@ -3802,27 +3913,38 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     id storedCredential = configuration ? [iTermLLMMetadata effectiveCredentialStoredValueForConfiguration:configuration] : nil;
     const iTermAICredentialKind kind = [iTermAIModelCredential kindForStoredValue:storedCredential];
-    BOOL keyIsSet;
+    // Whether the key is set comes from the in-memory cache ONLY. This runs every
+    // time the pane renders or the model list refreshes, so reading the keychain
+    // here made opening Settings prompt for keychain access, repeatedly. Until
+    // the user forces a read (the Manage AI API Keys sheet, a chat) the presence
+    // is unknown and the hint names the key without claiming it is missing.
+    iTermAIKeyPresence presence = iTermAIKeyPresencePresent;
     iTermAIVendor vendor = inferredVendor;
     switch (kind) {
         case iTermAICredentialKindModelKey: {
             NSString *configurationID = configuration[kAIManualModelIDKey];
-            keyIsSet = [configurationID isKindOfClass:NSString.class] &&
-                [AITermControllerObjC modelAPIKeyForConfigurationID:configurationID].length > 0;
+            if ([configurationID isKindOfClass:NSString.class]) {
+                presence = [AITermControllerObjC cachedModelAPIKeyPresenceForConfigurationID:configurationID];
+            } else {
+                presence = iTermAIKeyPresenceAbsent;
+            }
             break;
         }
         case iTermAICredentialKindVendorKey:
             vendor = [iTermAIModelCredential vendorForStoredValue:storedCredential];
-            keyIsSet = [AITermControllerObjC apiKeyIsConfiguredForVendor:vendor];
+            presence = [AITermControllerObjC cachedAPIKeyPresenceForVendor:vendor];
             break;
         case iTermAICredentialKindAutomatic:
-            keyIsSet = withheld || withheldFromHost || [AITermControllerObjC apiKeyIsConfiguredForVendor:vendor];
+            if (!withheld && !withheldFromHost) {
+                presence = [AITermControllerObjC cachedAPIKeyPresenceForVendor:vendor];
+            }
             break;
         case iTermAICredentialKindNone:
-            keyIsSet = YES;
             break;
     }
-    _mainAIAPIKeyHint.stringValue = iTermAIKeyHint(kind, vendor, withheld, withheldFromHost, YES, keyIsSet);
+    const BOOL reportMissingKey = (presence != iTermAIKeyPresenceUnknown);
+    const BOOL keyIsSet = (presence == iTermAIKeyPresencePresent);
+    _mainAIAPIKeyHint.stringValue = iTermAIKeyHint(kind, vendor, withheld, withheldFromHost, reportMissingKey, keyIsSet);
     // This label has room for two wrapped lines in the xib, which every
     // shipped translation fits (QA finding F-140). Should a future one need
     // more, truncate the second line visibly rather than clipping mid-glyph,
@@ -3957,16 +4079,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void)updateAPIEnabledState {
     _enableAPI.state = [self boolForKey:kPreferenceKeyEnableAPIServer];
     [_apiPermission selectItemWithTag:[iTermAPIHelper requireApplescriptAuth] ? 0 : 1];
-    [self updateRemoteHostGrantsButtonEnabled];
     [self updateEnabledState];
-}
-
-- (void)updateRemoteHostGrantsButtonEnabled {
-    _remoteHostGrantsButton.enabled = [self boolForKey:kPreferenceKeyEnableAPIServer];
-}
-
-- (IBAction)showRemoteHostGrants:(id)sender {
-    [iTermIT2HostGrantsWindowController presentSheetFor:self.view.window];
 }
 
 - (BOOL)shouldEnableAlwaysOpenWindowAtStartup {
@@ -3997,7 +4110,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (BOOL)enableAPISettingDidChange {
     const BOOL result = [self reallyEnableAPISettingDidChange];
-    [self updateRemoteHostGrantsButtonEnabled];
     [self updateEnabledState];
     return result;
 }
@@ -4168,6 +4280,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
             }
         }
         self->_aiAPIKeySheetFields = nil;
+        // Prefilling the fields read the keys, so the cache the hint relies on
+        // is now warm (and OK may have changed a key). Cancel included.
+        [self updateAIAPIKeyHint];
     }];
 }
 
@@ -4727,10 +4842,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 - (IBAction)showBrowserScriptingPermissions:(id)sender {
-    if (!_browserScriptingPermissionsWindowController) {
-        _browserScriptingPermissionsWindowController = [[iTermBrowserScriptingPermissionsWindowController alloc] init];
-    }
-    [_browserScriptingPermissionsWindowController beginSheetModalForWindow:self.view.window];
+    [iTermScriptingPermissionsWindowController presentSheetFor:self.view.window];
 }
 
 - (IBAction)pythonAPIAuthHelp:(id)sender {

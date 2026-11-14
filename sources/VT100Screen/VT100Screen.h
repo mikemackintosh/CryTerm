@@ -129,8 +129,6 @@ extern const NSInteger VT100ScreenBigFileDownloadThreshold;
 @property (nonatomic, readonly) int terminalCharset;
 @property (nonatomic, readonly, nullable) NSDictionary *terminalState;
 
-// Where the next tail-find needs to begin.
-@property (nonatomic) long long savedFindContextAbsPos;
 @property (nonatomic, readonly) BOOL sendingIsBlocked;
 
 @property (nonatomic, readonly) BOOL isAtCommandPrompt;
@@ -255,6 +253,8 @@ extern const NSInteger VT100ScreenBigFileDownloadThreshold;
 - (BOOL)shouldExpectWorkingDirectoryUpdates;
 
 - (nullable NSString *)commandInRange:(VT100GridCoordRange)range;
+// The text of the command being entered, or nil when there is no command range.
+- (nullable NSString *)currentCommandText;
 - (BOOL)haveCommandInRange:(VT100GridCoordRange)range;
 - (VT100GridCoordRange)commandRange;
 - (VT100GridCoordRange)extendedCommandRange;
@@ -321,7 +321,6 @@ typedef NS_ENUM(NSUInteger, VT100ScreenTriggerCheckType) {
 - (long long)absLineNumberOfLastLineInLineBuffer;
 - (iTermTerminalContentSnapshot *)snapshotForcingPrimaryGrid:(BOOL)forcePrimary;
 - (LineBufferPosition *)positionForTailSearchOfScreen;
-- (void)foldAbsLineRange:(NSRange)range;
 - (NSString *)intervalTreeDump;
 - (NSString *)wordEndingAt:(VT100GridCoord)coord
                      range:(nullable VT100GridWindowedRange *)rangePtr;

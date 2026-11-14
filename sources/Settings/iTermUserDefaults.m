@@ -56,6 +56,7 @@ static NSString *const iTermUserDefaultsKeyClaudeCodeReviewSystemPromptCommandBa
 static NSString *const iTermUserDefaultsKeyClaudeCodeReviewSettingsCommandBackfilled = @"NoSyncClaudeCodeReviewSettingsCommandBackfilled";
 static NSString *const iTermUserDefaultsKeyClaudeCodeAutoSendClippingsBackfilled = @"NoSyncClaudeCodeAutoSendClippingsBackfilled";
 static NSString *const iTermUserDefaultsKeyClaudeCodeAutoRequestReviewBackfilled = @"NoSyncClaudeCodeAutoRequestReviewBackfilled";
+static NSString *const iTermUserDefaultsKeyClaudeCodeReviewModelSelectorBackfilled = @"NoSyncClaudeCodeReviewModelSelectorBackfilled";
 static NSString *const iTermUserDefaultsKeySuppressPhysicalKeyBindingSuggestion = @"NoSyncSuppressPhysicalKeyBindingSuggestion";
 static NSString *const iTermUserDefaultsKeyAIModelCatalogUpdateConsent = @"NoSyncAIModelCatalogUpdateConsent";
 static NSString *const iTermUserDefaultsKeyAutoProvideConsent = @"NoSyncAutoProvideConsent";
@@ -73,9 +74,9 @@ static NSString *const iTermUserDefaultsKeyHaveShownMacOS13RequirementNotice = @
 }
 
 + (NSString *)apiSuiteName {
-    NSString *const customSuiteName = [self customSuiteName];
-    if (customSuiteName) {
-        return customSuiteName;
+    NSString *const suiteDirectoryName = [self customSuiteDirectoryName];
+    if (suiteDirectoryName) {
+        return suiteDirectoryName;
     }
     // NSFileManager.applicationSupportDirectory names the folder after the executable.
     NSString *const executableName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleExecutableKey];
@@ -83,6 +84,20 @@ static NSString *const iTermUserDefaultsKeyHaveShownMacOS13RequirementNotice = @
         return executableName;
     }
     return nil;
+}
+
++ (NSString *)customSuiteDirectoryName {
+    return [self directoryNameForSuiteName:gCustomSuiteName];
+}
+
++ (NSString *)directoryNameForSuiteName:(NSString *)suiteName {
+    if (!suiteName) {
+        return nil;
+    }
+    if ([suiteName caseInsensitiveCompare:@"iterm2"] == NSOrderedSame) {
+        return [suiteName stringByAppendingString:@".suite"];
+    }
+    return suiteName;
 }
 
 static NSArray *iTermUserDefaultsGetTypedArray(NSUserDefaults *userDefaults, Class objectClass, NSString *key) {
@@ -147,6 +162,7 @@ static NSUserDefaults *iTermPrivateUserDefaults(void) {
     // silently revert it. performMigrations runs after that copy, so the migration
     // sees the real value. Keep it first so the early return below never skips it.
     [iTermAdvancedSettingsModel migrateAlternateScreenBidiSettingInUserDefaults:userDefaults];
+    [iTermAdvancedSettingsModel migrateDECRQCRASettingInUserDefaults:userDefaults];
 
     id obj = [userDefaults objectForKey:iTermUserDefaultsKeySearchHistory];
     if (!obj) {
@@ -270,6 +286,10 @@ static NSUserDefaults *iTermPrivateUserDefaults(void) {
 + (void)setOpenTmuxDashboardIfHiddenWindows:(BOOL)openTmuxDashboardIfHiddenWindows {
     [self.userDefaults setBool:openTmuxDashboardIfHiddenWindows
                         forKey:iTermUserDefaultsKeyOpenTmuxDashboardIfHiddenWindows];
+}
+
++ (NSString *)claudeCodeWorkgroupUpsellSuppressedUserDefaultsKey {
+    return iTermUserDefaultsKeyClaudeCodeWorkgroupUpsellSuppressed;
 }
 
 + (BOOL)claudeCodeWorkgroupUpsellSuppressed {
@@ -520,6 +540,15 @@ static NSUserDefaults *iTermPrivateUserDefaults(void) {
 + (void)setClaudeCodeAutoRequestReviewBackfilled:(BOOL)value {
     [self.userDefaults setBool:value
                         forKey:iTermUserDefaultsKeyClaudeCodeAutoRequestReviewBackfilled];
+}
+
++ (BOOL)claudeCodeReviewModelSelectorBackfilled {
+    return [self.userDefaults boolForKey:iTermUserDefaultsKeyClaudeCodeReviewModelSelectorBackfilled];
+}
+
++ (void)setClaudeCodeReviewModelSelectorBackfilled:(BOOL)value {
+    [self.userDefaults setBool:value
+                        forKey:iTermUserDefaultsKeyClaudeCodeReviewModelSelectorBackfilled];
 }
 
 + (iTermAIModelCatalogUpdateConsent)aiModelCatalogUpdateConsent {

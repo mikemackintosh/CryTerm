@@ -5,16 +5,136 @@
       "comment": "Class = \"NSTextFieldCell\"; title = \"Tab size in spaces:\"; ObjectID = \"Htp-7L-sn0\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mida del tabulador en espais:"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velikost tabulátoru v mezerách:"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabulatorstørrelse i mellemrum:"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Tab-Größe in Leerzeichen:"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Μέγεθος tab σε κενά:"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Tab size in spaces:"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab size in spaces:"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab size in spaces:"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab size in spaces:"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab size in spaces:"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab size in spaces:"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamaño del tabulador en espacios:"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamaño del tabulador en espacios:"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamaño del tabulador en espacios:"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sarkaimen koko välilyönteinä:"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taille de la tabulation en espaces :"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taille de la tabulation en espaces :"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "स्पेस में टैब का आकार :"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veličina tabulatora u razmacima:"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabulátor mérete szóközökben:"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukuran tab dalam spasi:"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimensione del tab in spazi:"
           }
         },
         "ja": {
@@ -29,10 +149,46 @@
             "value": "탭 크기(공백 수):"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saiz tab dalam ruang:"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabulatorstørrelse i mellomrom:"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabgrootte in spaties:"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozmiar tabulatora w spacjach:"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Tamanho da tabulação em espaços:"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamanho da tabulação em espaços:"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimensiunea tabulatorului în spații:"
           }
         },
         "ru": {
@@ -41,10 +197,70 @@
             "value": "Размер табуляции в пробелах:"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veľkosť tabulátora v medzerách:"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velikost tabulatorja v presledkih:"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabbstorlek i mellanslag:"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ขนาด Tab เป็นช่องว่าง:"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sekme boyutu (boşluk sayısı):"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розмір табуляції в пробілах:"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kích thước tab tính bằng dấu cách:"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "制表符大小（空格数）："
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab 的空格數："
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "制表符大小："
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tab 的空格數："
           }
         }
       }
@@ -53,7 +269,31 @@
       "comment": "Class = \"NSTextFieldCell\"; title = \"100\"; ObjectID = \"d6u-sa-c0E\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
         "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "el": {
           "stringUnit": {
             "state": "translated",
             "value": "100"
@@ -62,6 +302,102 @@
         "en": {
           "stringUnit": {
             "state": "new",
+            "value": "100"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
             "value": "100"
           }
         },
@@ -77,7 +413,43 @@
             "value": "100"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "ro": {
           "stringUnit": {
             "state": "translated",
             "value": "100"
@@ -89,7 +461,67 @@
             "value": "100"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "100"

@@ -265,6 +265,10 @@ extern NSString *const kTmuxControllerDidChangeHiddenWindows;
 - (void)killWindow:(int)window;
 - (void)unlinkWindowWithId:(int)windowId;
 - (void)requestDetach;
+// YES when tmux is expected to end control mode soon: a detach went out, or a window kill went out
+// and no hidden or parked window will keep the session alive. When it ends, a buried gateway is
+// restored, so the app shouldn't quit for having no windows in the meantime. See issue 12644.
+@property(nonatomic, readonly) BOOL exitExpected;
 - (void)renameWindowWithId:(int)windowId
            inSessionNumber:(NSNumber *)sessionNumber
                     toName:(NSString *)newName;
@@ -306,6 +310,14 @@ extern NSString *const kTmuxControllerDidChangeHiddenWindows;
 - (void)saveHiddenWindows;
 - (void)savePerWindowSettings;
 - (void)savePerTabSettings;
+// The @per_tab_settings value for the tabs among `tabs` that belong to this controller.
+- (NSString *)perTabSettingsForTabs:(NSArray<PTYTab *> *)tabs;
+- (void)saveTabGroups;
+// Forget the saved per-tab settings and tab group membership of a tmux window that closed.
+- (void)tmuxWindowDidClose:(int)windowID;
+// A tmux window joined the attached session. It may be one that closed earlier and came back
+// with the same ID, as move-window and link-window do.
+- (void)tmuxWindowDidAdd:(int)windowID;
 
 - (void)swapPane:(int)pane1 withPane:(int)pane2;
 // Floating panes (tmux 3.8 and later). Each change comes back as a layout change.
@@ -323,6 +335,8 @@ extern NSString *const kTmuxControllerDidChangeHiddenWindows;
 // Calls completion with the new float's session once it exists, or nil if tmux refused.
 - (void)newFloatingPaneNearPane:(int)wp completion:(void (^)(PTYSession *))completion;
 - (void)tileFloatingPane:(int)wp;
+// Lifts a tiled pane out of the layout and makes it a float. tmux refuses while zoomed.
+- (void)floatTiledPane:(int)wp;
 - (void)raiseFloatingPane:(int)wp toFront:(BOOL)toFront;
 - (void)toggleZoomForPane:(int)pane;
 - (void)setPartialWindowIdOrder:(NSArray *)partialOrder;
@@ -390,6 +404,9 @@ extern NSString *const kTmuxControllerDidChangeHiddenWindows;
 - (BOOL)paneIsInKnownLayout:(int)wp;
 - (void)activeWindowPaneDidChangeInWindow:(int)windowID toWindowPane:(int)paneID;
 - (void)activeWindowDidChangeTo:(int)windowID;
+// Whether tmux making `tab` its current window should select it in its native window, whose
+// current tab is `currentTab`.
+- (BOOL)activeWindowChangeShouldSelectTab:(PTYTab *)tab currentTab:(PTYTab *)currentTab;
 // Whether tmux last reported this window as the attached session's current window.
 - (BOOL)windowIsCurrentInTmux:(int)windowId;
 - (void)setCurrentLatency:(NSTimeInterval)latency forPane:(int)wp;

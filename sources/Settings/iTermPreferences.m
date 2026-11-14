@@ -216,6 +216,7 @@ NSString *const kPreferenceKeySizeChangesAffectProfile = @"Size Changes Affect P
 NSString *const kPreferenceKeyActions = @"Actions";
 NSString *const kPreferenceKeySnippets = @"Snippets";
 NSString *const kPreferenceKeyHTMLTabTitles = @"HTMLTabTitles";
+NSString *const kPreferenceKeyShowTabSwitcherWhenCyclingTabs = @"ShowTabSwitcherWhenCyclingTabs";
 NSString *const kPreferenceKeyDisableTransparencyForKeyWindow = @"DisableTransparencyForKeyWindow";
 NSString *const kPreferenceKeyNeverBlockSystemShutdown = @"NeverBlockSystemShutdown";
 NSString *const kPreferenceKeyMenuActionImages = @"NSMenuEnableActionImages";
@@ -928,6 +929,7 @@ static void iTermPreferencesRefreshFastCachesForKey(NSString *key);
                   kPreferenceKeyDefaultToolbeltWidth: @250,
                   kPreferenceKeySizeChangesAffectProfile: @NO,
                   kPreferenceKeyHTMLTabTitles: @NO,
+                  kPreferenceKeyShowTabSwitcherWhenCyclingTabs: @NO,
 
                   kPreferenceKeyDisableTransparencyForKeyWindow: @NO,
                   kPreferenceKeyNeverBlockSystemShutdown: @NO,
@@ -1245,7 +1247,15 @@ static BOOL gHideTabBarSuppressedDuringDrag = NO;
     if (gHideTabBarSuppressedDuringDrag == suppressed) {
         return;
     }
+    const BOOL hideTabBarBefore = [[self computedHideTabBar] boolValue];
     gHideTabBarSuppressedDuringDrag = suppressed;
+    if ([[self computedHideTabBar] boolValue] == hideTabBarBefore) {
+        // The user already shows the tab bar for single-tab windows, so
+        // nothing visible changes. Skip the refresh: it refits every window
+        // and session, which makes drags stutter with many windows (issue
+        // 13187).
+        return;
+    }
     // Mirror what the Settings UI does when the user toggles "Hide tab bar
     // when only one tab is open": post kRefreshTerminalNotification so every
     // PseudoTerminal runs refreshTerminal: and refits its window.

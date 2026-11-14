@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSRect)progressBarRectForTabCell:(PSMTabBarCell *)cell;
 @optional
 - (nullable NSBezierPath *)progressBarClipPathForTabCell:(PSMTabBarCell *)cell;
+// The path to stroke, `lineWidth` wide, to mark the tab a tab switcher has highlighted. It should
+// follow the shape this style gives tabs and stay inside the cell. Without it the bar strokes the
+// cell's rectangle.
+- (nullable NSBezierPath *)previewOutlinePathForTabCell:(PSMTabBarCell *)cell lineWidth:(CGFloat)lineWidth;
 // The shape per-cell accessory subviews (the progress bar, the activity indicator) must stay inside,
 // in the bar's coordinates, or nil if there is none. They draw on top of -drawRect: and so never see
 // the graphics clip this style sets for cells; the bar masks them to this instead. Note this is the
@@ -77,8 +81,11 @@ NS_ASSUME_NONNULL_BEGIN
 // Width to reserve for a COLLAPSED group's chip cell: the name capsule plus a
 // member-count badge and a collapse chevron (a collapsed run has no visible
 // member tabs, so the chip is the whole affordance). Defaults to the expanded
-// name-only chip width when unimplemented.
-- (CGFloat)tabGroupCollapsedChipCellWidthForName:(NSString *)name memberCount:(NSInteger)count;
+// name-only chip width when unimplemented. `nested` is YES for a sub-group's
+// chip, which a style may draw inset inside its parent's outline.
+- (CGFloat)tabGroupCollapsedChipCellWidthForName:(NSString *)name
+                                     memberCount:(NSInteger)count
+                                          nested:(BOOL)nested;
 @required
 - (NSRect)objectCounterRectForTabCell:(PSMTabBarCell *)cell;
 - (float)minimumWidthOfTabCell:(PSMTabBarCell *)cell;

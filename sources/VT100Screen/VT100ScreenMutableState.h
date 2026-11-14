@@ -408,6 +408,8 @@ void VT100ScreenEraseCell(screen_char_t *sct,
 // tests.
 + (BOOL)consumeOSC7DisabledWarning;
 + (void)resetOSC7DisabledWarningForTesting;
+// Testing only. The queue this state mutates on.
+- (dispatch_queue_t)queueForTesting;
 
 #pragma mark Remote Host
 
@@ -430,6 +432,9 @@ void VT100ScreenEraseCell(screen_char_t *sct,
 #pragma mark - Folding
 
 - (BOOL)removeFoldsInRange:(NSRange)absRange;
+
+// Folds the lines in `range` of absolute lines, leaving the first as the placeholder.
+- (void)foldAbsLineRange:(NSRange)range;
 
 - (void)replaceRange:(VT100GridAbsCoordRange)range
             withLine:(ScreenCharArray *)line
@@ -551,10 +556,10 @@ basedAtAbsoluteLineNumber:(long long)absoluteLineNumber
 //      through -removeObjectFromIntervalTree: / -removeObjectsFromIntervalTree:
 //      (scrollback clear, prompt-marks-below, removeInaccessibleIntervalTreeObjects,
 //      etc.).
-//   3. Two paths use -[mutableIntervalTree removeObject:] directly and
-//      thereby bypass the will/did hooks: -commandWasAborted (legacy abort)
-//      and -abortSpecificAidMark: (close-by-aid abort). Both call
-//      -pruneAidRegistry explicitly because their removals are permanent.
+//   3. Two paths use -[mutableIntervalTree removeObject:] directly:
+//      -commandWasAborted (legacy abort) and -abortSpecificAidMark:
+//      (close-by-aid abort). Both call -willRemoveScreenMarksFromIntervalTree:
+//      first, since their removals are permanent, and -pruneAidRegistry after.
 //
 // Patterns that temporarily remove + re-add a mark (replaceMark:,
 // changeHeightOfMark:, reallyReplaceRange:, intervalTree's internal

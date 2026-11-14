@@ -31,6 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL cursorShadow;
 // Pixel offset for smooth cursor animation (applied in addition to coord-based position)
 @property (nonatomic) CGPoint pixelOffset;
+// pixelOffset.x expressed in cells. Nonzero only while a smooth slide is in
+// progress.
+@property (nonatomic) CGFloat columnOffset;
+// YES while a smooth-slide animation is sliding the cursor between cells.
+// While set, a box cursor may straddle two columns, so the character
+// inversion is crossfaded per column by coverage rather than applied flat
+// to coord.x (see enumerateBoxCoverageInRowOfWidth:block:).
+@property (nonatomic) BOOL slideAnimationInProgress;
 // Opacity in [0, 1] for smooth blink fading. 1 means fully opaque (the default).
 // The character drawn over a box cursor is crossfaded toward the normal text
 // color as this approaches 0 (see iTermMetalPerFrameState).
@@ -41,6 +49,20 @@ NS_ASSUME_NONNULL_BEGIN
 // text color will be changed to that of the `textColor` property.
 @property (nonatomic) BOOL shouldDrawText;
 @property (nonatomic) vector_float4 textColor;
+
+// Set when the per-frame state recolored the columns under a filled box
+// cursor. The text renderer then draws glyphs in those columns in their normal
+// colors (see recordNormalTextColor:forColumn:) and draws the pixels inside
+// the cursor box in `boxTextColor`, so a glyph that extends past its cell (like
+// a ligature) takes the cursor color only inside the box. Issue 13203.
+@property (nonatomic) BOOL recolorsText;
+// Text color inside the cursor box, crossfaded for smooth blink.
+@property (nonatomic) vector_float4 boxTextColor;
+// The first column whose normal color was recorded, and how many contiguous
+// columns were recorded (at most iTermBoxCursorMaxColumns).
+@property (nonatomic, readonly) int normalTextColorsFirstColumn;
+@property (nonatomic, readonly) int normalTextColorsCount;
+@property (nonatomic, readonly) const vector_float4 *normalTextColors;
 
 // This is a "frame" cursor, as seen when the view does not have focus.
 @property (nonatomic) BOOL frameOnly;
@@ -55,6 +77,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL useHDRWhite;
 // The profile's requested peak HDR brightness (KEY_HDR_CURSOR_BRIGHTNESS).
 @property (nonatomic) CGFloat hdrBrightness;
+
+// Calls `block` for each column in [0, width) that the box cursor currently
+// overlaps, with the fraction of that column it covers in (0, 1]. Takes
+// columnOffset into account but not fadeAlpha. At rest this is exactly
+// coord.x with coverage 1.
+- (void)enumerateBoxCoverageInRowOfWidth:(int)width
+                                   block:(void (^ NS_NOESCAPE)(int x, CGFloat coverage))block;
+
+// Records the text color of column `x` before the box cursor recolored it.
+// Columns must be recorded left to right and contiguously, as
+// enumerateBoxCoverageInRowOfWidth:block: visits them.
+- (void)recordNormalTextColor:(vector_float4)color forColumn:(int)x;
 @end
 
 @interface iTermMetalIMEInfo : NSObject

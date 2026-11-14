@@ -381,34 +381,8 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
     return [_state foldMarksInRange:range];
 }
 
-- (void)foldAbsLineRange:(NSRange)range {
-    const long long overflow = _state.cumulativeScrollbackOverflow;
-    if (NSMaxRange(range) < overflow) {
-        return;
-    }
-    const int start = range.location > overflow ? range.location - overflow : 0;
-    ScreenCharArray *sca = [self screenCharArrayForLine:start];
-    [self replaceRange:VT100GridAbsCoordRangeMake(0, range.location, self.width, NSMaxRange(range))
-              withLine:sca
-          promptLength:0
-            blockMarks:[self blockMarkDictionaryOnLine:start + overflow]];
-}
-
 - (NSDictionary<NSString *, iTermRange *> *)blockMarkDictionaryOnLine:(long long)y {
-    const long long overflow = _state.cumulativeScrollbackOverflow;
-    if (y < overflow) {
-        return nil;
-    }
-    const int start = y < overflow ? 0 : y - overflow;
-
-    NSMutableDictionary<NSString *, iTermRange *> *blockMarks = nil;
-    for (iTermBlockMark *blockMark in [_state objectsOnLine:start ofClass:[iTermBlockMark class]]) {
-        if (!blockMarks) {
-            blockMarks = [NSMutableDictionary dictionary];
-        }
-        blockMarks[blockMark.blockID] = [iTermRange rangeWithLocation:0 length:1];
-    }
-    return blockMarks;
+    return [_state blockMarkDictionaryOnLine:y];
 }
 
 - (void)replaceRange:(VT100GridAbsCoordRange)range
@@ -492,6 +466,10 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
 // NOTE: If you change this you probably want to change -haveCommandInRange:, too.
 - (NSString *)commandInRange:(VT100GridCoordRange)range {
     return [_state commandInRange:range];
+}
+
+- (NSString *)currentCommandText {
+    return [_state currentCommandText];
 }
 
 - (BOOL)haveCommandInRange:(VT100GridCoordRange)range {
@@ -1445,14 +1423,7 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
 }
 
 - (VT100GridRange)lineRangeOfOutputForCoordRange:(VT100GridCoordRange)coordRange {
-    // The coord range is half-open. When it ends at column 0, which is where
-    // the next prompt begins, its last line holds none of the output. Output
-    // with no trailing newline shares that line with the prompt and is not
-    // counted, which matches what Copy Output selects.
-    const int location = MAX(0, coordRange.start.y);
-    const int endY = coordRange.end.x > 0 ? coordRange.end.y + 1 : coordRange.end.y;
-    const int length = MAX(0, endY - location);
-    return VT100GridRangeMake(location, length);
+    return [_state lineRangeOfOutputForCoordRange:coordRange];
 }
 
 - (NSInteger)numberOfCellsUsedInOutputForCommandMark:(id<VT100ScreenMarkReading>)mark {
@@ -1618,8 +1589,6 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
           linesDropped:(int *)linesDroppedOut
              unlimited:(BOOL)unlimited {
     [self performBlockWithJoinedThreads:^(VT100Terminal *terminal, VT100ScreenMutableState *mutableState, id<VT100ScreenDelegate> delegate) {
-        NSDictionary *extra;
-
         // Interval tree
         long long capturedIntervalOffset;
         if ([iTermAdvancedSettingsModel useNewContentFormat]) {
@@ -1627,7 +1596,6 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
             const int linesDroppedForBrevity = [self numberOfLinesDroppedWhenEncodingModernFormatWithEncoder:encoder
                                                                                               intervalOffset:&intervalOffset
                                                                                                    unlimited:unlimited];
-            extra = @{};
             capturedIntervalOffset = intervalOffset;
             if (linesDroppedOut) {
                 *linesDroppedOut = linesDroppedForBrevity;
@@ -1637,9 +1605,6 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
             const int linesDroppedForBrevity = [self numberOfLinesDroppedWhenEncodingLegacyFormatWithEncoder:encoder
                                                                                               intervalOffset:&intervalOffset];
             capturedIntervalOffset = intervalOffset;
-            extra = @{
-                kScreenStateCursorCoord: VT100GridCoordToDictionary(_state.primaryGrid.cursor),
-            };
             if (linesDroppedOut) {
                 *linesDroppedOut = linesDroppedForBrevity;
             }
@@ -1651,7 +1616,6 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
         [encoder encodeDictionaryWithKey:kScreenStateKey
                               generation:iTermGenerationAlwaysEncode
                                    block:^BOOL(id<iTermEncoderAdapter>  _Nonnull encoder) {
-            [encoder mergeDictionary:extra];
             NSDictionary *dict =
             @{ kScreenStateTabStopsKey: [_state.tabStops allObjects] ?: @[],
                kScreenStateTerminalKey: _state.terminalState ?: @{},
@@ -1725,7 +1689,8 @@ additionalWordCharacters:(NSString *)additionalWordCharacters
 }
 
 - (id<iTermTemporaryDoubleBufferedGridControllerReading>)temporaryDoubleBuffer {
-    if ([delegate_ screenShouldReduceFlicker] || _state.temporaryDoubleBuffer.explicit) {
+    if ([delegate_ screenShouldReduceFlicker] ||
+        _state.temporaryDoubleBuffer.appliesWithoutReduceFlicker) {
         return _state.temporaryDoubleBuffer;
     } else {
         return nil;
@@ -2409,9 +2374,15 @@ launchCoprocessWithCommand:(NSString *)command
 
 #pragma mark - iTermTriggerScopeProvider
 
-- (void)performBlockWithScope:(void (^)(iTermVariableScope *scope, id<iTermObject> object))block {
-    // For event triggers on main thread, we can call directly
-    block([self.delegate triggerSideEffectVariableScope], (id<iTermObject>)self.delegate);
+- (void)performBlockWithScope:(void (^)(iTermVariableScope * _Nullable scope, id<iTermObject> _Nullable object))block {
+    // For event triggers on main thread, we can call directly. PTYSession holds event trigger
+    // fires until the screen has a delegate and stops them when it terminates, but if one gets
+    // through anyway the block gets a nil scope and rejects the interpolated value.
+    id<VT100ScreenDelegate> delegate = self.delegate;
+    if (!delegate) {
+        RLog(@"No delegate to provide a variable scope for an event trigger");
+    }
+    block([delegate triggerSideEffectVariableScope], (id<iTermObject>)delegate);
 }
 
 - (id<iTermTriggerCallbackScheduler>)triggerCallbackScheduler {

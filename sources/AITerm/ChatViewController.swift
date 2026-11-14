@@ -137,7 +137,11 @@ class ChatViewController: NSViewController {
     private var eligibleForAutoPaste = true
     private var brokerSubscription: ChatBroker.Subscription?
     private var pickSessionPromise: iTermPromise<PTYSession>?
-    private var model: ChatViewControllerModel?
+    private var model: ChatViewControllerModel? {
+        didSet {
+            updateCommandOutputConsumer()
+        }
+    }
     private let listModel: ChatListModel
     private let client: ChatClient
     // The provider popup item the user explicitly chose, so the selection stays
@@ -147,13 +151,21 @@ class ChatViewController: NSViewController {
     var providerSelectionIdentifier: String?
     private var estimatedCount = 0
     private var _commandDidExitObserver: (any NSObjectProtocol)?
+    // Has the linked session capture its commands' output while streaming.
+    private var commandOutputConsumer: CommandOutputConsumer?
     private(set) var streaming = false {
         didSet {
+            // didSet runs for an assignment of the same value, which must not drop and re-add the
+            // registration: each change has the session join its threads.
+            guard oldValue != streaming else {
+                return
+            }
             if let _commandDidExitObserver {
                 NotificationCenter.default.removeObserver(_commandDidExitObserver)
                 self._commandDidExitObserver = nil
             }
-            if streaming, let model, model.terminalSessionGuid != nil {
+            updateCommandOutputConsumer()
+            if streaming {
                 _commandDidExitObserver = NotificationCenter.default.addObserver(
                     forName: Notification.Name.PTYCommandDidExit,
                     object: nil,
@@ -172,6 +184,18 @@ class ChatViewController: NSViewController {
     }
     var terminalSessionGuid: String? { model?.terminalSessionGuid }
     var browserSessionGuid: String? { model?.browserSessionGuid }
+
+    // Registers as a consumer of the linked session's command output while streaming, so that
+    // session captures it. Called when streaming starts or stops and when the link changes (from
+    // the list model, so a link written by the companion app or link repair counts too), and
+    // changes the registration only when the session it names would differ.
+    private func updateCommandOutputConsumer() {
+        let reference = streaming ? model?.terminalSessionGuid : nil
+        if commandOutputConsumer?.sessionReference == reference {
+            return
+        }
+        commandOutputConsumer = reference.map { CommandOutput.addConsumer(forSessionReference: $0) }
+    }
     private let userDefaultsObserver = iTermUserDefaultsObserver()
     private(set) var chatToolbar: ChatToolbar!
 
@@ -227,6 +251,9 @@ class ChatViewController: NSViewController {
 
     deinit {
         brokerSubscription?.unsubscribe()
+        if let _commandDidExitObserver {
+            NotificationCenter.default.removeObserver(_commandDidExitObserver)
+        }
     }
 
     // Trim leading whitespace at the rendering boundary only. The
@@ -587,6 +614,7 @@ extension ChatViewController {
         .anthropic,
         .gemini,
         .deepSeek,
+        .xAI,
         .llama
     ]
 
@@ -1579,8 +1607,8 @@ extension ChatViewController {
     }
 
     @available(macOS 26, *)
-    func setupFloatingControls() {
-        let floatingView = chatToolbar.createFloatingView()
+    func setupFloatingControls(sidebarToggleButton: NSButton?) {
+        let floatingView = chatToolbar.createFloatingView(sidebarToggleButton: sidebarToggleButton)
         floatingView.autoresizingMask = []
         view.addSubview(floatingView)
         floatingControlsView = floatingView
@@ -1930,6 +1958,11 @@ extension ChatViewController: NSTableViewDataSource, NSTableViewDelegate {
                     return
                 }
                 guard let chatID else {
+                    return
+                }
+                // A prompt for a request that already ran or was answered is stale:
+                // don't change permissions or answer it again.
+                guard !client.requestIsSettled(messageID, inChat: chatID) else {
                     return
                 }
                 let browser = remoteCommand.content.permissionCategory.isBrowserSpecific
@@ -2512,57 +2545,38 @@ extension ChatViewController {
         guard haveLinkedTerminalSession else {
             return
         }
-        guard let command = userInfo[PTYCommandDidExitUserInfoKeyCommand] as? String else {
-            return
-        }
         guard let chatID else {
             return
         }
-
-        let exitCode = (userInfo[PTYCommandDidExitUserInfoKeyExitCode] as? Int32) ?? 0
-        let directory = userInfo[PTYCommandDidExitUserInfoKeyDirectory] as? String
-        let remoteHost = userInfo[PTYCommandDidExitUserInfoKeyRemoteHost] as? VT100RemoteHostReading
-        // Defensive extraction: this is a notification observer with no
-        // type contract on the userInfo dict. A malformed post (future
-        // shape change, third-party poster, etc.) shouldn't crash the
-        // chat window; just log and skip the stream.
-        guard let startLine = userInfo[PTYCommandDidExitUserInfoKeyStartLine] as? Int32,
-              let lineCount = userInfo[PTYCommandDidExitUserInfoKeyLineCount] as? Int32,
-              let dataSource = userInfo[PTYCommandDidExitUserInfoKeyDataSource] as? iTermTextDataSource,
-              let url = userInfo[PTYCommandDidExitUserInfoKeyURL] as? URL else {
+        // A malformed post (future shape change, third-party poster, etc.)
+        // shouldn't crash the chat window; just log and skip the stream.
+        guard let exit = CommandExitNotification(userInfo: userInfo) else {
             RLog("PTYCommandDidExit notification missing required userInfo keys: \(userInfo)")
             return
         }
-        let extractor = iTermTextExtractor(dataSource: dataSource)
-        let content = extractor.content(
-            in: VT100GridWindowedRange(
-                coordRange: VT100GridCoordRange(
-                    start: VT100GridCoord(x: 0, y: startLine),
-                    end: VT100GridCoord(x: 0, y: startLine + lineCount)),
-                columnWindow: VT100GridRange(location: 0, length: 0)),
-            attributeProvider: nil,
-            nullPolicy: .kiTermTextExtractorNullPolicyMidlineAsSpaceIgnoreTerminal,
-            pad: false,
-            includeLastNewline: false,
-            trimTrailingWhitespace: true,
-            cappedAtSize: -1,
-            truncateTail: false,
-            continuationChars: nil,
-            coords: nil,
-            deduplicateDECDHL: true) as! String
-        let cmd = TerminalCommand(username: remoteHost?.username,
-                                  hostname: remoteHost?.hostname,
-                                  directory: directory,
-                                  command: command,
-                                  output: content,
-                                  exitCode: exitCode,
-                                  url: url)
+        guard let output = exit.output else {
+            // The command ended before streaming began, so its output wasn't kept. Sending it
+            // without output would have the model answer about output it never saw.
+            DLog("Skip command that ended before streaming began")
+            return
+        }
+        let cmd = TerminalCommand(username: exit.remoteHost?.username,
+                                  hostname: exit.remoteHost?.hostname,
+                                  directory: exit.directory,
+                                  command: exit.command,
+                                  output: output,
+                                  exitCode: exit.exitCode,
+                                  url: exit.url)
         try? client.publishMessageFromUser(chatID: chatID,
                                                          content: .terminalCommand(cmd))
     }
 }
 
 extension ChatViewController: ChatViewControllerModelDelegate {
+    func chatViewControllerModelSessionLinkDidChange() {
+        updateCommandOutputConsumer()
+    }
+
     private func assertMessageTypeAllowed(_ message: Message?) {
         ChatViewControllerModel.assertMessageTypeAllowed(message)
     }

@@ -99,15 +99,16 @@ extension ExplanationResponse {
 
     private mutating func parseMainResponse() -> String? {
         guard let startRange = unparsed.range(of: "<response>"),
-              let endRange = unparsed.range(of: "</response>") else {
+              let endRange = unparsed.range(of: "</response>",
+                                            range: startRange.upperBound..<unparsed.endIndex) else {
             return nil
         }
         let start = startRange.upperBound
         let end = endRange.lowerBound
+        let escaped = String(unparsed[start..<end])
         unparsed = unparsed
             .replacingCharacters(in: startRange.lowerBound..<endRange.upperBound,
                                  with: "")
-        let escaped = String(unparsed[start..<end])
         return unescapeHTML(escaped)
     }
 }

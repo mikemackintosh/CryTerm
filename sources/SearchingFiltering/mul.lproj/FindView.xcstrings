@@ -5,16 +5,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Smart Case Substring\"; ObjectID = \"16\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena amb majúscules i minúscules intel·ligents"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podřetězec (chytrá velikost písmen)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng, smart store/små bogstaver"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Teilzeichenfolge (intelligente Groß-/Kleinschreibung)"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Υποσυμβολοσειρά με έξυπνη διάκριση πεζών-κεφαλαίων"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Smart Case Substring"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart Case Substring"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart Case Substring"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart Case Substring"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart Case Substring"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart Case Substring"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena con mayúsculas inteligentes"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena con mayúsculas inteligentes"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena con mayúsculas inteligentes"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Osamerkkijono, älykäs kirjainkoko"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne à casse intelligente"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne à casse intelligente"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "स्मार्ट केस सबस्ट्रिंग"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz s pametnom veličinom slova"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Részkarakterlánc, intelligens kis- és nagybetűkezelés"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring Huruf Besar/Kecil Pintar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottostringa con maiuscole intelligenti"
           }
         },
         "ja": {
@@ -29,10 +149,46 @@
             "value": "스마트 대소문자 부분 문자열"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subrentetan Huruf Besar/Kecil Pintar"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng med smart store/små bokstaver"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subreeks met slimme hoofdlettergevoeligheid"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podciąg (inteligentna wielkość liter)"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Substring com caixa inteligente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring com caixa inteligente"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subșir cu majuscule/minuscule inteligent"
           }
         },
         "ru": {
@@ -41,10 +197,70 @@
             "value": "Подстрока (умный учёт регистра)"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podreťazec s inteligentnou veľkosťou písmen"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz s pametnim razlikovanjem velikih/malih črk"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delsträng, smart skiftläge"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "สตริงย่อยแบบตัวพิมพ์ใหญ่-เล็กอัจฉริยะ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Akıllı Büyük/Küçük Harf Alt Dize"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підрядок, розумний регістр"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuỗi con, chữ hoa/thường thông minh"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "智能大小写子字符串"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "智慧大小寫子字串"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "智能大小写子字符串"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "智慧大小寫子字串"
           }
         }
       }
@@ -53,16 +269,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Erase Search History\"; ObjectID = \"6DZ-ad-yVz\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esborra l’historial de cerca"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat historii hledání"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slet søgehistorik"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Suchverlauf löschen"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Διαγραφή ιστορικού αναζήτησης"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Erase Search History"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase Search History"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase Search History"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase Search History"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase Search History"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase Search History"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar historial de búsqueda"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar historial de búsqueda"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar historial de búsqueda"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tyhjennä hakuhistoria"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique de recherche"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique de recherche"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "खोज हिस्ट्री मिटाएँ"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obriši povijest pretraživanja"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keresési előzmények törlése"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hapus Riwayat Pencarian"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancella cronologia di ricerca"
           }
         },
         "ja": {
@@ -77,10 +413,46 @@
             "value": "검색 기록 지우기"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Padam Sejarah Carian"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slett søkehistorikk"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wis zoekgeschiedenis"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyczyść historię wyszukiwania"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Apagar histórico de busca"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar histórico de pesquisa"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ștergeți istoricul căutărilor"
           }
         },
         "ru": {
@@ -89,10 +461,70 @@
             "value": "Очистить историю поиска"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vymazať históriu vyhľadávania"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izbriši zgodovino iskanja"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera sökhistorik"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ลบประวัติการค้นหา"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arama Geçmişini Sil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стерти історію пошуку"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa lịch sử tìm kiếm"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除搜索历史记录"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除搜尋歷史記錄"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "清除搜索历史"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除搜尋歷史記錄"
           }
         }
       }
@@ -101,16 +533,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Case-Insensitive Substring\"; ObjectID = \"6Px-6a-JTm\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que no distingeix majúscules i minúscules"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podřetězec (ignoruje velikost písmen)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng, ignorer store/små bogstaver"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Teilzeichenfolge (Groß-/Kleinschreibung ignorieren)"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Υποσυμβολοσειρά χωρίς διάκριση πεζών-κεφαλαίων"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Case-Insensitive Substring"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Substring"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Substring"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Substring"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Substring"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Substring"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Osamerkkijono, ei huomioi kirjainkokoa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne insensible à la casse"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne insensible à la casse"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "केस-असंवेदी सबस्ट्रिंग"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz neosjetljiv na veličinu slova"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Részkarakterlánc, kis- és nagybetűk megkülönböztetése nélkül"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring Abaikan Huruf Besar/Kecil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottostringa con maiuscole/minuscole indifferenti"
           }
         },
         "ja": {
@@ -125,10 +677,46 @@
             "value": "대소문자 무시 부분 문자열"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subrentetan Abaikan Huruf Besar/Kecil"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng som ikke skiller mellom store og små bokstaver"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet hoofdlettergevoelige subreeks"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podciąg (ignoruje wielkość liter)"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Substring sem diferenciação de maiúsculas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring sem diferenciação de maiúsculas"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subșir insensibil la majuscule/minuscule"
           }
         },
         "ru": {
@@ -137,10 +725,70 @@
             "value": "Подстрока без учёта регистра"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podreťazec, ignoruje veľkosť písmen"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz, ki ne razlikuje velikih/malih črk"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delsträng, ignorera skiftläge"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "สตริงย่อยแบบไม่ยึดตามตัวพิมพ์ใหญ่-เล็ก"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büyük/Küçük Harfe Duyarsız Alt Dize"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підрядок без урахування регістру"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuỗi con, không phân biệt chữ hoa/thường"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不区分大小写的子字符串"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不區分大小寫的子字串"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "不区分大小写的子字符串"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不區分大小寫的子字串"
           }
         }
       }
@@ -149,16 +797,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Case-Insensitive Regex\"; ObjectID = \"C2V-dA-zRG\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que no distingeix majúscules i minúscules"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regulární výraz (ignoruje velikost písmen)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, ignorer store/små bogstaver"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Regulärer Ausdruck (Groß-/Kleinschreibung ignorieren)"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Κανονική παράσταση χωρίς διάκριση πεζών-κεφαλαίων"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Case-Insensitive Regex"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Regex"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Regex"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Regex"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Regex"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Insensitive Regex"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que no distingue mayúsculas y minúsculas"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, ei huomioi kirjainkokoa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex insensible à la casse"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex insensible à la casse"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "केस-असंवेदी रेगुलर एक्सप्रेशन"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex neosjetljiv na veličinu slova"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reguláris kifejezés, kis- és nagybetűk megkülönböztetése nélkül"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex Abaikan Huruf Besar/Kecil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex con maiuscole/minuscole indifferenti"
           }
         },
         "ja": {
@@ -173,10 +941,46 @@
             "value": "대소문자 무시 정규 표현식"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex Abaikan Huruf Besar/Kecil"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regulært uttrykk som ikke skiller mellom store og små bokstaver"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet hoofdlettergevoelige regex"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyrażenie regularne (ignoruje wielkość liter)"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Regex sem diferenciação de maiúsculas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex sem diferenciação de maiúsculas"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex insensibil la majuscule/minuscule"
           }
         },
         "ru": {
@@ -185,10 +989,70 @@
             "value": "Регулярное выражение без учёта регистра"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, ignoruje veľkosť písmen"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regularni izraz, ki ne razlikuje velikih/malih črk"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, ignorera skiftläge"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex แบบไม่ยึดตามตัวพิมพ์ใหญ่-เล็ก"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büyük/Küçük Harfe Duyarsız Düzenli İfade"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Регулярний вираз без урахування регістру"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, không phân biệt chữ hoa/thường"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不区分大小写的正则表达式"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不區分大小寫的正規表示式"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "不区分大小写的正则表达式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不區分大小寫的正規表示式"
           }
         }
       }
@@ -197,16 +1061,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Case-Sensitive Substring\"; ObjectID = \"IJN-DB-LJ2\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que distingeix majúscules i minúscules"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podřetězec (rozlišuje velikost písmen)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng, forskel på store/små bogstaver"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Teilzeichenfolge (Groß-/Kleinschreibung beachten)"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Υποσυμβολοσειρά με διάκριση πεζών-κεφαλαίων"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Case-Sensitive Substring"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Substring"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Substring"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Substring"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Substring"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Substring"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcadena que distingue mayúsculas y minúsculas"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Osamerkkijono, huomioi kirjainkoon"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne sensible à la casse"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-chaîne sensible à la casse"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "केस-संवेदी सबस्ट्रिंग"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz osjetljiv na veličinu slova"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Részkarakterlánc, kis- és nagybetűk megkülönböztetésével"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring Peka Huruf Besar/Kecil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottostringa con maiuscole/minuscole distinte"
           }
         },
         "ja": {
@@ -221,10 +1205,46 @@
             "value": "대소문자 구분 부분 문자열"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subrentetan Peka Huruf Besar/Kecil"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delstreng som skiller mellom store og små bokstaver"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoofdlettergevoelige subreeks"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podciąg (uwzględnia wielkość liter)"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Substring com diferenciação de maiúsculas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Substring com diferenciação de maiúsculas"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subșir sensibil la majuscule/minuscule"
           }
         },
         "ru": {
@@ -233,10 +1253,70 @@
             "value": "Подстрока с учётом регистра"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podreťazec, rozlišuje veľkosť písmen"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podniz, ki razlikuje velike/male črke"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delsträng, skiftlägeskänslig"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "สตริงย่อยแบบยึดตามตัวพิมพ์ใหญ่-เล็ก"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büyük/Küçük Harfe Duyarlı Alt Dize"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підрядок з урахуванням регістру"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuỗi con, phân biệt chữ hoa/thường"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "区分大小写的子字符串"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "區分大小寫的子字串"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "区分大小写的子字符串"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "區分大小寫的子字串"
           }
         }
       }
@@ -245,16 +1325,136 @@
       "comment": "Class = \"NSMenuItem\"; title = \"Case-Sensitive Regex\"; ObjectID = \"s1o-x7-jkk\";",
       "extractionState": "extracted_with_value",
       "localizations": {
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que distingeix majúscules i minúscules"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regulární výraz (rozlišuje velikost písmen)"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, forskel på store/små bogstaver"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Regulärer Ausdruck (Groß-/Kleinschreibung beachten)"
           }
         },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Κανονική παράσταση με διάκριση πεζών-κεφαλαίων"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "new",
             "value": "Case-Sensitive Regex"
+          }
+        },
+        "en-AU": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Regex"
+          }
+        },
+        "en-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Regex"
+          }
+        },
+        "en-GB": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Regex"
+          }
+        },
+        "en-IN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Regex"
+          }
+        },
+        "en-PH": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Case-Sensitive Regex"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-419": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que distingue mayúsculas y minúsculas"
+          }
+        },
+        "es-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex que distingue mayúsculas y minúsculas"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, huomioi kirjainkoon"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex sensible à la casse"
+          }
+        },
+        "fr-CA": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex sensible à la casse"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "केस-संवेदी रेगुलर एक्सप्रेशन"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex osjetljiv na veličinu slova"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reguláris kifejezés, kis- és nagybetűk megkülönböztetésével"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex Peka Huruf Besar/Kecil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex con maiuscole/minuscole distinte"
           }
         },
         "ja": {
@@ -269,10 +1469,46 @@
             "value": "대소문자 구분 정규 표현식"
           }
         },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex Peka Huruf Besar/Kecil"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regulært uttrykk som skiller mellom store og små bokstaver"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoofdlettergevoelige regex"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyrażenie regularne (uwzględnia wielkość liter)"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Regex com diferenciação de maiúsculas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex com diferenciação de maiúsculas"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex sensibil la majuscule/minuscule"
           }
         },
         "ru": {
@@ -281,10 +1517,70 @@
             "value": "Регулярное выражение с учётом регистра"
           }
         },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, rozlišuje veľkosť písmen"
+          }
+        },
+        "sl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regularni izraz, ki razlikuje velike/male črke"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, skiftlägeskänslig"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex แบบยึดตามตัวพิมพ์ใหญ่-เล็ก"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büyük/Küçük Harfe Duyarlı Düzenli İfade"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Регулярний вираз з урахуванням регістру"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regex, phân biệt chữ hoa/thường"
+          }
+        },
+        "yue-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "区分大小写的正则表达式"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "區分大小寫的正規表示式"
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "区分大小写的正则表达式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "區分大小寫的正規表示式"
           }
         }
       }

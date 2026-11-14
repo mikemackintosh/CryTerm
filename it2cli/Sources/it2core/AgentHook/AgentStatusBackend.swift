@@ -101,6 +101,9 @@ final class AgentHookRunner {
     // available.
     private let isSessionBoundary: Bool
     private let quietArgs: [String]
+    // Set once iTerm2 has refused a write for carrying --agent, which one from before the flag
+    // existed does. The rest of this event's writes go without it.
+    private var agentFlagRefused = false
 
     init(address: AgentHookAddress,
          eventName: String,
@@ -123,9 +126,10 @@ final class AgentHookRunner {
     /// assertion together to decide whether an update is bookkeeping, and a ring that travels with
     /// a guarded update is dropped along with it.
     ///
-    /// Returns the status as it stood once the update landed when the update asked for it (see
-    /// AgentStatusUpdate.endingIfTasksFinished), or nil otherwise, including when it2 could
-    /// not be run or its answer could not be read.
+    /// Returns the status as it stood once the update landed, or was dropped, when the update
+    /// asked for it (see AgentStatusUpdate.endingIfTasksFinished) or carried a precondition, so
+    /// the caller can tell which happened. nil otherwise, including when it2 could not be run
+    /// or its answer could not be read.
     @discardableResult
     func send(_ update: AgentStatusUpdate) throws -> CurrentAgentStatus? {
         var statusArgs = [String]()
@@ -140,9 +144,12 @@ final class AgentHookRunner {
         }
         // Progress ring on the tab (OSC 9;4). Claude Code emits it itself, Codex CLI does not, so
         // the hook asks iTerm2 to draw it for the session in the same update. Working runs the
-        // ring; waiting and idle stop it, including the stopped state for a permission prompt.
+        // ring, and so does background, since work the session started is still running, the
+        // way Claude Code keeps its own spinner going while it waits on background agents.
+        // Waiting and idle stop it, including the stopped state for a permission prompt.
         if agent == .codex, let status = update.status {
-            statusArgs += shortcutOptionArgs("--progress", status == "working" ? "running" : "stopped")
+            let running = status == "working" || status == "background"
+            statusArgs += shortcutOptionArgs("--progress", running ? "running" : "stopped")
         }
         // Pass --detail only when the hook has an opinion; empty string explicitly clears.
         if let detail = update.detail {
@@ -160,6 +167,8 @@ final class AgentHookRunner {
         if update.onlyWhenFinished {
             statusArgs += shortcutOptionArgs("--if-turn-open", "false")
             statusArgs += shortcutOptionArgs("--if-background-tasks", "0")
+        } else if let required = update.requiredTurnOpen {
+            statusArgs += shortcutOptionArgs("--if-turn-open", String(required))
         }
         if update.expiresOnProgressEnd {
             statusArgs += shortcutOptionArgs("--expires-on", "progress-end")
@@ -173,7 +182,7 @@ final class AgentHookRunner {
         }
         // A guarded update may be dropped, and the status that comes back is how to tell.
         let wantStatus = update.endingIfTasksFinished != nil
-        let guarded = update.onlyWhenFinished
+        let guarded = update.onlyWhenFinished || update.requiredTurnOpen != nil
         if wantStatus || guarded {
             statusArgs.append("--json")
         }
@@ -194,7 +203,7 @@ final class AgentHookRunner {
             ended.onlyWhenFinished = true
             try send(ended)
         }
-        return wantStatus ? after : nil
+        return after
     }
 
     /// Ask iTerm2 for the stored count. 0 when unavailable for any reason (no stored value, session
@@ -221,9 +230,19 @@ final class AgentHookRunner {
     /// iTerm2 applies the delta where the count lives, so two hooks changing it at once cannot
     /// lose one.
     func changeBackgroundTaskCount(by delta: Int) throws -> CurrentAgentStatus? {
-        guard let output = try quietOutput(["set-status"] + address.args
-                                           + shortcutOptionArgs("--background-tasks-delta", String(delta))
-                                           + ["--json"]) else {
+        return try writeCountReturningStatus(shortcutOptionArgs("--background-tasks-delta", String(delta)))
+    }
+
+    /// Stores the background-task count and returns the status as it stands afterwards, or nil
+    /// if the call failed or its answer could not be read. Unguarded and with nothing displayed,
+    /// so it always lands, and one round trip, like a read.
+    func storeBackgroundTaskCount(_ count: Int) throws -> CurrentAgentStatus? {
+        return try writeCountReturningStatus(shortcutOptionArgs("--background-tasks", String(count)))
+    }
+
+    private func writeCountReturningStatus(_ countArgs: [String]) throws -> CurrentAgentStatus? {
+        guard let output = try quietOutput(["set-status"] + address.args + countArgs + ["--json"],
+                                           isStatusWrite: true) else {
             return nil
         }
         return CurrentAgentStatus(json: output)
@@ -231,11 +250,32 @@ final class AgentHookRunner {
 
     /// Trimmed stdout of an it2 subcommand, or nil if it failed. Always quiet: these reads happen
     /// mid-turn and a failure is not worth a word; each caller has a safe default instead.
-    private func quietOutput(_ arguments: [String]) throws -> String? {
-        guard let result = try backend.run(arguments + ["--quiet-if-unresolved"]), result.status == 0 else {
+    private func quietOutput(_ arguments: [String], isStatusWrite: Bool = false) throws -> String? {
+        let argv = arguments + ["--quiet-if-unresolved"]
+        guard let result = try isStatusWrite ? runStatusWrite(argv) : backend.run(argv), result.status == 0 else {
             return nil
         }
         return result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Runs a set-status, naming the agent whose hook this is so iTerm2 can tell the write from
+    /// anyone else's: it ignores Claude Code's hook in a session where Claude Code reports its own
+    /// status.
+    ///
+    /// The it2 beside a hook is the newest installed, and the iTerm2 it reaches may be older and
+    /// refuse a function call with an argument it does not know, changing nothing. That refusal
+    /// names the call, arguments in order, so the flag's own name right after the function's is
+    /// the mark of it. The write is then made again without the flag.
+    private func runStatusWrite(_ argv: [String]) throws -> AgentHookCommandResult? {
+        if agentFlagRefused {
+            return try backend.run(argv)
+        }
+        let result = try backend.run(argv + shortcutOptionArgs("--agent", agent.rawValue))
+        guard let result, result.status != 0, result.stderr.contains("set_session_status(agent") else {
+            return result
+        }
+        agentFlagRefused = true
+        return try backend.run(argv)
     }
 
     /// Run it2 and wait. Returns its trimmed stdout, or nil when it failed. Failures are reported on
@@ -248,7 +288,7 @@ final class AgentHookRunner {
     /// boundaries do not pass it, so an unresolved pane is reported there too -- deliberately, so a
     /// persistent problem is discoverable once at each end of the session rather than never.
     private func run(_ arguments: [String]) throws -> String? {
-        guard let result = try backend.run(arguments) else {
+        guard let result = try runStatusWrite(arguments) else {
             report("handle-agent-hook: could not run it2")
             return nil
         }

@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Shell integration: if a command ends without a terminal newline, should we inject one prior to the prompt?
 @property (nonatomic, readonly) BOOL shouldPlacePromptAtFirstColumn;
 @property (nonatomic, copy, readonly) NSString *sessionGuid;
+// The session's stable ID, which outlives its guid. With sessionGuid, the references a consumer
+// of the session's command output may register under (see iTermCommandOutput).
+@property (nonatomic, copy, readonly) NSString *stableID;
 @property (nonatomic, readonly) BOOL treatAmbiguousCharsAsDoubleWidth;
 @property (nonatomic, readonly) NSInteger unicodeVersion;
 @property (nonatomic, readonly) BOOL enableTriggersInInteractiveApps;
@@ -85,6 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Title reporting
 @property (nonatomic, readonly) BOOL allowTitleReporting;
+// Whether the program may set the window, icon, and tab titles.
+@property (nonatomic, readonly) BOOL allowTitleSetting;
 
 // Mouse scroll
 @property (nonatomic, readonly) BOOL allowAlternateMouseScroll;
@@ -102,6 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readwrite) BOOL shouldPlacePromptAtFirstColumn;
 @property (nonatomic, copy, readwrite) NSString *sessionGuid;
+@property (nonatomic, copy, readwrite) NSString *stableID;
 @property (nonatomic, readwrite) BOOL treatAmbiguousCharsAsDoubleWidth;
 @property (nonatomic, readwrite) NSInteger unicodeVersion;
 @property (nonatomic, readwrite) BOOL enableTriggersInInteractiveApps;
@@ -160,6 +166,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Title reporting
 @property (nonatomic, readwrite) BOOL allowTitleReporting;
+// Whether the program may set the window, icon, and tab titles.
+@property (nonatomic, readwrite) BOOL allowTitleSetting;
 
 // Mouse scroll
 @property (nonatomic, readwrite) BOOL allowAlternateMouseScroll;

@@ -12,16 +12,25 @@ class PTYSessionClipping: NSObject {
     @objc let type: String
     @objc let title: String
     @objc let detail: String
+    // Unique and stable across save/restore. it2 session add-clipping prints
+    // it so the caller can later delete the clipping by ID.
+    @objc let identifier: String
 
     @objc(initWithType:title:detail:)
-    init(type: String, title: String, detail: String) {
+    convenience init(type: String, title: String, detail: String) {
+        self.init(type: type, title: title, detail: detail, identifier: UUID().uuidString)
+    }
+
+    @objc(initWithType:title:detail:identifier:)
+    init(type: String, title: String, detail: String, identifier: String) {
         self.type = type
         self.title = title
         self.detail = detail
+        self.identifier = identifier
     }
 
     @objc var dictionaryValue: [String: String] {
-        return ["type": type, "title": title, "detail": detail]
+        return ["type": type, "title": title, "detail": detail, "id": identifier]
     }
 
     @objc(initWithDictionary:)
@@ -31,7 +40,11 @@ class PTYSessionClipping: NSObject {
               let detail = dictionary["detail"] else {
             return nil
         }
-        self.init(type: type, title: title, detail: detail)
+        // Arrangements saved before clippings had IDs get a fresh one.
+        self.init(type: type,
+                  title: title,
+                  detail: detail,
+                  identifier: dictionary["id"] ?? UUID().uuidString)
     }
 }
 
@@ -519,17 +532,29 @@ class RunningRemoteCommand: NSObject {
 
 extension PTYSession {
     func cancelRemoteCommand() {
+        cancelRemoteCommand(reason: "The function call was canceled by user request.")
+    }
+
+    // The session's process ended (exit, kill, restart) or the session is closing.
+    // A command waiting on the session would otherwise never complete, so its tool
+    // call would never get a response and the chat turn would wedge.
+    @objc
+    func cancelRemoteCommandBecauseSessionEnded() {
+        cancelRemoteCommand(reason: "The function call was canceled because the terminal session ended.")
+    }
+
+    private func cancelRemoteCommand(reason: String) {
         let previousState = runningRemoteCommand.state
         runningRemoteCommand.state = .none
         switch previousState {
         case .expectation(let expectation, let completion):
             expect.cancelExpectation(expectation)
-            completion("The function call was canceled by user request.")
+            completion(reason)
         case .futureString(let otsc):
-            otsc.call("The function call was canceled by user request.")
+            otsc.call(reason)
         case .waitingForMark(_, let otsc):
             screen.pause(atNextPrompt: nil)
-            otsc.call("The function call was canceled by user request.")
+            otsc.call(reason)
         case .none:
             break
         }
@@ -2477,7 +2502,10 @@ extension PTYSession {
                     seal.reject(iTermError("Session terminated"))
                     return
                 }
-                asyncInitialDirectoryForNewSessionBased { [weak self] oldCWD in
+                // Read once: it decides both where the peer runs (workgroupRemoteHost, below)
+                // and the directory it starts in.
+                let remoteHost = self.remoteHostForNewWorkgroupPeer
+                asyncWorkgroupPeerStartingDirectory(runsOnRemoteHost: remoteHost != nil) { [weak self] oldCWD in
                     guard let self else {
                         seal.reject(iTermError("Session terminated"))
                         return
@@ -2508,7 +2536,6 @@ extension PTYSession {
                     // A leader on a host reached through SSH Integration: the peer runs there,
                     // where the files are. Its connection must set up it2 so an agent in it can
                     // report, whatever the leader's profile says about shell integration.
-                    let remoteHost = self.remoteHostForNewWorkgroupPeer
                     if let remoteHost {
                         profile[KEY_LOAD_SHELL_INTEGRATION_AUTOMATICALLY] = true
                         profile[KEY_SSH_CONFIG] = remoteHost.sshConfig ?? [:]
@@ -2852,10 +2879,13 @@ extension PTYSession {
         return index < 0 || index >= clippingsArchive.count
     }
 
+    // Returns the new clipping's identifier.
     @objc(addClippingWithType:title:detail:)
-    func addClipping(type: String, title: String, detail: String) {
+    @discardableResult
+    func addClipping(type: String, title: String, detail: String) -> String {
+        let clipping = PTYSessionClipping(type: type, title: title, detail: detail)
         var current = clippings
-        current.append(PTYSessionClipping(type: type, title: title, detail: detail))
+        current.append(clipping)
         clippings = current
         // Adding a clipping is always an action against the live list, so
         // hop the view back to live so the new item is visible. The
@@ -2866,6 +2896,21 @@ extension PTYSession {
         if !clippingsVisible {
             clippingsVisible = true
         }
+        return clipping.identifier
+    }
+
+    // Removes the live clipping with this identifier. Archived clippings are
+    // history and are left alone. Returns false if no live clipping has it.
+    @objc(deleteClippingWithIdentifier:)
+    func deleteClipping(identifier: String) -> Bool {
+        var current = clippings
+        guard let index = current.firstIndex(where: { $0.identifier == identifier }) else {
+            return false
+        }
+        current.remove(at: index)
+        clippings = current
+        clippingsDidChange()
+        return true
     }
 
     // Hard cap on archived snapshots to keep the arrangement size bounded.

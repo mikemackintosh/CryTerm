@@ -25,6 +25,7 @@ class SpyingScreenDelegate: FakeSession {
     }
     struct PromptDidEndCall {
         let mark: any VT100ScreenMarkReading
+        let command: String?
     }
     struct CommandDidChangeCall {
         let command: String
@@ -198,7 +199,7 @@ class SpyingScreenDelegate: FakeSession {
 
     // MARK: - Overrides
 
-    override func screenGetWorkingDirectory(completion: @escaping (String?) -> Void) {
+    override func screenGetWorkingDirectory(forReportedChange reportedChange: Bool, completion: @escaping (String?) -> Void) {
         getWorkingDirectoryCalls.append(GetWorkingDirectoryCall())
         titleEvents.append("pwd")
         completion(polledWorkingDirectory)
@@ -213,6 +214,7 @@ class SpyingScreenDelegate: FakeSession {
                                             remoteHost: (any VT100RemoteHostReading)?,
                                             withDirectory directory: String?,
                                             pushType: VT100ScreenWorkingDirectoryPushType,
+                                            locality: VT100ScreenWorkingDirectoryLocality,
                                             accepted: Bool) {
         logWorkingDirectoryCalls.append(LogWorkingDirectoryCall(path: directory, line: line))
     }
@@ -227,8 +229,12 @@ class SpyingScreenDelegate: FakeSession {
         promptDidStartCalls.append(PromptDidStartCall(line: line))
     }
 
-    override func screenPromptDidEnd(withMark mark: any VT100ScreenMarkReading) {
-        promptDidEndCalls.append(PromptDidEndCall(mark: mark))
+    override func screenPromptDidEnd(withMark mark: any VT100ScreenMarkReading,
+                                     command: String?,
+                                     cursor: VT100GridAbsCoord,
+                                     workingDirectory: String?,
+                                     encoding: UInt) {
+        promptDidEndCalls.append(PromptDidEndCall(mark: mark, command: command))
     }
 
     override func screenCommandDidChange(to command: String,

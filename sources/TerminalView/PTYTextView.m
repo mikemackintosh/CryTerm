@@ -682,6 +682,14 @@ const CGFloat PTYTextViewMarginClickGraceWidth = 2.0;
           !!(theEvent.it_modifierFlags & NSEventModifierFlagControl));
     [_delegate textViewDidReceiveFlagsChangedEvent:theEvent];
     [self updateUnderlinedURLs:theEvent];
+    if (!(theEvent.it_modifierFlags & NSEventModifierFlagCommand)) {
+        // With Cmd down, updateUnderlinedURLs takes care of the pointer. Otherwise it may
+        // return early, so update the pointer here. This makes Option (which bypasses mouse
+        // reporting) swap the reporting pointer for a plain I-beam right away.
+        if ([self updateCursor:theEvent action:nil]) {
+            [self requestDelegateRedraw];
+        }
+    }
     NSString *string = [_keyboardHandler.keyMapper keyMapperStringForPreCocoaEvent:theEvent];
     if (string) {
         [_delegate insertText:string];
@@ -1633,11 +1641,20 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
 
         // Check if this should use smooth slide:
         // - cursorSmoothSlide preference is enabled
-        // - cursor type supports it (underscore or vertical bar, not block)
+        // - cursor type supports it (drawingHelper.cursorSupportsSmoothSlide)
         // - 1-cell horizontal move
+        // - not a box cursor on the legacy renderer: the legacy animator shows
+        //   a cached screenshot with the cursor hidden underneath the sliding
+        //   rectangle, so a box cursor's character-inversion would be hidden
+        //   entirely for the whole animation. The Metal renderer crossfades
+        //   the glyph color by how much of each column the box covers
+        //   instead (see applyBoxCursorTextColorTweakForRow: in
+        //   iTermMetalPerFrameState.m), so it isn't affected by this
+        //   exclusion; a box cursor still just jumps on the legacy renderer.
         const BOOL useSmoothSlide = (smoothSlideEnabled &&
                                      drawingHelper.cursorSupportsSmoothSlide &&
-                                     [self shouldSmoothSlideFrom:from to:to]);
+                                     [self shouldSmoothSlideFrom:from to:to] &&
+                                     !(isLegacyPath && drawingHelper.cursorType == CURSOR_BOX));
         if (useSmoothSlide) {
             DLog(@"Using smooth slide animation");
             if (isLegacyPath) {
@@ -2919,7 +2936,7 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
             if (range.length > 0) {
                 DLog(@"Line %d is dirty", y);
                 foundDirty = YES;
-                // TODO: It would be more correct to remove all search results from this point down and reset the cursor location to the start of the first dirty line. VT100Screen.savedFindContextAbsPos can be after some of the dirty cells causing them not to be searched.
+                // TODO: It would be more correct to remove all search results from this point down and reset the cursor location to the start of the first dirty line. The tail find's start position can be after some of the dirty cells causing them not to be searched.
                 [_findOnPageHelper removeHighlightsInRange:NSMakeRange(y + totalScrollbackOverflow, 1)];
                 [_findOnPageHelper removeSearchResultsInRange:NSMakeRange(y + totalScrollbackOverflow, 1)];
                 // No per-line invalidation needed if we already requested a
@@ -4166,8 +4183,8 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
 
     __weak __typeof(self) weakSelf = self;
     [iTermJSONPrettyPrinter promoteIfJSONWithString:copyString
-                                           callback:^{
-        [weakSelf.delegate textViewShowJSONPromotion];
+                                           callback:^BOOL{
+        return [weakSelf.delegate textViewShowJSONPromotion];
     }];
 }
 
@@ -4941,6 +4958,9 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
         // Report the operation the bridge advertises: the program's accepted op
         // once it replies (t=m:o), or an optimistic offered op before then (so a
         // fast drop is not sprung back). See KittyDnDController.osDragOperation.
+        DLog(@"draggingEntered: routed to Kitty DnD; forwardedDragOperation=%@ liveRect=%@ location=%@",
+             @(bridge.forwardedDragOperation), NSStringFromRect([self liveRect]),
+             NSStringFromPoint([self convertPoint:sender.draggingLocation fromView:nil]));
         return bridge.forwardedDragOperation;
     }
     return [self legacyDraggingOperationForSender:sender];
@@ -5023,6 +5043,7 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
             [self.delegate textViewDidUpdateDropTargetVisibility];
             [self requestDelegateRedraw];
         }
+        DLog(@"draggingUpdated: forwardedDragOperation=%@", @(bridge.forwardedDragOperation));
         return bridge.forwardedDragOperation;
     }
     NSPoint windowDropPoint = [sender draggingLocation];
@@ -5327,6 +5348,9 @@ static NSString *iTermStringForEventPhase(NSEventPhase eventPhase) {
     // Option press or a program toggling accept cannot divert it to legacy paste.
     iTermKittyDnDBridge *kittyBridge = [self latchedKittyDragBridge];
     _kittyDragRoutedForCurrentDrag = NO;  // the drag is over; clear the latch
+    DLog(@"performDragOperation: kittyBridge=%@ forwardedDragOperation=%@ sourceMask=%@ modifierFlags=%@",
+         kittyBridge, @(kittyBridge.forwardedDragOperation), @(sender.draggingSourceOperationMask),
+         @([NSEvent modifierFlags]));
     // Honor the Option escape hatch at drop time (macOS resolves drag modifiers
     // continuously, and the release note promises "hold Option while dropping"):
     // tell the program the drag left, then fall through to the legacy path.

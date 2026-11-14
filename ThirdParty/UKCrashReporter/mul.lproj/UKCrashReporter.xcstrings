@@ -5,16 +5,136 @@
       "comment" : "Class = \"NSTabViewItem\"; label = \"Description\"; ObjectID = \"11\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripció"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popis"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beskrivelse"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beschreibung"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Περιγραφή"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Description"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuvaus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "विवरण"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opis"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leírás"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deskripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrizione"
           }
         },
         "ja" : {
@@ -29,10 +149,46 @@
             "value" : "설명"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perihalan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beskrivelse"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beschrijving"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opis"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Descrição"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrição"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descriere"
           }
         },
         "ru" : {
@@ -41,7 +197,67 @@
             "value" : "Описание"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Popis"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opis"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beskrivning"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คำอธิบาย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Açıklama"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Опис"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mô tả"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "说明"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "描述"
+          }
+        },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "描述"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "描述"
@@ -53,16 +269,136 @@
       "comment" : "Class = \"NSTabViewItem\"; label = \"Crash Log\"; ObjectID = \"12\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registre de fallades"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokol o selhání"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedbrudslog"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Absturzprotokoll"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αρχείο καταγραφής κατάρρευσης"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Crash Log"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Log"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Log"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Log"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Log"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Log"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro de fallos"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro de fallos"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro de fallos"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaatumisloki"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal de plantage"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal de plantage"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "क्रैश लॉग"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapis rušenja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összeomlási napló"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Crash"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log dei crash"
           }
         },
         "ja" : {
@@ -77,10 +413,46 @@
             "value" : "충돌 로그"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Nahas"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krasjlogg"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crashlog"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziennik awarii"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Log de falhas"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registo de falhas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jurnal de blocări"
           }
         },
         "ru" : {
@@ -89,10 +461,70 @@
             "value" : "Журнал сбоя"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Záznam o páde"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dnevnik zrušitve"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kraschlogg"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกข้อขัดข้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çökme Günlüğü"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Журнал збою"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhật ký sự cố"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "崩溃日志"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當機記錄"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "崩溃日志"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當機記錄"
           }
         }
       }
@@ -101,16 +533,136 @@
       "comment" : "Class = \"NSWindow\"; title = \"Crash Reporter\"; ObjectID = \"5\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informe de fallades"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlášení o selhání"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedbrudsrapportering"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Absturzbericht"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αναφορά κατάρρευσης"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Crash Reporter"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Reporter"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Reporter"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Reporter"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Reporter"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash Reporter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informe de fallos"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reporte de fallos"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reporte de fallos"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaatumisraportti"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rapport de plantage"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rapport de plantage"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "क्रैश रिपोर्टर"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prijava rušenja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összeomlás-jelentő"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pelapor Crash"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segnalazione crash"
           }
         },
         "ja" : {
@@ -125,10 +677,46 @@
             "value" : "충돌 리포터"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pelapor Nahas"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krasjrapportering"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crashrapportage"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raport o awariach"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Relatório de falhas"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relatório de falhas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raportor de blocări"
           }
         },
         "ru" : {
@@ -137,10 +725,70 @@
             "value" : "Отчёт о сбое"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlásenie o páde"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poročanje o zrušitvah"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kraschrapportering"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตัวรายงานข้อขัดข้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çökme Raporlayıcı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Звітування про збої"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trình báo cáo sự cố"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "崩溃报告程序"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當機報告程式"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "崩溃报告器"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當機回報程式"
           }
         }
       }
@@ -149,16 +797,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\\n\\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash.\"; ObjectID = \"84\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sembla que {APPNAME} ha fallat l’última vegada que es va fer servir. Vols enviar un registre de fallades als desenvolupadors?\n\nApple no envia els seus registres de fallades a altres desenvolupadors, de manera que aquesta és l’única manera que tenen els desenvolupadors de {APPNAME} d’assabentar-se d’aquesta fallada i corregir-la."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikace {APPNAME} se při posledním použití zřejmě zhroutila. Chcete vývojářům odeslat protokol o selhání?\n\nProtokoly o selhání od Applu se jiným vývojářům neodesílají, takže jen tak se mohou vývojáři aplikace {APPNAME} o tomto selhání dozvědět a opravit ho."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ud til, at {APPNAME} gik ned, sidste gang det blev brugt. Vil du sende en nedbrudslog til udviklerne?\n\nNedbrudslogs fra Apple sendes ikke til andre udviklere, så det er den eneste måde, udviklerne af {APPNAME} kan få kendskab til og rette dette nedbrud på."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Es sieht so aus, als sei {APPNAME} beim letzten Gebrauch abgestürzt. Möchten Sie ein Absturzprotokoll an die Entwickler senden?\n\nAbsturzprotokolle von Apple werden nicht an andere Entwickler gesendet, daher ist dies die einzige Möglichkeit für die Entwickler von {APPNAME}, von diesem Absturz zu erfahren und ihn zu beheben."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Φαίνεται ότι το {APPNAME} κατέρρευσε την τελευταία φορά που χρησιμοποιήθηκε. Θέλετε να στείλετε ένα αρχείο καταγραφής κατάρρευσης στους προγραμματιστές;\n\nΤα αρχεία καταγραφής κατάρρευσης της Apple δεν αποστέλλονται σε άλλους προγραμματιστές, επομένως αυτός είναι ο μόνος τρόπος για να μάθουν οι προγραμματιστές του {APPNAME} για αυτή την κατάρρευση και να τη διορθώσουν."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It appears that {APPNAME} crashed the last time it was used. Do you want to send a crash log to the developers?\n\nCrash logs from Apple are not sent to other developers, so this is the only way the developers of {APPNAME} can find out about and fix this crash."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que {APPNAME} falló la última vez que se usó. ¿Quieres enviar un registro de fallos a los desarrolladores?\n\nApple no envía sus registros de fallos a otros desarrolladores, así que esta es la única forma de que los desarrolladores de {APPNAME} se enteren de este fallo y lo corrijan."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que {APPNAME} falló la última vez que se usó. ¿Quieres enviar un registro de fallos a los desarrolladores?\n\nApple no envía sus registros de fallos a otros desarrolladores, así que esta es la única forma de que los desarrolladores de {APPNAME} se enteren de este fallo y lo corrijan."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que {APPNAME} falló la última vez que se usó. ¿Quieres enviar un registro de fallos a los desarrolladores?\n\nApple no envía sus registros de fallos a otros desarrolladores, así que esta es la única forma de que los desarrolladores de {APPNAME} se enteren de este fallo y lo corrijan."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näyttää siltä, että {APPNAME} kaatui viimeksi, kun sitä käytettiin. Haluatko lähettää kaatumislokin kehittäjille?\n\nAppleen lähetettyjä kaatumislokeja ei välitetä muille kehittäjille, joten tämä on ainoa tapa, jolla sovelluksen {APPNAME} kehittäjät saavat tietää kaatumisesta ja voivat korjata sen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il semble que {APPNAME} ait planté lors de sa dernière utilisation. Voulez-vous envoyer un journal de plantage aux développeurs ?\n\nLes journaux de plantage d’Apple ne sont pas transmis aux autres développeurs. C’est donc le seul moyen pour les développeurs de {APPNAME} de découvrir et de corriger ce plantage."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il semble que {APPNAME} ait planté lors de sa dernière utilisation. Voulez-vous envoyer un journal de plantage aux développeurs?\n\nLes journaux de plantage d’Apple ne sont pas transmis aux autres développeurs. C’est donc le seul moyen pour les développeurs de {APPNAME} de découvrir et de corriger ce plantage."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऐसा लगता है कि पिछली बार उपयोग करते समय {APPNAME} क्रैश हो गया था। क्या आप डेवलपर को क्रैश लॉग भेजना चाहते हैं?\n\nApple के क्रैश लॉग अन्य डेवलपर को नहीं भेजे जाते, इसलिए {APPNAME} के डेवलपर के पास इस क्रैश के बारे में जानने और इसे ठीक करने का यही एकमात्र तरीका है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čini se da se {APPNAME} srušio prilikom posljednjeg korištenja. Želite li poslati zapis rušenja programerima?\n\nZapisi rušenja koje šalje Apple ne šalju se drugim programerima, pa je ovo jedini način na koji programeri aplikacije {APPNAME} mogu saznati za ovo rušenje i popraviti ga."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úgy tűnik, a(z) {APPNAME} összeomlott a legutóbbi használatkor. Szeretne összeomlási naplót küldeni a fejlesztőknek?\n\nAz Apple összeomlási naplóit nem kapják meg más fejlesztők, ezért a(z) {APPNAME} fejlesztői csak így értesülhetnek erről az összeomlásról, és csak így tudják kijavítani."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sepertinya {APPNAME} mengalami crash saat terakhir digunakan. Apakah Anda ingin mengirim log crash ke pengembang?\n\nLog crash dari Apple tidak dikirim ke pengembang lain, jadi ini satu-satunya cara bagi pengembang {APPNAME} untuk mengetahui dan memperbaiki crash ini."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sembra che {APPNAME} sia andato in crash l’ultima volta che è stato usato. Vuoi inviare un log del crash agli sviluppatori?\n\nI log dei crash di Apple non vengono inviati ad altri sviluppatori, quindi questo è l’unico modo in cui gli sviluppatori di {APPNAME} possono venire a conoscenza di questo crash e correggerlo."
           }
         },
         "ja" : {
@@ -173,10 +941,46 @@
             "value" : "{APPNAME}이(가) 지난번 사용할 때 충돌한 것 같습니다. 개발자에게 충돌 로그를 보내겠습니까?\n\nApple의 충돌 로그는 다른 개발자에게 전송되지 않으므로, 이것이 {APPNAME} 개발자가 이 충돌에 대해 알고 수정할 수 있는 유일한 방법입니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nampaknya {APPNAME} mengalami nahas kali terakhir ia digunakan. Adakah anda mahu menghantar log nahas kepada pembangun?\n\nLog nahas daripada Apple tidak dihantar kepada pembangun lain, jadi ini satu-satunya cara pembangun {APPNAME} dapat mengetahui dan membetulkan nahas ini."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at {APPNAME} krasjet sist det ble brukt. Vil du sende en krasjlogg til utviklerne?\n\nKrasjlogger fra Apple sendes ikke til andre utviklere, så dette er den eneste måten utviklerne av {APPNAME} kan få vite om og rette denne krasjen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het lijkt erop dat {APPNAME} de vorige keer is gecrasht. Wil je een crashlog naar de ontwikkelaars sturen?\n\nCrashlogs van Apple worden niet naar andere ontwikkelaars gestuurd, dus dit is de enige manier waarop de ontwikkelaars van {APPNAME} deze crash kunnen ontdekken en oplossen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wygląda na to, że {APPNAME} uległ awarii podczas ostatniego użycia. Czy chcesz wysłać dziennik awarii programistom?\n\nDzienniki awarii od Apple nie są przekazywane innym programistom, więc to jedyny sposób, aby programiści {APPNAME} mogli dowiedzieć się o tej awarii i ją naprawić."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Parece que o {APPNAME} travou na última vez em que foi usado. Deseja enviar um log de falhas aos desenvolvedores?\n\nOs logs de falhas da Apple não são enviados a outros desenvolvedores, então esta é a única maneira de os desenvolvedores do {APPNAME} descobrirem e corrigirem esta falha."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que o {APPNAME} bloqueou da última vez que foi utilizado. Pretende enviar um registo de falhas aos programadores?\n\nOs registos de falhas da Apple não são enviados a outros programadores, por isso esta é a única maneira de os programadores do {APPNAME} descobrirem e corrigirem esta falha."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se pare că {APPNAME} s-a blocat la ultima utilizare. Doriți să trimiteți un jurnal de blocări dezvoltatorilor?\n\nJurnalele de blocări de la Apple nu sunt trimise altor dezvoltatori, așa că aceasta este singura modalitate prin care dezvoltatorii {APPNAME} pot afla despre această blocare și o pot remedia."
           }
         },
         "ru" : {
@@ -185,10 +989,70 @@
             "value" : "Похоже, что {APPNAME} завершилось сбоем при последнем использовании. Хотите отправить журнал сбоя разработчикам?\n\nЖурналы сбоев от Apple не отправляются другим разработчикам, поэтому это единственный способ, с помощью которого разработчики {APPNAME} могут узнать об этом сбое и исправить его."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdá sa, že pri poslednom použití aplikácie {APPNAME} došlo k pádu. Chcete vývojárom odoslať záznam o páde?\n\nZáznamy o páde od Applu sa ostatným vývojárom neposielajú, takže toto je jediný spôsob, ako sa vývojári aplikácie {APPNAME} o tomto páde dozvedia a môžu ho opraviť."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videti je, da se je {APPNAME} ob zadnji uporabi zrušil. Ali želite razvijalcem poslati dnevnik zrušitve?\n\nApple dnevnikov zrušitev ne pošilja drugim razvijalcem, zato je to edini način, na katerega lahko razvijalci aplikacije {APPNAME} izvedo za to zrušitev in jo odpravijo."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det verkar som att {APPNAME} kraschade förra gången det användes. Vill du skicka en kraschlogg till utvecklarna?\n\nKraschloggar från Apple skickas inte till andra utvecklare, så det här är det enda sättet för utvecklarna av {APPNAME} att få veta om och åtgärda kraschen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูเหมือนว่า {APPNAME} ขัดข้องในการใช้งานครั้งล่าสุด คุณต้องการส่งบันทึกข้อขัดข้องให้นักพัฒนาหรือไม่\n\nบันทึกข้อขัดข้องจาก Apple จะไม่ถูกส่งให้นักพัฒนารายอื่น นี่จึงเป็นวิธีเดียวที่นักพัฒนา {APPNAME} จะทราบและแก้ไขข้อขัดข้องนี้ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "{APPNAME} uygulamasının en son kullanıldığında çöktüğü anlaşılıyor. Geliştiricilere bir çökme günlüğü göndermek ister misiniz?\n\nApple’ın çökme günlükleri diğer geliştiricilere gönderilmez; bu nedenle {APPNAME} geliştiricilerinin bu çökmeden haberdar olmasının ve düzeltmesinin tek yolu budur."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Схоже, {APPNAME} зазнала збою під час останнього використання. Надіслати журнал збою розробникам?\n\nЖурнали збоїв від Apple не надсилаються іншим розробникам, тож це єдиний спосіб для розробників {APPNAME} дізнатися про цей збій і виправити його."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Có vẻ như {APPNAME} đã gặp sự cố trong lần sử dụng gần nhất. Bạn có muốn gửi nhật ký sự cố cho các nhà phát triển không?\n\nNhật ký sự cố của Apple không được gửi cho các nhà phát triển khác, vì vậy đây là cách duy nhất để các nhà phát triển {APPNAME} biết và khắc phục sự cố này."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "{APPNAME}上次使用时似乎发生了崩溃。要向开发者发送崩溃日志吗？\n\nApple的崩溃日志不会发送给其他开发者，因此这是{APPNAME}开发者了解并修复此崩溃的唯一途径。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "{APPNAME} 上次使用時似乎發生了當機。要將當機記錄傳送給開發人員嗎？\n\nApple 的當機記錄不會傳送給其他開發人員，因此這是 {APPNAME} 開發人員得知並修正此當機問題的唯一方式。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "{APPNAME} 上次使用时似乎发生了崩溃。是否要将崩溃日志发送给开发者？\n\nApple 的崩溃日志不会发送给其他开发者，因此这是 {APPNAME} 的开发者了解并修复此崩溃的唯一途径。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "{APPNAME} 上次使用時似乎發生了當機。要將當機記錄傳送給開發人員嗎？\n\nApple 的當機記錄不會傳送給其他開發人員，因此這是 {APPNAME} 開發人員得知並修正此當機問題的唯一方式。"
           }
         }
       }
@@ -197,16 +1061,136 @@
       "comment" : "Class = \"NSTextFieldCell\"; title = \"You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted.\"; ObjectID = \"85\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pots eliminar qualsevol informació que no vulguis transmetre, però això dificultarà la detecció de l’error. Per omissió, es transmeten el registre de fallades, el Mac que fas servir i la teva configuració."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Můžete odstranit jakékoli informace, které odesílat nechcete, ale bude pak obtížnější chybu odhalit. Ve výchozím nastavení se odesílá protokol o selhání, model vašeho Macu a vaše nastavení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kan slette alle oplysninger, du ikke vil have sendt, men det gør det sværere at finde fejlen. Som standard sendes nedbrudslogen samt oplysninger om, hvilken Mac du bruger, og dine indstillinger."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie können alle Informationen löschen, die Sie nicht übermitteln möchten. Dies erschwert jedoch die Fehlersuche. Standardmäßig werden das Absturzprotokoll sowie Angaben zu Ihrem Mac und Ihren Einstellungen übermittelt."
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μπορείτε να διαγράψετε οποιαδήποτε πληροφορία δεν θέλετε να αποσταλεί, αλλά αυτό θα δυσκολέψει τον εντοπισμό του σφάλματος. Από προεπιλογή, αποστέλλονται το αρχείο καταγραφής κατάρρευσης, το μοντέλο Mac που χρησιμοποιείτε και οι ρυθμίσεις σας."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can delete any information you do not want transmitted, but this will make it more difficult to detect the bug. By default, the crash log as well as what Mac you are using and your settings are transmitted."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes eliminar cualquier información que no quieras enviar, pero eso dificultará detectar el error. De forma predeterminada, se envían el registro de fallos, el modelo de Mac que usas y tus ajustes."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes eliminar cualquier información que no quieras enviar, pero eso dificultará detectar el error. De forma predeterminada, se envían el registro de fallos, el modelo de Mac que usas y tus configuración."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes eliminar cualquier información que no quieras enviar, pero eso dificultará detectar el error. De forma predeterminada, se envían el registro de fallos, el modelo de Mac que usas y tus configuración."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voit poistaa tiedot, joita et halua lähettää, mutta se vaikeuttaa virheen havaitsemista. Oletuksena lähetetään kaatumisloki sekä tieto käyttämästäsi Macista ja asetuksistasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez supprimer toute information que vous ne souhaitez pas transmettre, mais cela rendra la détection du bug plus difficile. Par défaut, le journal de plantage, le modèle de Mac que vous utilisez et vos réglages sont transmis."
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez supprimer toute information que vous ne souhaitez pas transmettre, mais cela rendra la détection du bug plus difficile. Par défaut, le journal de plantage, le modèle de Mac que vous utilisez et vos réglages sont transmis."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आप ऐसी कोई भी जानकारी हटा सकते हैं जिसे आप भेजना नहीं चाहते, लेकिन इससे बग का पता लगाना कठिन हो जाएगा। डिफ़ॉल्ट रूप से क्रैश लॉग के साथ-साथ यह भी भेजा जाता है कि आप कौन-सा Mac उपयोग कर रहे हैं और आपकी सेटिंग क्या हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Možete obrisati sve podatke koje ne želite poslati, ali to će otežati otkrivanje greške. Standardno se šalju zapis rušenja, model Maca koji koristite i vaše postavke."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Törölhet minden olyan információt, amelyet nem szeretne elküldeni, de ez megnehezíti a hiba felderítését. Alapértelmezés szerint az összeomlási napló, az Ön által használt Mac típusa és a beállításai kerülnek elküldésre."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anda dapat menghapus informasi apa pun yang tidak ingin dikirim, tetapi ini akan mempersulit pendeteksian bug. Secara default, log crash beserta Mac yang Anda gunakan dan pengaturan Anda dikirim."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puoi eliminare le informazioni che non vuoi trasmettere, ma questo renderà più difficile individuare il bug. Per impostazione predefinita vengono trasmessi il log del crash, il modello di Mac che usi e le tue impostazioni."
           }
         },
         "ja" : {
@@ -221,10 +1205,46 @@
             "value" : "전송하고 싶지 않은 정보는 삭제할 수 있지만, 그렇게 하면 버그를 찾기가 더 어려워집니다. 기본적으로 충돌 로그와 함께 사용 중인 Mac 기종 및 설정이 전송됩니다."
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anda boleh memadam sebarang maklumat yang anda tidak mahu dihantar, tetapi ini akan menyukarkan pengesanan pepijat. Secara lalai, log nahas serta Mac yang anda gunakan dan seting anda dihantar."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kan slette informasjon du ikke vil sende, men det gjør det vanskeligere å finne feilen. Som standard sendes krasjloggen, hvilken Mac du bruker og innstillingene dine."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je kunt informatie verwijderen die je niet wilt versturen, maar dan wordt het moeilijker de bug op te sporen. Standaard worden het crashlog, het type Mac dat je gebruikt en je instellingen verstuurd."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Możesz usunąć wszelkie informacje, których nie chcesz przesyłać, ale utrudni to wykrycie błędu. Domyślnie przesyłany jest dziennik awarii, a także informacje o używanym komputerze Mac i twoich ustawieniach."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Você pode apagar qualquer informação que não queira transmitir, mas isto tornará mais difícil detectar o bug. Por padrão, são transmitidos o log de falhas, o Mac que você está usando e seus ajustes."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pode apagar qualquer informação que não queira transmitir, mas isto tornará mais difícil detetar o bug. Por predefinição, são transmitidos o registo de falhas, o Mac que está a usar e as suas definições."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puteți șterge orice informație pe care nu doriți să o transmiteți, dar astfel va fi mai greu de depistat eroarea. În mod implicit, se transmit jurnalul de blocări, modelul de Mac pe care îl folosiți și configurările dvs."
           }
         },
         "ru" : {
@@ -233,10 +1253,70 @@
             "value" : "Вы можете удалить любую информацию, которую не хотите передавать, но это усложнит обнаружение ошибки. По умолчанию передаются журнал сбоя, а также сведения о вашем Mac и ваших настройках."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Môžete odstrániť akékoľvek informácie, ktoré nechcete odoslať, ale sťažíte tým nájdenie chyby. Predvolene sa odosiela záznam o páde, model vášho Macu a vaše nastavenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izbrišete lahko vse podatke, ki jih ne želite poslati, vendar bo zaradi tega napako težje odkriti. Privzeto se pošljejo dnevnik zrušitve, podatek o tem, kateri Mac uporabljate, in vaše nastavitve."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kan ta bort information du inte vill skicka, men det gör det svårare att hitta felet. Som förval skickas kraschloggen samt vilken Mac du använder och dina inställningar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คุณสามารถลบข้อมูลที่ไม่ต้องการส่งได้ แต่จะทำให้ตรวจหาข้อบกพร่องได้ยากขึ้น โดยค่าเริ่มต้นจะส่งบันทึกข้อขัดข้อง รุ่น Mac ที่คุณใช้ และการตั้งค่าของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İletilmesini istemediğiniz bilgileri silebilirsiniz, ancak bu hatanın bulunmasını zorlaştırır. Varsayılan olarak çökme günlüğü, kullandığınız Mac modeli ve ayarlarınız iletilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ви можете видалити будь-які дані, які не хочете передавати, але це ускладнить пошук помилки. Типово передаються журнал збою, а також модель вашого Mac і ваші параметри."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn có thể xóa bất kỳ thông tin nào bạn không muốn gửi đi, nhưng điều này sẽ khiến việc phát hiện lỗi khó hơn. Theo mặc định, nhật ký sự cố cùng với mẫu Mac bạn đang dùng và các cài đặt của bạn sẽ được gửi đi."
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你可以删除任何不想发送的信息，但这会让查找错误变得更困难。默认情况下，会发送崩溃日志、你所用的Mac机型以及你的设置。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你可以刪除任何不想傳送的資料，但這會讓偵測錯誤更加困難。依預設，會傳送當機記錄、你使用的 Mac 機型以及你的設定。"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "您可以删除任何不想发送的信息，但这会使排查错误更加困难。默认情况下，将发送崩溃日志、您使用的 Mac 型号以及您的设置。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你可以刪除任何不想傳送的資訊，但這會讓偵測錯誤更加困難。依預設，會傳送當機記錄、你使用的 Mac 機型以及你的設定。"
           }
         }
       }
@@ -245,16 +1325,136 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Send\"; ObjectID = \"86\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envia"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odeslat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Senden"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αποστολή"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Send"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lähetä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भेजें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šalji"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Küldés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kirim"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia"
           }
         },
         "ja" : {
@@ -269,10 +1469,46 @@
             "value" : "보내기"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hantar"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verstuur"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyślij"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enviar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trimiteți"
           }
         },
         "ru" : {
@@ -281,10 +1517,70 @@
             "value" : "Отправить"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odoslať"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pošlji"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skicka"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ส่ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gönder"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Надіслати"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gửi"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发送"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傳送"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "发送"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傳送"
           }
         }
       }
@@ -293,16 +1589,136 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Remind Me Later\"; ObjectID = \"87\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recorda-m’ho més tard"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Připomenout později"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Påmind mig senere"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Später erinnern"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Υπενθύμιση αργότερα"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Remind Me Later"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind Me Later"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind Me Later"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind Me Later"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind Me Later"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind Me Later"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordármelo más tarde"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordármelo más tarde"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordármelo más tarde"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muistuta myöhemmin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me le rappeler plus tard"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me le rappeler plus tard"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बाद में याद दिलाएँ"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podsjeti me kasnije"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emlékeztessen később"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingatkan Saya Nanti"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricordamelo più tardi"
           }
         },
         "ja" : {
@@ -317,10 +1733,46 @@
             "value" : "나중에 알림"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingatkan Saya Kemudian"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minn meg på det senere"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herinner me later"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przypomnij później"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lembrar mais tarde"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lembrar mais tarde"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reamintiți-mi mai târziu"
           }
         },
         "ru" : {
@@ -329,10 +1781,70 @@
             "value" : "Напомнить позже"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripomenúť neskôr"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opomni me pozneje"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Påminn mig senare"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เตือนฉันภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha Sonra Hatırlat"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нагадати пізніше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhắc tôi sau"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后提醒我"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍後提醒我"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "稍后提醒我"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍後提醒我"
           }
         }
       }
@@ -341,16 +1853,136 @@
       "comment" : "Class = \"NSButtonCell\"; title = \"Discard\"; ObjectID = \"88\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descarta"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zahodit"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kassér"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verwerfen"
           }
         },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Απόρριψη"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Discard"
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        },
+        "en-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        },
+        "en-IN" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        },
+        "en-PH" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hylkää"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "छोड़ दें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odbaci"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elvetés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scarta"
           }
         },
         "ja" : {
@@ -365,10 +1997,46 @@
             "value" : "버리기"
           }
         },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buang"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forkast"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gooi weg"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odrzuć"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Descartar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descartar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renunțați"
           }
         },
         "ru" : {
@@ -377,10 +2045,70 @@
             "value" : "Отклонить"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zahodiť"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zavrži"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Förkasta"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทิ้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yok Say"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відкинути"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bỏ"
+          }
+        },
+        "yue-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "放弃"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "捨棄"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "丢弃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "捨棄"
           }
         }
       }

@@ -94,7 +94,7 @@ fi
 
 [ -f "$NOTES_FILE" ] || die "Release notes $NOTES_FILE not found"
 git ls-files --error-unmatch "$NOTES_FILE" >/dev/null 2>&1 || die "$NOTES_FILE is not committed"
-grep -q "^Version $VERSION " <<< "$(head -1 "$NOTES_FILE")" || die "$NOTES_FILE does not start with “Version $VERSION”"
+grep -q "^Version $VERSION " <<< "$(head -1 "$NOTES_FILE")" || die "$NOTES_FILE does not start with “Version ${VERSION}”"
 
 # The website must serve the shell integration this release ships, so the
 # checked-out submodule must be exactly what HEAD records, and pushed.
@@ -124,32 +124,31 @@ APPCAST_FILES=(
     "source/appcasts/final_modern.xml"
     "downloads/stable/.htaccess"
 )
-SHELL_INTEGRATION_PATHS=(
-    "$SHELL_INTEGRATION_SUBMODULE"
-    "source/shell_integration"
-    "source/utilities"
-)
+# Only the submodule pointer is committed. source/shell_integration and
+# source/utilities are gitignored in the website repo; process_site.sh
+# regenerates them from the submodule on the server, so adding them here
+# makes git refuse and aborts the release at the publish step.
 WEBSITE_FILES=(
     "downloads/stable/iTerm2-${NAME}.summary"
     "downloads/stable/iTerm2-${NAME}.description"
     "downloads/stable/iTerm2-${NAME}.changelog"
     "downloads/stable/iTerm2-${NAME}.zip"
     "${APPCAST_FILES[@]}"
-    "${SHELL_INTEGRATION_PATHS[@]}"
+    "$SHELL_INTEGRATION_SUBMODULE"
 )
-for f in "${APPCAST_FILES[@]}" "${SHELL_INTEGRATION_PATHS[@]}"; do
+for f in "${APPCAST_FILES[@]}" "$SHELL_INTEGRATION_SUBMODULE"; do
     [ -z "$(git -C "$WEBSITE_DIR" status --porcelain -- "$f")" ] || die "$WEBSITE_DIR/$f has uncommitted changes"
 done
 
 # ---------------------------------------------------------------------------
 step "Preflight: secrets"
 
-grep -qF "$SIGNING_AUTHORITY" <<< "$(security find-identity -v -p codesigning)" || die "Signing identity “$SIGNING_AUTHORITY” not found"
+grep -qF "$SIGNING_AUTHORITY" <<< "$(security find-identity -v -p codesigning)" || die "Signing identity “${SIGNING_AUTHORITY}” not found"
 
 EDPRIVKEY=$(security find-generic-password -s "$EDDSA_KEYCHAIN_SERVICE" -w 2>/dev/null) || die "Could not read the EdDSA key from the keychain (service $EDDSA_KEYCHAIN_SERVICE)"
 [ -n "$EDPRIVKEY" ] || die "The EdDSA key in the keychain is empty"
 
-xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1 || die "notarytool keychain profile “$NOTARY_PROFILE” does not work"
+xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1 || die "notarytool keychain profile “${NOTARY_PROFILE}” does not work"
 
 echo preflight | gpg --batch --clearsign >/dev/null 2>&1 || die "gpg could not sign; is the passphrase saved in the keychain via pinentry-mac?"
 
@@ -299,8 +298,7 @@ if [ $PUBLISH -eq 0 ]; then
     echo "Website files written but not committed:"
     printf '  %s\n' "${WEBSITE_FILES[@]}"
     echo "To discard them:"
-    echo "  git -C $WEBSITE_DIR checkout -- ${APPCAST_FILES[*]} source/shell_integration source/utilities"
-    echo "  git -C $WEBSITE_DIR clean -fdq -- source/shell_integration source/utilities"
+    echo "  git -C $WEBSITE_DIR checkout -- ${APPCAST_FILES[*]}"
     echo "  git -C $WEBSITE_DIR submodule update -- $SHELL_INTEGRATION_SUBMODULE"
     echo "  rm -f $WEBSITE_DIR/downloads/stable/iTerm2-${NAME}.*"
     exit 0
@@ -318,8 +316,7 @@ fi
 
 # Commit only this release's files. The website checkout routinely has
 # unrelated local changes that must not be swept into the release commit.
-# -A picks up shell integration files that were removed upstream.
-git -C "$WEBSITE_DIR" add -A -- "${WEBSITE_FILES[@]}"
+git -C "$WEBSITE_DIR" add -- "${WEBSITE_FILES[@]}"
 git -C "$WEBSITE_DIR" commit -m "$TAG" -- "${WEBSITE_FILES[@]}"
 git -C "$WEBSITE_DIR" push origin master
 

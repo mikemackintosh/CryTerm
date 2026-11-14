@@ -64,6 +64,8 @@ extern NSString *const PTYCommandDidExitUserInfoKeyDirectory;
 extern NSString *const PTYCommandDidExitUserInfoKeyDataSource;
 extern NSString *const PTYCommandDidExitUserInfoKeyStartLine;
 extern NSString *const PTYCommandDidExitUserInfoKeyLineCount;
+// NSNumber: how many of the output's leading lines were left out of the data source. Present with the data source.
+extern NSString *const PTYCommandDidExitUserInfoKeyDroppedLineCount;
 extern NSString *const PTYCommandDidExitUserInfoKeyURL;
 extern NSString *const PTYSessionArrangementOptionsForDuplication;
 // Transient launch option (not serialized): when set, restoration starts the session in its saved
@@ -717,6 +719,11 @@ backgroundColor:(nullable NSColor *)backgroundColor;
 // If newSessionSSHIdentity is non-nil, only returns a directory if it came from the same SSH host.
 - (void)asyncInitialDirectoryForNewSessionBasedOnCurrentDirectoryWithSSHIdentity:(nullable SSHIdentity *)newSessionSSHIdentity
                                                                        completion:(void (^)(NSString * _Nullable pwd))completion;
+
+// Like asyncInitialDirectoryForNewSessionBasedOnCurrentDirectory: but looks up the shell's (or,
+// for a tmux client, the pane's) directory now instead of using a cached result, which can
+// predate a recent cd.
+- (void)asyncFreshInitialDirectoryForNewSession:(void (^)(NSString * _Nullable pwd))completion NS_SWIFT_NAME(asyncFreshInitialDirectoryForNewSession(_:));
 
 // Gets the local directory as URL. Weirdly, combines the remote hostname and the local path because this is really only used for the proxy icon.
 - (void)asyncGetCurrentLocationWithCompletion:(void (^)(NSURL * _Nullable url))completion;

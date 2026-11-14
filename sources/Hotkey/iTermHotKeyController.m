@@ -126,6 +126,11 @@ NSString *const TERMINAL_ARRANGEMENT_PROFILE_GUID = @"Hotkey Profile GUID";
 }
 
 - (iTermProfileHotKey *)profileHotKeyForWindowController:(PseudoTerminal *)windowController {
+    if (!windowController) {
+        // A hotkey whose window does not exist yet has a nil window controller, so without
+        // this check a nil argument would match an unrelated hotkey.
+        return nil;
+    }
     for (__kindof iTermBaseHotKey *hotkey in _hotKeys) {
         if ([hotkey isKindOfClass:[iTermProfileHotKey class]]) {
             if ([[hotkey windowController] weaklyReferencedObject] == windowController ||
@@ -518,7 +523,7 @@ NSString *const TERMINAL_ARRANGEMENT_PROFILE_GUID = @"Hotkey Profile GUID";
         return NO;
     }
     if (keyWindowController != nil &&
-        [[[NSBundle bundleForClass:keyWindowController.class] bundlePath] isEqualToString:[[NSBundle bundleForClass:[SUUpdater class]] bundlePath]]) {
+        [[[NSBundle bundleForClass:keyWindowController.class] bundlePath] isEqualToString:[[NSBundle bundleForClass:[SPUStandardUpdaterController class]] bundlePath]]) {
         DLog(@"The key window's controller appears to belong to Sparkle (it is %@), so don't auto-hide.", keyWindowController);
         return NO;
     }

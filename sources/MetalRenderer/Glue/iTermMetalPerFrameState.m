@@ -357,6 +357,7 @@ typedef struct {
     const int offset = _visibleRange.start.y - _numberOfScrollbackLines;
     _cursorInfo = [[iTermMetalCursorInfo alloc] init];
     _cursorInfo.fadeAlpha = 1.0;
+    _cursorInfo.slideAnimationInProgress = textView.slideAnimationInProgress;
     // Decide the HDR-cursor treatment once, where the profile hint, headroom, and
     // background are all known, so the cursor renderer and the bold path agree.
     // Uses the default background (like the legacy renderer) as the dark test.
@@ -385,6 +386,7 @@ typedef struct {
     const CGPoint pointOffset = [textView metalCursorAnimationPixelOffset];
     _cursorInfo.pixelOffset = CGPointMake(pointOffset.x * _configuration->_scale,
                                           pointOffset.y * _configuration->_scale);
+    _cursorInfo.columnOffset = _configuration->_cellSize.width > 0 ? pointOffset.x / _configuration->_cellSize.width : 0;
 
     // For smooth blink the cursor is considered visible whenever it would be
     // drawn ignoring the blinked-out phase, and the blink is conveyed by
@@ -489,6 +491,12 @@ typedef struct {
                                                              components[1],
                                                              components[2],
                                                              components[3]);
+                } else if (drawingHelper.useSmartCursorColor && _cursorInfo.useHDRWhite) {
+                    // Smart cursor color is suppressed for the HDR cursor, which
+                    // is forced to a full-white block (we are focused here, so
+                    // hdrCursorForcesWhiteForType:focused: holds). Black gives the
+                    // contrast the user asked for. The legacy path does the same.
+                    _cursorInfo.textColor = simd_make_float4(0, 0, 0, 1);
                 } else {
                     if (_configuration->_renderInputs.reverseVideo) {
                         _cursorInfo.textColor = [_configuration->_colorMap fastColorForKey:kColorMapForeground];
@@ -1237,6 +1245,9 @@ NS_INLINE int iTermGlyphKeyEmitDecomposedFromNSAttributedString(iTermCachedGlyph
     NSFont *attributedFont = attributes[NSFontAttributeName];
     const int attributedFontID = iTermMetalFontIDFromAttributes(attributes);
 
+    // Shared by every session's per-frame state. A lookup reorders the cache by recency, so this
+    // relies on all per-frame state being built on the one Metal queue (see ENABLE_PRIVATE_QUEUE in
+    // iTermMetalDriver), which also keeps an eviction from freeing a line another session is using.
     static iTermLRUDictionary<iTermAttributedStringProxy *, id> *cache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -2139,9 +2150,10 @@ static int iTermEmitGlyphsAndSetAttributes(iTermMetalPerFrameState *self,
     }
 }
 
-// Tweaks the text color for the cell that has a box cursor. This is a per-frame
-// effect (it depends on the cursor position and fade animation, not the row's
-// content), so it is applied after both a cache hit and a fresh build.
+// Tweaks the text color for the cell(s) under a box cursor. This is a
+// per-frame effect (it depends on the cursor position and fade animation,
+// not the row's content), so it is applied after both a cache hit and a
+// fresh build.
 - (void)applyBoxCursorTextColorTweakForRow:(int)row
                                      width:(int)width
                                 attributes:(iTermMetalGlyphAttributes *)attributes {
@@ -2166,19 +2178,40 @@ static int iTermEmitGlyphsAndSetAttributes(iTermMetalPerFrameState *self,
                                              faint:NO
                                       isBackground:NO];
     }
-    if (_cursorInfo.coord.x < width) {
-        cursorTextColor.w = 1;
-        const CGFloat fade = _cursorInfo.fadeAlpha;
-        if (fade >= 1.0) {
-            attributes[_cursorInfo.coord.x].foregroundColor = cursorTextColor;
-        } else {
-            // Smooth blink: crossfade the glyph from its normal color toward
-            // the cursor text color as the cursor fades in, so it matches the
-            // box fill being composited at the same alpha underneath.
-            vector_float4 normal = attributes[_cursorInfo.coord.x].foregroundColor;
-            normal.w = 1;
-            attributes[_cursorInfo.coord.x].foregroundColor = simd_mix(normal, cursorTextColor, simd_make_float4(fade, fade, fade, fade));
+    cursorTextColor.w = 1;
+
+    // During a smooth slide the box only partially covers one or two adjacent
+    // columns, so crossfade each covered column's foreground toward
+    // cursorTextColor in proportion to its coverage (scaled by the smooth
+    // blink fade). At rest this is coord.x with full coverage, which reduces
+    // to a flat assignment. The driver crossfades the backgrounds to match.
+    //
+    // Each covered column's normal color is also recorded. The text renderer
+    // draws glyphs in these columns in their normal color and recolors only
+    // the pixels inside the cursor box, so a glyph that extends past its cell
+    // (like a ligature) takes the cursor color only inside the box. The
+    // attributes still get the crossfaded color because underlines and
+    // antialiasing backgrounds use it. Issue 13203.
+    const CGFloat fade = _cursorInfo.fadeAlpha;
+    __block CGFloat bestCoverage = 0;
+    __block vector_float4 boxNormalTextColor = cursorTextColor;
+    [_cursorInfo enumerateBoxCoverageInRowOfWidth:width block:^(int x, CGFloat coverage) {
+        const CGFloat t = coverage * fade;
+        vector_float4 normal = attributes[x].foregroundColor;
+        normal.w = 1;
+        [self->_cursorInfo recordNormalTextColor:normal forColumn:x];
+        if (coverage > bestCoverage) {
+            bestCoverage = coverage;
+            boxNormalTextColor = normal;
         }
+        attributes[x].foregroundColor = simd_mix(normal, cursorTextColor, simd_make_float4(t, t, t, t));
+    }];
+    if (bestCoverage > 0) {
+        // Inside the box, text is crossfaded only by the blink fade. While
+        // sliding over columns with different colors, the most-covered
+        // column's normal color stands in for all of them.
+        _cursorInfo.boxTextColor = simd_mix(boxNormalTextColor, cursorTextColor, simd_make_float4(fade, fade, fade, fade));
+        _cursorInfo.recolorsText = YES;
     }
 }
 

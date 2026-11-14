@@ -27,6 +27,8 @@
 
 #import "iTermApplication.h"
 
+#import <objc/runtime.h>
+
 #import "SFSymbolEnum/SFSymbolEnum.h"
 #import "iTerm2SharedARC-Swift.h"
 #import "DebugLogging.h"
@@ -61,6 +63,7 @@
 #import "PTYWindow.h"
 
 unsigned short iTermBogusVirtualKeyCode = 0xffff;
+NSString *const iTermApplicationActiveStateDidChangeNotification = @"iTermApplicationActiveStateDidChangeNotification";
 NSString *const iTermApplicationCharacterPaletteWillOpen = @"iTermApplicationCharacterPaletteWillOpen";
 NSString *const iTermApplicationCharacterPaletteDidClose = @"iTermApplicationCharacterPaletteDidClose";
 
@@ -96,8 +99,29 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
     iTermLogExceptionForCrash(exception, "Uncaught exception");
 }
 
+// AppKit crashes through +[NSApplication _crashOnException:] for an exception raised
+// while drawing (among other places), which bypasses both the uncaught exception
+// handler and -reportException:. It's a class method, so overriding it in a subclass
+// doesn't help; its implementation is replaced instead.
+static void (*sOriginalCrashOnException)(id, SEL, NSException *);
+
+static void iTermCrashOnException(id self, SEL _cmd, NSException *exception) {
+    iTermLogExceptionForCrash(exception, "_crashOnException");
+    sOriginalCrashOnException(self, _cmd, exception);
+}
+
+static void iTermInstallCrashOnExceptionHook(void) {
+    Method method = class_getClassMethod([NSApplication class], NSSelectorFromString(@"_crashOnException:"));
+    if (!method) {
+        DLog(@"+[NSApplication _crashOnException:] not found");
+        return;
+    }
+    sOriginalCrashOnException = (void (*)(id, SEL, NSException *))method_setImplementation(method, (IMP)iTermCrashOnException);
+}
+
 @interface iTermApplication()
 @property(nonatomic, strong, readwrite) NSWindow *it_windowBecomingKey;
+@property(atomic, readwrite) BOOL it_isActiveThreadSafe;
 @end
 
 @implementation iTermApplication {
@@ -106,7 +130,6 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
     // Are we within one spin of didBecomeActive?
     BOOL _it_justBecameActive;
     // Have we received didBecomeActive without a subsequent didResignActive?
-    BOOL _it_active;
     BOOL _it_restorableStateInvalid;
     BOOL _leader;
     BOOL _activated;
@@ -130,6 +153,7 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSSetUncaughtExceptionHandler(&iTermUncaughtExceptionHandler);
+        iTermInstallCrashOnExceptionHook();
         [sharedApplication addObserver:sharedApplication
                             forKeyPath:@"modalWindow"
                                options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
@@ -179,12 +203,16 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
     if (_leader) {
         [self toggleLeader];
     }
-    _it_active = NO;
+    self.it_isActiveThreadSafe = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:iTermApplicationActiveStateDidChangeNotification
+                                                        object:nil];
 }
 
 - (void)it_applicationDidBecomeActive:(NSNotification *)notification {
-    _it_active = YES;
     _it_justBecameActive = YES;
+    self.it_isActiveThreadSafe = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:iTermApplicationActiveStateDidChangeNotification
+                                                        object:nil];
     __weak __typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf it_resetJustBecameActive];
@@ -192,7 +220,7 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
 }
 
 - (BOOL)it_justBecameActive {
-    return _it_justBecameActive || (self.isActive && !_it_active);
+    return _it_justBecameActive || (self.isActive && !self.it_isActiveThreadSafe);
 }
 
 - (void)it_resetJustBecameActive {
@@ -270,12 +298,22 @@ static void iTermUncaughtExceptionHandler(NSException *exception) {
 
 - (NSEvent *)eventByRemappingForSecureInput:(NSEvent *)event {
     const BOOL secureInput = IsSecureEventInputEnabled();
-    const BOOL remapping = [[iTermModifierRemapper sharedInstance] isRemappingModifiers];
+    iTermModifierRemapper *remapper = [iTermModifierRemapper sharedInstance];
+    const BOOL remapping = [remapper isRemappingModifiers];
     if (secureInput || !remapping) {
-        // The event tap is not working, but we can still remap modifiers for non-system
+        // The event tap is not running, but we can still remap modifiers for non-system
         // keys. Only things like cmd-tab will not be remapped in this case. Otherwise,
-        // the event tap performs the remapping.
+        // the event tap performs the remapping. Besides secure input, a missing permission,
+        // or remapping not being global, the taps are intentionally off while iTerm2 is
+        // inactive. Keys still arrive here then when a nonactivating panel, such as a
+        // floating hotkey window or Open Quickly, is key, and remapping them is intended.
         RLog(@"May need remapping because secure input is on or event tap not running");
+        return [self eventByRemappingEvent:event];
+    }
+    if ([remapper eventTapMissedEvent:event]) {
+        // The taps are installed on activation, so a key typed while iTerm2 was becoming active
+        // can arrive after they exist without having passed through them.
+        RLog(@"Remapping because the event predates the event tap");
         return [self eventByRemappingEvent:event];
     }
     return event;

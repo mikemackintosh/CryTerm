@@ -144,7 +144,11 @@ class VT100ScreenTests: XCTestCase {
         feed(screen, "\u{1b}[?1049l")
         XCTAssertTrue(session.keyReportingFlagsAtChange.isEmpty)
 
+        // Each screen has its own flags, so give both the same value.
         feed(screen, "\u{1b}[=1;1u")
+        feed(screen, "\u{1b}[?1049h")
+        feed(screen, "\u{1b}[=1;1u")
+        feed(screen, "\u{1b}[?1049l")
         session.keyReportingFlagsAtChange.removeAll()
         feed(screen, "\u{1b}[?1049h")
         feed(screen, "\u{1b}[?1049l")
@@ -2199,6 +2203,96 @@ class VT100ScreenTests: XCTestCase {
         XCTAssertEqual(screenProgress(screen), VT100ScreenProgress.stopped.rawValue)
     }
 
+    // MARK: - Expiring a stale OSC 9;4 bar
+
+    private func progressGeneration(_ screen: VT100Screen) -> Int {
+        var result = 0
+        screen.performBlock(joinedThreads: { _, mutableState, _ in
+            result = mutableState.progressGeneration
+        })
+        return result
+    }
+
+    private func expireProgress(_ screen: VT100Screen, _ progress: VT100ScreenProgress, generation: Int) {
+        screen.performBlock(joinedThreads: { _, mutableState, _ in
+            mutableState.expireProgress(fromProtocol: progress, generation: generation)
+        })
+    }
+
+    // A program that exits after reporting 100% without sending 9;4;0 (issue
+    // 13166) has its bar taken down when it expires.
+    func testExpiringUnchangedProgressStopsIt() {
+        let screen = screen(width: 80, height: 24)
+        feed(screen, "\u{1b}]9;4;1;100\u{07}")
+        let progress = VT100ScreenProgress(rawValue: VT100ScreenProgress.successBase.rawValue + 100)!
+        let generation = progressGeneration(screen)
+
+        expireProgress(screen, progress, generation: generation)
+
+        XCTAssertEqual(screenProgress(screen), VT100ScreenProgress.stopped.rawValue)
+        XCTAssertGreaterThan(progressGeneration(screen), generation)
+    }
+
+    // A later report restarts the clock, so the earlier one's expiration must
+    // not take down the bar, even when the value is the same.
+    func testExpiringAfterNewerReportDoesNothing() {
+        let screen = screen(width: 80, height: 24)
+        feed(screen, "\u{1b}]9;4;1;50\u{07}")
+        let progress = VT100ScreenProgress(rawValue: VT100ScreenProgress.successBase.rawValue + 50)!
+        let generation = progressGeneration(screen)
+        feed(screen, "\u{1b}]9;4;1;50\u{07}")
+
+        expireProgress(screen, progress, generation: generation)
+
+        XCTAssertEqual(screenProgress(screen), progress.rawValue)
+    }
+
+    // A restored session's bar has nobody left to clear it (issue 13166), so
+    // the session hears about it and can expire it like a fresh report.
+    func testRestoredProgressCanExpire() {
+        let original = screen(width: 80, height: 24)
+        feed(original, "\u{1b}]9;4;1;40\u{07}")
+        let encoder = iTermMutableDictionaryEncoderAdapter.encoder()
+        var linesDropped: Int32 = 0
+        original.encodeContents(encoder, linesDropped: &linesDropped, unlimited: false)
+        let state = try! XCTUnwrap(encoder.mutableDictionary as? [AnyHashable: Any])
+
+        let restored = screen(width: 80, height: 24)
+        session.restoredProgressReports.removeAll()
+        restored.restore(from: state,
+                         includeRestorationBanner: false,
+                         reattached: false,
+                         isArchive: false,
+                         largeContentProvider: nil)
+        let progress = VT100ScreenProgress(rawValue: VT100ScreenProgress.successBase.rawValue + 40)!
+        XCTAssertEqual(screenProgress(restored), progress.rawValue)
+        let generation = progressGeneration(restored)
+        XCTAssertEqual(session.restoredProgressReports.count, 1)
+        XCTAssertEqual(session.restoredProgressReports.first?.0, progress)
+        XCTAssertEqual(session.restoredProgressReports.first?.1, generation)
+
+        expireProgress(restored, progress, generation: generation)
+
+        XCTAssertEqual(screenProgress(restored), VT100ScreenProgress.stopped.rawValue)
+    }
+
+    // OSC 7501 records can change the bar without moving the generation. That
+    // bar is theirs, so an expiration for the 9;4 value under it leaves it be.
+    func testExpiringProgressSomethingElseChangedDoesNothing() {
+        let screen = screen(width: 80, height: 24)
+        feed(screen, "\u{1b}]9;4;1;50\u{07}")
+        let progress = VT100ScreenProgress(rawValue: VT100ScreenProgress.successBase.rawValue + 50)!
+        let generation = progressGeneration(screen)
+        let paused = VT100ScreenProgress(rawValue: VT100ScreenProgress.warningBase.rawValue + 50)!
+        screen.performBlock(joinedThreads: { _, mutableState, _ in
+            mutableState.progress = paused
+        })
+
+        expireProgress(screen, progress, generation: generation)
+
+        XCTAssertEqual(screenProgress(screen), paused.rawValue)
+    }
+
 }
 
 // a very simple LCG-based RNG
@@ -2234,10 +2328,17 @@ class FakeSession: NSObject, VT100ScreenDelegate {
     /// in order. Used by KittyDnDParsingTests.
     var kittyDragAndDropContents = [String]()
 
-    /// Number of times screenGetWorkingDirectory(completion:) was invoked. Used by
+    /// Every screenLogWorkingDirectory call, in order: the directory and whether the
+    /// report proved it came from this machine.
+    var loggedWorkingDirectories = [(directory: String?, locality: VT100ScreenWorkingDirectoryLocality)]()
+
+    /// Number of times screenGetWorkingDirectory(forReportedChange:completion:) was invoked. Used by
     /// the OSC 7 receiver tests to assert a pathless report doesn't poll the local
     /// child process for its cwd.
     var getWorkingDirectoryCallCount = 0
+
+    /// What screenGetWorkingDirectory(forReportedChange:completion:) reports, as if polled.
+    var workingDirectoryFromPoll: String?
 
     /// Set true when screenDidReceiveOSC7WhileDisabled fires, so the acceptOSC7
     /// gate test can assert the warning path was taken.
@@ -2371,10 +2472,6 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
-    func screenFold(_ range: NSRange) {
-
-    }
-
     func screenDidShiftLines(atAbsLine absLine: Int64, by delta: Int64, mark: (any iTermWidthSavingMark)?, reason: iTermLinesShiftedReason, replacedRange: NSRange, converter: @escaping (VT100GridCoord) -> VT100GridCoord) {
 
     }
@@ -2417,6 +2514,13 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     func screenProgressProtocolDidReport(_ progress: VT100ScreenProgress, generation: Int) {
 
+    }
+
+    /// (progress, generation) for each screenProgressWasRestored call, in order.
+    var restoredProgressReports = [(VT100ScreenProgress, Int)]()
+
+    func screenProgressWasRestored(_ progress: VT100ScreenProgress, generation: Int) {
+        restoredProgressReports.append((progress, generation))
     }
 
     func screenStatPath(_ path: String, queue: dispatch_queue_t, completion: @escaping (Int32, UnsafePointer<stat>) -> Void) {
@@ -2533,6 +2637,9 @@ class FakeSession: NSObject, VT100ScreenDelegate {
     func screenAskAboutClearingScrollback() {
 
     }
+
+    func screenDidClearScrollbackWithPermission() {
+    }
     
     func screenRangeOfVisibleLines() -> VT100GridRange {
         return VT100GridRangeMake(0, 25)
@@ -2578,7 +2685,7 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
-    func screenSetLabel(_ label: String, forKey keyName: String) {
+    func screenSetLabel(_ label: String, forKey keyName: String, absLineOfCursor: Int64) {
 
     }
     
@@ -2618,15 +2725,16 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
-    func screenCommandDidExit(withCode code: Int32, keyReportingFlags: VT100TerminalKeyReportingFlags, mark maybeMark: (any VT100ScreenMarkReading)?) {
+    func screenCommandDidExit(withCode code: Int32, keyReportingFlags: VT100TerminalKeyReportingFlags, mark maybeMark: (any VT100ScreenMarkReading)?, output: CommandOutput?) {
 
     }
     
-    func screenCommandDidAbort(onLine line: Int32, outputRange: VT100GridCoordRange, command: String, mark: any VT100ScreenMarkReading) {
+    func screenCommandDidAbort(with output: CommandOutput?, command: String, mark: any VT100ScreenMarkReading) {
 
     }
     
-    func screenLogWorkingDirectory(onAbsoluteLine absLine: Int64, remoteHost: (any VT100RemoteHostReading)?, withDirectory directory: String?, pushType: VT100ScreenWorkingDirectoryPushType, accepted: Bool) {
+    func screenLogWorkingDirectory(onAbsoluteLine absLine: Int64, remoteHost: (any VT100RemoteHostReading)?, withDirectory directory: String?, pushType: VT100ScreenWorkingDirectoryPushType, locality: VT100ScreenWorkingDirectoryLocality, accepted: Bool) {
+        loggedWorkingDirectories.append((directory: directory, locality: locality))
 
     }
     
@@ -2646,6 +2754,9 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
+    func screenDidUseDECRQCRA() {
+    }
+
     func screenDidTryToUseDECRQCRA() {
 
     }
@@ -2654,9 +2765,9 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
-    func screenGetWorkingDirectory(completion: @escaping (String?) -> Void) {
+    func screenGetWorkingDirectory(forReportedChange reportedChange: Bool, completion: @escaping (String?) -> Void) {
         getWorkingDirectoryCallCount += 1
-        completion(nil)
+        completion(workingDirectoryFromPoll)
     }
     
     func screenSetCursorVisible(_ visible: Bool) {
@@ -2699,7 +2810,7 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
 
-    func screenPromptDidEnd(withMark mark: any VT100ScreenMarkReading) {
+    func screenPromptDidEnd(withMark mark: any VT100ScreenMarkReading, command: String?, cursor: VT100GridAbsCoord, workingDirectory: String?, encoding: UInt) {
 
     }
     
@@ -2896,7 +3007,7 @@ class FakeSession: NSObject, VT100ScreenDelegate {
 
     }
     
-    func screenMoveSelectionUp(by n: Int32, inRegion region: VT100GridRect) {
+    func screenMoveSelectionUp(by n: Int32, inRegion region: VT100GridRect, regionAbsTop: Int64) {
 
     }
     
@@ -2949,7 +3060,7 @@ class FakeSession: NSObject, VT100ScreenDelegate {
         false
     }
     
-    func screenDidAppendString(toCurrentLine string: String, isPlainText plainText: Bool, foreground fg: screen_char_t, background bg: screen_char_t, atPrompt: Bool) {
+    func screenDidAppendString(toCurrentLine string: String, isPlainText plainText: Bool, foreground fg: screen_char_t, background bg: screen_char_t, atPrompt: Bool, encoding: UInt) {
 
     }
     
