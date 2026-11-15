@@ -4691,6 +4691,48 @@ static void SetAgainstGrainDim(BOOL isVertical, NSSize *dest, CGFloat value) {
     }];
 }
 
+// The leaf node (frame and session) of the pane whose session has this GUID.
++ (NSDictionary *)recursiveFindSessionNodeWithGUID:(NSString *)sessionGUID
+                                              node:(NSDictionary *)node {
+    if ([node[TAB_ARRANGEMENT_VIEW_TYPE] isEqualToString:VIEW_TYPE_SPLITTER]) {
+        for (NSDictionary *subnode in node[SUBVIEWS]) {
+            NSDictionary *result = [PTYTab recursiveFindSessionNodeWithGUID:sessionGUID node:subnode];
+            if (result) {
+                return result;
+            }
+        }
+        return nil;
+    }
+    NSString *guid = [PTYSession guidInArrangement:node[TAB_ARRANGEMENT_SESSION]];
+    return [guid isEqualToString:sessionGUID] ? node : nil;
+}
+
++ (NSDictionary *)standaloneTabArrangementForSessionWithGUID:(NSString *)sessionGUID
+                                               inArrangement:(NSDictionary *)arrangement
+                                              sessionMutator:(NSDictionary *(^)(NSDictionary *))sessionMutator {
+    // A window arrangement lists its tabs; a tab arrangement is its own only tab.
+    NSArray<NSDictionary *> *tabs = [NSArray castFrom:arrangement[TERMINAL_ARRANGEMENT_TABS]] ?: @[ arrangement ];
+    for (NSDictionary *tab in tabs) {
+        NSMutableArray<NSDictionary *> *nodes = [NSMutableArray array];
+        NSDictionary *root = [NSDictionary castFrom:tab[TAB_ARRANGEMENT_ROOT]];
+        if (root) {
+            [nodes addObject:root];
+        }
+        [nodes addObjectsFromArray:[self floatingNodesInArrangement:tab]];
+        for (NSDictionary *node in nodes) {
+            NSDictionary *leaf = [PTYTab recursiveFindSessionNodeWithGUID:sessionGUID node:node];
+            if (!leaf) {
+                continue;
+            }
+            NSMutableDictionary *standaloneLeaf = [leaf mutableCopy];
+            standaloneLeaf[TAB_ARRANGEMENT_SESSION] = sessionMutator(leaf[TAB_ARRANGEMENT_SESSION]);
+            standaloneLeaf[TAB_ARRANGEMENT_IS_ACTIVE] = @YES;
+            return @{ TAB_ARRANGEMENT_ROOT: standaloneLeaf };
+        }
+    }
+    return nil;
+}
+
 + (NSDictionary *)arrangementForSessionWithGUID:(NSString *)sessionGUID
                                   inArrangement:(NSDictionary *)arrangement {
     NSDictionary *found = [PTYTab recursiveFindSessionArrangementWithGUID:sessionGUID
@@ -5302,8 +5344,10 @@ NSString *const PTYTabArrangementOptionsPendingJumps = @"PTYTabArrangementOption
             }
         }
         if (!session) {
-            // An archived session is created from its arrangement.
-            return [PTYSession arrangementIsMarkedAsArchive:arrangement[TAB_ARRANGEMENT_SESSION]];
+            // An archived or reopened session is created from its arrangement.
+            NSDictionary *sessionArrangement = arrangement[TAB_ARRANGEMENT_SESSION];
+            return ([PTYSession arrangementIsMarkedAsArchive:sessionArrangement] ||
+                    [PTYSession arrangementIsMarkedForReopen:sessionArrangement]);
         }
         sessionMap[sessionGuid] = session;
         return YES;

@@ -71,6 +71,14 @@ New Features:
   under Profile in the key binding editor.
 
 Improvements:
+- Shell > Undo Close (⌘⇧T) now reopens closed
+  tabs, panes, and windows like a web browser
+  does, not just for the few seconds after you
+  close them. Once that time is up, a closed tab
+  comes back in its old place with the same
+  profile and working directory, running a new
+  shell. CryTerm remembers the last 20, even
+  after you quit.
 - Open Quickly has been redesigned as a wide
   panel: matches on the left, and on the right a
   live preview of the highlighted session with

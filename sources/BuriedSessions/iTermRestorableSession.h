@@ -38,6 +38,10 @@ typedef NS_ENUM(NSInteger, iTermRestorableSessionGroup) {
 // that was archived to the path of its archive. `sessions` holds the ones that
 // are still alive. Undo restores both.
 @property(nonatomic, copy) NSDictionary<NSString *, NSString *> *archivePathsBySessionGUID;
+// GUIDs of sessions in this group whose undo window ran out without an archive.
+// Undo starts a new session in place of each, from its arrangement: same profile,
+// working directory, and position, but none of the old contents.
+@property(nonatomic, copy) NSArray<NSString *> *reopenSessionGUIDs;
 // Set on entries restored after a restart, when tab unique IDs are no longer
 // valid. They identify `tabUniqueId` and `predecessors` by tab GUID until the
 // tabs are looked up.

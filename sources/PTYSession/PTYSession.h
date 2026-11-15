@@ -994,6 +994,11 @@ backgroundColor:(nullable NSColor *)backgroundColor;
 // arrangement containing it can be restored without a live session for it.
 + (NSDictionary *)arrangement:(NSDictionary *)arrangement markedAsArchiveAtPath:(NSString *)path;
 + (BOOL)arrangementIsMarkedAsArchive:(NSDictionary *)arrangement;
+// Returns a copy of the arrangement of a closed session that Undo Close reopens as a new
+// session: same profile, working directory, and place, none of the old contents. A tab
+// arrangement containing it can be restored without a live session for it.
++ (NSDictionary *)arrangementMarkedForReopen:(NSDictionary *)arrangement;
++ (BOOL)arrangementIsMarkedForReopen:(NSDictionary *)arrangement;
 
 // The canonicalized stableID stored in an arrangement, or nil if the
 // arrangement predates the stableID (or carries a malformed one).

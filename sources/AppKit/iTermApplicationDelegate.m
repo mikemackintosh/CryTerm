@@ -3485,10 +3485,14 @@ static iTermKeyEventReplayer *gReplayer;
     iTermController *controller = [iTermController sharedInstance];
     iTermRestorableSession *restorableSession = [controller popRestorableSession];
     if (restorableSession) {
-        // Sessions whose undo window ran out are restored from their archives.
+        // Sessions whose undo window ran out are restored from their archives,
+        // or reopened as new sessions if they weren't archived.
         iTermUndoCloseArchives *archives = nil;
-        if (restorableSession.archivePathsBySessionGUID.count > 0) {
-            archives = [[[iTermUndoCloseArchives alloc] initWithPathsBySessionGUID:restorableSession.archivePathsBySessionGUID] autorelease];
+        if (restorableSession.archivePathsBySessionGUID.count > 0 ||
+            restorableSession.reopenSessionGUIDs.count > 0) {
+            archives = [[[iTermUndoCloseArchives alloc] initWithPathsBySessionGUID:restorableSession.archivePathsBySessionGUID ?: @{}
+                                                                reopenSessionGUIDs:restorableSession.reopenSessionGUIDs ?: @[]
+                                                                       arrangement:restorableSession.arrangement] autorelease];
         }
         PseudoTerminal *term;
         PTYTab *tab;

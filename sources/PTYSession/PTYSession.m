@@ -299,6 +299,9 @@ static NSString *const SESSION_ARRANGEMENT_NAME_CONTROLLER_STATE = @"Name Contro
 static NSString *const SESSION_ARRANGEMENT_GUID = @"Session GUID";  // A truly unique ID.
 // Not saved. Set on an archived session's arrangement to restore it as an archive.
 static NSString *const SESSION_ARRANGEMENT_RESTORE_AS_ARCHIVE = @"Restore As Archive";  // Path of the archive
+// Not saved. Set on the arrangement of a closed session whose undo window ran out without an
+// archive. Undo Close starts a new session from it in its place.
+static NSString *const SESSION_ARRANGEMENT_REOPEN = @"Reopen";
 static NSString *const SESSION_ARRANGEMENT_STABLE_ID = @"Session Stable ID";  // Reload/restore-durable identity, see iTermStableSessionID.
 static NSString *const SESSION_ARRANGEMENT_LIVE_SESSION = @"Live Session";  // If zoomed, this gives the "live" session's arrangement.
 static NSString *const SESSION_ARRANGEMENT_SUBSTITUTIONS = @"Substitutions";  // Dictionary for $$VAR$$ substitutions
@@ -2215,6 +2218,10 @@ ITERM_WEAKLY_REFERENCEABLE
     RLog(@"Restoring session from arrangement");
     if ([self arrangementIsMarkedAsArchive:arrangement] && !options[PTYSessionArrangementOptionsArchive]) {
         options = [(options ?: @{}) dictionaryBySettingObject:@YES forKey:PTYSessionArrangementOptionsArchive];
+    }
+    if ([self arrangementIsMarkedForReopen:arrangement]) {
+        // A reopened session starts where the closed one was, like Duplicate Session.
+        options = [(options ?: @{}) dictionaryBySettingObject:@YES forKey:PTYSessionArrangementOptionsForceOldCWD];
     }
 
     Profile *theBookmark =
@@ -8252,6 +8259,14 @@ webViewConfiguration:(WKWebViewConfiguration *)webViewConfiguration
 
 + (NSDictionary *)arrangement:(NSDictionary *)arrangement markedAsArchiveAtPath:(NSString *)path {
     return [arrangement dictionaryBySettingObject:path forKey:SESSION_ARRANGEMENT_RESTORE_AS_ARCHIVE];
+}
+
++ (NSDictionary *)arrangementMarkedForReopen:(NSDictionary *)arrangement {
+    return [arrangement dictionaryBySettingObject:@YES forKey:SESSION_ARRANGEMENT_REOPEN];
+}
+
++ (BOOL)arrangementIsMarkedForReopen:(NSDictionary *)arrangement {
+    return [[NSNumber castFrom:arrangement[SESSION_ARRANGEMENT_REOPEN]] boolValue];
 }
 
 + (BOOL)arrangementIsMarkedAsArchive:(NSDictionary *)arrangement {
