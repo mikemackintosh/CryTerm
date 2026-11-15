@@ -162,7 +162,7 @@ final class ConductorIT2DemuxTests: XCTestCase {
         let frames = h.downFrames("c1")
         XCTAssertEqual(frames.first?.0, UInt8(ascii: "E"))
         let message = String(decoding: frames.first?.1 ?? Data(), as: UTF8.self)
-        XCTAssertTrue(message.contains("iTerm2"), "got \(message)")
+        XCTAssertTrue(message.contains("CryTerm"), "got \(message)")
         XCTAssertEqual(exitCode(frames), 2)
     }
 

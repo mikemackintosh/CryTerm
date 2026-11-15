@@ -222,7 +222,7 @@ final class SessionBoundWatcherTests: XCTestCase {
         let sb = try registerDesc(OrchestratorCommand.sessionBoundWatchToolDefinitions)
 
         // Shared spine present verbatim in both.
-        for shared in ["treat that as a system event from iTerm2 (not a new user request)",
+        for shared in ["treat that as a system event from CryTerm (not a new user request)",
                        "Watchers are de-duplicated on (session, target_state, condition)",
                        "If the goal is already satisfied at registration time, the watcher fires immediately."] {
             XCTAssertTrue(orch.contains(shared), "orchestration missing shared spine: \(shared)")

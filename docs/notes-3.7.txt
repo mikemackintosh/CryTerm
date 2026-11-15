@@ -316,6 +316,10 @@ Improvements:
   hang.
 
 Bug Fixes:
+- In the Shell Integration installer, a long
+  translation of a button’s description (such
+  as Japanese) was cut off. The window now
+  widens to fit it.
 - A sixel image with very large dimensions
   could crash iTerm2’s image decoder or use
   gigabytes of memory. Images with more pixels

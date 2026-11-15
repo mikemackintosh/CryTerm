@@ -566,6 +566,10 @@ final class PSMTabGroupDragTests: XCTestCase {
     // wide window into a narrow stretch-to-fit window must open a slot at the
     // destination's (much smaller) on-drop size.
     func testDropSlotSizedForDestinationNotSource() {
+        // A scrollable bar (the default) scrolls instead of squeezing; this test needs a fixed one.
+        let savedScrollable = iTermPreferences.bool(forKey: kPreferenceKeyScrollableSideTabBar)
+        iTermPreferences.setBool(false, forKey: kPreferenceKeyScrollableSideTabBar)
+        defer { iTermPreferences.setBool(savedScrollable, forKey: kPreferenceKeyScrollableSideTabBar) }
         let (chip, members) = makeGroupedBar()   // source unit ≈ 280pt wide
         let event = mouseDownEvent(at: NSPoint(x: 20, y: 12))
         PSMTabDragAssistant.shared().startDraggingGroup(withChip: chip,
@@ -615,8 +619,9 @@ final class PSMTabGroupDragTests: XCTestCase {
     // reveal it (field bug: “a slot did open but almost all of it was not
     // visible because the tabbar would have to scroll to reveal it”).
     func testScrollableBarAutoScrollsToRevealDropSlot() {
+        let savedScrollable = iTermPreferences.bool(forKey: kPreferenceKeyScrollableSideTabBar)
         iTermPreferences.setBool(true, forKey: kPreferenceKeyScrollableSideTabBar)
-        defer { iTermPreferences.setBool(false, forKey: kPreferenceKeyScrollableSideTabBar) }
+        defer { iTermPreferences.setBool(savedScrollable, forKey: kPreferenceKeyScrollableSideTabBar) }
 
         let (chip, members) = makeGroupedBar()
         let event = mouseDownEvent(at: NSPoint(x: 20, y: 12))
@@ -683,6 +688,10 @@ final class PSMTabGroupDragTests: XCTestCase {
     // the slot grows past the trailing edge where it is invisible (field bug:
     // dragging a group into another window's full bar showed no gap at all).
     func testForeignDragIntoFullBarShrinksTabsToOpenGap() {
+        // A scrollable bar (the default) scrolls instead of squeezing; this test needs a fixed one.
+        let savedScrollable = iTermPreferences.bool(forKey: kPreferenceKeyScrollableSideTabBar)
+        iTermPreferences.setBool(false, forKey: kPreferenceKeyScrollableSideTabBar)
+        defer { iTermPreferences.setBool(savedScrollable, forKey: kPreferenceKeyScrollableSideTabBar) }
         let (chip, members) = makeGroupedBar()
         let event = mouseDownEvent(at: NSPoint(x: 20, y: 12))
         PSMTabDragAssistant.shared().startDraggingGroup(withChip: chip,
