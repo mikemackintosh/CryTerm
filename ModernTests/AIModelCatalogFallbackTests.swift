@@ -65,7 +65,7 @@ final class AIModelCatalogFallbackTests: XCTestCase {
 }
 
 final class AppSignatureValidatorMessageTests: XCTestCase {
-    private let officialTeamID = "H7V7XYVQ7D"
+    private let officialTeamID = "994Z8EH423"
 
     func testUnverifiableSignatureSaysToReinstall() {
         let message = AppSignatureValidator.corruptionMessage(teamID: nil)

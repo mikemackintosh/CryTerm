@@ -64,6 +64,30 @@
             }
         }
     }
+    // The one-line descriptions beside the buttons have a fixed width, so a long
+    // translation would be clipped. Widen the view by the largest overflow; autoresizing
+    // moves the bottom-right buttons along with it.
+    NSMutableArray<NSTextField *> *descriptions = [NSMutableArray array];
+    CGFloat descriptionOverflow = 0;
+    for (NSView *subview in view.subviews) {
+        if (![subview isKindOfClass:[NSTextField class]] || NSMinX(subview.frame) < buttonsMaxX) {
+            continue;
+        }
+        NSTextField *field = (NSTextField *)subview;
+        [descriptions addObject:field];
+        descriptionOverflow = MAX(descriptionOverflow, ceil(field.cell.cellSize.width) - NSWidth(field.frame));
+    }
+    if (buttons.count > 0 && descriptionOverflow > 0) {
+        DLog(@"Widen installer choice descriptions by %@", @(descriptionOverflow));
+        NSRect viewFrame = view.frame;
+        viewFrame.size.width += descriptionOverflow;
+        view.frame = viewFrame;
+        for (NSTextField *field in descriptions) {
+            NSRect frame = field.frame;
+            frame.size.width += descriptionOverflow;
+            field.frame = frame;
+        }
+    }
     for (NSView *subview in view.subviews) {
         if (![subview isKindOfClass:[NSButton class]] ||
             !(subview.autoresizingMask & NSViewMinXMargin)) {

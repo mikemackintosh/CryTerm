@@ -46,6 +46,12 @@ class ResilientCoordinateTests: XCTestCase {
                              scrollback: Int32 = 1000,
                              setup: ((VT100ScreenMutableState) -> Void)? = nil) -> PTYSession {
         let s = PTYSession(synthetic: false)!
+        // The default profile has unlimited scrollback, under which nothing ever scrolls
+        // off. Give the session a profile with a limit so the scrolled-off tests mean
+        // something. Assigning the profile syncs it into the screen's configuration.
+        s.profile = [KEY_GUID: ProfileModel.freshGuid()!,
+                     KEY_UNLIMITED_SCROLLBACK: false,
+                     KEY_SCROLLBACK_LINES: Int(scrollback)]
         let sc = s.screen
         sc.delegate = s
         sc.performBlock(joinedThreads: { _, mutableState, _ in
