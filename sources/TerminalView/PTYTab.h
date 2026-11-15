@@ -224,6 +224,13 @@ typedef NS_ENUM(NSInteger, iTermHiddenFloatingPanesActivity) {
 // top-level group.
 + (NSDictionary *)arrangementRemovingTabGroupParent:(NSDictionary *)arrangement;
 
+// A tab arrangement holding only the pane of the session with this GUID, found in a tab or
+// window arrangement, with its session arrangement passed through `sessionMutator`. Nil if no
+// pane has that session.
++ (NSDictionary *)standaloneTabArrangementForSessionWithGUID:(NSString *)sessionGUID
+                                               inArrangement:(NSDictionary *)arrangement
+                                              sessionMutator:(NSDictionary *(^)(NSDictionary *))sessionMutator;
+
 + (NSDictionary *)arrangementForSessionWithGUID:(NSString *)sessionGUID
                                   inArrangement:(NSDictionary *)arrangement;
 

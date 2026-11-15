@@ -1415,6 +1415,9 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
     return _currentRestorableSessionsStack.count ? _currentRestorableSessionsStack[0] : nil;
 }
 
+// How many closed entries are kept in memory and in saved state.
+static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
+
 - (void)removeSessionFromRestorableSessions:(PTYSession *)session
                                 archivePath:(NSString *)archivePath {
     NSInteger index =
@@ -1431,23 +1434,60 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
         return;
     }
     iTermRestorableSession *restorableSession = _restorableSessions[index];
-    if (!archivePath || !session.guid) {
+    // Without an archive, a new session can still take this one's place, the way
+    // a browser reopens a closed tab, as long as the group's arrangement has its pane.
+    const BOOL canReopen = (session.guid != nil &&
+                            restorableSession.group != kiTermRestorableSessionGroupChannel &&
+                            [PTYTab standaloneTabArrangementForSessionWithGUID:session.guid
+                                                                 inArrangement:restorableSession.arrangement
+                                                                sessionMutator:^NSDictionary *(NSDictionary *arrangement) {
+                                                                    return arrangement;
+                                                                }] != nil);
+    if (!session.guid || (!archivePath && !canReopen)) {
         // Nothing can take this session's place, so the group can't be restored.
         [_restorableSessions removeObjectAtIndex:index];
         return;
     }
-    // Keep only the archive's path so the session can be freed. Undo restores
-    // it from the archive and revives the group's sessions that are still alive.
+    // Keep only the archive's path, or that the session is to be reopened, so the
+    // session can be freed. Undo restores it and revives the group's sessions that
+    // are still alive.
     restorableSession.sessions = [restorableSession.sessions arrayByRemovingObject:session];
-    restorableSession.archivePathsBySessionGUID =
-        [restorableSession.archivePathsBySessionGUID ?: @{} dictionaryBySettingObject:archivePath
-                                                                               forKey:session.guid];
+    if (archivePath) {
+        restorableSession.archivePathsBySessionGUID =
+            [restorableSession.archivePathsBySessionGUID ?: @{} dictionaryBySettingObject:archivePath
+                                                                                   forKey:session.guid];
+    } else {
+        restorableSession.reopenSessionGUIDs =
+            [restorableSession.reopenSessionGUIDs ?: @[] arrayByAddingObject:session.guid];
+    }
     if (restorableSession.sessions.count == 0) {
+        [self removeExcessClosedRestorableSessions];
         // It can now be saved in restorable state.
         [self undoCloseRestorableStateDidChange];
     }
-    DLog(@"Undo of %@ will revive %@ and restore archives %@",
-         restorableSession, restorableSession.sessions, restorableSession.archivePathsBySessionGUID);
+    DLog(@"Undo of %@ will revive %@, restore archives %@, and reopen %@",
+         restorableSession, restorableSession.sessions, restorableSession.archivePathsBySessionGUID,
+         restorableSession.reopenSessionGUIDs);
+}
+
+// Entries whose sessions are all gone now outlive their undo window, so cap how many
+// are kept. The oldest go first, as in a browser's list of recently closed tabs.
+- (void)removeExcessClosedRestorableSessions {
+    NSInteger excess = -(NSInteger)iTermUndoCloseStateMaximumCount;
+    for (iTermRestorableSession *restorableSession in _restorableSessions) {
+        if (restorableSession.sessions.count == 0) {
+            excess += 1;
+        }
+    }
+    for (NSInteger i = 0; i < (NSInteger)_restorableSessions.count && excess > 0; ) {
+        if (_restorableSessions[i].sessions.count == 0) {
+            DLog(@"Forget closed %@: too many", _restorableSessions[i]);
+            [_restorableSessions removeObjectAtIndex:i];
+            excess -= 1;
+        } else {
+            i += 1;
+        }
+    }
 }
 
 - (iTermRestorableSession *)popRestorableSession {
@@ -1457,7 +1497,8 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
     iTermRestorableSession *restorableSession = [_restorableSessions lastObject];
     [_restorableSessions removeLastObject];
     [self resolveTabGUIDsInRestorableSession:restorableSession];
-    if (restorableSession.archivePathsBySessionGUID.count > 0) {
+    if (restorableSession.archivePathsBySessionGUID.count > 0 ||
+        restorableSession.reopenSessionGUIDs.count > 0) {
         // Don't save now: the caller hasn't restored the session yet, so the
         // saved state would have neither the entry nor the restored session.
         // -undoCloseSession: saves after restoring it.
@@ -1478,15 +1519,16 @@ replaceInitialDirectoryForSessionWithGUID:(NSString *)guid
 static NSString *const iTermUndoCloseStateRestorableSessionKey = @"restorableSession";
 static NSString *const iTermUndoCloseStateGroupKey = @"group";
 static NSString *const iTermUndoCloseStateArchivePathsKey = @"archivePathsBySessionGUID";
+static NSString *const iTermUndoCloseStateReopenGUIDsKey = @"reopenSessionGUIDs";
 static NSString *const iTermUndoCloseStateTabGUIDKey = @"tabGUID";
 static NSString *const iTermUndoCloseStatePredecessorTabGUIDsKey = @"predecessorTabGUIDs";
-static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
 
 - (NSArray<NSDictionary *> *)undoCloseRestorableState {
     NSArray<iTermRestorableSession *> *archived = [_restorableSessions filteredArrayUsingBlock:^BOOL(iTermRestorableSession *restorableSession) {
         // Sessions that are still alive can't be saved.
         return (restorableSession.sessions.count == 0 &&
-                restorableSession.archivePathsBySessionGUID.count > 0 &&
+                (restorableSession.archivePathsBySessionGUID.count > 0 ||
+                 restorableSession.reopenSessionGUIDs.count > 0) &&
                 restorableSession.group != kiTermRestorableSessionGroupChannel);
     }];
     if (archived.count > iTermUndoCloseStateMaximumCount) {
@@ -1503,7 +1545,8 @@ static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         dict[iTermUndoCloseStateRestorableSessionKey] = [restorableSession restorableState];
         dict[iTermUndoCloseStateGroupKey] = @(restorableSession.group);
-        dict[iTermUndoCloseStateArchivePathsKey] = restorableSession.archivePathsBySessionGUID;
+        dict[iTermUndoCloseStateArchivePathsKey] = restorableSession.archivePathsBySessionGUID ?: @{};
+        dict[iTermUndoCloseStateReopenGUIDsKey] = restorableSession.reopenSessionGUIDs ?: @[];
         dict[iTermUndoCloseStateTabGUIDKey] = tabGUID;
         dict[iTermUndoCloseStatePredecessorTabGUIDsKey] = predecessorTabGUIDs ?: @[];
         return dict;
@@ -1518,9 +1561,12 @@ static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
         }
         NSDictionary *restorableState = [NSDictionary castFrom:dict[iTermUndoCloseStateRestorableSessionKey]];
         NSDictionary *archivePaths = [NSDictionary castFrom:dict[iTermUndoCloseStateArchivePathsKey]];
+        NSArray<NSString *> *reopenGUIDs = [[NSArray castFrom:dict[iTermUndoCloseStateReopenGUIDsKey]] mapWithBlock:^id(id guid) {
+            return [NSString castFrom:guid];
+        }] ?: @[];
         NSNumber *groupNumber = [NSNumber castFrom:dict[iTermUndoCloseStateGroupKey]];
         const iTermRestorableSessionGroup group = groupNumber.integerValue;
-        if (!restorableState || archivePaths.count == 0 || !groupNumber ||
+        if (!restorableState || (archivePaths.count == 0 && reopenGUIDs.count == 0) || !groupNumber ||
             (group != kiTermRestorableSessionGroupSession &&
              group != kiTermRestorableSessionGroupTab &&
              group != kiTermRestorableSessionGroupWindow)) {
@@ -1540,7 +1586,8 @@ static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
         iTermRestorableSession *restorableSession = [[iTermRestorableSession alloc] initWithRestorableState:restorableState];
         restorableSession.sessions = @[];
         restorableSession.group = group;
-        restorableSession.archivePathsBySessionGUID = archivePaths;
+        restorableSession.archivePathsBySessionGUID = archivePaths ?: @{};
+        restorableSession.reopenSessionGUIDs = reopenGUIDs;
 
         // Windows may not be restored yet, so tabs are looked up on undo.
         // 0 is never a valid tab unique ID.
@@ -1587,6 +1634,15 @@ static const NSUInteger iTermUndoCloseStateMaximumCount = 20;
 
 - (BOOL)hasRestorableSession {
     return _restorableSessions.count > 0;
+}
+
+- (BOOL)hasRestorableSessionInUndoWindow {
+    for (iTermRestorableSession *restorableSession in _restorableSessions) {
+        if (restorableSession.sessions.count > 0) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)pauseRestorableSessionTermination {

@@ -96,6 +96,54 @@ final class PTYTabArchivedSessionMapTests: XCTestCase {
         XCTAssertEqual(archives.standaloneTabArrangements.count, 0)
     }
 
+    // A pane whose session was closed without an archive is reopened as a new
+    // session from its arrangement, so it needs no live session either.
+    func testReopenedPaneNeedsNoSession() {
+        let reopened: [String: Any] = [
+            TAB_ARRANGEMENT_VIEW_TYPE: VIEW_TYPE_SESSIONVIEW,
+            TAB_ARRANGEMENT_SESSION: PTYSession.arrangementMarked(forReopen: [kSessionGUID: "b"]),
+        ]
+        let arrangement = tab([leaf(guid: "a", archived: true), reopened])
+        XCTAssertEqual(PTYTab.sessionMap(withArrangement: arrangement, sessions: [])?.count, 0)
+    }
+
+    func testUnarchivedSessionIsReopenedInPlace() throws {
+        let original = tab([leaf(guid: "a", archived: false),
+                            leaf(guid: "b", archived: false)])
+        let archives = iTermUndoCloseArchives(pathsBySessionGUID: [:],
+                                              reopenSessionGUIDs: ["b"],
+                                              arrangement: original)
+        let result = archives.tabArrangementBySubstitutingArchives(in: original)
+
+        let a = try XCTUnwrap(session(at: 0, in: result))
+        XCTAssertFalse(PTYSession.arrangementIsMarked(forReopen: a))
+        let b = try XCTUnwrap(session(at: 1, in: result))
+        XCTAssertTrue(PTYSession.arrangementIsMarked(forReopen: b))
+        XCTAssertFalse(PTYSession.arrangementIsMarked(asArchive: b))
+        XCTAssertEqual(archives.sessionGUIDs, ["b"])
+
+        // If the layout can’t take it back, it gets a tab of its own.
+        let standalone = try XCTUnwrap(archives.standaloneTabArrangements.first)
+        let root = try XCTUnwrap(standalone[TAB_ARRANGEMENT_ROOT] as? [AnyHashable: Any])
+        let standaloneSession = try XCTUnwrap(root[TAB_ARRANGEMENT_SESSION] as? [AnyHashable: Any])
+        XCTAssertEqual(PTYSession.guid(inArrangement: standaloneSession), "b")
+        XCTAssertTrue(PTYSession.arrangementIsMarked(forReopen: standaloneSession))
+        XCTAssertNotNil(PTYTab.sessionMap(withArrangement: standalone, sessions: []))
+    }
+
+    // An archive keeps the old contents, so it wins over reopening.
+    func testArchiveWinsOverReopen() throws {
+        let path = try writeArchive(sessionGUID: "a")
+        let original = tab([leaf(guid: "a", archived: false)])
+        let archives = iTermUndoCloseArchives(pathsBySessionGUID: ["a": path],
+                                              reopenSessionGUIDs: ["a"],
+                                              arrangement: original)
+        let a = try XCTUnwrap(session(at: 0, in: archives.tabArrangementBySubstitutingArchives(in: original)))
+        XCTAssertTrue(PTYSession.arrangementIsMarked(asArchive: a))
+        XCTAssertFalse(PTYSession.arrangementIsMarked(forReopen: a))
+        XCTAssertEqual(archives.standaloneTabArrangements.count, 1)
+    }
+
     func testMarkIsDetected() {
         let marked = PTYSession.arrangement([kSessionGUID: "a"], markedAsArchiveAtPath: "/archive")
         XCTAssertTrue(PTYSession.arrangementIsMarked(asArchive: marked))

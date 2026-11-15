@@ -100,6 +100,79 @@ final class UndoCloseRestorableStateTests: XCTestCase {
         XCTAssertEqual(controller.undoCloseRestorableState()?.count ?? 0, 0)
     }
 
+    // MARK: - Reopening closed tabs after the undo window
+
+    // A tab arrangement with one pane for the session with this GUID.
+    private func tabArrangement(sessionGUID: String) -> [AnyHashable: Any] {
+        return [TAB_ARRANGEMENT_ROOT: [TAB_ARRANGEMENT_VIEW_TYPE: VIEW_TYPE_SESSIONVIEW,
+                                       TAB_ARRANGEMENT_SESSION: ["Session GUID": sessionGUID]] as [String: Any]]
+    }
+
+    private func liveEntry(_ session: PTYSession, arrangement: [AnyHashable: Any]) -> iTermRestorableSession {
+        let entry = iTermRestorableSession()
+        entry.sessions = [session]
+        entry.group = .kiTermRestorableSessionGroupTab
+        entry.terminalGuid = "no-such-window"
+        entry.arrangement = arrangement
+        return entry
+    }
+
+    func testExpiredSessionWithoutArchiveIsKeptToReopen() throws {
+        let session = try XCTUnwrap(PTYSession(synthetic: false))
+        let guid = try XCTUnwrap(session.guid)
+        controller.add(liveEntry(session, arrangement: tabArrangement(sessionGUID: guid)))
+        XCTAssertTrue(controller.hasRestorableSessionInUndoWindow)
+
+        controller.removeSession(fromRestorableSessions: session, archivePath: nil)
+
+        XCTAssertFalse(controller.hasRestorableSessionInUndoWindow)
+        let entry = try XCTUnwrap(controller.popRestorableSession())
+        XCTAssertEqual(entry.sessions.count, 0)
+        XCTAssertEqual(entry.reopenSessionGUIDs, [guid])
+        XCTAssertEqual(entry.archivePathsBySessionGUID?.count ?? 0, 0)
+    }
+
+    func testExpiredSessionMissingFromArrangementIsForgotten() throws {
+        let session = try XCTUnwrap(PTYSession(synthetic: false))
+        controller.add(liveEntry(session, arrangement: tabArrangement(sessionGUID: "someone-else")))
+        controller.removeSession(fromRestorableSessions: session, archivePath: nil)
+        XCTAssertNil(controller.popRestorableSession())
+    }
+
+    func testReopenEntryRoundTrip() throws {
+        let entry = archivedEntry("/a")
+        entry.archivePathsBySessionGUID = [:]
+        entry.reopenSessionGUIDs = ["g"]
+        controller.add(entry)
+        let state = controller.undoCloseRestorableState() ?? []
+        XCTAssertEqual(state.count, 1)
+        drain()
+
+        controller.restoreUndoClose(fromState: state)
+        let restored = try XCTUnwrap(controller.popRestorableSession())
+        XCTAssertEqual(restored.reopenSessionGUIDs, ["g"])
+        XCTAssertEqual(restored.archivePathsBySessionGUID?.count ?? 0, 0)
+    }
+
+    // Closed entries are capped like a browser’s recently closed tabs.
+    func testClosedEntriesAreCapped() throws {
+        for i in 0..<25 {
+            controller.add(archivedEntry("/\(i)"))
+        }
+        let session = try XCTUnwrap(PTYSession(synthetic: false))
+        controller.add(liveEntry(session, arrangement: tabArrangement(sessionGUID: try XCTUnwrap(session.guid))))
+        controller.removeSession(fromRestorableSessions: session, archivePath: nil)
+
+        var count = 0
+        var newest: iTermRestorableSession?
+        while let entry = controller.popRestorableSession() {
+            newest = newest ?? entry
+            count += 1
+        }
+        XCTAssertEqual(count, 20)
+        XCTAssertEqual(newest?.reopenSessionGUIDs?.count, 1)
+    }
+
     func testMalformedStateIsIgnored() {
         controller.restoreUndoClose(fromState: [["group": 99], ["restorableSession": "x"]])
         XCTAssertNil(controller.popRestorableSession())

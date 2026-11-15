@@ -65,6 +65,8 @@ extern NSString *const iTermSnippetsTagsDidChange;
 @property(nonatomic, nonatomic, assign) PseudoTerminal *currentTerminal;
 @property(nonatomic, readonly) int numberOfTerminals;
 @property(nonatomic, readonly) BOOL hasRestorableSession;
+// Whether a closed session is still in its undo window, so its process is still running.
+@property(nonatomic, readonly) BOOL hasRestorableSessionInUndoWindow;
 @property(nonatomic, readonly) BOOL keystrokesBeingStolen;
 @property(nonatomic, readonly) BOOL anyWindowIsMain;
 @property(nonatomic, readonly) NSArray<iTermTerminalWindow *> *keyTerminalWindows;

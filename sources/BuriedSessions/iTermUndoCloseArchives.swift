@@ -7,9 +7,10 @@
 
 import Foundation
 
-// The archives of sessions in an undo-close group whose undo window ran out.
-// Undo restores each one from its archive in the place of the session it
-// replaces.
+// The sessions in an undo-close group whose undo window ran out. Undo restores
+// each archived one from its archive, and starts a new session for each one
+// that was not archived (same profile, working directory, and position, like
+// reopening a closed browser tab), in the place of the session it replaces.
 @objc
 class iTermUndoCloseArchives: NSObject {
     // Session GUID -> archived session arrangement, marked to restore as an archive.
@@ -19,15 +20,22 @@ class iTermUndoCloseArchives: NSObject {
     // Sessions whose archive could not be read. They are restored empty so the
     // layout around them stays intact.
     private var unreadableGUIDs = Set<String>()
+    // Sessions that were not archived. A new session takes the place of each.
+    private let reopenGUIDs: Set<String>
     private let guids: [String]
     private let pathsBySessionGUID: [String: String]
 
-    @objc(initWithPathsBySessionGUID:)
-    init(pathsBySessionGUID: [String: String]) {
+    // `arrangement` is the group's tab or window arrangement. It supplies the
+    // panes of reopened sessions that can't go back into their original layout.
+    @objc(initWithPathsBySessionGUID:reopenSessionGUIDs:arrangement:)
+    init(pathsBySessionGUID: [String: String],
+         reopenSessionGUIDs: [String],
+         arrangement: [AnyHashable: Any]?) {
         self.pathsBySessionGUID = pathsBySessionGUID
-        guids = pathsBySessionGUID.keys.sorted()
+        reopenGUIDs = Set(reopenSessionGUIDs).subtracting(pathsBySessionGUID.keys)
+        guids = (Array(pathsBySessionGUID.keys) + Array(reopenGUIDs)).sorted()
         super.init()
-        for guid in guids {
+        for guid in pathsBySessionGUID.keys.sorted() {
             guard let path = pathsBySessionGUID[guid],
                   let tab = Self.tabArrangement(forSessionWithGUID: guid, archivePath: path) else {
                 unreadableGUIDs.insert(guid)
@@ -38,10 +46,22 @@ class iTermUndoCloseArchives: NSObject {
                 sessionArrangements[guid] = PTYSession.arrangement(session, markedAsArchiveAtPath: path)
             }
         }
+        if let arrangement {
+            for guid in reopenGUIDs {
+                tabArrangements[guid] = PTYTab.standaloneTabArrangementForSession(
+                    withGUID: guid,
+                    inArrangement: arrangement) { PTYSession.arrangementMarked(forReopen: $0 ?? [:]) }
+            }
+        }
+    }
+
+    convenience init(pathsBySessionGUID: [String: String]) {
+        self.init(pathsBySessionGUID: pathsBySessionGUID, reopenSessionGUIDs: [], arrangement: nil)
     }
 
     // Returns a tab arrangement with each archived session's arrangement in
-    // place of the arrangement of the session it replaces.
+    // place of the arrangement of the session it replaces, and each reopened
+    // session's arrangement marked to start a new session.
     @objc(tabArrangementBySubstitutingArchivesIn:)
     func tabArrangementBySubstitutingArchives(in tabArrangement: [AnyHashable: Any]) -> [AnyHashable: Any] {
         return PTYTab.modifiedArrangement(tabArrangement) { sessionArrangement in
@@ -56,6 +76,9 @@ class iTermUndoCloseArchives: NSObject {
             }
             if self.unreadableGUIDs.contains(guid), let path = self.pathsBySessionGUID[guid] {
                 return PTYSession.arrangement(sessionArrangement, markedAsArchiveAtPath: path)
+            }
+            if self.reopenGUIDs.contains(guid) {
+                return PTYSession.arrangementMarked(forReopen: sessionArrangement)
             }
             return sessionArrangement
         }
@@ -72,14 +95,14 @@ class iTermUndoCloseArchives: NSObject {
         return result
     }
 
-    // One single-pane tab arrangement per archive, for when archived sessions
-    // can't go back into their original layout.
+    // One single-pane tab arrangement per archived or reopened session, for
+    // when they can't go back into their original layout.
     @objc var standaloneTabArrangements: [[AnyHashable: Any]] {
         return standaloneTabArrangements(excludingSessionGUIDs: [])
     }
 
-    // Like standaloneTabArrangements, leaving out the archives of sessions that
-    // were restored some other way.
+    // Like standaloneTabArrangements, leaving out the sessions that were
+    // restored some other way.
     @objc(standaloneTabArrangementsExcludingSessionGUIDs:)
     func standaloneTabArrangements(excludingSessionGUIDs excluded: Set<String>) -> [[AnyHashable: Any]] {
         return guids.filter { !excluded.contains($0) }.compactMap { tabArrangements[$0] }

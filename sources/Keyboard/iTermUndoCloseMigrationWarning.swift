@@ -25,7 +25,7 @@ class iTermUndoCloseMigrationWarning: NSObject {
                           regularUndo: @escaping () -> Void) -> Bool {
         guard let controller = iTermController.sharedInstance(),
               !iTermUserDefaults.haveWarnedAboutUndoKeyChange,
-              controller.hasRestorableSession else {
+              controller.hasRestorableSessionInUndoWindow else {
             return false
         }
 
